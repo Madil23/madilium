@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes Liens | Madil</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- RÉGLAGES DE BASE --- */
+        :root {
+            --bg-color: #0f0f13;       /* Fond très sombre */
+            --card-bg: #1e1e24;        /* Fond des boutons */
+            --text-color: #ffffff;     /* Couleur du texte */
+            --accent-color: #4cc9f0;   /* Couleur d'accentuation (Bleu Tech) */
+            --hover-bg: #2b2b36;       /* Couleur au survol */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+            background-image: radial-gradient(circle at top right, #232334 0%, #0f0f13 60%);
+        }
+
+        /* --- PROFIL --- */
+        .profile-container {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent-color);
+            padding: 3px; /* Espace entre l'image et la bordure */
+            margin-bottom: 15px;
+            background-color: var(--card-bg);
+        }
+
+        h1 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .bio {
+            font-size: 0.95rem;
+            color: #a0a0a0; /* Gris clair */
+            max-width: 300px;
+            margin: 0 auto;
+            line-height: 1.4;
+        }
+
+        /* --- LES BOUTONS (LIENS) --- */
+        .links-container {
+            width: 100%;
+            max-width: 480px; /* Largeur max style mobile */
+            display: flex;
+            flex-direction: column;
+            gap: 16px; /* Espace entre les boutons */
+        }
+
+        .link-card {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 18px 25px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Écarte le texte de l'icône */
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border: 1px solid transparent;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        /* Effet au survol de la souris */
+        .link-card:hover {
+            transform: translateY(-3px) scale(1.01);
+            background-color: var(--hover-bg);
+            border-color: var(--accent-color);
+            box-shadow: 0 10px 20px rgba(76, 201, 240, 0.15);
+        }
+
+        .link-text {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .icon-box {
+            font-size: 1.2rem;
+            color: var(--accent-color);
+        }
+
+        /* --- PIED DE PAGE --- */
+        footer {
+            margin-top: 50px;
+            font-size: 0.8rem;
+            color: #555;
+            text-align: center;
+        }
+
+        /* Petite animation d'apparition */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-container">
+        <img src="madilium.jpg" alt="Photo de Madil" class="avatar">
+        
+        <h1>Madil | Marketing NFC</h1>
+        <p class="bio">Ancré au réel, connecté au futur.</p>
+    </div>
+
+    <div class="links-container">
+        
+        <a href="https://ton-site.com" class="link-card" target="_blank">
+            <span class="link-text">Visiter mon Site Web</span>
+            <i class="fa-solid fa-globe icon-box"></i>
+        </a>
+
+        <a href="mailto:madil.cheradi@gmail.com" class="link-card">
+            <span class="link-text">Me contacter par Email</span>
+            <i class="fa-solid fa-envelope icon-box"></i>
+        </a>
+
+        <a href="https://instagram.com/madilium" class="link-card" target="_blank">
+            <span class="link-text">Instagram</span>
+            <i class="fa-brands fa-instagram icon-box"></i>
+        </a>
+
+        <a href="https://wa.me/1234567890" class="link-card" style="background-color: #25D366; color: white;">
+            <span class="link-text">WhatsApp Direct</span>
+            <i class="fa-brands fa-whatsapp icon-box" style="color: white;"></i>
+        </a>
+
+    </div>
+
+    <footer>
+        <p>© 2025 Madil Design. Tous droits réservés.</p>
+    </footer>
+
+</body>
+</html>
