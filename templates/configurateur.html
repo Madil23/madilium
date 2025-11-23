@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Madilium - Création de votre site</title>
+    <title>Studio Madilium</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        :root { --accent: #6c5ce7; --bg: #0f0f12; --panel: #1c1c22; --text: #fff; }
+        :root { --accent: #6c5ce7; --bg: #0f0f12; --panel: #1c1c22; --text: #ccc; --border: #333; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body {
@@ -22,126 +22,208 @@
 
         /* GAUCHE : FORMULAIRE */
         .editor-panel {
-            width: 400px;
+            width: 420px;
             background-color: var(--panel);
-            padding: 20px;
-            overflow-y: auto;
-            border-right: 1px solid #333;
+            border-right: 1px solid var(--border);
             display: flex;
             flex-direction: column;
-            gap: 20px;
         }
 
-        h2 { font-size: 1.2rem; margin-bottom: 10px; color: var(--accent); }
-        label { display: block; font-size: 0.85rem; margin-bottom: 5px; color: #aaa; }
-        
-        input, select, textarea {
-            width: 100%;
-            background: #2c2c35;
-            border: 1px solid #444;
-            color: white;
-            padding: 10px;
-            border-radius: 6px;
+        .editor-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            background: #15151a;
+        }
+        .editor-header h2 { color: white; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
+
+        .editor-content {
+            padding: 20px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        /* ACCORDEONS STYLÉS */
+        details {
             margin-bottom: 15px;
-            font-family: inherit;
+            background: #25252b;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
         }
-
-        input:focus { border-color: var(--accent); outline: none; }
-
-        .section-title {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-bottom: 1px solid #444;
-            padding-bottom: 5px;
-            margin-top: 10px;
-            margin-bottom: 10px;
+        summary {
+            padding: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            color: white;
+            list-style: none; /* Cache la flèche par défaut */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
+        summary::-webkit-details-marker { display: none; } /* Pour Chrome */
+        summary::after {
+            content: '\f078'; /* FontAwesome chevron down */
+            font-family: "Font Awesome 6 Free"; font-weight: 900;
+            transition: transform 0.3s;
+            font-size: 0.8rem; color: var(--accent);
+        }
+        details[open] summary::after { transform: rotate(180deg); }
+
+        .control-group { padding: 15px; border-top: 1px solid #333; }
+
+        /* INPUTS */
+        label { display: block; font-size: 0.8rem; margin-bottom: 8px; color: #aaa; font-weight: 500; }
+        input[type="text"], select, textarea {
+            width: 100%; background: #15151a; border: 1px solid var(--border);
+            color: white; padding: 12px; border-radius: 6px; margin-bottom: 15px;
+            font-family: inherit; transition: 0.3s;
+        }
+        input:focus, select:focus { border-color: var(--accent); outline: none; }
+
+        /* INPUT COULEUR STYLÉ */
+        .color-picker-wrapper {
+            display: flex; align-items: center; gap: 10px;
+            background: #15151a; border: 1px solid var(--border);
+            padding: 5px 10px; border-radius: 6px; margin-bottom: 15px;
+        }
+        input[type="color"] {
+            -webkit-appearance: none; border: none; width: 30px; height: 30px; padding: 0; border-radius: 4px; cursor: pointer;
+        }
+        input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+        input[type="color"]::-webkit-color-swatch { border: none; border-radius: 4px; }
+        .color-label { font-size: 0.8rem; flex-grow: 1; }
 
         /* DROITE : PREVIEW */
         .preview-panel {
             flex-grow: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: flex; justify-content: center; align-items: center;
             background-image: radial-gradient(#333 1px, transparent 1px);
-            background-size: 20px 20px;
-            position: relative;
+            background-size: 25px 25px;
+            padding: 20px;
         }
 
         .phone-mockup {
-            width: 375px;
-            height: 750px;
-            background: white;
-            border-radius: 40px;
-            border: 10px solid #000;
-            overflow: hidden; /* Important pour contenir le template */
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            width: 390px; height: 800px;
+            background: #000; border-radius: 50px;
+            border: 12px solid #111;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
             position: relative;
         }
+        iframe { width: 100%; height: 100%; border: none; background: white; }
 
-        /* Iframe pour charger le template sans recharger la page */
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
+        /* FOOTER ACTIONS */
+        .editor-footer {
+            padding: 20px; border-top: 1px solid var(--border);
+            background: #15151a;
         }
-
         .btn-submit {
-            background-color: #25D366; /* Couleur WhatsApp */
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 8px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-top: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            transition: 0.3s;
+            width: 100%; background-color: #25D366; color: white;
+            border: none; padding: 15px; border-radius: 8px;
+            font-weight: 700; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            transition: 0.3s; font-size: 1rem;
         }
-        .btn-submit:hover { background-color: #1ebc57; }
-
+        .btn-submit:hover { background-color: #1ebc57; box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3); }
     </style>
 </head>
 <body>
 
     <div class="editor-panel">
-        <div>
-            <h2><i class="fas fa-sliders-h"></i> Configuration</h2>
-            <p style="font-size: 0.8rem; color:#888;">Personnalisez votre template en direct.</p>
+        <div class="editor-header">
+            <h2><i class="fas fa-paint-brush" style="color: var(--accent);"></i> Studio de Création</h2>
         </div>
 
-        <form id="configForm">
-            
-            <div class="section-title">1. Identité</div>
-            <label>Nom du Projet / Client</label>
-            <input type="text" id="inputName" placeholder="Ex: Miam & Co" oninput="updatePreview()">
+        <div class="editor-content" id="configInputs">
+            <details open>
+                <summary>👤 Identité & Textes</summary>
+                <div class="control-group">
+                    <label>Nom du Projet / Client (Titre Principal)</label>
+                    <input type="text" data-target="client-name" placeholder="Ex: Miam & Co">
 
-            <label>Slogan / Sous-titre</label>
-            <input type="text" id="inputTagline" placeholder="Ex: Le meilleur snack..." oninput="updatePreview()">
+                    <label>Slogan / Sous-titre</label>
+                    <input type="text" data-target="client-tagline" placeholder="Ex: Le meilleur snack...">
+                    
+                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                        <input type="checkbox" data-css-var="--display-tagline" value="block" unchecked-value="none" checked>
+                        Afficher le sous-titre ?
+                    </label>
+                </div>
+            </details>
 
-            <div class="section-title">2. Apparence</div>
-            <label>Couleur Principale (Accent)</label>
-            <input type="color" id="inputColor" value="#ff0000" oninput="updatePreview()">
+            <details>
+                <summary>🎨 Palette de Couleurs</summary>
+                <div class="control-group">
+                    <label>Couleur d'Accentuation (Boutons, Titres)</label>
+                    <div class="color-picker-wrapper">
+                        <input type="color" data-css-var="--accent-color" value="#6c5ce7">
+                        <span class="color-label">Accent</span>
+                    </div>
 
-            <div class="section-title">3. Liens & Contact</div>
-            <label>Lien Instagram</label>
-            <input type="text" id="inputInsta" placeholder="https://instagram.com/..." oninput="updatePreview()">
-            
-            <label>Lien WhatsApp (Numéro)</label>
-            <input type="text" id="inputWhatsapp" placeholder="Ex: 213555..." oninput="updatePreview()">
+                    <label>Couleur de Fond Principale</label>
+                    <div class="color-picker-wrapper">
+                        <input type="color" data-css-var="--bg-color" value="#ffffff">
+                        <span class="color-label">Arrière-plan</span>
+                    </div>
 
-            <div style="background: #2c2c35; padding: 10px; border-radius: 5px; font-size: 0.75rem; color: #ccc; margin-top:10px;">
-                <i class="fas fa-info-circle"></i> Pour les photos (Logo, Produits), vous les enverrez directement via WhatsApp après la commande.
+                    <label>Couleur du Texte Principal</label>
+                    <div class="color-picker-wrapper">
+                        <input type="color" data-css-var="--text-primary" value="#1a1a1a">
+                        <span class="color-label">Texte</span>
+                    </div>
+                </div>
+            </details>
+
+            <details>
+                <summary>✨ Style & Ambiance</summary>
+                <div class="control-group">
+                    <label>Style des Bordures (Coins)</label>
+                    <select data-css-var="--btn-radius">
+                        <option value="4px">Légèrement arrondis (Standard)</option>
+                        <option value="0px">Carrés (Brut)</option>
+                        <option value="50px">Pillules (Très rond)</option>
+                    </select>
+
+                    <label>Police d'écriture (Typographie)</label>
+                    <select data-css-var="--font-stack">
+                        <option value="'Outfit', sans-serif">Moderne & Pro (Outfit)</option>
+                        <option value="'Fredoka', sans-serif">Ronde & Fun (Fredoka)</option>
+                        <option value="'Playfair Display', serif">Élégante & Luxe (Serif)</option>
+                    </select>
+                    <p style="font-size: 0.7rem; color: #666; margin-top: -10px; margin-bottom: 15px;">*Nécessite que le template supporte ces polices.</p>
+
+                     <label>Animation d'entrée</label>
+                     <select data-css-var="--anim-name">
+                        <option value="fadeUp">Glissement vers le haut (Défaut)</option>
+                        <option value="fadeIn">Fondu simple</option>
+                        <option value="bounceIn">Rebond dynamique</option>
+                        <option value="none">Aucune animation</option>
+                    </select>
+                </div>
+            </details>
+
+             <details>
+                <summary>🔗 Liens & Contact</summary>
+                <div class="control-group">
+                    <label>Votre Numéro WhatsApp (Pour la commande finale)</label>
+                    <input type="text" id="finalWhatsapp" placeholder="Ex: 213555..." value="213549514133">
+                    <p style="font-size: 0.7rem; color: orange; margin-top:-10px;">*Important : C'est le numéro qui recevra la commande.</p>
+
+                    <label>Lien Instagram (Exemple)</label>
+                    <input type="text" data-target="link-insta" placeholder="https://instagram.com/...">
+                    </div>
+            </details>
+        </div>
+
+        <div class="editor-footer">
+             <div style="background: #222; padding: 10px; border-radius: 5px; font-size: 0.75rem; color: #aaa; margin-bottom:15px; display: flex; gap: 10px;">
+                <i class="fas fa-info-circle" style="color: var(--accent); margin-top: 2px;"></i>
+                <div>Les logos et photos produits seront envoyés directement dans la conversation WhatsApp après validation.</div>
             </div>
-
             <button type="button" class="btn-submit" onclick="sendOrder()">
-                <i class="fab fa-whatsapp"></i> Commander mon Site
+                <i class="fab fa-whatsapp"></i> Valider & Commander
             </button>
-        </form>
+        </div>
     </div>
 
     <div class="preview-panel">
@@ -151,51 +233,72 @@
     </div>
 
     <script>
-        // 1. Récupérer quel template a été choisi (via l'URL ?t=1)
+        // 1. Charger le bon template
         const urlParams = new URLSearchParams(window.location.search);
-        const templateId = urlParams.get('t') || '1'; // Par défaut template 1
-        
-        // Charger le bon fichier dans l'iframe
+        const templateId = urlParams.get('t') || '1';
         const iframe = document.getElementById('previewFrame');
-        iframe.src = `template${templateId}/index.html`;
+        // On ajoute un paramètre ?edit=true pour dire au template qu'il est en mode édition
+        iframe.src = `template${templateId}/index.html?edit=true`;
 
-        // Fonction pour envoyer les changements à l'iframe (Simulation simple)
-        // Note: Pour une vraie modif en temps réel, il faudrait que les templates écoutent les messages.
-        // Pour l'instant, on se contente de l'interface visuelle.
-        
-        function updatePreview() {
-            // Dans une version avancée, on injecterait le CSS/JS dans l'iframe ici.
-            // Pour l'instant, on laisse l'utilisateur voir le template de base
-            // et on récupère juste les infos pour la commande.
+        // 2. Système de mise à jour en temps réel (Le "Talkie-Walkie")
+        const inputs = document.querySelectorAll('#configInputs input, #configInputs select');
+
+        function sendUpdateToIframe(input) {
+            const value = input.type === 'checkbox' ? (input.checked ? input.getAttribute('value') : input.getAttribute('unchecked-value')) : input.value;
+            
+            const message = {};
+
+            // Si c'est une variable CSS (commence par --)
+            if (input.hasAttribute('data-css-var')) {
+                message.type = 'cssVar';
+                message.key = input.getAttribute('data-css-var');
+                message.value = value;
+            } 
+            // Si c'est du contenu texte (cible un ID)
+            else if (input.hasAttribute('data-target')) {
+                message.type = 'textContent';
+                message.key = input.getAttribute('data-target');
+                message.value = value;
+            }
+
+            // Envoyer le message à l'iframe
+            if (message.type && iframe.contentWindow) {
+                iframe.contentWindow.postMessage(message, '*');
+            }
         }
 
+        // Écouter les changements sur tous les inputs
+        inputs.forEach(input => {
+            // 'input' pour le temps réel, 'change' pour les select/color
+            input.addEventListener('input', () => sendUpdateToIframe(input));
+            input.addEventListener('change', () => sendUpdateToIframe(input));
+        });
+
+
+        // 3. Fonction de Commande WhatsApp (Mise à jour avec toutes les nouvelles données)
         function sendOrder() {
-            const name = document.getElementById('inputName').value;
-            const slogan = document.getElementById('inputTagline').value;
-            const color = document.getElementById('inputColor').value;
-            const insta = document.getElementById('inputInsta').value;
+            let orderSummary = `👋 Nouvelle commande ! Template N°${templateId}\n---\n`;
             
-            if(!name) { alert("Merci de mettre au moins un nom !"); return; }
+            inputs.forEach(input => {
+                let label = input.previousElementSibling ? input.previousElementSibling.textContent : input.getAttribute('data-css-var');
+                let val = input.type === 'checkbox' ? input.checked : input.value;
+                 // On n'inclut pas le numéro du vendeur dans le résumé
+                if (input.id !== 'finalWhatsapp' && val && label) {
+                    orderSummary += `▪️ ${label}: ${val}\n`;
+                }
+            });
 
-            // Création du message de commande
-            const message = `
-👋 Salut Madil ! Je veux commander mon site.
-📦 *Template choisi :* N°${templateId}
----
-👤 *Nom :* ${name}
-🏷️ *Slogan :* ${slogan}
-🎨 *Couleur préférée :* ${color}
-📸 *Insta :* ${insta}
----
-Je t'envoie mon Logo et mes photos juste après ce message !
-            `;
+            orderSummary += `\n--- En attente des photos/logos...`;
 
-            // Encodage pour l'URL WhatsApp
-            const encodedMsg = encodeURIComponent(message);
-            // Remplace le numéro ci-dessous par ton VRAI numéro WhatsApp (format international sans +)
-            // Ex pour l'Algérie : 213xxxxxxxxx
-            const myNumber = "213549514133"; 
+            const encodedMsg = encodeURIComponent(orderSummary);
+            // Récupère le numéro saisi dans le champ finalWhatsapp
+            const myNumber = document.getElementById('finalWhatsapp').value; 
             
+            if(!myNumber || myNumber.length < 5) {
+                alert("Veuillez entrer un numéro WhatsApp valide pour recevoir la commande.");
+                return;
+            }
+
             window.open(`https://wa.me/${myNumber}?text=${encodedMsg}`, '_blank');
         }
     </script>
