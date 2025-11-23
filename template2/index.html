@@ -4,38 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Madilium - Template Pop</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* =========================================
-           ZONES DE CONFIGURATION
-           ========================================= */
-        :root {
-            /* PALETTE POP */
-            --bg-color: #FFD93D;        /* Jaune Vif (Fond principal) */
-            --card-bg: #FFFFFF;         /* Fond des boutons (Blanc) */
-            --dark-color: #000000;      /* Noir pur pour les contours */
-            --accent-color: #FF6B6B;    /* Rouge/Corail pour les détails */
-            
-            /* STYLE GRAPHIQUE */
-            --border-width: 3px;        /* Épaisseur des traits noirs */
-            --shadow-offset: 6px;       /* Décalage de l'ombre noire */
-            --radius: 12px;             /* Coins un peu arrondis */
-        }
-
+        /* RESET */
         * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            /* COULEURS POP */
+            --bg-color: #FFD93D;        /* Jaune Vif */
+            --card-bg: #FFFFFF;         /* Blanc */
+            --dark-color: #000000;      /* Noir pur */
+            --accent-color: #FF6B6B;    /* Rouge/Corail */
+            
+            /* STYLE GEOMETRIQUE */
+            --border-width: 3px;
+            --shadow-offset: 6px;
+            --radius: 12px;
+        }
 
         body {
             font-family: 'Fredoka', sans-serif;
             background-color: var(--bg-color);
-            /* Motif à pois en arrière-plan (CSS pur) */
+            /* Motif à pois (Dots pattern) */
             background-image: radial-gradient(var(--dark-color) 1px, transparent 1px);
             background-size: 20px 20px;
-            
             color: var(--dark-color);
+            
             display: flex;
             justify-content: center;
             min-height: 100vh;
@@ -47,6 +47,7 @@
             max-width: 450px;
             text-align: center;
             padding-top: 20px;
+            /* Fond blanc derrière le contenu pour lisibilité sur mobile (optionnel, ici transparent) */
         }
 
         /* HEADER */
@@ -57,26 +58,21 @@
         }
 
         .profile-img {
-            width: 130px;
-            height: 130px;
+            width: 130px; height: 130px;
             object-fit: cover;
             border-radius: 50%;
             border: var(--border-width) solid var(--dark-color);
             background: white;
             position: relative;
             z-index: 2;
-            /* Petite animation de flottement */
             animation: float 3s ease-in-out infinite;
         }
 
-        /* Le rond de couleur derrière la photo */
         .profile-bg-circle {
             content: '';
             position: absolute;
-            top: 10px;
-            left: 10px;
-            width: 130px;
-            height: 130px;
+            top: 10px; left: 10px;
+            width: 130px; height: 130px;
             background-color: var(--accent-color);
             border-radius: 50%;
             border: var(--border-width) solid var(--dark-color);
@@ -88,7 +84,7 @@
             text-transform: uppercase;
             font-weight: 700;
             margin-bottom: 5px;
-            text-shadow: 2px 2px 0px white; /* Contour blanc autour du texte */
+            text-shadow: 2px 2px 0px white;
             letter-spacing: 1px;
         }
 
@@ -100,10 +96,10 @@
             display: inline-block;
             padding: 5px 15px;
             border-radius: 20px;
-            transform: rotate(-2deg); /* Légère rotation pour le style */
+            transform: rotate(-2deg);
         }
 
-        /* RESEAUX SOCIAUX */
+        /* SOCIAL */
         .social-icons {
             display: flex;
             justify-content: center;
@@ -112,19 +108,16 @@
         }
 
         .social-btn {
-            width: 50px;
-            height: 50px;
+            width: 50px; height: 50px;
             background: white;
             border: var(--border-width) solid var(--dark-color);
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             font-size: 1.4rem;
             color: var(--dark-color);
             text-decoration: none;
             box-shadow: 4px 4px 0px var(--dark-color);
-            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.2s;
         }
 
         .social-btn:hover {
@@ -136,9 +129,7 @@
 
         /* LIENS */
         .links-container {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+            display: flex; flex-direction: column; gap: 20px;
         }
 
         .link-card {
@@ -150,33 +141,23 @@
             color: var(--dark-color);
             font-weight: 700;
             font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            display: flex; align-items: center; justify-content: space-between;
             
-            /* L'ombre dure caractéristique */
+            /* Ombre dure */
             box-shadow: var(--shadow-offset) var(--shadow-offset) 0px var(--dark-color);
-            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.2s;
         }
 
         .link-card:hover {
             transform: translate(3px, 3px);
             box-shadow: 3px 3px 0px var(--dark-color);
-            background-color: #E0F7FA; /* Bleu très clair au survol */
+            background-color: #E0F7FA;
         }
 
-        .link-emoji {
-            font-size: 1.5rem;
-        }
+        .link-emoji { font-size: 1.5rem; }
 
-        /* FOOTER */
-        footer {
-            margin-top: 50px;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
+        footer { margin-top: 50px; font-weight: 600; font-size: 0.9rem; }
         
-        /* ANIMATIONS */
         @keyframes float {
             0% { transform: translateY(0px); }
             50% { transform: translateY(-8px); }
@@ -221,7 +202,7 @@
                 <span class="link-emoji">🗺️</span>
             </a>
             
-             <a href="#" class="link-card" style="background-color: var(--accent-color); color: white;">
+            <a href="#" class="link-card" style="background-color: var(--accent-color); color: white;">
                 <span>🎁 Promo Étudiants</span>
                 <span class="link-emoji">🎓</span>
             </a>
