@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaizen Tizi - Espace de Jeux & Détente 🎮</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Righteous&family=Nunito:wght@700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --neon-pink: #FF00CC;
+            --neon-blue: #00CCFF;
+            --dark-blue: #1a0b2e;
+            --text-white: #ffffff;
+            --btn-border: #000000;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #ff0080 0%, #7928ca 50%, #4a00e0 100%);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            color: var(--text-white);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- BACKGROUND FLOTTANT (JEUX DE SOCIETE) --- */
+        .floating-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .floater {
+            position: absolute;
+            font-size: 3.5rem;
+            opacity: 0.3;
+            animation: floatUp linear infinite;
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
+        }
+
+        /* Emojis : Dés, Cartes, Pions, Manette, Puzzle */
+        .f1 { left: 10%; bottom: -10vh; animation-duration: 12s; font-size: 4rem; } /* Dé */
+        .f2 { left: 30%; bottom: -10vh; animation-duration: 18s; animation-delay: 2s; font-size: 3rem; } /* Carte */
+        .f3 { left: 55%; bottom: -10vh; animation-duration: 15s; animation-delay: 1s; font-size: 5rem; } /* Manette */
+        .f4 { left: 80%; bottom: -10vh; animation-duration: 20s; animation-delay: 4s; } /* Pion */
+        .f5 { left: 45%; bottom: -10vh; animation-duration: 10s; animation-delay: 5s; font-size: 2.5rem; } /* Puzzle */
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.4; }
+            80% { opacity: 0.4; }
+            100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* --- CONTENU PRINCIPAL --- */
+        .main-wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        /* Logo Simulé (Style Neon/Cartoon) */
+        .logo-area {
+            margin-bottom: 20px;
+        }
+        
+        /* Cercle autour du logo comme sur Insta */
+        .logo-circle {
+            width: 140px;
+            height: 140px;
+            background: #000;
+            border-radius: 50%;
+            margin: 0 auto;
+            border: 5px solid var(--neon-pink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px var(--neon-pink), inset 0 0 10px var(--neon-blue);
+            overflow: hidden;
+        }
+
+        /* Si tu mets une image plus tard, elle prendra 100% */
+        .logo-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Texte du logo en CSS si pas d'image */
+        .logo-text {
+            font-family: 'Righteous', cursive;
+            font-size: 1.8rem;
+            color: var(--neon-blue);
+            text-shadow: 2px 2px 0px var(--neon-pink);
+            transform: rotate(-5deg);
+        }
+
+        h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 3px 3px 0px #000;
+            letter-spacing: 2px;
+        }
+
+        .badges {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .badge {
+            background: rgba(0,0,0,0.4);
+            border: 2px solid white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+        }
+
+        /* --- BOUTONS CARTOON --- */
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .btn-cartoon {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Centré pour mobile */
+            width: 100%;
+            padding: 18px 25px;
+            text-decoration: none;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.2rem;
+            color: #fff;
+            background-color: #333;
+            border: 3px solid #000;
+            border-radius: 15px;
+            box-shadow: 6px 6px 0px #000000; /* L'effet 3D cartoon */
+            transition: all 0.1s ease;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-cartoon:active {
+            box-shadow: 0px 0px 0px #000000;
+            transform: translate(6px, 6px);
+        }
+
+        .btn-cartoon i {
+            margin-right: 10px;
+            font-size: 1.4rem;
+        }
+
+        /* Couleurs spécifiques des boutons */
+        .btn-insta { background: #E1306C; }
+        .btn-tiktok { background: #000000; border-color: #00f2ea; color: #ff0050; box-shadow: 6px 6px 0px #00f2ea; }
+        .btn-whatsapp { background: #25D366; }
+        .btn-maps { background: #4285F4; }
+        .btn-mail { background: #FF9900; }
+
+        /* Icones simples en texte pour éviter de charger FontAwesome si pas besoin */
+        .icon { font-style: normal; margin-right: 10px; font-size: 1.5rem; }
+
+        footer {
+            margin-top: 50px;
+            font-size: 0.8rem;
+            opacity: 0.8;
+            text-shadow: 1px 1px 0 #000;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="floating-container">
+        <div class="floater f1">🎲</div>
+        <div class="floater f2">🃏</div>
+        <div class="floater f3">🎮</div>
+        <div class="floater f4">♟️</div>
+        <div class="floater f5">🍿</div>
+    </div>
+
+    <div class="main-wrapper">
+        
+        <header>
+            <div class="logo-area">
+                <div class="logo-circle">
+                    <span class="logo-text">KAIZEN<br>TIZI</span>
+                </div>
+            </div>
+            
+            <h1>KAIZEN</h1>
+            
+            <div class="badges">
+                <span class="badge">🎮 PS5</span>
+                <span class="badge">🎲 Jeux de Société</span>
+                <span class="badge">🍿 Snacks</span>
+                <span class="badge">🍹 Cocktails</span>
+            </div>
+        </header>
+
+        <div class="links-container">
+            
+            <a href="https://wa.me/213540316619" class="btn-cartoon btn-whatsapp">
+                <span class="icon">📞</span> Réserver (WhatsApp)
+            </a>
+
+            <a href="https://maps.app.goo.gl/xy2RqmMJcHLpTJJq6" class="btn-cartoon btn-maps">
+                <span class="icon">📍</span> Nous trouver à Tizi
+            </a>
+
+            <a href="https://instagram.com/kaizen_tizi" class="btn-cartoon btn-insta" target="_blank">
+                <span class="icon">📸</span> Instagram
+            </a>
+
+            <a href="https://tiktok.com/@kaizen_tizi" class="btn-cartoon btn-tiktok" target="_blank">
+                <span class="icon">🎵</span> TikTok
+            </a>
+
+            <a href="mailto:contact@kaizen-tizi.com" class="btn-cartoon btn-mail">
+                <span class="icon">📧</span> Email
+            </a>
+
+        </div>
+
+        <footer>
+            <p>Ouvert tous les jours • Espace Mixte</p>
+            <p style="margin-top:5px;">&copy; 2025 Powered by Madilium</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
