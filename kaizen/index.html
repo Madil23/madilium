@@ -3,263 +3,319 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaizen Tizi - Gaming Zone 🎮</title>
+    <title>Kaizen Tizi - Gaming Zone & Lounge 🎮</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Righteous&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --neon-pink: #ff00ea;
             --neon-blue: #00dbff;
-            --neon-purple: #a600ff;
-            --dark-bg: #0a001a;
+            --kaizen-dark: #2a2a5a; /* Couleur sombre des flyers */
             --text-white: #ffffff;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Orbitron', sans-serif; /* Police plus futuriste */
-            background-color: var(--dark-bg);
-            /* Fond dégradé sombre mais vibrant */
-            background-image: 
-                radial-gradient(circle at 20% 30%, rgba(255, 0, 234, 0.2) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(0, 219, 255, 0.2) 0%, transparent 50%);
+            font-family: 'Orbitron', sans-serif;
+            background-color: #0a001a;
+            /* Fond dégradé inspiré des flyers */
+            background-image: linear-gradient(135deg, #4a00e0 0%, #8e2de2 50%, #f000c0 100%);
             min-height: 100vh;
             color: var(--text-white);
-            overflow-x: hidden; /* Important à cause des éléments qui sortent */
+            overflow-x: hidden;
             position: relative;
+            padding-bottom: 50px;
         }
 
-        /* --- BACKGROUND CHAOTIQUE ANIME --- */
+        /* --- BACKGROUND CHAOTIQUE (IMAGES PNG) --- */
         .chaos-bg-container {
-            position: fixed;
-            top: -10%; left: -10%; width: 120%; height: 120%;
-            pointer-events: none;
-            z-index: 0;
+            position: fixed; top: -10%; left: -10%; width: 120%; height: 120%;
+            pointer-events: none; z-index: 0; overflow: hidden;
+        }
+
+        /* Style des images flottantes */
+        .floater-img {
+            position: absolute;
+            width: 120px; /* Taille moyenne des éléments */
+            height: auto;
+            opacity: 0.4;
+            filter: drop-shadow(0 0 15px var(--neon-blue));
+        }
+
+        /* Animations de mouvement (les mêmes que V2) */
+        @keyframes moveUp { to { transform: translateY(-120vh) rotate(360deg); opacity: 0;} }
+        @keyframes moveDown { to { transform: translateY(120vh) rotate(-360deg); opacity: 0;} }
+        @keyframes moveLeft { to { transform: translateX(-120vw) rotate(-360deg); opacity: 0;} }
+        @keyframes moveRight { to { transform: translateX(120vw) rotate(360deg); opacity: 0;} }
+
+        /* Placement des éléments spécifiques */
+        /* Tu devras remplacer les src="" plus bas par tes vraies images PNG */
+        .f-ps5 { bottom: -10%; left: 10%; animation: moveUp 20s linear infinite; width: 150px; }
+        .f-ps4 { top: -10%; right: 20%; animation: moveDown 25s linear infinite; animation-delay: 2s; }
+        .f-ps3 { top: 30%; left: -10%; animation: moveRight 30s linear infinite; animation-delay: 5s; width: 100px; }
+        .f-ps2 { bottom: 20%; right: -10%; animation: moveLeft 28s linear infinite; animation-delay: 1s; width: 100px; }
+        .f-xbox { top: 10%; left: 5%; animation: moveDown 22s linear infinite; animation-delay: 3s; width: 180px; filter: drop-shadow(0 0 15px var(--neon-pink)); }
+        .f-volant { bottom: 5%; right: 30%; animation: moveUp 18s linear infinite; animation-delay: 7s; width: 160px; }
+        .f-pion1 { top: 50%; left: 50%; animation: moveRight 35s linear infinite; width: 60px; opacity: 0.6;}
+        .f-des { top: 20%; right: 10%; animation: moveLeft 40s linear infinite; width: 80px; opacity: 0.6;}
+
+
+        /* --- CONTENU PRINCIPAL --- */
+        .main-wrapper {
+            position: relative; z-index: 2; max-width: 600px; margin: 0 auto; padding: 40px 20px; text-align: center;
+        }
+
+        /* Vrai Logo */
+        .logo-container img {
+            width: 200px; /* Ajuster selon la taille réelle de ton logo */
+            height: auto;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 20px var(--neon-pink));
+            animation: pulseLogo 3s infinite ease-in-out;
+        }
+        @keyframes pulseLogo { 50% { filter: drop-shadow(0 0 40px var(--neon-pink)); transform: scale(1.05); }}
+
+        h1 {
+            font-family: 'Fredoka One', cursive; font-size: 2.5rem; margin-bottom: 30px;
+            text-shadow: 3px 3px 0 #000, 0 0 20px var(--neon-pink);
+        }
+
+        /* --- NOUVEAU STYLE BOUTON "KAIZEN FLYER" --- */
+        .btn-kaizen-style {
+            display: block;
+            width: 100%;
+            background: linear-gradient(to right, var(--kaizen-dark), #3b3b7a);
+            border: 3px solid white;
+            box-shadow: 0 0 15px var(--neon-pink), inset 0 0 10px rgba(255,255,255,0.2);
+            color: white;
+            text-transform: uppercase;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            border-radius: 50px; /* Forme pilule */
+            padding: 15px 10px;
+            text-decoration: none;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 1.1rem;
+            position: relative;
             overflow: hidden;
         }
 
-        .floater {
-            position: absolute;
-            font-size: 3rem;
-            opacity: 0.3;
-            filter: drop-shadow(0 0 10px var(--neon-blue));
-            /* L'animation est définie individuellement plus bas */
+        .btn-kaizen-style:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 25px var(--neon-pink), 0 0 10px white;
         }
-
-        /* Définition des mouvements possibles */
-        @keyframes moveUp { to { transform: translateY(-120vh) rotate(720deg); opacity: 0;} }
-        @keyframes moveDown { to { transform: translateY(120vh) rotate(-720deg); opacity: 0;} }
-        @keyframes moveLeft { to { transform: translateX(-120vw) rotate(-360deg); opacity: 0;} }
-        @keyframes moveRight { to { transform: translateX(120vw) rotate(360deg); opacity: 0;} }
-        @keyframes pulseNeon { 0%, 100% { opacity: 0.2; scale: 1; } 50% { opacity: 0.5; scale: 1.1; } }
-
-        /* Placement et animation aléatoires des éléments */
-        /* Haut vers bas */
-        .f1 { top: 10%; left: 10%; animation: moveDown 15s linear infinite; font-size: 4rem; color: var(--neon-pink);}
-        .f2 { top: 5%; left: 80%; animation: moveDown 20s linear infinite; animation-delay: 2s; font-size: 2.5rem;}
-        /* Bas vers haut */
-        .f3 { bottom: 5%; left: 30%; animation: moveUp 18s linear infinite; font-size: 5rem; color: var(--neon-purple);}
-        .f4 { bottom: 10%; left: 60%; animation: moveUp 12s linear infinite; animation-delay: 1s;}
-        /* Gauche vers droite */
-        .f5 { top: 40%; left: -5%; animation: moveRight 25s linear infinite; font-size: 3rem;}
-        .f6 { top: 70%; left: -5%; animation: moveRight 19s linear infinite; animation-delay: 5s; color: var(--neon-pink);}
-        /* Droite vers gauche */
-        .f7 { top: 20%; right: -5%; animation: moveLeft 22s linear infinite; animation-delay: 3s;}
-        .f8 { top: 60%; right: -5%; animation: moveLeft 17s linear infinite; font-size: 4rem; color: var(--neon-blue);}
-        /* Éléments statiques qui pulsent */
-        .f9 { top: 50%; left: 50%; animation: pulseNeon 3s ease-in-out infinite; opacity: 0.2; font-size: 8rem; filter: blur(2px);}
-
-        /* --- CONTENU PRINCIPAL (Animation d'entrée) --- */
-        .main-wrapper {
-            position: relative;
-            z-index: 2;
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 60px 20px;
-            text-align: center;
-            /* Animation d'entrée "Bounce" */
-            animation: bounceInUp 1s ease both;
-        }
-
-        @keyframes bounceInUp {
-            0% { opacity: 0; transform: translateY(200px) scale(0.7); }
-            60% { opacity: 1; transform: translateY(-20px) scale(1.05); }
-            100% { transform: translateY(0) scale(1); }
-        }
-
-        /* Logo Neon Pulsant */
-        .logo-circle {
-            width: 150px;
-            height: 150px;
-            background: #000;
-            border-radius: 50%;
-            margin: 0 auto 25px;
-            border: 4px solid var(--neon-blue);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            /* Double pulsation */
-            box-shadow: 0 0 20px var(--neon-blue), inset 0 0 20px var(--neon-pink);
-            animation: logoPulse 2s infinite;
-        }
-
-        /* Anneau de lumière supplémentaire */
-        .logo-circle::after {
-            content: ''; position: absolute;
-            top: -10px; left: -10px; right: -10px; bottom: -10px;
-            border-radius: 50%;
-            border: 2px solid var(--neon-pink);
-            opacity: 0;
-            animation: ringPulse 2s infinite ease-out;
-        }
-
-        @keyframes logoPulse { 50% { box-shadow: 0 0 50px var(--neon-blue), inset 0 0 40px var(--neon-pink); } }
-        @keyframes ringPulse { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(1.3); opacity: 0; } }
-
-        .logo-text {
-            font-family: 'Righteous', cursive; font-size: 1.8rem;
-            color: #fff; text-shadow: 0 0 10px var(--neon-blue), 2px 2px 0px var(--neon-pink);
-        }
-
-        h1 {
-            font-family: 'Fredoka One', cursive; font-size: 3rem;
-            margin-bottom: 15px;
-            /* Texte dégradé néon */
-            background: linear-gradient(to right, var(--neon-blue), var(--neon-pink));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 10px rgba(166, 0, 255, 0.6));
-        }
-
-        .badges {
-            display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 40px;
-        }
-        .badge {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid var(--neon-blue); color: var(--neon-blue);
-            padding: 6px 15px; border-radius: 30px; font-size: 0.8rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;
-            box-shadow: 0 0 10px rgba(0, 219, 255, 0.3);
-        }
-
-        /* --- NOUVEAUX BOUTONS MANGA/SPEED --- */
-        .links-container {
-            display: flex; flex-direction: column; gap: 18px;
-        }
-
-        .btn-manga {
-            position: relative;
-            display: flex; align-items: center; justify-content: center;
-            width: 100%; padding: 16px 25px;
-            text-decoration: none;
-            font-family: 'Orbitron', sans-serif; /* Police plus techno */
-            font-size: 1.1rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px;
-            color: #fff;
-            background: rgba(20, 10, 40, 0.8); /* Fond sombre semi-transparent */
-            border: 2px solid var(--neon-blue);
-            border-radius: 4px; /* Coins moins arrondis pour le style cyber */
-            overflow: hidden; /* Nécessaire pour l'effet de lumière traversante */
-            transition: all 0.3s ease-out;
-            /* Ombre portée lumineuse de base */
-            box-shadow: 0 0 15px rgba(0, 219, 255, 0.2);
-        }
-
-        /* Effet de lumière qui traverse (Speed Line) */
-        .btn-manga::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -150%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
-            transform: skewX(-25deg);
-            transition: 0.5s ease;
-        }
-
-        /* Hover Effects */
-        .btn-manga:hover {
-            transform: scale(1.05) skewX(-2deg); /* Léger agrandissement et inclinaison dynamique */
-            border-color: var(--neon-pink);
-            /* Gros flash lumineux au survol */
-            box-shadow: 0 0 30px var(--neon-pink), inset 0 0 20px var(--neon-blue);
-            text-shadow: 0 0 10px #fff;
-        }
-
-        .btn-manga:hover::before {
-            left: 150%; /* La lumière traverse le bouton */
-        }
-
-        .icon { margin-right: 12px; font-size: 1.4rem; filter: drop-shadow(0 0 5px currentColor);}
-
-        /* Couleurs spécifiques au survol si désiré, sinon le rose par défaut marche bien */
-        .btn-whatsapp { border-color: #25D366; } .btn-whatsapp:hover { border-color: #25D366; box-shadow: 0 0 30px #25D366; }
         
-        footer { margin-top: 60px; font-size: 0.8rem; opacity: 0.7; text-align: center; }
+        /* Style spécifique pour les boutons de liens principaux */
+        .btn-main-link {
+             margin-bottom: 20px;
+             font-size: 1.2rem;
+             padding: 18px 10px;
+             border-color: var(--neon-blue);
+             box-shadow: 0 0 15px var(--neon-blue);
+        }
+         .btn-main-link:hover {
+              box-shadow: 0 0 30px var(--neon-blue), 0 0 10px white;
+         }
+         .btn-whatsapp-main { border-color: #25D366; box-shadow: 0 0 15px #25D366; }
+         .btn-whatsapp-main:hover { box-shadow: 0 0 30px #25D366; }
+
+
+        /* --- SECTIONS ACCORDÉON (Menus) --- */
+        .toggle-trigger { margin-top: 30px; font-size: 1.3rem; letter-spacing: 2px; }
+        
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            background: rgba(0,0,0,0.5);
+            border-radius: 20px;
+            padding: 0 15px; /* Padding horizontal seulement au début */
+        }
+        
+        /* Quand la section est ouverte */
+        .collapsible-content.active {
+            max-height: 2000px; /* Assez grand pour tout contenir */
+            padding: 20px 15px;
+            border: 2px solid rgba(255,255,255,0.3);
+            margin-bottom: 20px;
+        }
+
+        /* Styles des listes de prix */
+        .menu-category { margin-bottom: 25px; }
+        .category-title {
+            /* On réutilise le style bouton pour les titres de catégories */
+            @extend .btn-kaizen-style; 
+            display: inline-block;
+            width: auto;
+            padding: 10px 25px;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            box-shadow: 0 0 10px var(--neon-pink);
+        }
+
+        .price-list { list-style: none; text-align: left; }
+        .price-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-family: 'Fredoka One', sans-serif; /* Police plus lisible pour les prix */
+        }
+        .item-name { color: #ccc; }
+        .item-price { color: var(--neon-blue); font-weight: bold; }
+
+        .icon { margin-right: 10px; }
+        footer { margin-top: 40px; font-size: 0.8rem; opacity: 0.7; }
     </style>
 </head>
 <body>
 
     <div class="chaos-bg-container">
-        <div class="floater f1">🎲</div>
-        <div class="floater f2">🎮</div>
-        <div class="floater f3">♟️</div>
-        <div class="floater f4">👾</div>
-        <div class="floater f5">🃏</div>
-        <div class="floater f6">🎱</div>
-        <div class="floater f7">🎯</div>
-        <div class="floater f8">🧩</div>
-        <div class="floater f9">🕹️</div>
+        <img src="ps5-controller.png" class="floater-img f-ps5" alt="PS5">
+        <img src="ps4-controller.png" class="floater-img f-ps4" alt="PS4">
+        <img src="ps3-controller.png" class="floater-img f-ps3" alt="PS3">
+        <img src="ps2-controller.png" class="floater-img f-ps2" alt="PS2">
+        <img src="wii-console.png" class="floater-img f-xbox" alt="Wii">
+        <img src="volant-gaming.png" class="floater-img f-volant" alt="Volant">
+        <div class="floater-img f-pion1" style="font-size: 3rem;">♟️</div>
+        <div class="floater-img f-des" style="font-size: 3rem;">🎲</div>
     </div>
+
 
     <div class="main-wrapper">
         
         <header>
-            <div class="logo-circle">
-                <span class="logo-text">KAIZEN<br>TIZI</span>
+            <div class="logo-container">
+                <img src="logo-kaizen.png" alt="KAIZEN Logo">
             </div>
-            
-            <h1>KAIZEN ZONE</h1>
-            
-            <div class="badges">
-                <span class="badge">🔥 Espace Mixte</span>
-                <span class="badge">🎮 PS5 4K</span>
-                <span class="badge">🎲 Jeux Boards</span>
-                <span class="badge">🍹 Chill</span>
-            </div>
+            <h1>BIENVENUE CHEZ KAIZEN</h1>
         </header>
 
         <div class="links-container">
-            
-            <a href="https://wa.me/213540316619" class="btn-manga btn-whatsapp">
+            <a href="https://wa.me/213540316619" class="btn-kaizen-style btn-main-link btn-whatsapp-main">
                 <span class="icon">📲</span> Réserver (WhatsApp)
             </a>
-
-            <a href="https://instagram.com/kaizen_tizi" class="btn-manga" target="_blank">
-                <span class="icon">📸</span> Instagram
+            <a href="https://goo.gl/maps/placeholder" class="btn-kaizen-style btn-main-link">
+                <span class="icon">📍</span> Nous trouver
             </a>
-
-            <a href="https://tiktok.com/@kaizen_tizi" class="btn-manga" target="_blank">
-                <span class="icon">🎵</span> TikTok
-            </a>
-            
-            <a href="https://goo.gl/maps/placeholder" class="btn-manga">
-                <span class="icon">📍</span> Localisation Tizi
-            </a>
-
         </div>
 
+
+        <button class="btn-kaizen-style toggle-trigger" onclick="toggleSection('section-offres')">
+            VOIR NOS OFFRES 🎮
+        </button>
+
+        <div id="section-offres" class="collapsible-content">
+            
+            <div class="menu-category">
+                <h3 class="btn-kaizen-style category-title">Salle De Projection</h3>
+                <ul class="price-list">
+                    <li><span class="item-name">Privatisation Play Room</span> <span class="item-price">1200DA/pers/02H</span></li>
+                    <li><span class="item-name">Playstation 5</span> <span class="item-price">1000DA/01H</span></li>
+                    <li><span class="item-name">Racing Simulator</span> <span class="item-price">800DA/30Min</span></li>
+                </ul>
+            </div>
+
+            <div class="menu-category">
+                <h3 class="btn-kaizen-style category-title">Jeux de Société 🎲</h3>
+                <p style="margin-bottom: 10px; color: var(--neon-blue);">250DA par personne pour une durée 01H<br>(Changement de jeux est libre)</p>
+            </div>
+
+            <div class="menu-category">
+                <h3 class="btn-kaizen-style category-title">Game Room</h3>
+                <ul class="price-list">
+                    <li><span class="item-name">Playstation 4</span> <span class="item-price">500DA pour 30min</span></li>
+                    <li><span class="item-name">Playstation 4</span> <span class="item-price">800DA pour 01H</span></li>
+                </ul>
+            </div>
+
+             <div class="menu-category">
+                <h3 class="btn-kaizen-style category-title">Karaoke 🎤</h3>
+                <ul class="price-list">
+                    <li><span class="item-name">Karaoke</span> <span class="item-price">600DA 01H/personne</span></li>
+                </ul>
+            </div>
+        </div>
+
+
+        <button class="btn-kaizen-style toggle-trigger" onclick="toggleSection('section-menu')" style="border-color: var(--neon-blue); box-shadow: 0 0 15px var(--neon-blue);">
+            VOIR LE MENU 🍹
+        </button>
+
+        <div id="section-menu" class="collapsible-content">
+            
+            <div class="menu-category">
+                <h3 class="btn-kaizen-style category-title">Nos Milkshakes</h3>
+                <ul class="price-list">
+                    <li><span class="item-name">Chocolat</span> <span class="item-price">400DA</span></li>
+                    <li><span class="item-name">Nutella</span> <span class="item-price">450DA</span></li>
+                    <li><span class="item-name">Banane</span> <span class="item-price">450DA</span></li>
+                    <li><span class="item-name">Café</span> <span class="item-price">450DA</span></li>
+                    <li><span class="item-name">OREO</span> <span class="item-price">450DA</span></li>
+                    <li><span class="item-name">Bueno</span> <span class="item-price">450DA</span></li>
+                    <li><span class="item-name">Mangue</span> <span class="item-price">500DA</span></li>
+                    <li><span class="item-name">Nutella Banane</span> <span class="item-price">550DA</span></li>
+                    <li><span class="item-name">Frappuccino</span> <span class="item-price">550DA</span></li>
+                </ul>
+            </div>
+
+            <div class="menu-category">
+                 <h3 class="btn-kaizen-style category-title">Jus & Cafés ☕</h3>
+                <ul class="price-list">
+                    <li><span class="item-name">Jus D'Orange</span> <span class="item-price">350DA</span></li>
+                    <li><span class="item-name">Cocktail de Fruits</span> <span class="item-price">500DA</span></li>
+                    <li><span class="item-name">Mojito</span> <span class="item-price">400DA</span></li>
+                    <li><span class="item-name">Café Capsule</span> <span class="item-price">100DA</span></li>
+                    <li><span class="item-name">Café Capsule Aromatisé</span> <span class="item-price">150DA</span></li>
+                </ul>
+            </div>
+
+             <div class="menu-category">
+                <h3 class="btn-kaizen-style category-title">Nos Glaces 🍨</h3>
+                <ul class="price-list">
+                    <li><span class="item-name">Coupe de glace 4 boules</span> <span class="item-price">350DA</span></li>
+                    <li><span class="item-name">Banana split</span> <span class="item-price">550DA</span></li>
+                </ul>
+            </div>
+
+            <div class="menu-category">
+                <h3 class="btn-kaizen-style category-title">Nos Céréales 🥣</h3>
+                <ul class="price-list">
+                    <li><span class="item-name">Bol de Céréales Local</span> <span class="item-price">350DA</span></li>
+                    <li><span class="item-name">Bol de Céréales Fourré</span> <span class="item-price">450DA</span></li>
+                    <li><span class="item-name">Bol Céréales d'Importation</span> <span class="item-price">650DA</span></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="links-container" style="margin-top: 30px; display: flex; gap: 10px; justify-content: center;">
+             <a href="https://instagram.com/kaizen_tizi" class="btn-kaizen-style" style="width: auto; padding: 10px 20px; font-size: 0.9rem;">
+                📸 Insta
+            </a>
+             <a href="https://tiktok.com/@kaizen_tizi" class="btn-kaizen-style" style="width: auto; padding: 10px 20px; font-size: 0.9rem;">
+                🎵 TikTok
+            </a>
+        </div>
+
+
         <footer>
-            <p>Level Up Your Day! 🚀<br>© 2025 Powered by Madilium</p>
+            <p>© 2025 KAIZEN Tizi.<br>Powered by Madilium</p>
         </footer>
 
     </div>
+
+    <script>
+        function toggleSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.classList.toggle('active');
+        }
+    </script>
 
 </body>
 </html>
