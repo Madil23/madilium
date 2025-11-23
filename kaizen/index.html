@@ -3,349 +3,244 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaizen Tizi - Pop Gaming 🎲</title>
+    <title>Kaizen Tizi - Espace Jeux & Détente Familial 🎮</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Carter+One&family=Fredoka+One&family=Nunito:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Carter+One&family=Fredoka:wght@400;600;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --pop-yellow: #FFE600;
-            --pop-pink: #FF5DCD;
-            --pop-blue: #00C2FF;
-            --pop-white: #FFFDF5;
-            --ink-black: #121212;
+            /* Couleurs de la marque Kaizen */
+            --kaizen-pink: #ff00ea;
+            --kaizen-blue: #00dbff;
+            --ink-black: #1a1a2e; /* Noir légèrement bleuté pour le style cartoon */
+            --paper-white: #ffffff;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Nunito', sans-serif;
-            background-color: var(--pop-blue);
-            /* Motif à pois (Polka Dot) */
-            background-image: radial-gradient(var(--pop-white) 15%, transparent 16%),
-                              radial-gradient(var(--pop-white) 15%, transparent 16%);
-            background-size: 40px 40px;
-            background-position: 0 0, 20px 20px;
+            font-family: 'Fredoka', sans-serif;
+            /* FOND DEGRADE KAIZEN */
+            background: linear-gradient(135deg, var(--kaizen-blue) 0%, var(--kaizen-pink) 100%);
             min-height: 100vh;
             color: var(--ink-black);
             overflow-x: hidden;
-            position: relative;
             padding-bottom: 60px;
+            position: relative;
         }
 
-        /* --- BACKGROUND DOODLES (Easter Eggs) --- */
-        .doodle-container {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; /* Par défaut on ne clique pas */
-            z-index: 0;
+        /* Motif "Papier" subtil par dessus le dégradé */
+        body::before {
+            content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 20.5V18H0v2.5h20zM20 22H0v-1.5h20zM40 18h-20v2.5h20V18zM40 22h-20v-1.5h20z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.5; pointer-events: none;
         }
 
-        .sticker {
-            position: absolute;
-            font-size: 3.5rem;
-            cursor: pointer;
-            pointer-events: auto; /* On réactive le clic sur les stickers */
-            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            filter: drop-shadow(4px 4px 0px rgba(0,0,0,0.2));
-            user-select: none;
+        /* Easter Eggs flottants (Style Stickers) */
+        .floater {
+            position: fixed; font-size: 3rem; opacity: 0.6;
+            filter: drop-shadow(3px 3px 0px rgba(0,0,0,0.2));
+            animation: floaty 6s ease-in-out infinite;
+            cursor: pointer; transition: transform 0.2s;
         }
+        .floater:hover { transform: scale(1.2) rotate(15deg); }
+        @keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
 
-        .sticker:hover { transform: scale(1.2) rotate(10deg); }
-        .sticker:active { transform: scale(0.9); }
+        .f1 { top: 10%; left: 10%; animation-delay: 0s; } /* Manette */
+        .f2 { bottom: 20%; right: 10%; animation-delay: 1s; font-size: 3.5rem; } /* Dés */
+        .f3 { top: 30%; right: 20%; animation-delay: 2s; font-size: 2.5rem; } /* Pizza */
+        .f4 { bottom: 15%; left: 15%; animation-delay: 3s; } /* Fantôme */
 
-        /* Animation flottante douce */
-        @keyframes gentleFloat {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
-        }
-
-        .s1 { top: 10%; left: 10%; animation: gentleFloat 4s infinite ease-in-out; }
-        .s2 { top: 20%; right: 15%; animation: gentleFloat 5s infinite ease-in-out reverse; font-size: 4rem;}
-        .s3 { bottom: 15%; left: 5%; animation: gentleFloat 6s infinite ease-in-out; }
-        .s4 { bottom: 20%; right: 5%; animation: gentleFloat 4.5s infinite ease-in-out reverse; }
-        .s5 { top: 50%; left: -5%; animation: gentleFloat 7s infinite ease-in-out; opacity: 0.8; }
-        .s6 { top: 60%; right: -5%; animation: gentleFloat 8s infinite ease-in-out reverse; opacity: 0.8; }
-
-        /* --- CONTENEUR PRINCIPAL --- */
+        /* CONTENEUR PRINCIPAL */
         .paper-wrapper {
-            position: relative; z-index: 2;
-            max-width: 550px;
-            margin: 40px auto;
-            padding: 10px;
+            position: relative; z-index: 2; max-width: 550px; margin: 30px auto; padding: 20px;
         }
 
-        /* HEADER CARD */
-        .header-card {
-            background: var(--pop-white);
+        /* HEADER STYLE PAPIER */
+        .header-paper {
+            background: var(--paper-white);
             border: 4px solid var(--ink-black);
-            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px; /* Bordure irrégulière style papier */
-            padding: 30px;
+            /* Forme de papier découpé un peu irrégulière */
+            border-radius: 20px 10px 25px 15px; 
+            padding: 30px 20px;
             text-align: center;
-            box-shadow: 8px 8px 0px var(--ink-black);
-            margin-bottom: 40px;
-            transform: rotate(-2deg);
-            transition: transform 0.3s;
-        }
-        .header-card:hover { transform: rotate(0deg) scale(1.02); }
-
-        .logo-placeholder {
-            font-family: 'Carter One', cursive;
-            font-size: 3rem;
-            color: var(--pop-pink);
-            text-shadow: 3px 3px 0 var(--ink-black);
-            margin-bottom: 10px;
-            /* Si image: */
-            /* width: 150px; height: auto; */
+            box-shadow: 8px 8px 0px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            transform: rotate(-1deg);
         }
 
-        h1 {
-            font-family: 'Fredoka One', cursive;
-            font-size: 1.8rem;
-            color: var(--ink-black);
+        .logo-text {
+            font-family: 'Carter One', cursive; font-size: 2.8rem;
+            /* Texte dégradé */
+            background: linear-gradient(to right, var(--kaizen-blue), var(--kaizen-pink));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(3px 3px 0px var(--ink-black));
             margin-bottom: 15px;
-            text-transform: uppercase;
         }
 
-        .tag-container { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        /* NOUVELLE BIO */
+        .bio-text {
+            font-size: 1rem; line-height: 1.5; font-weight: 600;
+            margin-bottom: 20px; padding: 0 10px;
+        }
+
+        .tags { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
         .tag {
-            background: var(--pop-yellow);
-            border: 2px solid var(--ink-black);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-weight: 900;
-            font-size: 0.9rem;
-            box-shadow: 3px 3px 0 rgba(0,0,0,0.2);
+            background: var(--ink-black); color: white;
+            padding: 5px 15px; border-radius: 20px; font-size: 0.85rem; font-weight: 800;
+            box-shadow: 3px 3px 0 rgba(255,255,255,0.3);
         }
 
-        /* --- BOUTONS STYLE CARTOON --- */
-        .btn-paper {
+        /* BOUTONS CARTOON + ANIMATION "WOOSH" */
+        .btn-paper-anim {
+            position: relative;
             display: flex; align-items: center; justify-content: center;
-            width: 100%;
-            padding: 18px;
-            margin-bottom: 15px;
-            text-decoration: none;
-            font-family: 'Fredoka One', cursive;
-            font-size: 1.2rem;
-            color: var(--ink-black);
-            background: white;
-            border: 3px solid var(--ink-black);
-            border-radius: 12px;
-            box-shadow: 5px 5px 0px var(--ink-black); /* Ombre dure */
-            transition: all 0.1s ease;
-            position: relative;
+            width: 100%; padding: 16px; margin-bottom: 12px;
+            text-decoration: none; font-family: 'Fredoka', sans-serif; font-weight: 800; font-size: 1.1rem;
+            color: var(--ink-black); background: var(--paper-white);
+            border: 3px solid var(--ink-black); border-radius: 12px;
+            box-shadow: 6px 6px 0px rgba(0,0,0,0.2);
+            transition: all 0.2s ease; overflow: hidden; /* Pour l'animation */
         }
 
-        .btn-paper:hover {
+        /* L'effet lumineux qui traverse */
+        .btn-paper-anim::before {
+            content: ''; position: absolute; top: 0; left: -100%;
+            width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.8), transparent);
+            transform: skewX(-25deg); transition: 0.5s;
+        }
+
+        .btn-paper-anim:hover {
             transform: translate(-2px, -2px);
-            box-shadow: 7px 7px 0px var(--ink-black);
-            background: var(--pop-white);
+            box-shadow: 8px 8px 0px rgba(0,0,0,0.3);
+            background: #f0f0f0;
         }
+        .btn-paper-anim:hover::before { left: 150%; } /* Déclenche l'anim au survol */
+        .btn-paper-anim:active { transform: translate(4px, 4px); box-shadow: 2px 2px 0px rgba(0,0,0,0.3); }
 
-        .btn-paper:active {
-            transform: translate(5px, 5px);
-            box-shadow: 0px 0px 0px var(--ink-black);
-        }
+        .btn-social { background: var(--ink-black); color: white; border: none; }
+        .btn-insta { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%); }
+        .btn-tiktok { background: #000000; }
+        .btn-wa { background: #25D366; color: white; }
 
-        /* Couleurs spécifiques */
-        .btn-cta { background: var(--pop-pink); color: white; text-shadow: 2px 2px 0 var(--ink-black); }
-        .btn-wa { background: #25D366; color: white; text-shadow: 1px 1px 0 #000; }
-        .btn-maps { background: var(--pop-yellow); }
-
-        /* --- ACCORDEON STYLE "DOSSIER SECRET" --- */
-        .section-folder {
-            margin-top: 30px;
-        }
-
+        /* ACCORDEONS STYLE DOSSIER (Recopiés de la V4) */
+        .folder-section { margin-top: 30px; }
         .folder-tab {
-            width: 100%;
-            background: var(--pop-blue);
-            border: 3px solid var(--ink-black);
-            border-bottom: none;
-            padding: 15px;
-            font-family: 'Carter One', cursive;
-            font-size: 1.4rem;
-            text-align: left;
-            cursor: pointer;
-            border-radius: 15px 15px 0 0;
-            position: relative;
-            top: 3px; /* Pour masquer la bordure du bas */
-            z-index: 2;
-            color: white;
-            text-shadow: 2px 2px 0 var(--ink-black);
-            display: flex; justify-content: space-between; align-items: center;
-        }
-
-        .folder-tab.menu-tab { background: var(--pop-pink); }
-
-        .folder-content {
-            background: white;
-            border: 3px solid var(--ink-black);
-            border-radius: 0 0 15px 15px;
-            padding: 0 20px;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease-out, padding 0.4s;
-            box-shadow: 8px 8px 0 rgba(0,0,0,0.2);
-            position: relative;
-            z-index: 1;
-        }
-
-        .folder-content.active {
-            padding: 20px;
-            max-height: 2000px;
-        }
-
-        /* Listes */
-        .menu-group h3 {
-            background: var(--ink-black);
-            color: var(--pop-yellow);
-            display: inline-block;
-            padding: 5px 10px;
-            transform: rotate(-2deg);
-            margin-bottom: 15px;
-            margin-top: 15px;
-            font-family: 'Carter One', cursive;
-        }
-
-        .menu-item {
+            background: var(--kaizen-blue); color: white; border: 3px solid var(--ink-black);
+            padding: 15px; font-family: 'Carter One', cursive; font-size: 1.3rem;
+            border-radius: 15px 15px 0 0; position: relative; top: 3px; z-index: 2; cursor: pointer;
             display: flex; justify-content: space-between;
-            border-bottom: 2px dashed #ddd;
-            padding: 8px 0;
-            font-weight: bold;
         }
-        .price { color: var(--pop-pink); font-weight: 900; }
+        .folder-tab.pink-tab { background: var(--kaizen-pink); }
+        .folder-content {
+            background: var(--paper-white); border: 3px solid var(--ink-black);
+            border-radius: 0 0 15px 15px; padding: 0 20px; max-height: 0; overflow: hidden;
+            transition: 0.4s ease-out; box-shadow: 6px 6px 0 rgba(0,0,0,0.1); position: relative; z-index: 1;
+        }
+        .folder-content.active { padding: 20px; max-height: 2000px; }
+        
+        .menu-group h3 {
+            background: var(--ink-black); color: var(--kaizen-blue); display: inline-block;
+            padding: 5px 10px; transform: rotate(-2deg); margin: 15px 0; font-family: 'Carter One';
+        }
+        .menu-item { display: flex; justify-content: space-between; border-bottom: 2px dashed #ddd; padding: 8px 0; font-weight: 600;}
+        .price { color: var(--kaizen-pink); font-weight: 900; }
 
         footer {
             text-align: center; margin-top: 40px; font-weight: bold;
-            background: var(--pop-white); border: 3px solid var(--ink-black);
+            background: var(--paper-white); border: 3px solid var(--ink-black);
             padding: 10px; border-radius: 10px; transform: rotate(1deg);
-            display: inline-block; width: 100%;
+            display: inline-block; width: 100%; box-shadow: 5px 5px 0 rgba(0,0,0,0.1);
         }
-
-        /* Easter Egg Animation Class */
-        .spin-anim { animation: spin 0.5s ease-in-out; }
-        @keyframes spin { 0% {transform: rotate(0deg) scale(1.2);} 100% {transform: rotate(360deg) scale(1.2);} }
-
     </style>
 </head>
 <body>
 
-    <div class="doodle-container">
-        <div class="sticker s1" onclick="popEffect(this)">🍕</div>
-        <div class="sticker s2" onclick="popEffect(this)">🎮</div>
-        <div class="sticker s3" onclick="popEffect(this)">👾</div>
-        <div class="sticker s4" onclick="popEffect(this)">🎲</div>
-        <div class="sticker s5" onclick="popEffect(this)">👻</div>
-        <div class="sticker s6" onclick="popEffect(this)">🍩</div>
-    </div>
+    <div class="floater f1">🎮</div>
+    <div class="floater f2">🎲</div>
+    <div class="floater f3">🍕</div>
+    <div class="floater f4">👻</div>
 
     <div class="paper-wrapper">
         
-        <div class="header-card">
-            <div class="logo-placeholder">KAIZEN</div>
-            <h1>Gaming & Chill</h1>
-            
-            <div class="tag-container">
-                <span class="tag">PS5</span>
-                <span class="tag">VR</span>
-                <span class="tag">SNACKS</span>
-                <span class="tag">FUN</span>
+        <div class="header-paper">
+            <div class="logo-text">KAIZEN TIZI</div>
+            <p class="bio-text">
+                🌟 Salle de jeux familiale & conviviale !<br>
+                Profitez de nos consoles (PS5, PS4, Wii), du simulateur de course 🏎️, de nos jeux de société 🎲 et de nos boissons fraîches 🍹.
+            </p>
+
+            <div class="tags">
+                <span class="tag">Famille</span>
+                <span class="tag">Gaming</span>
+                <span class="tag">Détente</span>
+                <span class="tag">Fun</span>
             </div>
         </div>
 
-        <a href="https://wa.me/213540316619" class="btn-paper btn-wa">
-            📞 RESERVER (WhatsApp)
+        <div style="display: flex; gap: 10px; margin-bottom: 5px;">
+            <a href="https://instagram.com/kaizen_tizi" class="btn-paper-anim btn-insta" target="_blank" style="color: white;">📸 Instagram</a>
+            <a href="https://tiktok.com/@kaizen_tizi" class="btn-paper-anim btn-tiktok" target="_blank" style="color: white;">🎵 TikTok</a>
+        </div>
+
+        <a href="https://wa.me/213540316619" class="btn-paper-anim btn-wa">
+            📞 RESERVER UNE SESSION (WhatsApp)
         </a>
-        <a href="https://goo.gl/maps/placeholder" class="btn-paper btn-maps">
-            📍 C'EST OU ? (Tizi)
+        <a href="https://goo.gl/maps/placeholder" class="btn-paper-anim">
+            📍 NOUS TROUVER A TIZI
         </a>
 
-        <div class="section-folder">
+        <div class="folder-section">
             <div class="folder-tab" onclick="toggleFolder('folder-offres')">
-                <span>📁 NOS OFFRES</span> <span>▼</span>
+                <span>📁 NOS OFFRES GAMING</span> <span>▼</span>
             </div>
             <div id="folder-offres" class="folder-content">
                 <div class="menu-group">
-                    <h3>🎬 PROJECTION</h3>
-                    <div class="menu-item"><span>Privatisation (2H)</span> <span class="price">1200 DA</span></div>
-                    <div class="menu-item"><span>PS5 (1H)</span> <span class="price">1000 DA</span></div>
-                    <div class="menu-item"><span>Simulateur (30min)</span> <span class="price">800 DA</span></div>
+                    <h3>🎮 SALLES & CONSOLES</h3>
+                    <div class="menu-item"><span>Privatisation Room (2H)</span> <span class="price">1200 DA/pers</span></div>
+                    <div class="menu-item"><span>PS5 4K (1H)</span> <span class="price">1000 DA</span></div>
+                    <div class="menu-item"><span>PS4 (1H)</span> <span class="price">800 DA</span></div>
+                    <div class="menu-item"><span>Racing Simulator (30m)</span> <span class="price">800 DA</span></div>
+                    <div class="menu-item"><span>Zone Wii (Famille)</span> <span class="price">Sur place</span></div>
                 </div>
                 <div class="menu-group">
-                    <h3>🎲 JEUX DE SOC.</h3>
-                    <div class="menu-item"><span>Accès illimité (1H)</span> <span class="price">250 DA</span></div>
-                </div>
-                <div class="menu-group">
-                    <h3>🎤 KARAOKE</h3>
-                    <div class="menu-item"><span>Par personne (1H)</span> <span class="price">600 DA</span></div>
+                    <h3>🎲 JEUX DE SOCIETE</h3>
+                    <div class="menu-item"><span>Accès illimité (1H)</span> <span class="price">250 DA/pers</span></div>
                 </div>
             </div>
         </div>
 
-        <div class="section-folder">
-            <div class="folder-tab menu-tab" onclick="toggleFolder('folder-menu')">
-                <span>🍹 LE MENU</span> <span>▼</span>
+        <div class="folder-section">
+            <div class="folder-tab pink-tab" onclick="toggleFolder('folder-menu')">
+                <span>🍹 LE MENU FRAICHEUR</span> <span>▼</span>
             </div>
             <div id="folder-menu" class="folder-content">
                 <div class="menu-group">
-                    <h3>🥤 MILKSHAKES</h3>
-                    <div class="menu-item"><span>Chocolat / Vanille</span> <span class="price">400 DA</span></div>
-                    <div class="menu-item"><span>Oreo / Bueno</span> <span class="price">450 DA</span></div>
-                    <div class="menu-item"><span>Spécial Banane</span> <span class="price">550 DA</span></div>
+                    <h3>🥤 MILKSHAKES & JUS</h3>
+                    <div class="menu-item"><span>Milkshake Oreo/Bueno</span> <span class="price">450 DA</span></div>
+                    <div class="menu-item"><span>Mojito / Jus Frais</span> <span class="price">400 DA</span></div>
                 </div>
                 <div class="menu-group">
-                    <h3>☕ CAFE & JUS</h3>
-                    <div class="menu-item"><span>Mojito Frais</span> <span class="price">400 DA</span></div>
-                    <div class="menu-item"><span>Jus d'Orange</span> <span class="price">350 DA</span></div>
+                    <h3>☕ CAFE & SNACKS</h3>
                     <div class="menu-item"><span>Café Capsule</span> <span class="price">100 DA</span></div>
-                </div>
-                <div class="menu-group">
-                    <h3>🥣 CEREALES</h3>
-                    <div class="menu-item"><span>Bol Local</span> <span class="price">350 DA</span></div>
-                    <div class="menu-item"><span>Bol Importation</span> <span class="price">650 DA</span></div>
+                    <div class="menu-item"><span>Bol Céréales</span> <span class="price">Dès 350 DA</span></div>
+                    <div class="menu-item"><span>Glaces</span> <span class="price">Dès 350 DA</span></div>
                 </div>
             </div>
         </div>
 
-        <div style="display: flex; gap: 10px; margin-top: 20px;">
-            <a href="https://instagram.com/kaizen_tizi" class="btn-paper" style="font-size: 1rem;">📸 Insta</a>
-            <a href="https://tiktok.com/@kaizen_tizi" class="btn-paper" style="font-size: 1rem;">🎵 TikTok</a>
-        </div>
-
         <footer>
-            <p>© 2025 Kaizen Tizi<br>Made with 💛 by Madilium</p>
+            <p>KAIZEN TIZI <br>© 2025 Powered by Madilium</p>
         </footer>
 
     </div>
 
     <script>
-        // Gestion des dossiers accordéon
         function toggleFolder(id) {
-            const element = document.getElementById(id);
-            element.classList.toggle('active');
-            
-            // Petit effet sonore "pop" mental
-        }
-
-        // EASTER EGG: Les stickers réagissent au clic
-        function popEffect(element) {
-            // Change l'emoji au hasard pour plus de fun
-            const funEmojis = ['🤪', '🚀', '💥', '🍄', '⭐', '🐱', '🌮'];
-            
-            // Ajoute la classe d'animation
-            element.classList.add('spin-anim');
-            
-            // Change l'emoji après un petit délai
-            setTimeout(() => {
-                element.innerHTML = funEmojis[Math.floor(Math.random() * funEmojis.length)];
-            }, 250);
-
-            // Retire la classe pour pouvoir rejouer l'anim
-            setTimeout(() => {
-                element.classList.remove('spin-anim');
-            }, 500);
+            document.getElementById(id).classList.toggle('active');
         }
     </script>
 
