@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madilium - Création de votre site</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root { --accent: #6c5ce7; --bg: #0f0f12; --panel: #1c1c22; --text: #fff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* GAUCHE : FORMULAIRE */
+        .editor-panel {
+            width: 400px;
+            background-color: var(--panel);
+            padding: 20px;
+            overflow-y: auto;
+            border-right: 1px solid #333;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        h2 { font-size: 1.2rem; margin-bottom: 10px; color: var(--accent); }
+        label { display: block; font-size: 0.85rem; margin-bottom: 5px; color: #aaa; }
+        
+        input, select, textarea {
+            width: 100%;
+            background: #2c2c35;
+            border: 1px solid #444;
+            color: white;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-family: inherit;
+        }
+
+        input:focus { border-color: var(--accent); outline: none; }
+
+        .section-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid #444;
+            padding-bottom: 5px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        /* DROITE : PREVIEW */
+        .preview-panel {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: radial-gradient(#333 1px, transparent 1px);
+            background-size: 20px 20px;
+            position: relative;
+        }
+
+        .phone-mockup {
+            width: 375px;
+            height: 750px;
+            background: white;
+            border-radius: 40px;
+            border: 10px solid #000;
+            overflow: hidden; /* Important pour contenir le template */
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        /* Iframe pour charger le template sans recharger la page */
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .btn-submit {
+            background-color: #25D366; /* Couleur WhatsApp */
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+        .btn-submit:hover { background-color: #1ebc57; }
+
+    </style>
+</head>
+<body>
+
+    <div class="editor-panel">
+        <div>
+            <h2><i class="fas fa-sliders-h"></i> Configuration</h2>
+            <p style="font-size: 0.8rem; color:#888;">Personnalisez votre template en direct.</p>
+        </div>
+
+        <form id="configForm">
+            
+            <div class="section-title">1. Identité</div>
+            <label>Nom du Projet / Client</label>
+            <input type="text" id="inputName" placeholder="Ex: Miam & Co" oninput="updatePreview()">
+
+            <label>Slogan / Sous-titre</label>
+            <input type="text" id="inputTagline" placeholder="Ex: Le meilleur snack..." oninput="updatePreview()">
+
+            <div class="section-title">2. Apparence</div>
+            <label>Couleur Principale (Accent)</label>
+            <input type="color" id="inputColor" value="#ff0000" oninput="updatePreview()">
+
+            <div class="section-title">3. Liens & Contact</div>
+            <label>Lien Instagram</label>
+            <input type="text" id="inputInsta" placeholder="https://instagram.com/..." oninput="updatePreview()">
+            
+            <label>Lien WhatsApp (Numéro)</label>
+            <input type="text" id="inputWhatsapp" placeholder="Ex: 213555..." oninput="updatePreview()">
+
+            <div style="background: #2c2c35; padding: 10px; border-radius: 5px; font-size: 0.75rem; color: #ccc; margin-top:10px;">
+                <i class="fas fa-info-circle"></i> Pour les photos (Logo, Produits), vous les enverrez directement via WhatsApp après la commande.
+            </div>
+
+            <button type="button" class="btn-submit" onclick="sendOrder()">
+                <i class="fab fa-whatsapp"></i> Commander mon Site
+            </button>
+        </form>
+    </div>
+
+    <div class="preview-panel">
+        <div class="phone-mockup">
+            <iframe id="previewFrame" src=""></iframe>
+        </div>
+    </div>
+
+    <script>
+        // 1. Récupérer quel template a été choisi (via l'URL ?t=1)
+        const urlParams = new URLSearchParams(window.location.search);
+        const templateId = urlParams.get('t') || '1'; // Par défaut template 1
+        
+        // Charger le bon fichier dans l'iframe
+        const iframe = document.getElementById('previewFrame');
+        iframe.src = `template${templateId}/index.html`;
+
+        // Fonction pour envoyer les changements à l'iframe (Simulation simple)
+        // Note: Pour une vraie modif en temps réel, il faudrait que les templates écoutent les messages.
+        // Pour l'instant, on se contente de l'interface visuelle.
+        
+        function updatePreview() {
+            // Dans une version avancée, on injecterait le CSS/JS dans l'iframe ici.
+            // Pour l'instant, on laisse l'utilisateur voir le template de base
+            // et on récupère juste les infos pour la commande.
+        }
+
+        function sendOrder() {
+            const name = document.getElementById('inputName').value;
+            const slogan = document.getElementById('inputTagline').value;
+            const color = document.getElementById('inputColor').value;
+            const insta = document.getElementById('inputInsta').value;
+            
+            if(!name) { alert("Merci de mettre au moins un nom !"); return; }
+
+            // Création du message de commande
+            const message = `
+👋 Salut Madil ! Je veux commander mon site.
+📦 *Template choisi :* N°${templateId}
+---
+👤 *Nom :* ${name}
+🏷️ *Slogan :* ${slogan}
+🎨 *Couleur préférée :* ${color}
+📸 *Insta :* ${insta}
+---
+Je t'envoie mon Logo et mes photos juste après ce message !
+            `;
+
+            // Encodage pour l'URL WhatsApp
+            const encodedMsg = encodeURIComponent(message);
+            // Remplace le numéro ci-dessous par ton VRAI numéro WhatsApp (format international sans +)
+            // Ex pour l'Algérie : 213xxxxxxxxx
+            const myNumber = "21355000000"; 
+            
+            window.open(`https://wa.me/${myNumber}?text=${encodedMsg}`, '_blank');
+        }
+    </script>
+</body>
+</html>
