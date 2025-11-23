@@ -4,53 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Madilium - Template Premium</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Lato:wght@300;400&family=Outfit:wght@300;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         /* =========================================
-           ZONES DE CONFIGURATION (A MODIFIER ICI)
+           VARIABLES STANDARDISÉES (Compatible Configurateur)
            ========================================= */
         :root {
-            /* COULEURS */
-            --bg-color: #F9F8F6;            /* Fond très clair (coquille d'œuf) */
-            --text-primary: #2C2C2C;        /* Couleur du texte principal (Gris anthracite) */
-            --text-secondary: #8A8A8A;      /* Sous-titres */
-            --accent-color: #C5A059;        /* Couleur Dorée/Gold pour les détails */
-            --btn-bg: #FFFFFF;              /* Fond des boutons */
-            --btn-border: #E0E0E0;          /* Bordure subtile des boutons */
+            /* Couleurs */
+            --bg-color: #F9F8F6;            /* Fond (Coquille d'œuf) */
+            --text-primary: #2C2C2C;        /* Texte principal */
+            --accent-color: #C5A059;        /* Accent (Or) */
+            --text-secondary: #8A8A8A;      /* Texte secondaire */
+            --btn-bg: #FFFFFF;              /* Fond bouton */
             
-            /* FORMES */
-            --btn-radius: 2px;              /* 0px = carré, 2px = léger, 50px = rond */
-            --photo-radius: 50%;            /* 50% = rond, 0% = carré */
+            /* Style & Forme */
+            --btn-radius: 2px;              /* Arrondi (contrôlé par le menu) */
+            --photo-radius: 50%;            /* Forme photo */
+            
+            /* Typographie (contrôlée par le menu) */
+            --font-stack: 'Playfair Display', serif; /* Par défaut : Style Luxe */
+            
+            /* Comportement */
+            --display-tagline: block;       /* Afficher/Masquer slogan */
+            --anim-name: fadeUp;            /* Animation par défaut */
         }
 
         /* RESET & BASE */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body {
-            font-family: 'Lato', sans-serif;
+            font-family: var(--font-stack); /* Utilise la police choisie */
             background-color: var(--bg-color);
             color: var(--text-primary);
             display: flex;
             justify-content: center;
             min-height: 100vh;
             padding: 20px;
+            transition: background 0.3s, color 0.3s; /* Transition douce pour les couleurs */
         }
 
         .container {
             width: 100%;
-            max-width: 480px; /* Format mobile type Linktree */
+            max-width: 480px;
             text-align: center;
             padding-top: 40px;
         }
 
-        /* HEADER - PHOTO & NOM */
+        /* HEADER */
         .profile-section {
             margin-bottom: 40px;
-            animation: elegantFade 1.5s ease-out;
+            animation: fadeIn 1.5s ease-out;
         }
 
         .profile-img {
@@ -59,23 +68,27 @@
             object-fit: cover;
             border-radius: var(--photo-radius);
             border: 1px solid var(--accent-color);
-            padding: 5px; /* Espace entre la photo et la bordure dorée */
+            padding: 5px;
             margin-bottom: 15px;
         }
 
         h1 {
-            font-family: 'Playfair Display', serif;
+            /* On force la police variable ici aussi */
+            font-family: var(--font-stack);
             font-size: 1.8rem;
             font-weight: 600;
             letter-spacing: 1px;
             margin-bottom: 5px;
+            color: var(--text-primary);
         }
 
         p.tagline {
-            font-family: 'Playfair Display', serif;
+            font-family: var(--font-stack);
             font-style: italic;
             color: var(--text-secondary);
             font-size: 1rem;
+            /* Connecté au switch "Afficher sous-titre" */
+            display: var(--display-tagline); 
         }
 
         /* RESEAUX SOCIAUX */
@@ -84,7 +97,7 @@
             justify-content: center;
             gap: 20px;
             margin-bottom: 35px;
-            animation: elegantFade 1.8s ease-out;
+            animation: fadeIn 1.8s ease-out;
         }
 
         .social-icons a {
@@ -109,31 +122,35 @@
             color: var(--text-primary);
             text-decoration: none;
             padding: 18px 20px;
-            border: 1px solid var(--btn-border);
+            border: 1px solid #E0E0E0;
+            
+            /* Connecté au selecteur "Bordures" */
             border-radius: var(--btn-radius);
+            
+            font-family: var(--font-stack);
             font-size: 0.95rem;
             letter-spacing: 1px;
             text-transform: uppercase;
-            transition: all 0.4s ease;
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
             
-            /* Animation d'apparition en cascade */
+            /* Animation dynamique choisie dans le menu */
             opacity: 0;
-            animation: slideUp 0.8s forwards;
+            animation: var(--anim-name) 0.8s forwards;
         }
 
-        /* Délais pour l'effet cascade */
-        .link-btn:nth-child(1) { animation-delay: 0.2s; }
-        .link-btn:nth-child(2) { animation-delay: 0.4s; }
-        .link-btn:nth-child(3) { animation-delay: 0.6s; }
-        .link-btn:nth-child(4) { animation-delay: 0.8s; }
+        .link-btn:nth-child(1) { animation-delay: 0.1s; }
+        .link-btn:nth-child(2) { animation-delay: 0.2s; }
+        .link-btn:nth-child(3) { animation-delay: 0.3s; }
+        .link-btn:nth-child(4) { animation-delay: 0.4s; }
 
         .link-btn:hover {
             border-color: var(--accent-color);
-            background-color: #fffcf5; /* Très léger teinté or au survol */
+            background-color: #fffcf5;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            color: var(--accent-color);
         }
 
         /* FOOTER */
@@ -146,16 +163,35 @@
             opacity: 0.6;
         }
 
-        /* ANIMATIONS KEYFRAMES */
-        @keyframes elegantFade {
+        /* =========================================
+           DÉFINITION DES ANIMATIONS (Keyframes)
+           ========================================= */
+        
+        /* 1. Glissement vers le haut (fadeUp) */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 2. Apparition simple (fadeIn) */
+        @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* 3. Rebond (bounceIn) */
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.3); }
+            50% { opacity: 1; transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); }
         }
+
+        /* 4. Aucune (none) */
+        @keyframes none {
+            to { opacity: 1; }
+        }
+
     </style>
 </head>
 <body>
@@ -166,11 +202,12 @@
             <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="Photo Client" class="profile-img">
             
             <h1 id="client-name">MAISON ÉLÉGANCE</h1>
+            
             <p class="tagline" id="client-tagline">Beauté • Soins • Bien-être</p>
         </div>
 
         <div class="social-icons">
-            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#" id="link-insta"><i class="fab fa-instagram"></i></a>
             <a href="#"><i class="fab fa-tiktok"></i></a>
             <a href="#"><i class="fab fa-whatsapp"></i></a>
             <a href="#"><i class="far fa-envelope"></i></a>
@@ -190,16 +227,32 @@
     </div>
 
     <script>
-        // Petit script pour ajouter une classe si on clique (feedback visuel subtil)
-        const buttons = document.querySelectorAll('.link-btn');
-        buttons.forEach(btn => {
-            btn.addEventListener('click', function() {
-                this.style.transform = 'scale(0.98)';
-                setTimeout(() => {
-                    this.style.transform = 'translateY(-2px)';
-                }, 150);
+        const params = new URLSearchParams(window.location.search);
+        
+        // On active le script seulement si ?edit=true est dans l'URL
+        if (params.get('edit') === 'true') {
+            
+            // 1. Désactiver les clics sur les liens (pour ne pas quitter la page en modifiant)
+            document.querySelectorAll('a').forEach(el => el.style.pointerEvents = 'none');
+
+            // 2. Écouter les messages du Configurateur
+            window.addEventListener('message', (event) => {
+                const data = event.data;
+                
+                // Cas A : Changer une variable CSS (Couleur, Police, Radius...)
+                if (data.type === 'cssVar') {
+                    document.documentElement.style.setProperty(data.key, data.value);
+                }
+                
+                // Cas B : Changer du texte (Nom, Slogan...)
+                if (data.type === 'textContent') {
+                    const el = document.getElementById(data.key);
+                    if (el) el.textContent = data.value;
+                }
             });
-        });
+            
+            console.log("Mode Édition Activé : Template 1 prêt.");
+        }
     </script>
 </body>
 </html>
