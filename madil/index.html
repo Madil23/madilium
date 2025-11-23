@@ -3,126 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Madil | L'Homme, La Légende</title>
+    <title>Madil | Risque d'Addiction Élevé</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-color: #F9F9F9; /* Blanc cassé très léger */
-            --text-primary: #111111;
-            --text-secondary: #666666;
-            --accent: #000000;
+            --bg-color: #050505; /* Fond presque noir pour le côté sombre */
+            --card-bg: #121212;
+            --text-primary: #e0e0e0;
+            --text-secondary: #888;
+            --accent: #FFFFFF; /* Blanc pur pour le contraste chic */
+            --danger: #ff3333;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Lato', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-primary);
-            line-height: 1.8;
+            line-height: 1.7;
             padding: 40px 20px;
         }
 
         .container {
-            max-width: 700px;
+            max-width: 650px;
             margin: 0 auto;
-            background: white;
+            background: var(--card-bg);
             padding: 50px 30px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
-            border-radius: 8px; /* Angles peu arrondis pour faire sérieux */
+            border: 1px solid #222;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
         }
 
         /* --- HEADER --- */
         header { text-align: center; margin-bottom: 50px; }
 
         .profile-pic {
-            width: 150px; height: 150px;
-            background-color: #ddd;
-            border-radius: 50%;
+            width: 160px; height: 160px;
             margin: 0 auto 20px;
+            border-radius: 50%;
             overflow: hidden;
-            border: 3px solid var(--accent);
+            border: 2px solid var(--accent);
+            position: relative;
         }
-        .profile-pic img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: 0.5s; }
-        .profile-pic:hover img { filter: grayscale(0%); }
+        .profile-pic img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) contrast(1.2); }
+        
+        /* Petit badge "Warning" */
+        .profile-pic::after {
+            content: '🔞';
+            position: absolute; bottom: 10px; right: 10px;
+            background: black; border-radius: 50%; padding: 5px; font-size: 1.2rem;
+        }
 
         h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            font-size: 3rem;
+            letter-spacing: -1px;
+            margin-bottom: 5px;
         }
 
         .tagline {
-            font-style: italic;
             color: var(--text-secondary);
-            font-size: 1.1rem;
-            position: relative;
-            display: inline-block;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
         }
-        .tagline::after {
-            content: ''; display: block; width: 40px; height: 2px; background: var(--accent); margin: 15px auto 0;
+
+        .intro-text {
+            margin-top: 20px;
+            font-style: italic;
+            color: #bbb;
+            font-family: 'Playfair Display', serif;
+            border-left: 3px solid var(--accent);
+            padding-left: 15px;
+            text-align: left;
+            margin-left: 20px;
+            margin-right: 20px;
         }
 
         /* --- SECTION CV --- */
-        .cv-section { margin-bottom: 40px; }
-        
-        h2 {
+        .section-title {
             font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            border-bottom: 1px solid #eee;
+            font-size: 1.4rem;
+            border-bottom: 1px solid #333;
             padding-bottom: 10px;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 1rem;
-        }
-
-        .job-item { margin-bottom: 20px; display: flex; justify-content: space-between; align-items: baseline; }
-        .job-title { font-weight: 700; font-size: 1.1rem; }
-        .job-date { font-size: 0.9rem; color: var(--text-secondary); font-style: italic; }
-        .job-desc { font-size: 0.95rem; color: var(--text-secondary); margin-top: 5px; }
-
-        /* Barres de compétences drôles */
-        .skill-item { margin-bottom: 15px; }
-        .skill-label { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 0.9rem; }
-        .progress-bg { height: 6px; background: #eee; width: 100%; }
-        .progress-fill { height: 100%; background: var(--accent); }
-
-        /* --- LIENS / BOUTONS --- */
-        .links-grid {
-            display: grid;
-            gap: 15px;
+            margin-bottom: 25px;
             margin-top: 40px;
-        }
-
-        .btn-minimal {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 20px 25px;
-            border: 1px solid var(--accent);
-            background: transparent;
             color: var(--accent);
-            text-decoration: none;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
         }
 
-        .btn-minimal:hover {
-            background: var(--accent);
+        .job-item { margin-bottom: 25px; }
+        .job-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+        .job-title { font-weight: 700; font-size: 1.1rem; color: white; }
+        .job-date { font-size: 0.8rem; color: #555; text-transform: uppercase; }
+        .job-desc { font-size: 0.9rem; color: #999; }
+
+        /* --- COMPETENCES (BARRES) --- */
+        .skill-item { margin-bottom: 18px; }
+        .skill-label { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 0.85rem; font-weight: 600; color: #ccc;}
+        .progress-bg { height: 4px; background: #333; width: 100%; }
+        .progress-fill { height: 100%; background: var(--accent); position: relative; }
+        
+        /* Petite lueur au bout de la barre */
+        .progress-fill::after {
+            content: ''; position: absolute; right: 0; top: -3px; height: 10px; width: 2px; background: white; box-shadow: 0 0 10px white;
+        }
+
+        /* --- LIENS --- */
+        .btn-link {
+            display: block;
+            background: transparent;
+            border: 1px solid #333;
             color: white;
-            padding-left: 35px; /* Petit effet de mouvement */
+            padding: 18px;
+            text-decoration: none;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            text-transform: uppercase;
+            font-size: 0.9rem;
         }
 
-        .icon { font-size: 1.2rem; }
+        .btn-link:hover {
+            border-color: white;
+            background: white;
+            color: black;
+        }
+        
+        .sub-text { display: block; font-size: 0.7rem; color: #666; margin-top: 3px; font-weight: 400; text-transform: none; font-style: italic;}
 
         footer {
-            text-align: center; margin-top: 50px; font-size: 0.8rem; color: #999;
-            font-family: 'Playfair Display', serif; font-style: italic;
+            text-align: center; margin-top: 60px; font-size: 0.7rem; color: #444;
         }
     </style>
 </head>
@@ -135,69 +152,85 @@
                 <img src="moi.jpg" alt="Madil">
             </div>
             <h1>Madil</h1>
-            <p class="tagline">CEO de Madilium & Expert en Problèmes Complexes (que je crée moi-même).</p>
+            <p class="tagline">CEO Madilium • Danger Public</p>
+
+            <div class="intro-text">
+                "Je suis la raison pour laquelle ta mère te dit de te méfier des inconnus sur Internet. Si l'arrogance était une crypto-monnaie, j'aurais déjà racheté Elon Musk."
+            </div>
         </header>
 
-        <div class="cv-section">
-            <h2>Parcours Professionnel (Indiscutable)</h2>
+        <div>
+            <h2 class="section-title">Ce que je fais (quand j'ai envie)</h2>
             
-            <div class="job-item-container">
-                <div class="job-item">
+            <div class="job-item">
+                <div class="job-header">
                     <span class="job-title">Fondateur Madilium</span>
-                    <span class="job-date">2020 - Présent</span>
+                    <span class="job-date">Depuis toujours</span>
                 </div>
-                <p class="job-desc">Gestion de projets digitaux et consommation excessive de caféine. Capacité prouvée à dire "Je te fais ça pour demain" et à le regretter immédiatement.</p>
+                <p class="job-desc">Je donne des ordres à des ordinateurs et parfois à des humains. Si ça marche, c'est grâce à moi. Si ça plante, c'est la faute du stagiaire (que je n'ai pas).</p>
             </div>
-            
-            <div style="margin-top:20px;">
-                <div class="job-item">
+
+            <div class="job-item">
+                <div class="job-header">
                     <span class="job-title">Philosophe de Comptoir</span>
-                    <span class="job-date">Toujours</span>
+                    <span class="job-date">Nuit & Jour</span>
                 </div>
-                <p class="job-desc">Spécialiste des débats sans fin à 2h du matin. Auteur de la thèse "Pourquoi faire simple quand on peut faire compliqué ?".</p>
+                <p class="job-desc">Capable d'expliquer pourquoi ta vie est un échec avec des mots que tu ne comprends pas, tout en ayant l'air incroyablement sexy en le faisant.</p>
+            </div>
+
+            <div class="job-item">
+                <div class="job-header">
+                    <span class="job-title">Trafiquant de Charisme</span>
+                    <span class="job-date">International</span>
+                </div>
+                <p class="job-desc">Je rentre dans une pièce, la température monte de 4 degrés. C'est pas du réchauffement climatique, c'est juste moi.</p>
             </div>
         </div>
 
-        <div class="cv-section">
-            <h2>Compétences Clés</h2>
+        <div>
+            <h2 class="section-title">Pourquoi je suis meilleur que toi</h2>
             
             <div class="skill-item">
-                <div class="skill-label"><span>Patience</span> <span>12%</span></div>
-                <div class="progress-bg"><div class="progress-fill" style="width: 12%;"></div></div>
-            </div>
-
-            <div class="skill-item">
-                <div class="skill-label"><span>Humour (qualité variable)</span> <span>88%</span></div>
-                <div class="progress-bg"><div class="progress-fill" style="width: 88%;"></div></div>
-            </div>
-
-            <div class="skill-item">
-                <div class="skill-label"><span>Talent pour ignorer le réveil</span> <span>100%</span></div>
+                <div class="skill-label"><span>Sex Appeal (Illégal dans 3 pays)</span> <span>100%</span></div>
                 <div class="progress-bg"><div class="progress-fill" style="width: 100%;"></div></div>
             </div>
+
+            <div class="skill-item">
+                <div class="skill-label"><span>Humour Noir (Âmes sensibles s'abstenir)</span> <span>95%</span></div>
+                <div class="progress-bg"><div class="progress-fill" style="width: 95%;"></div></div>
+            </div>
+
+            <div class="skill-item">
+                <div class="skill-label"><span>Toxicité (Mais tu aimes ça)</span> <span>80%</span></div>
+                <div class="progress-bg"><div class="progress-fill" style="width: 80%;"></div></div>
+            </div>
+
+            <div class="skill-item">
+                <div class="skill-label"><span>Modestie</span> <span>Erreur 404</span></div>
+                <div class="progress-bg"><div class="progress-fill" style="width: 1%;"></div></div>
+            </div>
         </div>
 
-        <div class="links-grid">
-            <a href="https://instagram.com/madilesque" class="btn-minimal" target="_blank">
-                <span>Instagram</span> <span class="icon">↗</span>
+        <div style="margin-top: 40px;">
+            <a href="https://instagram.com/madilesque" class="btn-link" target="_blank">
+                Instagram
+                <span class="sub-text">Viens voir ma vie (elle est mieux que la tienne)</span>
             </a>
             
-            <a href="https://snapchat.com/add/madildadi" class="btn-minimal" target="_blank">
-                <span>Snapchat</span> <span class="icon">👻</span>
+            <a href="https://snapchat.com/add/madildadi" class="btn-link" target="_blank">
+                Snapchat
+                <span class="sub-text">Pour des nudes... de mon cerveau</span>
             </a>
 
-            <a href="tel:+213549514133" class="btn-minimal">
-                <span>Appelle-moi (Si c'est urgent)</span> <span class="icon">📞</span>
-            </a>
-            
-            <a href="mailto:madil.cheradi@gmail.com" class="btn-minimal">
-                <span>M'envoyer des millions</span> <span class="icon">✉️</span>
+            <a href="tel:+213549514133" class="btn-link">
+                M'appeler
+                <span class="sub-text">Prépare tes meilleurs arguments</span>
             </a>
         </div>
 
         <footer>
-            <p>"Je ne suis pas paresseux, je suis en mode économie d'énergie."</p>
-            <p>&copy; 2025 Madil. Tous droits réservés (sauf si vous payez).</p>
+            <p>Attention : L'abus de Madil est dangereux pour ta stabilité émotionnelle.<br>
+            © 2025 Madilium Inc. Tous droits réservés.</p>
         </footer>
 
     </div>
