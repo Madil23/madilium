@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madilium - Template Business</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* RESET */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            /* PALETTE BUSINESS */
+            --primary-color: #0f172a;       /* Bleu Nuit (Cadre, Titres) */
+            --accent-color: #2563eb;        /* Bleu Royal (Boutons, Liens) */
+            --bg-color: #f1f5f9;            /* Gris très clair (Fond page) */
+            --card-bg: #ffffff;             /* Blanc (Fond cartes) */
+            --text-gray: #64748b;           /* Gris pour le texte secondaire */
+            
+            --radius: 8px;                  /* Arrondi léger et sérieux */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--primary-color);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background-color: var(--bg-color);
+            min-height: 100vh;
+            position: relative;
+            padding-bottom: 40px;
+        }
+
+        /* HEADER AVEC COUVERTURE */
+        .header-cover {
+            height: 160px;
+            width: 100%;
+            /* Image de fond de couverture (Ville, Bureau, Abstrait) */
+            background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .header-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(15, 23, 42, 0.3));
+        }
+
+        /* PROFIL (Superposé) */
+        .profile-section {
+            text-align: center;
+            margin-top: -60px; /* Fait remonter la photo sur la couverture */
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .profile-img {
+            width: 120px; height: 120px;
+            border-radius: 50%;
+            border: 4px solid var(--bg-color);
+            object-fit: cover;
+            background-color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Badge de vérification (Check bleu) */
+        .verified-badge {
+            color: var(--accent-color);
+            font-size: 1rem;
+            margin-left: 5px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        p.job-title {
+            color: var(--accent-color);
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        p.bio {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* BOUTON PRINCIPAL (VCARD) */
+        .main-action-btn {
+            display: block;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            padding: 15px;
+            border-radius: var(--radius);
+            font-weight: 600;
+            margin: 0 20px 30px 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.2);
+            transition: transform 0.2s;
+        }
+
+        .main-action-btn:hover {
+            transform: translateY(-2px);
+            background-color: #1e293b; /* Un peu plus clair */
+        }
+
+        /* LISTE DES LIENS (CARTES) */
+        .links-list {
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .link-card {
+            background-color: var(--card-bg);
+            padding: 16px 20px;
+            border-radius: var(--radius);
+            text-decoration: none;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            border: 1px solid #e2e8f0; /* Bordure grise très fine */
+            transition: all 0.2s;
+        }
+
+        /* Icône dans un carré coloré */
+        .icon-box {
+            width: 40px; height: 40px;
+            background-color: #eff6ff; /* Bleu très pâle */
+            color: var(--accent-color);
+            border-radius: var(--radius);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem;
+            margin-right: 15px;
+        }
+
+        .link-text {
+            flex-grow: 1;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .link-arrow {
+            color: #cbd5e1;
+            transition: 0.2s;
+        }
+
+        .link-card:hover {
+            border-color: var(--accent-color);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+        }
+
+        .link-card:hover .link-arrow {
+            color: var(--accent-color);
+            transform: translateX(3px);
+        }
+
+        /* FOOTER AVEC ICONES SOCIAUX */
+        .footer-socials {
+            margin-top: 40px;
+            text-align: center;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 20px;
+            margin-left: 20px; margin-right: 20px;
+        }
+
+        .social-link {
+            display: inline-block;
+            color: var(--text-gray);
+            font-size: 1.2rem;
+            margin: 0 10px;
+            transition: 0.3s;
+        }
+
+        .social-link:hover { color: var(--primary-color); }
+
+        .copyright {
+            display: block;
+            margin-top: 15px;
+            font-size: 0.75rem;
+            color: #94a3b8;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div class="header-cover">
+            <div class="header-overlay"></div>
+        </div>
+
+        <div class="profile-section">
+            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=200&q=80" alt="Pro" class="profile-img">
+            
+            <h1>
+                Jean Dupont 
+                <i class="fas fa-check-circle verified-badge"></i>
+            </h1>
+            <p class="job-title">Consultant Immobilier Senior</p>
+            <p class="bio">J'accompagne les particuliers et les entreprises dans leurs projets d'investissement à Paris et sa région.</p>
+        </div>
+
+        <a href="#" class="main-action-btn">
+            <i class="far fa-address-card" style="margin-right: 8px;"></i>
+            Enregistrer mes coordonnées
+        </a>
+
+        <div class="links-list">
+            
+            <a href="#" class="link-card">
+                <div class="icon-box"><i class="fas fa-home"></i></div>
+                <span class="link-text">Voir nos biens à vendre</span>
+                <i class="fas fa-chevron-right link-arrow"></i>
+            </a>
+
+            <a href="#" class="link-card">
+                <div class="icon-box"><i class="fas fa-file-contract"></i></div>
+                <span class="link-text">Estimer votre bien</span>
+                <i class="fas fa-chevron-right link-arrow"></i>
+            </a>
+
+            <a href="#" class="link-card">
+                <div class="icon-box"><i class="fas fa-calendar-alt"></i></div>
+                <span class="link-text">Prendre Rendez-vous</span>
+                <i class="fas fa-chevron-right link-arrow"></i>
+            </a>
+
+            <a href="#" class="link-card">
+                <div class="icon-box"><i class="fab fa-whatsapp"></i></div>
+                <span class="link-text">Me contacter sur WhatsApp</span>
+                <i class="fas fa-chevron-right link-arrow"></i>
+            </a>
+
+        </div>
+
+        <div class="footer-socials">
+            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+            
+            <span class="copyright">© 2025 Agence Dupont. Powered by Madilium.</span>
+        </div>
+
+    </div>
+
+</body>
+</html>
