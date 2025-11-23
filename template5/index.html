@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madilium - Template Nature</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* RESET */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            /* PALETTE NATURE */
+            --bg-gradient-start: #fdfbf7;   /* Crème très clair */
+            --bg-gradient-end: #e8f3e8;     /* Vert très pâle */
+            
+            --primary-color: #4a6741;       /* Vert Sauge (Texte & Bordures) */
+            --accent-color: #d4a373;        /* Beige/Terre (Détails) */
+            --btn-bg: #ffffff;              /* Fond boutons */
+            
+            /* RONDEURS */
+            --radius-btn: 50px;             /* Boutons pillule */
+            --radius-card: 20px;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(to bottom, var(--bg-gradient-start), var(--bg-gradient-end));
+            color: var(--primary-color);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* DÉCORATION D'ARRIÈRE-PLAN (FEUILLES) */
+        .bg-leaf {
+            position: fixed;
+            color: var(--primary-color);
+            opacity: 0.05; /* Très transparent */
+            z-index: -1;
+            animation: sway 6s ease-in-out infinite alternate;
+        }
+
+        .leaf-1 { top: 5%; left: -20px; font-size: 150px; transform: rotate(45deg); }
+        .leaf-2 { bottom: 10%; right: -30px; font-size: 200px; transform: rotate(-20deg); animation-duration: 8s; }
+
+        @keyframes sway {
+            0% { transform: rotate(var(--rot)) translate(0, 0); }
+            100% { transform: rotate(var(--rot)) translate(10px, 15px); }
+        }
+
+        /* CONTENEUR */
+        .container {
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            padding-top: 30px;
+        }
+
+        /* PROFIL */
+        .profile-wrapper {
+            margin-bottom: 30px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .profile-img {
+            width: 140px; height: 140px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid #fff;
+            box-shadow: 0 10px 25px rgba(74, 103, 65, 0.15); /* Ombre verte douce */
+        }
+
+        /* Petite icône feuille collée à la photo */
+        .eco-badge {
+            position: absolute;
+            bottom: 10px; right: 0px;
+            background-color: var(--primary-color);
+            color: white;
+            width: 35px; height: 35px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            border: 3px solid #fff;
+            font-size: 0.9rem;
+        }
+
+        h1 {
+            font-family: 'Lora', serif;
+            font-weight: 600;
+            font-size: 1.8rem;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            color: #2c3e26; /* Vert plus foncé pour le titre */
+        }
+
+        .bio-text {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-bottom: 25px;
+            line-height: 1.5;
+            font-style: italic;
+            font-family: 'Lora', serif;
+        }
+
+        /* RÉSEAUX SOCIAUX (Minimalistes) */
+        .social-icons {
+            margin-bottom: 35px;
+        }
+        .social-icons a {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            margin: 0 10px;
+            transition: 0.3s;
+            opacity: 0.7;
+        }
+        .social-icons a:hover {
+            opacity: 1;
+            transform: translateY(-3px);
+            color: var(--accent-color);
+        }
+
+        /* LISTE DES LIENS */
+        .links-list {
+            display: flex; flex-direction: column; gap: 15px;
+        }
+
+        .nature-btn {
+            background-color: var(--btn-bg);
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 18px 25px;
+            border-radius: var(--radius-btn);
+            font-weight: 600;
+            border: 1px solid rgba(74, 103, 65, 0.2); /* Bordure très fine */
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Effet au survol : remplissage vert progressif */
+        .nature-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(74, 103, 65, 0.2);
+            border-color: var(--primary-color);
+        }
+
+        /* Label "Nouveau" ou "Bio" à côté du texte */
+        .btn-tag {
+            font-size: 0.7rem;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-left: 10px;
+            vertical-align: middle;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        footer {
+            margin-top: 60px;
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+        
+        footer i { margin: 0 5px; color: var(--accent-color); }
+
+    </style>
+</head>
+<body>
+
+    <i class="fas fa-leaf bg-leaf leaf-1" style="--rot: 45deg;"></i>
+    <i class="fas fa-seedling bg-leaf leaf-2" style="--rot: -20deg;"></i>
+
+    <div class="container">
+        
+        <div class="profile-wrapper">
+            <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=200&q=80" alt="Nature" class="profile-img">
+            <div class="eco-badge"><i class="fas fa-leaf"></i></div>
+        </div>
+
+        <h1>TERRE & SENS</h1>
+        <p class="bio-text">"Reconnectez-vous à l'essentiel grâce à nos produits 100% naturels et artisanaux."</p>
+
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-pinterest"></i></a> <a href="#"><i class="far fa-envelope"></i></a>
+        </div>
+
+        <div class="links-list">
+            
+            <a href="#" class="nature-btn">
+                La Boutique en Ligne
+            </a>
+
+            <a href="#" class="nature-btn">
+                Nos Ateliers Poterie <span class="btn-tag">New</span>
+            </a>
+
+            <a href="#" class="nature-btn">
+                Blog : Vivre Mieux
+            </a>
+            
+            <a href="#" class="nature-btn" style="border: 2px solid var(--accent-color);">
+                Prendre Rendez-vous
+            </a>
+
+        </div>
+
+        <footer>
+            Fait avec <i class="fas fa-heart"></i> par Madilium
+        </footer>
+
+    </div>
+
+</body>
+</html>
