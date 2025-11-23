@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madilium - Template Pop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* =========================================
+           ZONES DE CONFIGURATION
+           ========================================= */
+        :root {
+            /* PALETTE POP */
+            --bg-color: #FFD93D;        /* Jaune Vif (Fond principal) */
+            --card-bg: #FFFFFF;         /* Fond des boutons (Blanc) */
+            --dark-color: #000000;      /* Noir pur pour les contours */
+            --accent-color: #FF6B6B;    /* Rouge/Corail pour les détails */
+            
+            /* STYLE GRAPHIQUE */
+            --border-width: 3px;        /* Épaisseur des traits noirs */
+            --shadow-offset: 6px;       /* Décalage de l'ombre noire */
+            --radius: 12px;             /* Coins un peu arrondis */
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Fredoka', sans-serif;
+            background-color: var(--bg-color);
+            /* Motif à pois en arrière-plan (CSS pur) */
+            background-image: radial-gradient(var(--dark-color) 1px, transparent 1px);
+            background-size: 20px 20px;
+            
+            color: var(--dark-color);
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            padding-top: 20px;
+        }
+
+        /* HEADER */
+        .profile-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+
+        .profile-img {
+            width: 130px;
+            height: 130px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: var(--border-width) solid var(--dark-color);
+            background: white;
+            position: relative;
+            z-index: 2;
+            /* Petite animation de flottement */
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Le rond de couleur derrière la photo */
+        .profile-bg-circle {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 130px;
+            height: 130px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            border: var(--border-width) solid var(--dark-color);
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 5px;
+            text
