@@ -3,317 +3,349 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaizen Tizi - Gaming Zone & Lounge 🎮</title>
+    <title>Kaizen Tizi - Pop Gaming 🎲</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Carter+One&family=Fredoka+One&family=Nunito:wght@700;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --neon-pink: #ff00ea;
-            --neon-blue: #00dbff;
-            --kaizen-dark: #2a2a5a; /* Couleur sombre des flyers */
-            --text-white: #ffffff;
+            --pop-yellow: #FFE600;
+            --pop-pink: #FF5DCD;
+            --pop-blue: #00C2FF;
+            --pop-white: #FFFDF5;
+            --ink-black: #121212;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Orbitron', sans-serif;
-            background-color: #0a001a;
-            /* Fond dégradé inspiré des flyers */
-            background-image: linear-gradient(135deg, #4a00e0 0%, #8e2de2 50%, #f000c0 100%);
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--pop-blue);
+            /* Motif à pois (Polka Dot) */
+            background-image: radial-gradient(var(--pop-white) 15%, transparent 16%),
+                              radial-gradient(var(--pop-white) 15%, transparent 16%);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
             min-height: 100vh;
-            color: var(--text-white);
+            color: var(--ink-black);
             overflow-x: hidden;
             position: relative;
-            padding-bottom: 50px;
+            padding-bottom: 60px;
         }
 
-        /* --- BACKGROUND CHAOTIQUE (IMAGES PNG) --- */
-        .chaos-bg-container {
-            position: fixed; top: -10%; left: -10%; width: 120%; height: 120%;
-            pointer-events: none; z-index: 0; overflow: hidden;
+        /* --- BACKGROUND DOODLES (Easter Eggs) --- */
+        .doodle-container {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; /* Par défaut on ne clique pas */
+            z-index: 0;
         }
 
-        /* Style des images flottantes */
-        .floater-img {
+        .sticker {
             position: absolute;
-            width: 120px; /* Taille moyenne des éléments */
-            height: auto;
-            opacity: 0.4;
-            filter: drop-shadow(0 0 15px var(--neon-blue));
+            font-size: 3.5rem;
+            cursor: pointer;
+            pointer-events: auto; /* On réactive le clic sur les stickers */
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            filter: drop-shadow(4px 4px 0px rgba(0,0,0,0.2));
+            user-select: none;
         }
 
-        /* Animations de mouvement (les mêmes que V2) */
-        @keyframes moveUp { to { transform: translateY(-120vh) rotate(360deg); opacity: 0;} }
-        @keyframes moveDown { to { transform: translateY(120vh) rotate(-360deg); opacity: 0;} }
-        @keyframes moveLeft { to { transform: translateX(-120vw) rotate(-360deg); opacity: 0;} }
-        @keyframes moveRight { to { transform: translateX(120vw) rotate(360deg); opacity: 0;} }
+        .sticker:hover { transform: scale(1.2) rotate(10deg); }
+        .sticker:active { transform: scale(0.9); }
 
-        /* Placement des éléments spécifiques */
-        /* Tu devras remplacer les src="" plus bas par tes vraies images PNG */
-        .f-ps5 { bottom: -10%; left: 10%; animation: moveUp 20s linear infinite; width: 150px; }
-        .f-ps4 { top: -10%; right: 20%; animation: moveDown 25s linear infinite; animation-delay: 2s; }
-        .f-ps3 { top: 30%; left: -10%; animation: moveRight 30s linear infinite; animation-delay: 5s; width: 100px; }
-        .f-ps2 { bottom: 20%; right: -10%; animation: moveLeft 28s linear infinite; animation-delay: 1s; width: 100px; }
-        .f-xbox { top: 10%; left: 5%; animation: moveDown 22s linear infinite; animation-delay: 3s; width: 180px; filter: drop-shadow(0 0 15px var(--neon-pink)); }
-        .f-volant { bottom: 5%; right: 30%; animation: moveUp 18s linear infinite; animation-delay: 7s; width: 160px; }
-        .f-pion1 { top: 50%; left: 50%; animation: moveRight 35s linear infinite; width: 60px; opacity: 0.6;}
-        .f-des { top: 20%; right: 10%; animation: moveLeft 40s linear infinite; width: 80px; opacity: 0.6;}
-
-
-        /* --- CONTENU PRINCIPAL --- */
-        .main-wrapper {
-            position: relative; z-index: 2; max-width: 600px; margin: 0 auto; padding: 40px 20px; text-align: center;
+        /* Animation flottante douce */
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
         }
 
-        /* Vrai Logo */
-        .logo-container img {
-            width: 200px; /* Ajuster selon la taille réelle de ton logo */
-            height: auto;
-            margin-bottom: 20px;
-            filter: drop-shadow(0 0 20px var(--neon-pink));
-            animation: pulseLogo 3s infinite ease-in-out;
+        .s1 { top: 10%; left: 10%; animation: gentleFloat 4s infinite ease-in-out; }
+        .s2 { top: 20%; right: 15%; animation: gentleFloat 5s infinite ease-in-out reverse; font-size: 4rem;}
+        .s3 { bottom: 15%; left: 5%; animation: gentleFloat 6s infinite ease-in-out; }
+        .s4 { bottom: 20%; right: 5%; animation: gentleFloat 4.5s infinite ease-in-out reverse; }
+        .s5 { top: 50%; left: -5%; animation: gentleFloat 7s infinite ease-in-out; opacity: 0.8; }
+        .s6 { top: 60%; right: -5%; animation: gentleFloat 8s infinite ease-in-out reverse; opacity: 0.8; }
+
+        /* --- CONTENEUR PRINCIPAL --- */
+        .paper-wrapper {
+            position: relative; z-index: 2;
+            max-width: 550px;
+            margin: 40px auto;
+            padding: 10px;
         }
-        @keyframes pulseLogo { 50% { filter: drop-shadow(0 0 40px var(--neon-pink)); transform: scale(1.05); }}
+
+        /* HEADER CARD */
+        .header-card {
+            background: var(--pop-white);
+            border: 4px solid var(--ink-black);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px; /* Bordure irrégulière style papier */
+            padding: 30px;
+            text-align: center;
+            box-shadow: 8px 8px 0px var(--ink-black);
+            margin-bottom: 40px;
+            transform: rotate(-2deg);
+            transition: transform 0.3s;
+        }
+        .header-card:hover { transform: rotate(0deg) scale(1.02); }
+
+        .logo-placeholder {
+            font-family: 'Carter One', cursive;
+            font-size: 3rem;
+            color: var(--pop-pink);
+            text-shadow: 3px 3px 0 var(--ink-black);
+            margin-bottom: 10px;
+            /* Si image: */
+            /* width: 150px; height: auto; */
+        }
 
         h1 {
-            font-family: 'Fredoka One', cursive; font-size: 2.5rem; margin-bottom: 30px;
-            text-shadow: 3px 3px 0 #000, 0 0 20px var(--neon-pink);
-        }
-
-        /* --- NOUVEAU STYLE BOUTON "KAIZEN FLYER" --- */
-        .btn-kaizen-style {
-            display: block;
-            width: 100%;
-            background: linear-gradient(to right, var(--kaizen-dark), #3b3b7a);
-            border: 3px solid white;
-            box-shadow: 0 0 15px var(--neon-pink), inset 0 0 10px rgba(255,255,255,0.2);
-            color: white;
-            text-transform: uppercase;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 900;
-            border-radius: 50px; /* Forme pilule */
-            padding: 15px 10px;
-            text-decoration: none;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.8rem;
+            color: var(--ink-black);
             margin-bottom: 15px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            font-size: 1.1rem;
+            text-transform: uppercase;
+        }
+
+        .tag-container { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        .tag {
+            background: var(--pop-yellow);
+            border: 2px solid var(--ink-black);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 900;
+            font-size: 0.9rem;
+            box-shadow: 3px 3px 0 rgba(0,0,0,0.2);
+        }
+
+        /* --- BOUTONS STYLE CARTOON --- */
+        .btn-paper {
+            display: flex; align-items: center; justify-content: center;
+            width: 100%;
+            padding: 18px;
+            margin-bottom: 15px;
+            text-decoration: none;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.2rem;
+            color: var(--ink-black);
+            background: white;
+            border: 3px solid var(--ink-black);
+            border-radius: 12px;
+            box-shadow: 5px 5px 0px var(--ink-black); /* Ombre dure */
+            transition: all 0.1s ease;
             position: relative;
-            overflow: hidden;
         }
 
-        .btn-kaizen-style:hover {
-            transform: scale(1.03);
-            box-shadow: 0 0 25px var(--neon-pink), 0 0 10px white;
+        .btn-paper:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 7px 7px 0px var(--ink-black);
+            background: var(--pop-white);
         }
-        
-        /* Style spécifique pour les boutons de liens principaux */
-        .btn-main-link {
-             margin-bottom: 20px;
-             font-size: 1.2rem;
-             padding: 18px 10px;
-             border-color: var(--neon-blue);
-             box-shadow: 0 0 15px var(--neon-blue);
+
+        .btn-paper:active {
+            transform: translate(5px, 5px);
+            box-shadow: 0px 0px 0px var(--ink-black);
         }
-         .btn-main-link:hover {
-              box-shadow: 0 0 30px var(--neon-blue), 0 0 10px white;
-         }
-         .btn-whatsapp-main { border-color: #25D366; box-shadow: 0 0 15px #25D366; }
-         .btn-whatsapp-main:hover { box-shadow: 0 0 30px #25D366; }
 
+        /* Couleurs spécifiques */
+        .btn-cta { background: var(--pop-pink); color: white; text-shadow: 2px 2px 0 var(--ink-black); }
+        .btn-wa { background: #25D366; color: white; text-shadow: 1px 1px 0 #000; }
+        .btn-maps { background: var(--pop-yellow); }
 
-        /* --- SECTIONS ACCORDÉON (Menus) --- */
-        .toggle-trigger { margin-top: 30px; font-size: 1.3rem; letter-spacing: 2px; }
-        
-        .collapsible-content {
+        /* --- ACCORDEON STYLE "DOSSIER SECRET" --- */
+        .section-folder {
+            margin-top: 30px;
+        }
+
+        .folder-tab {
+            width: 100%;
+            background: var(--pop-blue);
+            border: 3px solid var(--ink-black);
+            border-bottom: none;
+            padding: 15px;
+            font-family: 'Carter One', cursive;
+            font-size: 1.4rem;
+            text-align: left;
+            cursor: pointer;
+            border-radius: 15px 15px 0 0;
+            position: relative;
+            top: 3px; /* Pour masquer la bordure du bas */
+            z-index: 2;
+            color: white;
+            text-shadow: 2px 2px 0 var(--ink-black);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        .folder-tab.menu-tab { background: var(--pop-pink); }
+
+        .folder-content {
+            background: white;
+            border: 3px solid var(--ink-black);
+            border-radius: 0 0 15px 15px;
+            padding: 0 20px;
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.5s ease-out;
-            background: rgba(0,0,0,0.5);
-            border-radius: 20px;
-            padding: 0 15px; /* Padding horizontal seulement au début */
-        }
-        
-        /* Quand la section est ouverte */
-        .collapsible-content.active {
-            max-height: 2000px; /* Assez grand pour tout contenir */
-            padding: 20px 15px;
-            border: 2px solid rgba(255,255,255,0.3);
-            margin-bottom: 20px;
+            transition: max-height 0.4s ease-out, padding 0.4s;
+            box-shadow: 8px 8px 0 rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
         }
 
-        /* Styles des listes de prix */
-        .menu-category { margin-bottom: 25px; }
-        .category-title {
-            /* On réutilise le style bouton pour les titres de catégories */
-            @extend .btn-kaizen-style; 
+        .folder-content.active {
+            padding: 20px;
+            max-height: 2000px;
+        }
+
+        /* Listes */
+        .menu-group h3 {
+            background: var(--ink-black);
+            color: var(--pop-yellow);
             display: inline-block;
-            width: auto;
-            padding: 10px 25px;
-            font-size: 1rem;
+            padding: 5px 10px;
+            transform: rotate(-2deg);
             margin-bottom: 15px;
-            box-shadow: 0 0 10px var(--neon-pink);
+            margin-top: 15px;
+            font-family: 'Carter One', cursive;
         }
 
-        .price-list { list-style: none; text-align: left; }
-        .price-list li {
-            display: flex;
-            justify-content: space-between;
+        .menu-item {
+            display: flex; justify-content: space-between;
+            border-bottom: 2px dashed #ddd;
             padding: 8px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            font-family: 'Fredoka One', sans-serif; /* Police plus lisible pour les prix */
+            font-weight: bold;
         }
-        .item-name { color: #ccc; }
-        .item-price { color: var(--neon-blue); font-weight: bold; }
+        .price { color: var(--pop-pink); font-weight: 900; }
 
-        .icon { margin-right: 10px; }
-        footer { margin-top: 40px; font-size: 0.8rem; opacity: 0.7; }
+        footer {
+            text-align: center; margin-top: 40px; font-weight: bold;
+            background: var(--pop-white); border: 3px solid var(--ink-black);
+            padding: 10px; border-radius: 10px; transform: rotate(1deg);
+            display: inline-block; width: 100%;
+        }
+
+        /* Easter Egg Animation Class */
+        .spin-anim { animation: spin 0.5s ease-in-out; }
+        @keyframes spin { 0% {transform: rotate(0deg) scale(1.2);} 100% {transform: rotate(360deg) scale(1.2);} }
+
     </style>
 </head>
 <body>
 
-    <div class="chaos-bg-container">
-        <img src="ps5-controller.png" class="floater-img f-ps5" alt="PS5">
-        <img src="ps4-controller.png" class="floater-img f-ps4" alt="PS4">
-        <img src="ps3-controller.png" class="floater-img f-ps3" alt="PS3">
-        <img src="ps2-controller.png" class="floater-img f-ps2" alt="PS2">
-        <img src="wii-console.png" class="floater-img f-xbox" alt="Wii">
-        <img src="volant-gaming.png" class="floater-img f-volant" alt="Volant">
-        <div class="floater-img f-pion1" style="font-size: 3rem;">♟️</div>
-        <div class="floater-img f-des" style="font-size: 3rem;">🎲</div>
+    <div class="doodle-container">
+        <div class="sticker s1" onclick="popEffect(this)">🍕</div>
+        <div class="sticker s2" onclick="popEffect(this)">🎮</div>
+        <div class="sticker s3" onclick="popEffect(this)">👾</div>
+        <div class="sticker s4" onclick="popEffect(this)">🎲</div>
+        <div class="sticker s5" onclick="popEffect(this)">👻</div>
+        <div class="sticker s6" onclick="popEffect(this)">🍩</div>
     </div>
 
-
-    <div class="main-wrapper">
+    <div class="paper-wrapper">
         
-        <header>
-            <div class="logo-container">
-                <img src="logo-kaizen.png" alt="KAIZEN Logo">
-            </div>
-            <h1>BIENVENUE CHEZ KAIZEN</h1>
-        </header>
-
-        <div class="links-container">
-            <a href="https://wa.me/213540316619" class="btn-kaizen-style btn-main-link btn-whatsapp-main">
-                <span class="icon">📲</span> Réserver (WhatsApp)
-            </a>
-            <a href="https://goo.gl/maps/placeholder" class="btn-kaizen-style btn-main-link">
-                <span class="icon">📍</span> Nous trouver
-            </a>
-        </div>
-
-
-        <button class="btn-kaizen-style toggle-trigger" onclick="toggleSection('section-offres')">
-            VOIR NOS OFFRES 🎮
-        </button>
-
-        <div id="section-offres" class="collapsible-content">
+        <div class="header-card">
+            <div class="logo-placeholder">KAIZEN</div>
+            <h1>Gaming & Chill</h1>
             
-            <div class="menu-category">
-                <h3 class="btn-kaizen-style category-title">Salle De Projection</h3>
-                <ul class="price-list">
-                    <li><span class="item-name">Privatisation Play Room</span> <span class="item-price">1200DA/pers/02H</span></li>
-                    <li><span class="item-name">Playstation 5</span> <span class="item-price">1000DA/01H</span></li>
-                    <li><span class="item-name">Racing Simulator</span> <span class="item-price">800DA/30Min</span></li>
-                </ul>
-            </div>
-
-            <div class="menu-category">
-                <h3 class="btn-kaizen-style category-title">Jeux de Société 🎲</h3>
-                <p style="margin-bottom: 10px; color: var(--neon-blue);">250DA par personne pour une durée 01H<br>(Changement de jeux est libre)</p>
-            </div>
-
-            <div class="menu-category">
-                <h3 class="btn-kaizen-style category-title">Game Room</h3>
-                <ul class="price-list">
-                    <li><span class="item-name">Playstation 4</span> <span class="item-price">500DA pour 30min</span></li>
-                    <li><span class="item-name">Playstation 4</span> <span class="item-price">800DA pour 01H</span></li>
-                </ul>
-            </div>
-
-             <div class="menu-category">
-                <h3 class="btn-kaizen-style category-title">Karaoke 🎤</h3>
-                <ul class="price-list">
-                    <li><span class="item-name">Karaoke</span> <span class="item-price">600DA 01H/personne</span></li>
-                </ul>
+            <div class="tag-container">
+                <span class="tag">PS5</span>
+                <span class="tag">VR</span>
+                <span class="tag">SNACKS</span>
+                <span class="tag">FUN</span>
             </div>
         </div>
 
+        <a href="https://wa.me/213540316619" class="btn-paper btn-wa">
+            📞 RESERVER (WhatsApp)
+        </a>
+        <a href="https://goo.gl/maps/placeholder" class="btn-paper btn-maps">
+            📍 C'EST OU ? (Tizi)
+        </a>
 
-        <button class="btn-kaizen-style toggle-trigger" onclick="toggleSection('section-menu')" style="border-color: var(--neon-blue); box-shadow: 0 0 15px var(--neon-blue);">
-            VOIR LE MENU 🍹
-        </button>
-
-        <div id="section-menu" class="collapsible-content">
-            
-            <div class="menu-category">
-                <h3 class="btn-kaizen-style category-title">Nos Milkshakes</h3>
-                <ul class="price-list">
-                    <li><span class="item-name">Chocolat</span> <span class="item-price">400DA</span></li>
-                    <li><span class="item-name">Nutella</span> <span class="item-price">450DA</span></li>
-                    <li><span class="item-name">Banane</span> <span class="item-price">450DA</span></li>
-                    <li><span class="item-name">Café</span> <span class="item-price">450DA</span></li>
-                    <li><span class="item-name">OREO</span> <span class="item-price">450DA</span></li>
-                    <li><span class="item-name">Bueno</span> <span class="item-price">450DA</span></li>
-                    <li><span class="item-name">Mangue</span> <span class="item-price">500DA</span></li>
-                    <li><span class="item-name">Nutella Banane</span> <span class="item-price">550DA</span></li>
-                    <li><span class="item-name">Frappuccino</span> <span class="item-price">550DA</span></li>
-                </ul>
+        <div class="section-folder">
+            <div class="folder-tab" onclick="toggleFolder('folder-offres')">
+                <span>📁 NOS OFFRES</span> <span>▼</span>
             </div>
-
-            <div class="menu-category">
-                 <h3 class="btn-kaizen-style category-title">Jus & Cafés ☕</h3>
-                <ul class="price-list">
-                    <li><span class="item-name">Jus D'Orange</span> <span class="item-price">350DA</span></li>
-                    <li><span class="item-name">Cocktail de Fruits</span> <span class="item-price">500DA</span></li>
-                    <li><span class="item-name">Mojito</span> <span class="item-price">400DA</span></li>
-                    <li><span class="item-name">Café Capsule</span> <span class="item-price">100DA</span></li>
-                    <li><span class="item-name">Café Capsule Aromatisé</span> <span class="item-price">150DA</span></li>
-                </ul>
-            </div>
-
-             <div class="menu-category">
-                <h3 class="btn-kaizen-style category-title">Nos Glaces 🍨</h3>
-                <ul class="price-list">
-                    <li><span class="item-name">Coupe de glace 4 boules</span> <span class="item-price">350DA</span></li>
-                    <li><span class="item-name">Banana split</span> <span class="item-price">550DA</span></li>
-                </ul>
-            </div>
-
-            <div class="menu-category">
-                <h3 class="btn-kaizen-style category-title">Nos Céréales 🥣</h3>
-                <ul class="price-list">
-                    <li><span class="item-name">Bol de Céréales Local</span> <span class="item-price">350DA</span></li>
-                    <li><span class="item-name">Bol de Céréales Fourré</span> <span class="item-price">450DA</span></li>
-                    <li><span class="item-name">Bol Céréales d'Importation</span> <span class="item-price">650DA</span></li>
-                </ul>
+            <div id="folder-offres" class="folder-content">
+                <div class="menu-group">
+                    <h3>🎬 PROJECTION</h3>
+                    <div class="menu-item"><span>Privatisation (2H)</span> <span class="price">1200 DA</span></div>
+                    <div class="menu-item"><span>PS5 (1H)</span> <span class="price">1000 DA</span></div>
+                    <div class="menu-item"><span>Simulateur (30min)</span> <span class="price">800 DA</span></div>
+                </div>
+                <div class="menu-group">
+                    <h3>🎲 JEUX DE SOC.</h3>
+                    <div class="menu-item"><span>Accès illimité (1H)</span> <span class="price">250 DA</span></div>
+                </div>
+                <div class="menu-group">
+                    <h3>🎤 KARAOKE</h3>
+                    <div class="menu-item"><span>Par personne (1H)</span> <span class="price">600 DA</span></div>
+                </div>
             </div>
         </div>
-        
-        <div class="links-container" style="margin-top: 30px; display: flex; gap: 10px; justify-content: center;">
-             <a href="https://instagram.com/kaizen_tizi" class="btn-kaizen-style" style="width: auto; padding: 10px 20px; font-size: 0.9rem;">
-                📸 Insta
-            </a>
-             <a href="https://tiktok.com/@kaizen_tizi" class="btn-kaizen-style" style="width: auto; padding: 10px 20px; font-size: 0.9rem;">
-                🎵 TikTok
-            </a>
+
+        <div class="section-folder">
+            <div class="folder-tab menu-tab" onclick="toggleFolder('folder-menu')">
+                <span>🍹 LE MENU</span> <span>▼</span>
+            </div>
+            <div id="folder-menu" class="folder-content">
+                <div class="menu-group">
+                    <h3>🥤 MILKSHAKES</h3>
+                    <div class="menu-item"><span>Chocolat / Vanille</span> <span class="price">400 DA</span></div>
+                    <div class="menu-item"><span>Oreo / Bueno</span> <span class="price">450 DA</span></div>
+                    <div class="menu-item"><span>Spécial Banane</span> <span class="price">550 DA</span></div>
+                </div>
+                <div class="menu-group">
+                    <h3>☕ CAFE & JUS</h3>
+                    <div class="menu-item"><span>Mojito Frais</span> <span class="price">400 DA</span></div>
+                    <div class="menu-item"><span>Jus d'Orange</span> <span class="price">350 DA</span></div>
+                    <div class="menu-item"><span>Café Capsule</span> <span class="price">100 DA</span></div>
+                </div>
+                <div class="menu-group">
+                    <h3>🥣 CEREALES</h3>
+                    <div class="menu-item"><span>Bol Local</span> <span class="price">350 DA</span></div>
+                    <div class="menu-item"><span>Bol Importation</span> <span class="price">650 DA</span></div>
+                </div>
+            </div>
         </div>
 
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+            <a href="https://instagram.com/kaizen_tizi" class="btn-paper" style="font-size: 1rem;">📸 Insta</a>
+            <a href="https://tiktok.com/@kaizen_tizi" class="btn-paper" style="font-size: 1rem;">🎵 TikTok</a>
+        </div>
 
         <footer>
-            <p>© 2025 KAIZEN Tizi.<br>Powered by Madilium</p>
+            <p>© 2025 Kaizen Tizi<br>Made with 💛 by Madilium</p>
         </footer>
 
     </div>
 
     <script>
-        function toggleSection(sectionId) {
-            const section = document.getElementById(sectionId);
-            section.classList.toggle('active');
+        // Gestion des dossiers accordéon
+        function toggleFolder(id) {
+            const element = document.getElementById(id);
+            element.classList.toggle('active');
+            
+            // Petit effet sonore "pop" mental
+        }
+
+        // EASTER EGG: Les stickers réagissent au clic
+        function popEffect(element) {
+            // Change l'emoji au hasard pour plus de fun
+            const funEmojis = ['🤪', '🚀', '💥', '🍄', '⭐', '🐱', '🌮'];
+            
+            // Ajoute la classe d'animation
+            element.classList.add('spin-anim');
+            
+            // Change l'emoji après un petit délai
+            setTimeout(() => {
+                element.innerHTML = funEmojis[Math.floor(Math.random() * funEmojis.length)];
+            }, 250);
+
+            // Retire la classe pour pouvoir rejouer l'anim
+            setTimeout(() => {
+                element.classList.remove('spin-anim');
+            }, 500);
         }
     </script>
 
