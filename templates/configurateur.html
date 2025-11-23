@@ -2,304 +2,277 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Studio Madilium</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Madilium Ultimate Editor</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <style>
-        :root { --accent: #6c5ce7; --bg: #0f0f12; --panel: #1c1c22; --text: #ccc; --border: #333; }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body {
-            font-family: 'Outfit', sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
-        }
+        :root { --accent: #6c5ce7; --bg: #0f0f12; --panel: #1c1c22; --border: #2d2d3a; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', sans-serif; }
+        body { background: var(--bg); color: #ddd; height: 100vh; display: flex; overflow: hidden; }
 
-        /* GAUCHE : FORMULAIRE */
-        .editor-panel {
-            width: 420px;
-            background-color: var(--panel);
-            border-right: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .editor-header {
-            padding: 20px;
-            border-bottom: 1px solid var(--border);
-            background: #15151a;
-        }
-        .editor-header h2 { color: white; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
-
-        .editor-content {
-            padding: 20px;
-            overflow-y: auto;
-            flex-grow: 1;
-        }
-
-        /* ACCORDEONS STYLÉS */
-        details {
-            margin-bottom: 15px;
-            background: #25252b;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-        }
-        summary {
-            padding: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            color: white;
-            list-style: none; /* Cache la flèche par défaut */
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        summary::-webkit-details-marker { display: none; } /* Pour Chrome */
-        summary::after {
-            content: '\f078'; /* FontAwesome chevron down */
-            font-family: "Font Awesome 6 Free"; font-weight: 900;
-            transition: transform 0.3s;
-            font-size: 0.8rem; color: var(--accent);
-        }
-        details[open] summary::after { transform: rotate(180deg); }
-
-        .control-group { padding: 15px; border-top: 1px solid #333; }
-
-        /* INPUTS */
-        label { display: block; font-size: 0.8rem; margin-bottom: 8px; color: #aaa; font-weight: 500; }
-        input[type="text"], select, textarea {
-            width: 100%; background: #15151a; border: 1px solid var(--border);
-            color: white; padding: 12px; border-radius: 6px; margin-bottom: 15px;
-            font-family: inherit; transition: 0.3s;
-        }
-        input:focus, select:focus { border-color: var(--accent); outline: none; }
-
-        /* INPUT COULEUR STYLÉ */
-        .color-picker-wrapper {
-            display: flex; align-items: center; gap: 10px;
-            background: #15151a; border: 1px solid var(--border);
-            padding: 5px 10px; border-radius: 6px; margin-bottom: 15px;
-        }
-        input[type="color"] {
-            -webkit-appearance: none; border: none; width: 30px; height: 30px; padding: 0; border-radius: 4px; cursor: pointer;
-        }
-        input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
-        input[type="color"]::-webkit-color-swatch { border: none; border-radius: 4px; }
-        .color-label { font-size: 0.8rem; flex-grow: 1; }
-
-        /* DROITE : PREVIEW */
-        .preview-panel {
-            flex-grow: 1;
-            display: flex; justify-content: center; align-items: center;
-            background-image: radial-gradient(#333 1px, transparent 1px);
-            background-size: 25px 25px;
-            padding: 20px;
-        }
-
-        .phone-mockup {
-            width: 390px; height: 800px;
-            background: #000; border-radius: 50px;
-            border: 12px solid #111;
-            overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
-            position: relative;
-        }
+        /* LAYOUT */
+        .sidebar { width: 380px; background: var(--panel); border-right: 1px solid var(--border); display: flex; flex-direction: column; z-index: 10; }
+        .preview { flex-grow: 1; display: flex; justify-content: center; align-items: center; background-image: radial-gradient(#333 1px, transparent 1px); background-size: 20px 20px; }
+        .phone { width: 375px; height: 90%; background: #000; border-radius: 40px; border: 10px solid #111; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
         iframe { width: 100%; height: 100%; border: none; background: white; }
 
-        /* FOOTER ACTIONS */
-        .editor-footer {
-            padding: 20px; border-top: 1px solid var(--border);
-            background: #15151a;
+        /* TABS */
+        .tabs { display: flex; background: #15151a; border-bottom: 1px solid var(--border); }
+        .tab { flex: 1; padding: 15px; border: none; background: transparent; color: #666; cursor: pointer; font-weight: 600; border-bottom: 2px solid transparent; }
+        .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+        /* CONTENT */
+        .content { flex-grow: 1; overflow-y: auto; padding: 20px; display: none; }
+        .content.active { display: block; }
+
+        /* CONTROLS */
+        .group { background: #25252b; padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid var(--border); }
+        label { display: block; font-size: 0.75rem; color: #aaa; margin-bottom: 5px; text-transform: uppercase; }
+        input, select { width: 100%; background: #15151a; border: 1px solid var(--border); color: white; padding: 10px; border-radius: 4px; margin-bottom: 10px; }
+        
+        /* DYNAMIC LISTS */
+        .item-row { display: flex; align-items: center; gap: 5px; background: #1a1a20; padding: 8px; margin-bottom: 5px; border-radius: 4px; border: 1px solid #333; }
+        .item-content { flex-grow: 1; }
+        .btn-icon { background: none; border: none; color: #666; cursor: pointer; padding: 5px; font-size: 0.9rem; }
+        .btn-icon:hover { color: white; }
+        .btn-add { width: 100%; background: #2d2d3a; border: 1px dashed #555; color: #aaa; padding: 10px; cursor: pointer; border-radius: 4px; transition: 0.2s; }
+        .btn-add:hover { background: var(--accent); color: white; border-color: var(--accent); }
+
+        /* STYLES GRID */
+        .style-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .style-option { background: #15151a; padding: 10px; text-align: center; border: 1px solid var(--border); cursor: pointer; font-size: 0.8rem; border-radius: 4px; }
+        .style-option:hover, .style-option.selected { border-color: var(--accent); color: var(--accent); background: rgba(108, 92, 231, 0.1); }
+
+        /* SUBMIT */
+        .footer { padding: 15px; border-top: 1px solid var(--border); background: #15151a; }
+        .submit-btn { width: 100%; background: #25D366; color: white; border: none; padding: 12px; border-radius: 6px; font-weight: bold; cursor: pointer; display: flex; justify-content: center; gap: 8px; }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: 50%; order: 2; }
+            .preview { height: 50%; order: 1; }
+            .phone { width: 100%; height: 100%; border-radius: 0; border: none; }
         }
-        .btn-submit {
-            width: 100%; background-color: #25D366; color: white;
-            border: none; padding: 15px; border-radius: 8px;
-            font-weight: 700; cursor: pointer;
-            display: flex; align-items: center; justify-content: center; gap: 10px;
-            transition: 0.3s; font-size: 1rem;
-        }
-        .btn-submit:hover { background-color: #1ebc57; box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3); }
     </style>
 </head>
 <body>
 
-    <div class="editor-panel">
-        <div class="editor-header">
-            <h2><i class="fas fa-paint-brush" style="color: var(--accent);"></i> Studio de Création</h2>
+    <div class="sidebar">
+        <div class="tabs">
+            <button class="tab active" onclick="setTab('content')">Contenu</button>
+            <button class="tab" onclick="setTab('links')">Liens & Social</button>
+            <button class="tab" onclick="setTab('design')">Design</button>
         </div>
 
-        <div class="editor-content" id="configInputs">
-            <details open>
-                <summary>👤 Identité & Textes</summary>
-                <div class="control-group">
-                    <label>Nom du Projet / Client (Titre Principal)</label>
-                    <input type="text" data-target="client-name" placeholder="Ex: Miam & Co">
-
-                    <label>Slogan / Sous-titre</label>
-                    <input type="text" data-target="client-tagline" placeholder="Ex: Le meilleur snack...">
-                    
-                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
-                        <input type="checkbox" data-css-var="--display-tagline" value="block" unchecked-value="none" checked>
-                        Afficher le sous-titre ?
-                    </label>
-                </div>
-            </details>
-
-            <details>
-                <summary>🎨 Palette de Couleurs</summary>
-                <div class="control-group">
-                    <label>Couleur d'Accentuation (Boutons, Titres)</label>
-                    <div class="color-picker-wrapper">
-                        <input type="color" data-css-var="--accent-color" value="#6c5ce7">
-                        <span class="color-label">Accent</span>
-                    </div>
-
-                    <label>Couleur de Fond Principale</label>
-                    <div class="color-picker-wrapper">
-                        <input type="color" data-css-var="--bg-color" value="#ffffff">
-                        <span class="color-label">Arrière-plan</span>
-                    </div>
-
-                    <label>Couleur du Texte Principal</label>
-                    <div class="color-picker-wrapper">
-                        <input type="color" data-css-var="--text-primary" value="#1a1a1a">
-                        <span class="color-label">Texte</span>
-                    </div>
-                </div>
-            </details>
-
-            <details>
-                <summary>✨ Style & Ambiance</summary>
-                <div class="control-group">
-                    <label>Style des Bordures (Coins)</label>
-                    <select data-css-var="--btn-radius">
-                        <option value="4px">Légèrement arrondis (Standard)</option>
-                        <option value="0px">Carrés (Brut)</option>
-                        <option value="50px">Pillules (Très rond)</option>
-                    </select>
-
-                    <label>Police d'écriture (Typographie)</label>
-                    <select data-css-var="--font-stack">
-                        <option value="'Outfit', sans-serif">Moderne & Pro (Outfit)</option>
-                        <option value="'Fredoka', sans-serif">Ronde & Fun (Fredoka)</option>
-                        <option value="'Playfair Display', serif">Élégante & Luxe (Serif)</option>
-                    </select>
-                    <p style="font-size: 0.7rem; color: #666; margin-top: -10px; margin-bottom: 15px;">*Nécessite que le template supporte ces polices.</p>
-
-                     <label>Animation d'entrée</label>
-                     <select data-css-var="--anim-name">
-                        <option value="fadeUp">Glissement vers le haut (Défaut)</option>
-                        <option value="fadeIn">Fondu simple</option>
-                        <option value="bounceIn">Rebond dynamique</option>
-                        <option value="none">Aucune animation</option>
-                    </select>
-                </div>
-            </details>
-
-             <details>
-                <summary>🔗 Liens & Contact</summary>
-                <div class="control-group">
-                    <label>Votre Numéro WhatsApp (Pour la commande finale)</label>
-                    <input type="text" id="finalWhatsapp" placeholder="Ex: 213555..." value="213549514133">
-                    <p style="font-size: 0.7rem; color: orange; margin-top:-10px;">*Important : C'est le numéro qui recevra la commande.</p>
-
-                    <label>Lien Instagram (Exemple)</label>
-                    <input type="text" data-target="link-insta" placeholder="https://instagram.com/...">
-                    </div>
-            </details>
-        </div>
-
-        <div class="editor-footer">
-             <div style="background: #222; padding: 10px; border-radius: 5px; font-size: 0.75rem; color: #aaa; margin-bottom:15px; display: flex; gap: 10px;">
-                <i class="fas fa-info-circle" style="color: var(--accent); margin-top: 2px;"></i>
-                <div>Les logos et photos produits seront envoyés directement dans la conversation WhatsApp après validation.</div>
+        <div id="content" class="content active">
+            <div class="group">
+                <label>Nom du Projet</label>
+                <input type="text" oninput="updateText('client-name', this.value)" placeholder="Titre du site">
+                <label>Slogan</label>
+                <input type="text" oninput="updateText('client-tagline', this.value)" placeholder="Sous-titre">
             </div>
-            <button type="button" class="btn-submit" onclick="sendOrder()">
-                <i class="fab fa-whatsapp"></i> Valider & Commander
-            </button>
+        </div>
+
+        <div id="links" class="content">
+            <div class="group">
+                <label>Vos Boutons (Liens)</label>
+                <div id="links-list"></div>
+                <button class="btn-add" onclick="addLink()"><i class="fas fa-plus"></i> Ajouter un bouton</button>
+            </div>
+
+            <div class="group">
+                <label>Réseaux Sociaux</label>
+                <div id="socials-list"></div>
+                <div style="display:flex; gap:5px;">
+                    <select id="social-select" style="margin-bottom:0;">
+                        <option value="instagram">Instagram</option>
+                        <option value="tiktok">TikTok</option>
+                        <option value="whatsapp">WhatsApp</option>
+                        <option value="facebook">Facebook</option>
+                        <option value="youtube">YouTube</option>
+                        <option value="linkedin">LinkedIn</option>
+                        <option value="snapchat">Snapchat</option>
+                        <option value="twitter">X (Twitter)</option>
+                    </select>
+                    <button class="btn-add" style="width:auto; margin-bottom:0;" onclick="addSocial()"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div id="design" class="content">
+            <div class="group">
+                <label>Couleurs</label>
+                <input type="color" oninput="updateCSS('--accent-color', this.value)" value="#6c5ce7">
+                <input type="color" oninput="updateCSS('--bg-color', this.value)" value="#ffffff">
+                <input type="color" oninput="updateCSS('--text-primary', this.value)" value="#000000">
+            </div>
+
+            <div class="group">
+                <label>Style des Boutons (10 Choix)</label>
+                <select onchange="updateClass('btn-style', this.value)">
+                    <option value="btn-style-1">1. Classique (Pillule)</option>
+                    <option value="btn-style-2">2. Carré Brut</option>
+                    <option value="btn-style-3">3. Outline (Bordure seule)</option>
+                    <option value="btn-style-4">4. Ombre Portée (Shadow)</option>
+                    <option value="btn-style-5">5. Neumorphism (Relief doux)</option>
+                    <option value="btn-style-6">6. Gradient (Dégradé)</option>
+                    <option value="btn-style-7">7. Souligné (Minimal)</option>
+                    <option value="btn-style-8">8. Cyberpunk (Néon)</option>
+                    <option value="btn-style-9">9. 3D (Pressable)</option>
+                    <option value="btn-style-10">10. Transparent (Glass)</option>
+                </select>
+            </div>
+
+            <div class="group">
+                <label>Police d'écriture (10 Choix)</label>
+                <select onchange="updateCSS('--font-stack', this.value)">
+                    <option value="'Outfit', sans-serif">Outfit (Moderne)</option>
+                    <option value="'Fredoka', sans-serif">Fredoka (Rond/Fun)</option>
+                    <option value="'Playfair Display', serif">Playfair (Luxe)</option>
+                    <option value="'Anton', sans-serif">Anton (Impact)</option>
+                    <option value="'Roboto Mono', monospace">Roboto (Tech)</option>
+                    <option value="'Lora', serif">Lora (Littéraire)</option>
+                    <option value="'Oswald', sans-serif">Oswald (Urba)</option>
+                    <option value="'Dancing Script', cursive">Dancing (Manuscrit)</option>
+                    <option value="'Poppins', sans-serif">Poppins (Géométrique)</option>
+                    <option value="'Courier New', monospace">Courier (Retro)</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="footer">
+            <input type="hidden" id="sellerNum" value="21355000000">
+            <button class="submit-btn" onclick="sendOrder()"><i class="fab fa-whatsapp"></i> Commander</button>
         </div>
     </div>
 
-    <div class="preview-panel">
-        <div class="phone-mockup">
-            <iframe id="previewFrame" src=""></iframe>
+    <div class="preview">
+        <div class="phone">
+            <iframe id="iframe" src=""></iframe>
         </div>
     </div>
 
     <script>
-        // 1. Charger le bon template
+        // --- 1. CONFIGURATION INITIALE ---
         const urlParams = new URLSearchParams(window.location.search);
         const templateId = urlParams.get('t') || '1';
-        const iframe = document.getElementById('previewFrame');
-        // On ajoute un paramètre ?edit=true pour dire au template qu'il est en mode édition
+        const iframe = document.getElementById('iframe');
         iframe.src = `template${templateId}/index.html?edit=true`;
 
-        // 2. Système de mise à jour en temps réel (Le "Talkie-Walkie")
-        const inputs = document.querySelectorAll('#configInputs input, #configInputs select');
+        let linksData = [];
+        let socialsData = [];
 
-        function sendUpdateToIframe(input) {
-            const value = input.type === 'checkbox' ? (input.checked ? input.getAttribute('value') : input.getAttribute('unchecked-value')) : input.value;
-            
-            const message = {};
-
-            // Si c'est une variable CSS (commence par --)
-            if (input.hasAttribute('data-css-var')) {
-                message.type = 'cssVar';
-                message.key = input.getAttribute('data-css-var');
-                message.value = value;
-            } 
-            // Si c'est du contenu texte (cible un ID)
-            else if (input.hasAttribute('data-target')) {
-                message.type = 'textContent';
-                message.key = input.getAttribute('data-target');
-                message.value = value;
-            }
-
-            // Envoyer le message à l'iframe
-            if (message.type && iframe.contentWindow) {
-                iframe.contentWindow.postMessage(message, '*');
-            }
+        // --- 2. FONCTIONS UI (ONGLETS) ---
+        function setTab(id) {
+            document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
         }
 
-        // Écouter les changements sur tous les inputs
-        inputs.forEach(input => {
-            // 'input' pour le temps réel, 'change' pour les select/color
-            input.addEventListener('input', () => sendUpdateToIframe(input));
-            input.addEventListener('change', () => sendUpdateToIframe(input));
-        });
+        // --- 3. GESTION DES LIENS ---
+        function addLink() {
+            linksData.push({ text: "Nouveau Lien", url: "#" });
+            renderLinks();
+            pushData();
+        }
+        
+        function removeLink(index) {
+            linksData.splice(index, 1);
+            renderLinks();
+            pushData();
+        }
 
-
-        // 3. Fonction de Commande WhatsApp (Mise à jour avec toutes les nouvelles données)
-        function sendOrder() {
-            let orderSummary = `👋 Nouvelle commande ! Template N°${templateId}\n---\n`;
-            
-            inputs.forEach(input => {
-                let label = input.previousElementSibling ? input.previousElementSibling.textContent : input.getAttribute('data-css-var');
-                let val = input.type === 'checkbox' ? input.checked : input.value;
-                 // On n'inclut pas le numéro du vendeur dans le résumé
-                if (input.id !== 'finalWhatsapp' && val && label) {
-                    orderSummary += `▪️ ${label}: ${val}\n`;
-                }
-            });
-
-            orderSummary += `\n--- En attente des photos/logos...`;
-
-            const encodedMsg = encodeURIComponent(orderSummary);
-            // Récupère le numéro saisi dans le champ finalWhatsapp
-            const myNumber = document.getElementById('finalWhatsapp').value; 
-            
-            if(!myNumber || myNumber.length < 5) {
-                alert("Veuillez entrer un numéro WhatsApp valide pour recevoir la commande.");
-                return;
+        function moveLink(index, direction) {
+            if (direction === -1 && index > 0) {
+                [linksData[index], linksData[index - 1]] = [linksData[index - 1], linksData[index]];
+            } else if (direction === 1 && index < linksData.length - 1) {
+                [linksData[index], linksData[index + 1]] = [linksData[index + 1], linksData[index]];
             }
+            renderLinks();
+            pushData();
+        }
 
-            window.open(`https://wa.me/${myNumber}?text=${encodedMsg}`, '_blank');
+        function updateLinkText(index, val) {
+            linksData[index].text = val;
+            pushData(); // Envoi en temps réel
+        }
+
+        function renderLinks() {
+            const container = document.getElementById('links-list');
+            container.innerHTML = "";
+            linksData.forEach((link, i) => {
+                container.innerHTML += `
+                <div class="item-row">
+                    <div style="display:flex; flex-direction:column; gap:2px;">
+                        <button class="btn-icon" onclick="moveLink(${i}, -1)">▲</button>
+                        <button class="btn-icon" onclick="moveLink(${i}, 1)">▼</button>
+                    </div>
+                    <div class="item-content">
+                        <input type="text" value="${link.text}" oninput="updateLinkText(${i}, this.value)" style="margin:0;">
+                    </div>
+                    <button class="btn-icon" style="color:#ff6b6b;" onclick="removeLink(${i})"><i class="fas fa-trash"></i></button>
+                </div>`;
+            });
+        }
+
+        // --- 4. GESTION DES RÉSEAUX ---
+        function addSocial() {
+            const network = document.getElementById('social-select').value;
+            socialsData.push({ network: network, url: "" });
+            renderSocials();
+            pushData();
+        }
+
+        function removeSocial(index) {
+            socialsData.splice(index, 1);
+            renderSocials();
+            pushData();
+        }
+
+        function renderSocials() {
+            const container = document.getElementById('socials-list');
+            container.innerHTML = "";
+            socialsData.forEach((soc, i) => {
+                container.innerHTML += `
+                <div class="item-row">
+                    <i class="fab fa-${soc.network}" style="width:20px; text-align:center;"></i>
+                    <input type="text" placeholder="Lien/Pseudo" oninput="socialsData[${i}].url = this.value; pushData();" style="margin:0; flex-grow:1;">
+                    <button class="btn-icon" onclick="removeSocial(${i})">×</button>
+                </div>`;
+            });
+        }
+
+        // --- 5. COMMUNICATION AVEC IFRAME ---
+        function updateCSS(key, val) {
+            iframe.contentWindow.postMessage({ type: 'cssVar', key, value: val }, '*');
+        }
+        function updateText(id, val) {
+            iframe.contentWindow.postMessage({ type: 'textContent', key: id, value: val }, '*');
+        }
+        function updateClass(type, val) {
+            iframe.contentWindow.postMessage({ type: 'classChange', key: type, value: val }, '*');
+        }
+        function pushData() {
+            iframe.contentWindow.postMessage({ type: 'updateData', links: linksData, socials: socialsData }, '*');
+        }
+
+        // --- 6. COMMANDE WHATSAPP ---
+        function sendOrder() {
+            let msg = `🔥 Commande Site Ultimate (Template #${templateId})\n\n`;
+            msg += `🎨 Style Bouton: ${document.querySelector('select').value}\n`;
+            msg += `🔤 Police: ${document.querySelectorAll('select')[1].value}\n\n`;
+            
+            msg += `🔗 BOUTONS :\n`;
+            linksData.forEach(l => msg += `- ${l.text}\n`);
+            
+            msg += `\n📱 RÉSEAUX :\n`;
+            socialsData.forEach(s => msg += `- ${s.network} : ${s.url}\n`);
+            
+            const num = document.getElementById('sellerNum').value;
+            window.open(`https://wa.me/${num}?text=${encodeURIComponent(msg)}`, '_blank');
         }
     </script>
 </body>
