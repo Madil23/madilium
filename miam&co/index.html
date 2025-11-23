@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Miam&Co - Mignardises Sucrées & Salées</title>
+    <title>Miam&Co - Mignardises Sucrées & Salées ✨</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playball&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Playball&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            /* Palette basée sur le logo et la dark mode d'Insta */
-            --bg-color: #121212;
-            --card-bg: #1E1E1E;
-            --accent-color: #E3C698; /* Le beige du logo */
-            --text-main: #FFFFFF;
-            --text-secondary: #AAAAAA;
+            --bg-dark: #0d0d0d;
+            --bg-card: #1a1a1a;
+            --accent-gold: #E3C698;
+            --text-light: #FFFFFF;
+            --text-muted: #B0B0B0;
             --whatsapp-green: #25D366;
+            --whatsapp-dark-green: #1a9948;
         }
 
         * {
@@ -26,243 +27,346 @@
 
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
+            background-color: var(--bg-dark);
+            color: var(--text-light);
             line-height: 1.6;
+            overflow-x: hidden; /* Empêche le scroll horizontal à cause du fond animé */
+            position: relative;
         }
 
-        /* Header & Hero */
+        /* --- BACKGROUND ANIMÉ --- */
+        .floating-bg-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Important: permet de cliquer au travers */
+            z-index: -1;
+            overflow: hidden;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
+        }
+
+        .float-item {
+            position: absolute;
+            font-size: 4rem;
+            opacity: 0.15; /* Très subtil */
+            filter: grayscale(100%) blur(2px); /* Effet d'arrière-plan discret */
+            animation: floatUp infinite linear;
+        }
+
+        /* Positions et délais différents pour varier l'effet */
+        .fi-1 { bottom: -10vh; left: 10%; animation-duration: 15s; animation-delay: 0s; }
+        .fi-2 { bottom: -10vh; left: 30%; animation-duration: 18s; animation-delay: 2s; font-size: 3rem; }
+        .fi-3 { bottom: -10vh; left: 60%; animation-duration: 20s; animation-delay: 1s; }
+        .fi-4 { bottom: -10vh; left: 85%; animation-duration: 14s; animation-delay: 4s; font-size: 5rem;}
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.15; }
+            90% { opacity: 0.15; }
+            100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* --- ANIMATION D'ENTRÉE DU CONTENU --- */
+        .main-content-wrapper {
+            animation: fadeInUp 1s ease-out forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- HEADER & HERO --- */
         header {
             text-align: center;
-            padding: 40px 20px;
-            background: linear-gradient(to bottom, #000000, var(--bg-color));
+            padding: 50px 20px 30px;
         }
 
         .logo-container {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 20px;
+            width: 130px;
+            height: 130px;
+            margin: 0 auto 25px;
             border-radius: 50%;
-            border: 3px solid var(--accent-color);
-            background-color: var(--accent-color); /* Placeholder pour l'image */
+            border: 4px solid var(--accent-gold);
+            background-color: var(--bg-card);
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
+            box-shadow: 0 0 20px rgba(227, 198, 152, 0.3); /* Glow doré */
+            animation: pulse 3s infinite ease-in-out;
         }
-
-        .logo-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(227, 198, 152, 0.3); }
+            50% { box-shadow: 0 0 35px rgba(227, 198, 152, 0.6); }
         }
 
         h1 {
-            font-family: 'Playball', cursive; /* Police style signature */
-            font-size: 2.5rem;
-            color: var(--accent-color);
+            font-family: 'Playball', cursive;
+            font-size: 3.2rem;
+            color: var(--accent-gold);
             margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
 
         .tagline {
-            font-size: 1rem;
-            color: var(--text-secondary);
-            margin-bottom: 5px;
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            font-style: italic;
         }
 
         .location {
-            font-size: 0.9rem;
-            color: var(--text-main);
-            margin-bottom: 20px;
-        }
-
-        /* Quick Links (Socials) */
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
+            font-weight: 600;
+            color: var(--text-light);
             margin-bottom: 30px;
-            flex-wrap: wrap;
+            display: inline-block;
+            background: rgba(255,255,255,0.1);
+            padding: 5px 15px;
+            border-radius: 20px;
         }
 
-        .btn-social {
-            background-color: var(--card-bg);
-            color: var(--text-main);
-            padding: 10px 20px;
-            border-radius: 30px;
-            text-decoration: none;
-            border: 1px solid #333;
-            transition: all 0.3s ease;
+        /* --- BOUTONS AGRANDIS --- */
+        .actions-container {
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 50px;
+        }
+
+        .btn-big {
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 0.9rem;
-        }
-
-        .btn-social:hover {
-            border-color: var(--accent-color);
-            transform: translateY(-2px);
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            max-width: 450px; /* Plus large sur desktop */
+            padding: 18px 30px; /* Padding augmenté */
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 800; /* Texte plus gras */
+            font-size: 1.2rem; /* Texte plus gros */
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
         }
 
         .btn-whatsapp {
-            background-color: var(--whatsapp-green);
+            background: linear-gradient(45deg, var(--whatsapp-green), var(--whatsapp-dark-green));
             color: white;
-            border: none;
-            font-weight: bold;
-            width: 100%;
-            justify-content: center;
-            max-width: 300px;
-            margin: 0 auto 20px;
-            padding: 15px;
+            box-shadow: 0 6px 15px rgba(37, 211, 102, 0.4);
+        }
+        .btn-whatsapp:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.6);
         }
 
-        /* Portfolio Grid */
+        .social-group {
+            display: flex;
+            gap: 15px;
+            width: 100%;
+            max-width: 450px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-social-secondary {
+            background-color: var(--bg-card);
+            color: var(--text-light);
+            border: 2px solid #333;
+            padding: 14px 24px;
+            font-size: 1.1rem;
+            flex: 1 1 auto; /* Permet aux boutons de s'adapter */
+        }
+        .btn-social-secondary:hover {
+            border-color: var(--accent-gold);
+            background-color: #222;
+            transform: translateY(-3px);
+        }
+
+        /* --- PORTFOLIO GRID --- */
         .portfolio-section {
-            padding: 20px;
-            max-width: 1000px;
+            padding: 30px 20px;
+            max-width: 1100px;
             margin: 0 auto;
         }
 
-        .section-title {
+        .section-title-wrapper {
             text-align: center;
-            margin-bottom: 25px;
-            color: var(--accent-color);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 1.2rem;
-            border-bottom: 1px solid #333;
-            padding-bottom: 10px;
-            display: inline-block;
+            margin-bottom: 40px;
+            position: relative;
         }
-        
-        .center-title {
-            text-align: center;
+
+        .section-title {
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 1.8rem;
+            font-weight: 800;
+            display: inline-block;
+            position: relative;
+            z-index: 1;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60%;
+            height: 3px;
+            background: var(--accent-gold);
+            margin: 10px auto 0;
+            border-radius: 2px;
         }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Cartes un peu plus grandes */
+            gap: 25px;
         }
 
         .card {
-            background-color: var(--card-bg);
-            border-radius: 15px;
+            background-color: var(--bg-card);
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            transition: all 0.4s ease;
+            border: 1px solid #333;
         }
 
         .card:hover {
-            transform: scale(1.02);
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--accent-gold);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
         }
 
         .card-img {
             width: 100%;
-            height: 150px;
-            background-color: #333; /* Placeholder gris */
-            object-fit: cover;
+            height: 180px; /* Image plus haute */
+            background-color: #2a2a2a;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        /* Badge sur les images (optionnel) */
+        .card-img::before {
+             content: 'Miam!';
+             position: absolute;
+             top: 10px;
+             right: 10px;
+             background: var(--accent-gold);
+             color: var(--bg-dark);
+             font-size: 0.7rem;
+             font-weight: bold;
+             padding: 4px 10px;
+             border-radius: 12px;
         }
 
         .card-body {
-            padding: 15px;
+            padding: 20px;
             text-align: center;
         }
 
         .card-title {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 5px;
-            color: var(--accent-color);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--accent-gold);
         }
 
         .card-desc {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
+            font-size: 0.95rem;
+            color: var(--text-muted);
         }
 
-        /* Footer */
+        /* --- FOOTER --- */
         footer {
             text-align: center;
-            padding: 40px 20px;
-            font-size: 0.8rem;
-            color: #555;
-            border-top: 1px solid #222;
-            margin-top: 40px;
+            padding: 50px 20px;
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 60px;
+            background: rgba(0,0,0,0.5); /* Fond semi-transparent */
         }
-
-        /* Utilities */
-        .icon { width: 18px; height: 18px; }
-
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo-container">
-            <span style="color: #121212; font-weight: bold; font-size: 1.5rem;">M&Co</span>
-        </div>
-
-        <h1>Miam&Co.</h1>
-        <p class="tagline">"Du sucré, du salé... et surtout du goût !" 🍽️</p>
-        <p class="location">📍 Tizi-Ouzou | 📞 0553 98 94 59</p>
-    </header>
-
-    <div style="padding: 0 20px;">
-        <a href="https://wa.me/213553989459" class="btn-social btn-whatsapp">
-            Commander sur WhatsApp
-        </a>
-
-        <div class="social-links">
-            <a href="https://instagram.com/miam.andco" class="btn-social" target="_blank">Instagram</a>
-            <a href="https://tiktok.com/@miamandco" class="btn-social" target="_blank">TikTok</a>
-            <a href="mailto:info.miamandco@gmail.com" class="btn-social">Email</a>
-        </div>
+    <div class="floating-bg-container">
+        <div class="float-item fi-1">🍩</div>
+        <div class="float-item fi-2">🍕</div>
+        <div class="float-item fi-3">🧁</div>
+        <div class="float-item fi-4">🍔</div>
     </div>
 
-    <section class="portfolio-section">
-        <div class="center-title">
-            <h2 class="section-title">Nos Créations</h2>
-        </div>
-        
-        <div class="grid">
-            <div class="card">
-                <div class="card-img" style="background: url('https://via.placeholder.com/300x300?text=Mini+Pizzas') center/cover;"></div>
-                <div class="card-body">
-                    <h3 class="card-title">Mini Pizzas</h3>
-                    <p class="card-desc">Délicieuses et croustillantes.</p>
-                </div>
+    <div class="main-content-wrapper">
+
+        <header>
+            <div class="logo-container">
+                <span style="color: var(--accent-gold); font-weight: 900; font-size: 2rem; font-family: 'Playball', cursive;">M&Co.</span>
             </div>
 
-            <div class="card">
-                <div class="card-img" style="background: url('https://via.placeholder.com/300x300?text=Brownie') center/cover;"></div>
-                <div class="card-body">
-                    <h3 class="card-title">Brownies</h3>
-                    <p class="card-desc">Chocolat intense & fondant.</p>
-                </div>
-            </div>
+            <h1>Miam&Co. ✨</h1>
+            <p class="tagline">"Du sucré, du salé... et surtout du goût !" 👩‍🍳</p>
+            <div class="location">📍 Tizi-Ouzou | 📞 0553 98 94 59</div>
+        </header>
 
-            <div class="card">
-                <div class="card-img" style="background: url('https://via.placeholder.com/300x300?text=Tartelettes') center/cover;"></div>
-                <div class="card-body">
-                    <h3 class="card-title">Tartelettes</h3>
-                    <p class="card-desc">Fruits frais ou chocolat.</p>
-                </div>
-            </div>
+        <div class="actions-container">
+            <a href="https://wa.me/213553989459" class="btn-big btn-whatsapp">
+               📲 Commander sur WhatsApp
+            </a>
 
-            <div class="card">
-                <div class="card-img" style="background: url('https://via.placeholder.com/300x300?text=Mini+Burgers') center/cover;"></div>
-                <div class="card-body">
-                    <h3 class="card-title">Mini Burgers</h3>
-                    <p class="card-desc">Le salé parfait pour vos évents.</p>
-                </div>
+            <div class="social-group">
+                <a href="https://instagram.com/miam.andco" class="btn-big btn-social-secondary" target="_blank">📸 Instagram</a>
+                <a href="https://tiktok.com/@miamandco" class="btn-big btn-social-secondary" target="_blank">🎵 TikTok</a>
             </div>
         </div>
-    </section>
 
-    <footer>
-        <p>&copy; 2025 Miam&Co. Powered by Madilium.</p>
-    </footer>
+        <section class="portfolio-section">
+            <div class="section-title-wrapper">
+                <h2 class="section-title">✨ Nos Créations ✨</h2>
+            </div>
+            
+            <div class="grid">
+                <div class="card">
+                    <div class="card-img" style="background-image: url('https://via.placeholder.com/400x300/333333/E3C698?text=Mini+Pizzas+🍕');"></div>
+                    <div class="card-body">
+                        <h3 class="card-title">Mini Pizzas 🍕</h3>
+                        <p class="card-desc">Base croustillante, garniture généreuse.</p>
+                    </div>
+                </div>
 
-</body>
+                <div class="card">
+                    <div class="card-img" style="background-image: url('https://via.placeholder.com/400x300/442222/E3C698?text=Brownie+🍫');"></div>
+                    <div class="card-body">
+                        <h3 class="card-title">Brownies Fondants 🍫</h3>
+                        <p class="card-desc">Chocolat intense, cœur fondant irrésistible.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img" style="background-image: url('https://via.placeholder.com/400x300/555522/E3C698?text=Tartelettes+🥧');"></div>
+                    <div class="card-body">
+                        <h3 class="card-title">Tartelettes Fruits 🥧</h3>
+                        <p class="card-desc">Crème légère et fruits de saison frais.</p>
+                    </div>
+                </div>
+
+                 <div class="card">
+                    <div class="card-img" style="background-image: url('https://via.placeholder.com/400x300/773333/E3C698?text=Plateaux+Salés+🥯');"></div>
+                    <div class="card-body">
+                        <h3 class="card-title">Plateaux Salés 🥯</h3>
+                        <p class="card-desc">Assortiment parfait pour vos événements.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>Miam&Co.<br>© 2025 Powered by Madilium.</p>
+        </footer>
+
+    </div> </body>
 </html>
