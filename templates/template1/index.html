@@ -3,255 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Madilium - Template Premium</title>
+    <title>Madilium Template</title>
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Lato:wght@300;400&family=Outfit:wght@300;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Courier+Prime&family=Dancing+Script:wght@700&family=Fredoka:wght@400;600&family=Lora:ital@0;1&family=Oswald&family=Outfit:wght@300;500;700&family=Playfair+Display:ital@0;1&family=Poppins:wght@300;600&family=Roboto+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* =========================================
-           VARIABLES STANDARDISÉES (Compatible Configurateur)
-           ========================================= */
         :root {
-            /* Couleurs */
-            --bg-color: #F9F8F6;            /* Fond (Coquille d'œuf) */
-            --text-primary: #2C2C2C;        /* Texte principal */
-            --accent-color: #C5A059;        /* Accent (Or) */
-            --text-secondary: #8A8A8A;      /* Texte secondaire */
-            --btn-bg: #FFFFFF;              /* Fond bouton */
-            
-            /* Style & Forme */
-            --btn-radius: 2px;              /* Arrondi (contrôlé par le menu) */
-            --photo-radius: 50%;            /* Forme photo */
-            
-            /* Typographie (contrôlée par le menu) */
-            --font-stack: 'Playfair Display', serif; /* Par défaut : Style Luxe */
-            
-            /* Comportement */
-            --display-tagline: block;       /* Afficher/Masquer slogan */
-            --anim-name: fadeUp;            /* Animation par défaut */
+            /* VARIABLES DE BASE */
+            --bg-color: #F9F8F6;
+            --text-primary: #2C2C2C;
+            --accent-color: #C5A059;
+            --font-stack: 'Outfit', sans-serif;
         }
 
-        /* RESET & BASE */
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: var(--font-stack); background: var(--bg-color); color: var(--text-primary); min-height: 100vh; display: flex; justify-content: center; padding: 20px; transition: 0.3s; }
         
-        body {
-            font-family: var(--font-stack); /* Utilise la police choisie */
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 20px;
-            transition: background 0.3s, color 0.3s; /* Transition douce pour les couleurs */
-        }
-
-        .container {
-            width: 100%;
-            max-width: 480px;
-            text-align: center;
-            padding-top: 40px;
-        }
-
+        .container { width: 100%; max-width: 480px; text-align: center; padding-top: 40px; }
+        
         /* HEADER */
-        .profile-section {
-            margin-bottom: 40px;
-            animation: fadeIn 1.5s ease-out;
-        }
+        .profile-img { width: 120px; height: 120px; object-fit: cover; border-radius: 50%; border: 2px solid var(--accent-color); margin-bottom: 15px; }
+        h1 { font-size: 1.8rem; margin-bottom: 5px; }
+        p.tagline { opacity: 0.7; margin-bottom: 30px; font-style: italic; }
 
-        .profile-img {
-            width: 120px;
-            height: 120px;
-            object-fit: cover;
-            border-radius: var(--photo-radius);
-            border: 1px solid var(--accent-color);
-            padding: 5px;
-            margin-bottom: 15px;
-        }
+        /* CONTAINERS DYNAMIQUES */
+        #socials-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; flex-wrap: wrap; }
+        #links-container { display: flex; flex-direction: column; gap: 15px; }
 
-        h1 {
-            /* On force la police variable ici aussi */
-            font-family: var(--font-stack);
-            font-size: 1.8rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
-            color: var(--text-primary);
-        }
-
-        p.tagline {
-            font-family: var(--font-stack);
-            font-style: italic;
-            color: var(--text-secondary);
-            font-size: 1rem;
-            /* Connecté au switch "Afficher sous-titre" */
-            display: var(--display-tagline); 
-        }
-
-        /* RESEAUX SOCIAUX */
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 35px;
-            animation: fadeIn 1.8s ease-out;
-        }
-
-        .social-icons a {
-            color: var(--text-primary);
-            font-size: 1.2rem;
-            transition: color 0.3s ease;
-        }
-
-        .social-icons a:hover {
-            color: var(--accent-color);
-        }
-
-        /* LISTE DES LIENS */
-        .links-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .link-btn {
-            background-color: var(--btn-bg);
-            color: var(--text-primary);
-            text-decoration: none;
-            padding: 18px 20px;
-            border: 1px solid #E0E0E0;
-            
-            /* Connecté au selecteur "Bordures" */
-            border-radius: var(--btn-radius);
-            
-            font-family: var(--font-stack);
-            font-size: 0.95rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            
-            /* Animation dynamique choisie dans le menu */
-            opacity: 0;
-            animation: var(--anim-name) 0.8s forwards;
-        }
-
-        .link-btn:nth-child(1) { animation-delay: 0.1s; }
-        .link-btn:nth-child(2) { animation-delay: 0.2s; }
-        .link-btn:nth-child(3) { animation-delay: 0.3s; }
-        .link-btn:nth-child(4) { animation-delay: 0.4s; }
-
-        .link-btn:hover {
-            border-color: var(--accent-color);
-            background-color: #fffcf5;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
-            color: var(--accent-color);
-        }
-
-        /* FOOTER */
-        footer {
-            margin-top: 60px;
-            font-size: 0.7rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            opacity: 0.6;
-        }
-
-        /* =========================================
-           DÉFINITION DES ANIMATIONS (Keyframes)
-           ========================================= */
+        /* --- BIBLIOTHÈQUE DES 10 STYLES DE BOUTONS --- */
         
-        /* 1. Glissement vers le haut (fadeUp) */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        /* Base commune */
+        .dyn-btn { padding: 18px; text-decoration: none; display: block; font-weight: 600; transition: 0.3s; color: var(--text-primary); cursor: pointer; position: relative; overflow: hidden; }
 
-        /* 2. Apparition simple (fadeIn) */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+        /* Style 1: Classique Pillule */
+        .btn-style-1 { background: white; border: 1px solid #ddd; border-radius: 50px; }
+        .btn-style-1:hover { border-color: var(--accent-color); transform: translateY(-2px); }
 
-        /* 3. Rebond (bounceIn) */
-        @keyframes bounceIn {
-            0% { opacity: 0; transform: scale(0.3); }
-            50% { opacity: 1; transform: scale(1.05); }
-            70% { transform: scale(0.9); }
-            100% { transform: scale(1); }
-        }
+        /* Style 2: Carré Brut */
+        .btn-style-2 { background: var(--text-primary); color: var(--bg-color); border-radius: 0; text-transform: uppercase; letter-spacing: 1px; }
+        .btn-style-2:hover { background: var(--accent-color); }
 
-        /* 4. Aucune (none) */
-        @keyframes none {
-            to { opacity: 1; }
-        }
+        /* Style 3: Outline */
+        .btn-style-3 { background: transparent; border: 2px solid var(--text-primary); border-radius: 8px; }
+        .btn-style-3:hover { background: var(--text-primary); color: var(--bg-color); }
+
+        /* Style 4: Shadow */
+        .btn-style-4 { background: white; border-radius: 12px; box-shadow: 0 10px 20px -5px rgba(0,0,0,0.1); border: none; }
+        .btn-style-4:hover { transform: translateY(-3px); box-shadow: 0 15px 30px -5px rgba(0,0,0,0.2); }
+
+        /* Style 5: Neumorphism */
+        .btn-style-5 { background: var(--bg-color); border-radius: 15px; box-shadow: 5px 5px 10px rgba(0,0,0,0.1), -5px -5px 10px white; border: none; }
+        .btn-style-5:hover { box-shadow: inset 5px 5px 10px rgba(0,0,0,0.1), inset -5px -5px 10px white; }
+
+        /* Style 6: Gradient */
+        .btn-style-6 { background: linear-gradient(45deg, var(--accent-color), #ff9a9e); color: white; border-radius: 30px; border: none; }
+        .btn-style-6:hover { opacity: 0.9; transform: scale(1.02); }
+
+        /* Style 7: Souligné */
+        .btn-style-7 { background: transparent; border-bottom: 2px solid #ddd; padding: 15px 0; text-align: left; }
+        .btn-style-7:hover { border-color: var(--accent-color); padding-left: 10px; }
+
+        /* Style 8: Cyberpunk */
+        .btn-style-8 { background: black; color: var(--accent-color); border: 1px solid var(--accent-color); box-shadow: 0 0 5px var(--accent-color); text-transform: uppercase; font-family: 'Courier New', monospace; }
+        .btn-style-8:hover { background: var(--accent-color); color: black; box-shadow: 0 0 20px var(--accent-color); }
+
+        /* Style 9: 3D */
+        .btn-style-9 { background: var(--accent-color); color: white; border-radius: 10px; border-bottom: 5px solid rgba(0,0,0,0.2); transform: translateY(0); }
+        .btn-style-9:active { transform: translateY(4px); border-bottom: 1px solid rgba(0,0,0,0.2); }
+
+        /* Style 10: Glass */
+        .btn-style-10 { background: rgba(255,255,255,0.3); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.5); border-radius: 12px; }
+        .btn-style-10:hover { background: rgba(255,255,255,0.6); }
+
+        /* --- STYLES SOCIAUX --- */
+        .social-link { font-size: 1.5rem; color: var(--text-primary); transition: 0.3s; }
+        .social-link:hover { color: var(--accent-color); transform: scale(1.2); }
 
     </style>
 </head>
 <body>
 
     <div class="container">
-        
         <div class="profile-section">
-            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="Photo Client" class="profile-img">
-            
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" class="profile-img">
             <h1 id="client-name">MAISON ÉLÉGANCE</h1>
-            
             <p class="tagline" id="client-tagline">Beauté • Soins • Bien-être</p>
         </div>
 
-        <div class="social-icons">
-            <a href="#" id="link-insta"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-tiktok"></i></a>
-            <a href="#"><i class="fab fa-whatsapp"></i></a>
-            <a href="#"><i class="far fa-envelope"></i></a>
+        <div id="socials-container"></div>
+
+        <div id="links-container">
+            <a class="dyn-btn btn-style-1">Bouton Démo 1</a>
+            <a class="dyn-btn btn-style-1">Bouton Démo 2</a>
         </div>
 
-        <div class="links-container">
-            <a href="#" class="link-btn">Réserver un soin</a>
-            <a href="#" class="link-btn">Notre Boutique en ligne</a>
-            <a href="#" class="link-btn">Le Lookbook</a>
-            <a href="#" class="link-btn">Nous contacter</a>
-        </div>
-
-        <footer>
-            Propulsé par Madilium
-        </footer>
-
+        <footer style="margin-top:50px; font-size:0.7rem; opacity:0.5;">Propulsé par Madilium</footer>
     </div>
 
     <script>
         const params = new URLSearchParams(window.location.search);
-        
-        // On active le script seulement si ?edit=true est dans l'URL
-        if (params.get('edit') === 'true') {
-            
-            // 1. Désactiver les clics sur les liens (pour ne pas quitter la page en modifiant)
-            document.querySelectorAll('a').forEach(el => el.style.pointerEvents = 'none');
+        let currentBtnStyle = 'btn-style-1'; // Style par défaut
 
-            // 2. Écouter les messages du Configurateur
+        if (params.get('edit') === 'true') {
+            // Désactiver les liens
+            document.addEventListener('click', e => { if(e.target.tagName==='A') e.preventDefault(); });
+
             window.addEventListener('message', (event) => {
                 const data = event.data;
-                
-                // Cas A : Changer une variable CSS (Couleur, Police, Radius...)
+
+                // 1. Changement CSS (Couleur, Police)
                 if (data.type === 'cssVar') {
                     document.documentElement.style.setProperty(data.key, data.value);
                 }
                 
-                // Cas B : Changer du texte (Nom, Slogan...)
+                // 2. Changement Texte (Nom, Slogan)
                 if (data.type === 'textContent') {
                     const el = document.getElementById(data.key);
                     if (el) el.textContent = data.value;
                 }
+
+                // 3. Changement Style Bouton (Classe)
+                if (data.type === 'classChange' && data.key === 'btn-style') {
+                    currentBtnStyle = data.value;
+                    // Mettre à jour tous les boutons existants
+                    document.querySelectorAll('.dyn-btn').forEach(btn => {
+                        // Enlève toutes les classes btn-style-X et met la nouvelle
+                        btn.className = `dyn-btn ${currentBtnStyle}`;
+                    });
+                }
+
+                // 4. MISE À JOUR CONTENU (Boutons & Socials)
+                if (data.type === 'updateData') {
+                    
+                    // A. Mettre à jour les Liens
+                    const linkCont = document.getElementById('links-container');
+                    linkCont.innerHTML = ''; // On vide tout
+                    
+                    data.links.forEach(link => {
+                        const a = document.createElement('a');
+                        a.className = `dyn-btn ${currentBtnStyle}`;
+                        a.textContent = link.text;
+                        a.href = "#"; // Lien vide en mode éditeur
+                        linkCont.appendChild(a);
+                    });
+
+                    // B. Mettre à jour les Réseaux
+                    const socCont = document.getElementById('socials-container');
+                    socCont.innerHTML = '';
+                    
+                    data.socials.forEach(soc => {
+                        const a = document.createElement('a');
+                        a.className = 'social-link';
+                        a.innerHTML = `<i class="fab fa-${soc.network}"></i>`;
+                        socCont.appendChild(a);
+                    });
+                }
             });
-            
-            console.log("Mode Édition Activé : Template 1 prêt.");
         }
     </script>
 </body>
