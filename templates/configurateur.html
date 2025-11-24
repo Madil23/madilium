@@ -137,60 +137,109 @@
     <div class="preview"><div class="phone"><iframe id="iframe" src=""></iframe></div></div>
 
     <script>
+        // --- 1. CONFIGURATION INITIALE ---
         const urlParams = new URLSearchParams(window.location.search);
         const templateId = urlParams.get('t') || '1';
         const iframe = document.getElementById('iframe');
         iframe.src = `template${templateId}/index.html?edit=true`;
 
-        let linksData = [], socialsData = [];
+        let linksData = [];
+        let socialsData = [];
 
-        function setTab(id) { document.querySelectorAll('.content').forEach(c => c.classList.remove('active')); document.getElementById(id).classList.add('active'); document.querySelectorAll('.tab').forEach(t => t.classList.remove('active')); event.target.classList.add('active'); }
-        
-        // Liens & Socials Functions (inchangées)
+        // --- 2. FONCTIONS UI (ONGLETS) ---
+        function setTab(id) {
+            document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        // --- 3. GESTION DES LIENS ---
         function addLink() { linksData.push({ text: "Nouveau Lien", url: "#" }); renderLinks(); pushData(); }
         function removeLink(i) { linksData.splice(i, 1); renderLinks(); pushData(); }
         function moveLink(i, d) { if ((d===-1&&i>0)||(d===1&&i<linksData.length-1)) { [linksData[i],linksData[i+d]]=[linksData[i+d],linksData[i]]; renderLinks(); pushData(); }}
         function updateLinkText(i, v) { linksData[i].text = v; pushData(); }
-        function renderLinks() { document.getElementById('links-list').innerHTML = linksData.map((l,i)=>`<div class="item-row"><div style="display:flex;flex-direction:column;gap:2px;"><button class="btn-icon" onclick="moveLink(${i},-1)">▲</button><button class="btn-icon" onclick="moveLink(${i},1)">▼</button></div><div class="item-content"><input type="text" value="${l.text}" oninput="updateLinkText(${i},this.value)" style="margin:0;"></div><button class="btn-icon" style="color:#ff6b6b;" onclick="removeLink(${i})"><i class="fas fa-trash"></i></button></div>`).join(''); }
+        
+        function renderLinks() {
+            document.getElementById('links-list').innerHTML = linksData.map((l,i)=>`
+            <div class="item-row">
+                <div style="display:flex;flex-direction:column;gap:2px;"><button class="btn-icon" onclick="moveLink(${i},-1)">▲</button><button class="btn-icon" onclick="moveLink(${i},1)">▼</button></div>
+                <div class="item-content"><input type="text" value="${l.text}" oninput="updateLinkText(${i},this.value)" style="margin:0;"></div>
+                <button class="btn-icon" style="color:#ff6b6b;" onclick="removeLink(${i})"><i class="fas fa-trash"></i></button>
+            </div>`).join('');
+        }
+
+        // --- 4. GESTION DES RÉSEAUX ---
         function addSocial() { socialsData.push({ network: document.getElementById('social-select').value, url: "" }); renderSocials(); pushData(); }
         function removeSocial(i) { socialsData.splice(i, 1); renderSocials(); pushData(); }
-        function renderSocials() { document.getElementById('socials-list').innerHTML = socialsData.map((s,i)=>`<div class="item-row"><i class="fab fa-${s.network}" style="width:20px;text-align:center;"></i><input type="text" placeholder="Lien/Pseudo" oninput="socialsData[${i}].url=this.value;pushData();" style="margin:0;flex-grow:1;"><button class="btn-icon" onclick="removeSocial(${i})">×</button></div>`).join(''); }
+        
+        function renderSocials() {
+            document.getElementById('socials-list').innerHTML = socialsData.map((s,i)=>`
+            <div class="item-row">
+                <i class="fab fa-${s.network}" style="width:20px;text-align:center;"></i>
+                <input type="text" placeholder="Collez votre lien ici..." value="${s.url}" oninput="socialsData[${i}].url=this.value;pushData();" style="margin:0;flex-grow:1;">
+                <button class="btn-icon" onclick="removeSocial(${i})">×</button>
+            </div>`).join('');
+        }
 
-        // --- COMMUNICATION IFRAME ---
+        // --- 5. COMMUNICATION IFRAME ---
         function updateCSS(key, val) { iframe.contentWindow.postMessage({ type: 'cssVar', key, value: val }, '*'); }
         function updateText(id, val) { iframe.contentWindow.postMessage({ type: 'textContent', key: id, value: val }, '*'); }
         function updateClass(type, val) { iframe.contentWindow.postMessage({ type: 'classChange', key: type, value: val }, '*'); }
         function pushData() { iframe.contentWindow.postMessage({ type: 'updateData', links: linksData, socials: socialsData }, '*'); }
-
-        // NOUVEAU : Fonction spéciale pour la couverture
-        function updateCover(url) {
-            iframe.contentWindow.postMessage({ type: 'updateCover', value: url }, '*');
-        }
-
-        // NOUVEAU : Fonction spéciale pour l'alignement du logo (gère aussi le masquage)
+        
+        // Fonctions spéciales (Logo/Cover)
+        function updateCover(url) { iframe.contentWindow.postMessage({ type: 'updateCover', value: url }, '*'); }
         function updateLogoAlign(val) {
-            if (val === 'none') {
-                 updateCSS('--logo-display', 'none');
-            } else {
-                 updateCSS('--logo-display', 'block');
-                 updateCSS('--logo-align', val);
-            }
+            if (val === 'none') { updateCSS('--logo-display', 'none'); } 
+            else { updateCSS('--logo-display', 'block'); updateCSS('--logo-align', val); }
         }
 
-        // --- COMMANDE WHATSAPP ---
+        // --- 6. COMMANDE WHATSAPP (CORRIGÉE & COMPLÈTE) ---
         function sendOrder() {
-            let msg = `🚀 Commande V2 (Template #${templateId})\n\n`;
-            // On récupère les infos importantes
-            msg += `🏷️ Nom: ${document.querySelector('[data-target="client-name"]')?.value || 'Non défini'}\n`;
-            
-            const coverUrl = document.getElementById('coverInput').value;
-            if(coverUrl) msg += `🌄 Couverture: ${coverUrl}\n`;
+            let msg = `🔥 Commande ULTIMATE (Template #${templateId})\n\n`;
 
-            msg += `\n🎨 Style Bouton: ${document.querySelector('select[onchange^="updateClass"]').value}\n`;
+            // 1. Identité
+            const name = document.querySelector("input[oninput*='client-name']").value || 'Non défini';
+            const tagline = document.querySelector("input[oninput*='client-tagline']").value || 'Non défini';
+            msg += `👤 IDENTITÉ:\n- Nom: ${name}\n- Slogan: ${tagline}\n`;
+
+            // 2. Couverture
+            const cover = document.getElementById('coverInput')?.value;
+            if(cover) msg += `- Cover URL: ${cover}\n`;
+
+            // 3. Design (Couleurs & Police)
+            // On récupère les valeurs directement depuis les inputs
+            const colorAccent = document.querySelector("input[oninput*='--accent-color']").value;
+            const colorBg = document.querySelector("input[oninput*='--bg-color']").value;
+            const colorText = document.querySelector("input[oninput*='--text-primary']").value;
             
+            // Pour les listes déroulantes (Select), on récupère le texte affiché (ex: "Playfair (Luxe)")
+            const fontSelect = document.querySelector("select[onchange*='--font-stack']");
+            const fontName = fontSelect.options[fontSelect.selectedIndex].text;
+            
+            const btnSelect = document.querySelector("select[onchange*='btn-style']");
+            const btnStyle = btnSelect.options[btnSelect.selectedIndex].text;
+
+            const logoShape = document.querySelector("select[onchange*='--logo-radius']").value;
+
+            msg += `\n🎨 DESIGN:\n- Accent: ${colorAccent}\n- Fond: ${colorBg}\n- Texte: ${colorText}\n- Police: ${fontName}\n- Style Boutons: ${btnStyle}\n- Forme Logo: ${logoShape}\n`;
+
+            // 4. Liens
             msg += `\n🔗 BOUTONS (${linksData.length}):\n`;
-            linksData.forEach(l => msg += `- ${l.text}\n`);
-            
+            if(linksData.length === 0) msg += "Aucun bouton.\n";
+            linksData.forEach(l => msg += `- [${l.text}]\n`);
+
+            // 5. Réseaux Sociaux
+            msg += `\n📱 RÉSEAUX (${socialsData.length}):\n`;
+            if(socialsData.length === 0) msg += "Aucun réseau.\n";
+            socialsData.forEach(s => {
+                // On met "Non renseigné" si l'utilisateur a mis l'icône mais pas le lien
+                let urlDisplay = s.url ? s.url : "(Lien manquant)";
+                msg += `- ${s.network}: ${urlDisplay}\n`;
+            });
+
+            // Envoi
             const num = document.getElementById('sellerNum').value;
             window.open(`https://wa.me/${num}?text=${encodeURIComponent(msg)}`, '_blank');
         }
