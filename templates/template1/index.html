@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Madilium Template</title>
+    <title>Madilium Template V2</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Courier+Prime&family=Dancing+Script:wght@700&family=Fredoka:wght@400;600&family=Lora:ital@0;1&family=Oswald&family=Outfit:wght@300;500;700&family=Playfair+Display:ital@0;1&family=Poppins:wght@300;600&family=Roboto+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -15,76 +15,86 @@
             --text-primary: #2C2C2C;
             --accent-color: #C5A059;
             --font-stack: 'Outfit', sans-serif;
+
+            /* NOUVEAU : VARIABLES LOGO & COVER */
+            --logo-radius: 50%;      /* Rond par défaut */
+            --logo-align: center;    /* Centré par défaut */
+            --logo-display: block;   /* Visible par défaut */
+            
+            --cover-height: 0px;     /* Pas de couverture par défaut */
+            --cover-url: none;       /* Pas d'image */
+            --profile-margin-top: 40px; /* Marge standard sans couverture */
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: var(--font-stack); background: var(--bg-color); color: var(--text-primary); min-height: 100vh; display: flex; justify-content: center; padding: 20px; transition: 0.3s; }
+        body { font-family: var(--font-stack); background: var(--bg-color); color: var(--text-primary); min-height: 100vh; display: flex; flex-direction: column; align-items: center; transition: 0.3s; overflow-x: hidden; }
         
-        .container { width: 100%; max-width: 480px; text-align: center; padding-top: 40px; }
+        .container { width: 100%; max-width: 480px; text-align: center; position: relative; background: var(--bg-color); min-height: 100vh; }
         
-        /* HEADER */
-        .profile-img { width: 120px; height: 120px; object-fit: cover; border-radius: 50%; border: 2px solid var(--accent-color); margin-bottom: 15px; }
+        /* NOUVEAU : COVER IMAGE */
+        .cover-image {
+            width: 100%;
+            height: var(--cover-height);
+            background-image: var(--cover-url);
+            background-size: cover;
+            background-position: center;
+            transition: height 0.3s ease;
+        }
+
+        /* HEADER MODIFIÉ */
+        .profile-section {
+            padding: 20px;
+            /* Utilisation des variables d'alignement */
+            display: flex;
+            flex-direction: column;
+            align-items: var(--logo-align); /* Aligne l'image */
+            text-align: var(--logo-align);  /* Aligne le texte */
+            
+            /* Gestion de la marge si couverture présente */
+            margin-top: var(--profile-margin-top);
+            position: relative;
+            transition: margin 0.3s ease;
+        }
+
+        .profile-img {
+            width: 120px; height: 120px; object-fit: cover;
+            /* Utilisation des variables de forme et visibilité */
+            border-radius: var(--logo-radius);
+            display: var(--logo-display);
+            
+            border: 3px solid var(--bg-color); /* Bordure couleur fond pour ressortir sur la cover */
+            margin-bottom: 15px;
+            background: var(--bg-color);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
         h1 { font-size: 1.8rem; margin-bottom: 5px; }
         p.tagline { opacity: 0.7; margin-bottom: 30px; font-style: italic; }
 
         /* CONTAINERS DYNAMIQUES */
-        #socials-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; flex-wrap: wrap; }
-        #links-container { display: flex; flex-direction: column; gap: 15px; }
+        #socials-container { display: flex; justify-content: var(--logo-align); gap: 15px; margin-bottom: 30px; flex-wrap: wrap; padding: 0 20px; }
+        #links-container { display: flex; flex-direction: column; gap: 15px; padding: 0 20px 40px 20px; }
 
-        /* --- BIBLIOTHÈQUE DES 10 STYLES DE BOUTONS --- */
-        
-        /* Base commune */
-        .dyn-btn { padding: 18px; text-decoration: none; display: block; font-weight: 600; transition: 0.3s; color: var(--text-primary); cursor: pointer; position: relative; overflow: hidden; }
-
-        /* Style 1: Classique Pillule */
-        .btn-style-1 { background: white; border: 1px solid #ddd; border-radius: 50px; }
-        .btn-style-1:hover { border-color: var(--accent-color); transform: translateY(-2px); }
-
-        /* Style 2: Carré Brut */
-        .btn-style-2 { background: var(--text-primary); color: var(--bg-color); border-radius: 0; text-transform: uppercase; letter-spacing: 1px; }
-        .btn-style-2:hover { background: var(--accent-color); }
-
-        /* Style 3: Outline */
-        .btn-style-3 { background: transparent; border: 2px solid var(--text-primary); border-radius: 8px; }
-        .btn-style-3:hover { background: var(--text-primary); color: var(--bg-color); }
-
-        /* Style 4: Shadow */
-        .btn-style-4 { background: white; border-radius: 12px; box-shadow: 0 10px 20px -5px rgba(0,0,0,0.1); border: none; }
-        .btn-style-4:hover { transform: translateY(-3px); box-shadow: 0 15px 30px -5px rgba(0,0,0,0.2); }
-
-        /* Style 5: Neumorphism */
-        .btn-style-5 { background: var(--bg-color); border-radius: 15px; box-shadow: 5px 5px 10px rgba(0,0,0,0.1), -5px -5px 10px white; border: none; }
-        .btn-style-5:hover { box-shadow: inset 5px 5px 10px rgba(0,0,0,0.1), inset -5px -5px 10px white; }
-
-        /* Style 6: Gradient */
-        .btn-style-6 { background: linear-gradient(45deg, var(--accent-color), #ff9a9e); color: white; border-radius: 30px; border: none; }
-        .btn-style-6:hover { opacity: 0.9; transform: scale(1.02); }
-
-        /* Style 7: Souligné */
-        .btn-style-7 { background: transparent; border-bottom: 2px solid #ddd; padding: 15px 0; text-align: left; }
-        .btn-style-7:hover { border-color: var(--accent-color); padding-left: 10px; }
-
-        /* Style 8: Cyberpunk */
-        .btn-style-8 { background: black; color: var(--accent-color); border: 1px solid var(--accent-color); box-shadow: 0 0 5px var(--accent-color); text-transform: uppercase; font-family: 'Courier New', monospace; }
-        .btn-style-8:hover { background: var(--accent-color); color: black; box-shadow: 0 0 20px var(--accent-color); }
-
-        /* Style 9: 3D */
-        .btn-style-9 { background: var(--accent-color); color: white; border-radius: 10px; border-bottom: 5px solid rgba(0,0,0,0.2); transform: translateY(0); }
-        .btn-style-9:active { transform: translateY(4px); border-bottom: 1px solid rgba(0,0,0,0.2); }
-
-        /* Style 10: Glass */
-        .btn-style-10 { background: rgba(255,255,255,0.3); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.5); border-radius: 12px; }
-        .btn-style-10:hover { background: rgba(255,255,255,0.6); }
-
-        /* --- STYLES SOCIAUX --- */
-        .social-link { font-size: 1.5rem; color: var(--text-primary); transition: 0.3s; }
-        .social-link:hover { color: var(--accent-color); transform: scale(1.2); }
-
+        /* --- BIBLIOTHÈQUE DES STYLES DE BOUTONS (Inchangée) --- */
+        .dyn-btn { padding: 18px; text-decoration: none; display: block; font-weight: 600; transition: 0.3s; color: var(--text-primary); cursor: pointer; position: relative; overflow: hidden; text-align: center; }
+        .btn-style-1 { background: white; border: 1px solid #ddd; border-radius: 50px; } .btn-style-1:hover { border-color: var(--accent-color); transform: translateY(-2px); }
+        .btn-style-2 { background: var(--text-primary); color: var(--bg-color); border-radius: 0; text-transform: uppercase; letter-spacing: 1px; } .btn-style-2:hover { background: var(--accent-color); }
+        .btn-style-3 { background: transparent; border: 2px solid var(--text-primary); border-radius: 8px; } .btn-style-3:hover { background: var(--text-primary); color: var(--bg-color); }
+        .btn-style-4 { background: white; border-radius: 12px; box-shadow: 0 10px 20px -5px rgba(0,0,0,0.1); border: none; } .btn-style-4:hover { transform: translateY(-3px); box-shadow: 0 15px 30px -5px rgba(0,0,0,0.2); }
+        .btn-style-5 { background: var(--bg-color); border-radius: 15px; box-shadow: 5px 5px 10px rgba(0,0,0,0.1), -5px -5px 10px white; border: none; } .btn-style-5:hover { box-shadow: inset 5px 5px 10px rgba(0,0,0,0.1), inset -5px -5px 10px white; }
+        .btn-style-6 { background: linear-gradient(45deg, var(--accent-color), #ff9a9e); color: white; border-radius: 30px; border: none; } .btn-style-6:hover { opacity: 0.9; transform: scale(1.02); }
+        .btn-style-7 { background: transparent; border-bottom: 2px solid #ddd; padding: 15px 0; text-align: left; } .btn-style-7:hover { border-color: var(--accent-color); padding-left: 10px; }
+        .btn-style-8 { background: black; color: var(--accent-color); border: 1px solid var(--accent-color); box-shadow: 0 0 5px var(--accent-color); text-transform: uppercase; font-family: 'Courier New', monospace; } .btn-style-8:hover { background: var(--accent-color); color: black; box-shadow: 0 0 20px var(--accent-color); }
+        .btn-style-9 { background: var(--accent-color); color: white; border-radius: 10px; border-bottom: 5px solid rgba(0,0,0,0.2); transform: translateY(0); } .btn-style-9:active { transform: translateY(4px); border-bottom: 1px solid rgba(0,0,0,0.2); }
+        .btn-style-10 { background: rgba(255,255,255,0.3); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.5); border-radius: 12px; } .btn-style-10:hover { background: rgba(255,255,255,0.6); }
+        .social-link { font-size: 1.5rem; color: var(--text-primary); transition: 0.3s; } .social-link:hover { color: var(--accent-color); transform: scale(1.2); }
     </style>
 </head>
 <body>
 
     <div class="container">
+        <div class="cover-image" id="cover-bg"></div>
+
         <div class="profile-section">
             <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" class="profile-img">
             <h1 id="client-name">MAISON ÉLÉGANCE</h1>
@@ -98,60 +108,65 @@
             <a class="dyn-btn btn-style-1">Bouton Démo 2</a>
         </div>
 
-        <footer style="margin-top:50px; font-size:0.7rem; opacity:0.5;">Propulsé par Madilium</footer>
+        <footer style="margin-top:auto; padding-bottom: 20px; font-size:0.7rem; opacity:0.5;">Propulsé par Madilium</footer>
     </div>
 
     <script>
         const params = new URLSearchParams(window.location.search);
-        let currentBtnStyle = 'btn-style-1'; // Style par défaut
+        let currentBtnStyle = 'btn-style-1';
 
         if (params.get('edit') === 'true') {
-            // Désactiver les liens
             document.addEventListener('click', e => { if(e.target.tagName==='A') e.preventDefault(); });
 
             window.addEventListener('message', (event) => {
                 const data = event.data;
+                const root = document.documentElement.style;
 
-                // 1. Changement CSS (Couleur, Police)
+                // 1. Changement CSS Standard
                 if (data.type === 'cssVar') {
-                    document.documentElement.style.setProperty(data.key, data.value);
+                    root.setProperty(data.key, data.value);
                 }
                 
-                // 2. Changement Texte (Nom, Slogan)
+                // NOUVEAU : 2. Gestion Spéciale Couverture
+                if (data.type === 'updateCover') {
+                    if (data.value && data.value.startsWith('http')) {
+                        // Si URL valide : On affiche la cover et on fait remonter le profil
+                        root.setProperty('--cover-url', `url('${data.value}')`);
+                        root.setProperty('--cover-height', '180px');
+                        root.setProperty('--profile-margin-top', '-60px'); // Chevauchement
+                    } else {
+                        // Sinon : On cache et on remet la marge normale
+                        root.setProperty('--cover-url', 'none');
+                        root.setProperty('--cover-height', '0px');
+                        root.setProperty('--profile-margin-top', '40px');
+                    }
+                }
+
+                // 3. Changement Texte
                 if (data.type === 'textContent') {
                     const el = document.getElementById(data.key);
                     if (el) el.textContent = data.value;
                 }
 
-                // 3. Changement Style Bouton (Classe)
+                // 4. Changement Style Bouton
                 if (data.type === 'classChange' && data.key === 'btn-style') {
                     currentBtnStyle = data.value;
-                    // Mettre à jour tous les boutons existants
-                    document.querySelectorAll('.dyn-btn').forEach(btn => {
-                        // Enlève toutes les classes btn-style-X et met la nouvelle
-                        btn.className = `dyn-btn ${currentBtnStyle}`;
-                    });
+                    document.querySelectorAll('.dyn-btn').forEach(btn => btn.className = `dyn-btn ${currentBtnStyle}`);
                 }
 
-                // 4. MISE À JOUR CONTENU (Boutons & Socials)
+                // 5. MISE À JOUR CONTENU DYNAMIQUE
                 if (data.type === 'updateData') {
-                    
-                    // A. Mettre à jour les Liens
                     const linkCont = document.getElementById('links-container');
-                    linkCont.innerHTML = ''; // On vide tout
-                    
+                    linkCont.innerHTML = '';
                     data.links.forEach(link => {
                         const a = document.createElement('a');
                         a.className = `dyn-btn ${currentBtnStyle}`;
-                        a.textContent = link.text;
-                        a.href = "#"; // Lien vide en mode éditeur
+                        a.textContent = link.text; a.href = "#";
                         linkCont.appendChild(a);
                     });
 
-                    // B. Mettre à jour les Réseaux
                     const socCont = document.getElementById('socials-container');
                     socCont.innerHTML = '';
-                    
                     data.socials.forEach(soc => {
                         const a = document.createElement('a');
                         a.className = 'social-link';
