@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Madilium Ultimate Editor</title>
+    <title>Madilium Ultimate V2</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -31,7 +31,7 @@
         label { display: block; font-size: 0.75rem; color: #aaa; margin-bottom: 5px; text-transform: uppercase; }
         input, select { width: 100%; background: #15151a; border: 1px solid var(--border); color: white; padding: 10px; border-radius: 4px; margin-bottom: 10px; }
         
-        /* DYNAMIC LISTS */
+        /* DYNAMIC LISTS (Items) */
         .item-row { display: flex; align-items: center; gap: 5px; background: #1a1a20; padding: 8px; margin-bottom: 5px; border-radius: 4px; border: 1px solid #333; }
         .item-content { flex-grow: 1; }
         .btn-icon { background: none; border: none; color: #666; cursor: pointer; padding: 5px; font-size: 0.9rem; }
@@ -39,16 +39,10 @@
         .btn-add { width: 100%; background: #2d2d3a; border: 1px dashed #555; color: #aaa; padding: 10px; cursor: pointer; border-radius: 4px; transition: 0.2s; }
         .btn-add:hover { background: var(--accent); color: white; border-color: var(--accent); }
 
-        /* STYLES GRID */
-        .style-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-        .style-option { background: #15151a; padding: 10px; text-align: center; border: 1px solid var(--border); cursor: pointer; font-size: 0.8rem; border-radius: 4px; }
-        .style-option:hover, .style-option.selected { border-color: var(--accent); color: var(--accent); background: rgba(108, 92, 231, 0.1); }
-
         /* SUBMIT */
         .footer { padding: 15px; border-top: 1px solid var(--border); background: #15151a; }
         .submit-btn { width: 100%; background: #25D366; color: white; border: none; padding: 12px; border-radius: 6px; font-weight: bold; cursor: pointer; display: flex; justify-content: center; gap: 8px; }
 
-        /* RESPONSIVE */
         @media (max-width: 900px) {
             body { flex-direction: column; }
             .sidebar { width: 100%; height: 50%; order: 2; }
@@ -62,7 +56,7 @@
     <div class="sidebar">
         <div class="tabs">
             <button class="tab active" onclick="setTab('content')">Contenu</button>
-            <button class="tab" onclick="setTab('links')">Liens & Social</button>
+            <button class="tab" onclick="setTab('links')">Liens</button>
             <button class="tab" onclick="setTab('design')">Design</button>
         </div>
 
@@ -73,203 +67,129 @@
                 <label>Slogan</label>
                 <input type="text" oninput="updateText('client-tagline', this.value)" placeholder="Sous-titre">
             </div>
+
+            <div class="group" style="border-color: var(--accent);">
+                <label style="color:var(--accent);">🌄 Photo de Couverture (URL)</label>
+                <input type="text" id="coverInput" oninput="updateCover(this.value)" placeholder="Collez un lien d'image (https://...)">
+                <p style="font-size:0.65rem; color:#888; margin-top:-5px;">(Laissez vide pour supprimer la couverture)</p>
+                <p style="font-size:0.65rem; color:#aaa; margin-top:5px;">💡 Astuce: Utilisez des liens Unsplash ou envoyez la photo sur WhatsApp après commande.</p>
+            </div>
         </div>
 
         <div id="links" class="content">
             <div class="group">
-                <label>Vos Boutons (Liens)</label>
+                <label>Vos Boutons</label>
                 <div id="links-list"></div>
                 <button class="btn-add" onclick="addLink()"><i class="fas fa-plus"></i> Ajouter un bouton</button>
             </div>
-
             <div class="group">
                 <label>Réseaux Sociaux</label>
                 <div id="socials-list"></div>
                 <div style="display:flex; gap:5px;">
-                    <select id="social-select" style="margin-bottom:0;">
-                        <option value="instagram">Instagram</option>
-                        <option value="tiktok">TikTok</option>
-                        <option value="whatsapp">WhatsApp</option>
-                        <option value="facebook">Facebook</option>
-                        <option value="youtube">YouTube</option>
-                        <option value="linkedin">LinkedIn</option>
-                        <option value="snapchat">Snapchat</option>
-                        <option value="twitter">X (Twitter)</option>
-                    </select>
+                    <select id="social-select" style="margin-bottom:0;"><option value="instagram">Instagram</option><option value="tiktok">TikTok</option><option value="whatsapp">WhatsApp</option><option value="facebook">Facebook</option><option value="youtube">YouTube</option><option value="linkedin">LinkedIn</option><option value="twitter">X (Twitter)</option></select>
                     <button class="btn-add" style="width:auto; margin-bottom:0;" onclick="addSocial()"><i class="fas fa-plus"></i></button>
                 </div>
             </div>
         </div>
 
         <div id="design" class="content">
+            
+            <div class="group">
+                <label>Logo / Photo de profil</label>
+                <div style="display: flex; gap: 10px;">
+                    <select onchange="updateCSS('--logo-radius', this.value)">
+                        <option value="50%">Rond (Cercle)</option>
+                        <option value="15px">Carré Arrondi</option>
+                        <option value="0px">Carré Brut</option>
+                    </select>
+                    <select onchange="updateLogoAlign(this.value)">
+                        <option value="center">Aligné au Centre</option>
+                        <option value="flex-start">Aligné à Gauche</option>
+                        <option value="none">Masquer le logo</option>
+                    </select>
+                </div>
+            </div>
+
             <div class="group">
                 <label>Couleurs</label>
                 <input type="color" oninput="updateCSS('--accent-color', this.value)" value="#6c5ce7">
-                <input type="color" oninput="updateCSS('--bg-color', this.value)" value="#ffffff">
-                <input type="color" oninput="updateCSS('--text-primary', this.value)" value="#000000">
+                <input type="color" oninput="updateCSS('--bg-color', this.value)" value="#F9F8F6">
+                <input type="color" oninput="updateCSS('--text-primary', this.value)" value="#2C2C2C">
             </div>
 
             <div class="group">
-                <label>Style des Boutons (10 Choix)</label>
-                <select onchange="updateClass('btn-style', this.value)">
-                    <option value="btn-style-1">1. Classique (Pillule)</option>
-                    <option value="btn-style-2">2. Carré Brut</option>
-                    <option value="btn-style-3">3. Outline (Bordure seule)</option>
-                    <option value="btn-style-4">4. Ombre Portée (Shadow)</option>
-                    <option value="btn-style-5">5. Neumorphism (Relief doux)</option>
-                    <option value="btn-style-6">6. Gradient (Dégradé)</option>
-                    <option value="btn-style-7">7. Souligné (Minimal)</option>
-                    <option value="btn-style-8">8. Cyberpunk (Néon)</option>
-                    <option value="btn-style-9">9. 3D (Pressable)</option>
-                    <option value="btn-style-10">10. Transparent (Glass)</option>
-                </select>
+                <label>Style des Boutons</label>
+                <select onchange="updateClass('btn-style', this.value)"><option value="btn-style-1">1. Classique (Pillule)</option><option value="btn-style-2">2. Carré Brut</option><option value="btn-style-3">3. Outline (Bordure)</option><option value="btn-style-4">4. Ombre Portée</option><option value="btn-style-5">5. Neumorphism</option><option value="btn-style-6">6. Gradient</option><option value="btn-style-7">7. Souligné</option><option value="btn-style-8">8. Cyberpunk (Néon)</option><option value="btn-style-9">9. 3D Pressable</option><option value="btn-style-10">10. Glass (Verre)</option></select>
             </div>
 
             <div class="group">
-                <label>Police d'écriture (10 Choix)</label>
-                <select onchange="updateCSS('--font-stack', this.value)">
-                    <option value="'Outfit', sans-serif">Outfit (Moderne)</option>
-                    <option value="'Fredoka', sans-serif">Fredoka (Rond/Fun)</option>
-                    <option value="'Playfair Display', serif">Playfair (Luxe)</option>
-                    <option value="'Anton', sans-serif">Anton (Impact)</option>
-                    <option value="'Roboto Mono', monospace">Roboto (Tech)</option>
-                    <option value="'Lora', serif">Lora (Littéraire)</option>
-                    <option value="'Oswald', sans-serif">Oswald (Urba)</option>
-                    <option value="'Dancing Script', cursive">Dancing (Manuscrit)</option>
-                    <option value="'Poppins', sans-serif">Poppins (Géométrique)</option>
-                    <option value="'Courier New', monospace">Courier (Retro)</option>
-                </select>
+                <label>Police</label>
+                <select onchange="updateCSS('--font-stack', this.value)"><option value="'Outfit', sans-serif">Outfit (Moderne)</option><option value="'Fredoka', sans-serif">Fredoka (Fun)</option><option value="'Playfair Display', serif">Playfair (Luxe)</option><option value="'Anton', sans-serif">Anton (Impact)</option><option value="'Roboto Mono', monospace">Roboto (Tech)</option><option value="'Lora', serif">Lora (Littéraire)</option><option value="'Oswald', sans-serif">Oswald (Urbain)</option><option value="'Dancing Script', cursive">Dancing (Manuscrit)</option><option value="'Poppins', sans-serif">Poppins (Géo)</option></select>
             </div>
         </div>
 
         <div class="footer">
-            <input type="hidden" id="sellerNum" value="21355000000">
+            <input type="hidden" id="sellerNum" value="213549514133">
             <button class="submit-btn" onclick="sendOrder()"><i class="fab fa-whatsapp"></i> Commander</button>
         </div>
     </div>
 
-    <div class="preview">
-        <div class="phone">
-            <iframe id="iframe" src=""></iframe>
-        </div>
-    </div>
+    <div class="preview"><div class="phone"><iframe id="iframe" src=""></iframe></div></div>
 
     <script>
-        // --- 1. CONFIGURATION INITIALE ---
         const urlParams = new URLSearchParams(window.location.search);
         const templateId = urlParams.get('t') || '1';
         const iframe = document.getElementById('iframe');
         iframe.src = `template${templateId}/index.html?edit=true`;
 
-        let linksData = [];
-        let socialsData = [];
+        let linksData = [], socialsData = [];
 
-        // --- 2. FONCTIONS UI (ONGLETS) ---
-        function setTab(id) {
-            document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            event.target.classList.add('active');
-        }
-
-        // --- 3. GESTION DES LIENS ---
-        function addLink() {
-            linksData.push({ text: "Nouveau Lien", url: "#" });
-            renderLinks();
-            pushData();
-        }
+        function setTab(id) { document.querySelectorAll('.content').forEach(c => c.classList.remove('active')); document.getElementById(id).classList.add('active'); document.querySelectorAll('.tab').forEach(t => t.classList.remove('active')); event.target.classList.add('active'); }
         
-        function removeLink(index) {
-            linksData.splice(index, 1);
-            renderLinks();
-            pushData();
+        // Liens & Socials Functions (inchangées)
+        function addLink() { linksData.push({ text: "Nouveau Lien", url: "#" }); renderLinks(); pushData(); }
+        function removeLink(i) { linksData.splice(i, 1); renderLinks(); pushData(); }
+        function moveLink(i, d) { if ((d===-1&&i>0)||(d===1&&i<linksData.length-1)) { [linksData[i],linksData[i+d]]=[linksData[i+d],linksData[i]]; renderLinks(); pushData(); }}
+        function updateLinkText(i, v) { linksData[i].text = v; pushData(); }
+        function renderLinks() { document.getElementById('links-list').innerHTML = linksData.map((l,i)=>`<div class="item-row"><div style="display:flex;flex-direction:column;gap:2px;"><button class="btn-icon" onclick="moveLink(${i},-1)">▲</button><button class="btn-icon" onclick="moveLink(${i},1)">▼</button></div><div class="item-content"><input type="text" value="${l.text}" oninput="updateLinkText(${i},this.value)" style="margin:0;"></div><button class="btn-icon" style="color:#ff6b6b;" onclick="removeLink(${i})"><i class="fas fa-trash"></i></button></div>`).join(''); }
+        function addSocial() { socialsData.push({ network: document.getElementById('social-select').value, url: "" }); renderSocials(); pushData(); }
+        function removeSocial(i) { socialsData.splice(i, 1); renderSocials(); pushData(); }
+        function renderSocials() { document.getElementById('socials-list').innerHTML = socialsData.map((s,i)=>`<div class="item-row"><i class="fab fa-${s.network}" style="width:20px;text-align:center;"></i><input type="text" placeholder="Lien/Pseudo" oninput="socialsData[${i}].url=this.value;pushData();" style="margin:0;flex-grow:1;"><button class="btn-icon" onclick="removeSocial(${i})">×</button></div>`).join(''); }
+
+        // --- COMMUNICATION IFRAME ---
+        function updateCSS(key, val) { iframe.contentWindow.postMessage({ type: 'cssVar', key, value: val }, '*'); }
+        function updateText(id, val) { iframe.contentWindow.postMessage({ type: 'textContent', key: id, value: val }, '*'); }
+        function updateClass(type, val) { iframe.contentWindow.postMessage({ type: 'classChange', key: type, value: val }, '*'); }
+        function pushData() { iframe.contentWindow.postMessage({ type: 'updateData', links: linksData, socials: socialsData }, '*'); }
+
+        // NOUVEAU : Fonction spéciale pour la couverture
+        function updateCover(url) {
+            iframe.contentWindow.postMessage({ type: 'updateCover', value: url }, '*');
         }
 
-        function moveLink(index, direction) {
-            if (direction === -1 && index > 0) {
-                [linksData[index], linksData[index - 1]] = [linksData[index - 1], linksData[index]];
-            } else if (direction === 1 && index < linksData.length - 1) {
-                [linksData[index], linksData[index + 1]] = [linksData[index + 1], linksData[index]];
+        // NOUVEAU : Fonction spéciale pour l'alignement du logo (gère aussi le masquage)
+        function updateLogoAlign(val) {
+            if (val === 'none') {
+                 updateCSS('--logo-display', 'none');
+            } else {
+                 updateCSS('--logo-display', 'block');
+                 updateCSS('--logo-align', val);
             }
-            renderLinks();
-            pushData();
         }
 
-        function updateLinkText(index, val) {
-            linksData[index].text = val;
-            pushData(); // Envoi en temps réel
-        }
-
-        function renderLinks() {
-            const container = document.getElementById('links-list');
-            container.innerHTML = "";
-            linksData.forEach((link, i) => {
-                container.innerHTML += `
-                <div class="item-row">
-                    <div style="display:flex; flex-direction:column; gap:2px;">
-                        <button class="btn-icon" onclick="moveLink(${i}, -1)">▲</button>
-                        <button class="btn-icon" onclick="moveLink(${i}, 1)">▼</button>
-                    </div>
-                    <div class="item-content">
-                        <input type="text" value="${link.text}" oninput="updateLinkText(${i}, this.value)" style="margin:0;">
-                    </div>
-                    <button class="btn-icon" style="color:#ff6b6b;" onclick="removeLink(${i})"><i class="fas fa-trash"></i></button>
-                </div>`;
-            });
-        }
-
-        // --- 4. GESTION DES RÉSEAUX ---
-        function addSocial() {
-            const network = document.getElementById('social-select').value;
-            socialsData.push({ network: network, url: "" });
-            renderSocials();
-            pushData();
-        }
-
-        function removeSocial(index) {
-            socialsData.splice(index, 1);
-            renderSocials();
-            pushData();
-        }
-
-        function renderSocials() {
-            const container = document.getElementById('socials-list');
-            container.innerHTML = "";
-            socialsData.forEach((soc, i) => {
-                container.innerHTML += `
-                <div class="item-row">
-                    <i class="fab fa-${soc.network}" style="width:20px; text-align:center;"></i>
-                    <input type="text" placeholder="Lien/Pseudo" oninput="socialsData[${i}].url = this.value; pushData();" style="margin:0; flex-grow:1;">
-                    <button class="btn-icon" onclick="removeSocial(${i})">×</button>
-                </div>`;
-            });
-        }
-
-        // --- 5. COMMUNICATION AVEC IFRAME ---
-        function updateCSS(key, val) {
-            iframe.contentWindow.postMessage({ type: 'cssVar', key, value: val }, '*');
-        }
-        function updateText(id, val) {
-            iframe.contentWindow.postMessage({ type: 'textContent', key: id, value: val }, '*');
-        }
-        function updateClass(type, val) {
-            iframe.contentWindow.postMessage({ type: 'classChange', key: type, value: val }, '*');
-        }
-        function pushData() {
-            iframe.contentWindow.postMessage({ type: 'updateData', links: linksData, socials: socialsData }, '*');
-        }
-
-        // --- 6. COMMANDE WHATSAPP ---
+        // --- COMMANDE WHATSAPP ---
         function sendOrder() {
-            let msg = `🔥 Commande Site Ultimate (Template #${templateId})\n\n`;
-            msg += `🎨 Style Bouton: ${document.querySelector('select').value}\n`;
-            msg += `🔤 Police: ${document.querySelectorAll('select')[1].value}\n\n`;
+            let msg = `🚀 Commande V2 (Template #${templateId})\n\n`;
+            // On récupère les infos importantes
+            msg += `🏷️ Nom: ${document.querySelector('[data-target="client-name"]')?.value || 'Non défini'}\n`;
             
-            msg += `🔗 BOUTONS :\n`;
+            const coverUrl = document.getElementById('coverInput').value;
+            if(coverUrl) msg += `🌄 Couverture: ${coverUrl}\n`;
+
+            msg += `\n🎨 Style Bouton: ${document.querySelector('select[onchange^="updateClass"]').value}\n`;
+            
+            msg += `\n🔗 BOUTONS (${linksData.length}):\n`;
             linksData.forEach(l => msg += `- ${l.text}\n`);
-            
-            msg += `\n📱 RÉSEAUX :\n`;
-            socialsData.forEach(s => msg += `- ${s.network} : ${s.url}\n`);
             
             const num = document.getElementById('sellerNum').value;
             window.open(`https://wa.me/${num}?text=${encodeURIComponent(msg)}`, '_blank');
