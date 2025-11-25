@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carnet Entretien</title>
+    <style>
+        /* --- STYLE IDENTIQUE (Pas de changement ici) --- */
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f0f2f5; margin: 0; padding: 20px; padding-bottom: 80px; color: #1a1a1a; }
+        .container { max-width: 480px; margin: 0 auto; }
+        
+        /* Header */
+        .vehicle-header { background: white; padding: 15px; border-radius: 12px; display: flex; align-items: center; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .brand-logo { width: 50px; height: 50px; background-color: #333; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 15px; }
+        .vehicle-info h1 { margin: 0; font-size: 18px; }
+        .vehicle-info p { margin: 0; color: #6e6e6e; font-size: 14px; }
+
+        /* Carte Status */
+        .status-card { background: linear-gradient(135deg, #2c3e50, #000000); color: white; padding: 25px; border-radius: 16px; text-align: center; margin-bottom: 25px; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .status-label { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8; }
+        .next-km { font-size: 32px; font-weight: bold; font-family: 'Courier New', monospace; margin: 10px 0; color: #f1c40f; }
+        
+        /* Barre de progression */
+        .progress-container { background: rgba(255,255,255,0.2); height: 8px; border-radius: 4px; margin-top: 15px; overflow: hidden; }
+        .progress-bar { height: 100%; width: 0%; transition: width 1s ease-in-out; background-color: #27ae60; }
+
+        /* Grille Technique */
+        .tech-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 25px; }
+        .tech-item { background: white; padding: 12px; border-radius: 8px; border-left: 3px solid #2980b9; }
+        .tech-label { font-size: 11px; color: #6e6e6e; text-transform: uppercase; }
+        .tech-value { font-weight: bold; font-size: 14px; }
+
+        /* Note */
+        .note-box { background: #fff3cd; color: #856404; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-size: 14px; border-left: 4px solid #ffeeba; display: none; } /* Caché par défaut */
+
+        footer { text-align: center; font-size: 11px; color: #aaa; margin-top: 30px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="vehicle-header">
+        <div class="brand-logo">AUTO</div>
+        <div class="vehicle-info">
+            <h1>Véhicule Client</h1>
+            <p>Carnet Numérique</p>
+        </div>
+    </div>
+
+    <div class="status-card">
+        <div class="status-label">Prochaine Vidange À</div>
+        <div class="next-km" id="disp-next-km">...</div> <div class="date-limit" id="disp-date">...</div>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        
+        <p style="font-size: 12px; margin-top: 10px; margin-bottom: 0;">
+            Compteur actuel : <span id="disp-now-km">...</span>
+        </p>
+    </div>
+
+    <div class="note-box" id="note-box">
+        <strong>Note du Garagiste :</strong><br>
+        <span id="disp-note"></span>
+    </div>
+
+    <div class="tech-grid">
+        <div class="tech-item">
+            <div class="tech-label">Huile Moteur</div>
+            <div class="tech-value" id="disp-huile">...</div>
+        </div>
+        <div class="tech-item">
+            <div class="tech-label">Filtre Huile</div>
+            <div class="tech-value" id="disp-filtre-huile">...</div>
+        </div>
+        <div class="tech-item">
+            <div class="tech-label">Filtre Air</div>
+            <div class="tech-value" id="disp-filtre-air">...</div>
+        </div>
+        <div class="tech-item">
+            <div class="tech-label">Statut</div>
+            <div class="tech-value">À jour ✅</div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Propulsé par <strong>Madilium</strong></p>
+        <p>Mise à jour via GitHub</p>
+    </footer>
+
+</div>
+
+<script>
+    // Le script qui remplace le PHP
+    fetch('data.json')
+        .then(response => response.json())
+        .then(data => {
+            // 1. Remplir les textes
+            document.getElementById('disp-next-km').textContent = data.prochaine_vidange + " KM";
+            document.getElementById('disp-date').textContent = "ou avant le " + data.date_limite;
+            document.getElementById('disp-now-km').textContent = data.km_actuel + " KM";
+            document.getElementById('disp-huile').textContent = data.huile;
+            document.getElementById('disp-filtre-huile').textContent = data.filtre_huile;
+            document.getElementById('disp-filtre-air').textContent = data.filtre_air;
+
+            // Afficher la note si elle existe
+            if(data.note_mecano && data.note_mecano.length > 0) {
+                document.getElementById('note-box').style.display = 'block';
+                document.getElementById('disp-note').textContent = data.note_mecano;
+            }
+
+            // 2. Calculer la barre de progression (Maths)
+            // On enlève les espaces pour les calculs (ex: "120 000" -> 120000)
+            let kmNow = parseInt(data.km_actuel.replace(/\s/g, ''));
+            let kmNext = parseInt(data.prochaine_vidange.replace(/\s/g, ''));
+            let kmRestant = kmNext - kmNow;
+            
+            // On suppose un cycle de 10 000 km pour la jauge
+            let pourcentage = 100 - ((kmRestant / 10000) * 100);
+
+            // Limites (0 à 100%)
+            if(pourcentage > 100) pourcentage = 100;
+            if(pourcentage < 0) pourcentage = 0;
+
+            // Appliquer la largeur et la couleur
+            let bar = document.getElementById('progress-bar');
+            bar.style.width = pourcentage + "%";
+
+            // Changer la couleur selon l'urgence
+            if(kmRestant < 500) {
+                bar.style.backgroundColor = "#e74c3c"; // Rouge
+            } else if(kmRestant < 2000) {
+                bar.style.backgroundColor = "#f1c40f"; // Jaune
+            } else {
+                bar.style.backgroundColor = "#27ae60"; // Vert
+            }
+
+        })
+        .catch(error => {
+            console.error('Erreur:', error);
+            document.getElementById('disp-next-km').textContent = "Erreur chargement";
+        });
+</script>
+
+</body>
+</html>
