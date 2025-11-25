@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenue - Guide Voyageur</title>
+    <style>
+        /* --- DESIGN GÉNÉRAL (STYLE MADILIUM) --- */
+        :root {
+            --primary-color: #2c3e50; /* Couleur principale (Bleu nuit) */
+            --accent-color: #27ae60;  /* Couleur action (Vert émeraude) */
+            --bg-color: #f4f6f7;      /* Gris très clair */
+            --card-bg: #ffffff;
+            --text-color: #333333;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 480px; /* Largeur max type smartphone */
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* --- EN-TÊTE --- */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo-area {
+            width: 80px;
+            height: 80px;
+            background-color: #ddd; /* Placeholder pour logo */
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #777;
+        }
+
+        h1 { font-size: 22px; margin: 0; color: var(--primary-color); }
+        p.subtitle { margin: 5px 0 0; color: #666; font-size: 14px; }
+
+        /* --- CARTE WIFI (L'ÉLÉMENT CLÉ) --- */
+        .wifi-card {
+            background: linear-gradient(135deg, var(--primary-color), #34495e);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .wifi-icon { font-size: 40px; margin-bottom: 10px; }
+        
+        .wifi-details {
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .wifi-label { font-size: 12px; opacity: 0.8; text-transform: uppercase; letter-spacing: 1px; }
+        .wifi-value { font-size: 18px; font-weight: bold; margin-bottom: 5px; }
+
+        .btn-copy {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+            width: 100%;
+            display: block;
+        }
+
+        .btn-copy:active { transform: scale(0.95); }
+
+        /* --- GRILLE D'INFOS --- */
+        .section-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 10px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .info-card {
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .info-icon { font-size: 24px; margin-bottom: 5px; display: block; }
+        .info-label { font-size: 12px; color: #888; display: block; }
+        .info-time { font-weight: bold; color: var(--primary-color); }
+
+        /* --- BOUTONS SERVICES --- */
+        .service-link {
+            display: flex;
+            align-items: center;
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            text-decoration: none;
+            color: var(--text-color);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: background 0.2s;
+        }
+
+        .service-link:active { background-color: #eee; }
+        .service-icon { margin-right: 15px; font-size: 20px; width: 30px; text-align: center; }
+        .service-text { flex-grow: 1; font-weight: 500; }
+        .arrow { color: #ccc; }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .madilium-tag {
+            color: var(--primary-color);
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        /* --- NOTIFICATION COPIE --- */
+        #copy-toast {
+            visibility: hidden;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            padding: 10px;
+            position: fixed;
+            z-index: 1;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            font-size: 14px;
+            min-width: 200px;
+        }
+
+        #copy-toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
+        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+        @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <header>
+        <div class="logo-area">LOGO</div> <h1>Hôtel Bellevue</h1>
+        <p class="subtitle">Bienvenue chez vous</p>
+    </header>
+
+    <div class="wifi-card">
+        <div class="wifi-icon">📶</div>
+        <div class="wifi-details">
+            <div class="wifi-label">Réseau Wi-Fi</div>
+            <div class="wifi-value">Hôtel_Bellevue_Guest</div>
+        </div>
+        <button class="btn-copy" onclick="copyPassword()" data-password="MotDePasseSecret123">
+            📋 Copier le Mot de Passe
+        </button>
+    </div>
+
+    <div class="section-title">Infos Pratiques</div>
+    <div class="info-grid">
+        <div class="info-card">
+            <span class="info-icon">🕒</span>
+            <span class="info-label">Check-out</span>
+            <span class="info-time">11h00</span>
+        </div>
+        <div class="info-card">
+            <span class="info-icon">☕</span>
+            <span class="info-label">Petit-Déjeuner</span>
+            <span class="info-time">7h - 10h</span>
+        </div>
+        <div class="info-card">
+            <span class="info-icon">🔑</span>
+            <span class="info-label">Code Entrée</span>
+            <span class="info-time">#4092</span>
+        </div>
+        <div class="info-card">
+            <span class="info-icon">📞</span>
+            <span class="info-label">Réception</span>
+            <span class="info-time">Dial 9</span>
+        </div>
+    </div>
+
+    <div class="section-title">Services & Guide</div>
+    <div class="services-list">
+        <a href="tel:+213000000000" class="service-link">
+            <span class="service-icon">🚖</span>
+            <span class="service-text">Commander un Taxi</span>
+            <span class="arrow">›</span>
+        </a>
+        <a href="https://maps.google.com" target="_blank" class="service-link">
+            <span class="service-icon">🍽️</span>
+            <span class="service-text">Nos Restaurants Préférés</span>
+            <span class="arrow">›</span>
+        </a>
+        <a href="tel:14" class="service-link" style="border-left: 4px solid #e74c3c;">
+            <span class="service-icon">🆘</span>
+            <span class="service-text">Urgence (Pompiers/Police)</span>
+            <span class="arrow">›</span>
+        </a>
+    </div>
+
+    <footer>
+        <p>Hôtel Bellevue - 12 Rue de la Paix, Tizi Ouzou</p>
+        <p>Solution connectée par <a href="#" class="madilium-tag">Madilium</a></p>
+    </footer>
+
+</div>
+
+<div id="copy-toast">Mot de passe copié !</div>
+
+<script>
+    function copyPassword() {
+        // Récupérer le mot de passe depuis l'attribut du bouton
+        const btn = document.querySelector('.btn-copy');
+        const password = btn.getAttribute('data-password');
+        
+        // Utiliser l'API Clipboard
+        navigator.clipboard.writeText(password).then(() => {
+            // Feedback visuel : Changer le texte du bouton
+            const originalText = btn.innerHTML;
+            btn.innerHTML = "✅ Copié !";
+            btn.style.backgroundColor = "#2ecc71"; // Vert validation
+            
+            // Afficher le toast
+            const toast = document.getElementById("copy-toast");
+            toast.className = "show";
+            setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+
+            // Remettre le bouton normal après 2 secondes
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.backgroundColor = ""; // Retour couleur css
+            }, 2000);
+        }).catch(err => {
+            console.error('Erreur copie :', err);
+            alert("Erreur : Copiez manuellement le mot de passe : " + password);
+        });
+    }
+</script>
+
+</body>
+</html>
