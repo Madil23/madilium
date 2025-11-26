@@ -1,0 +1,201 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madilium Templa</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Courier+Prime&family=Dancing+Script:wght@700&family=Fredoka:wght@400;600&family=Lora:ital@0;1&family=Oswald&family=Outfit:wght@300;500;700&family=Playfair+Display:ital@0;1&family=Poppins:wght@300;600&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            /* VARIABLES DE BASE */
+            --bg-color: #F9F8F6;
+            --text-primary: #2C2C2C;
+            --accent-color: #C5A059;
+            --font-stack: 'Outfit', sans-serif;
+
+            /* NOUVEAU : VARIABLES LOGO & COVER */
+            --logo-radius: 50%;      /* Rond par défaut */
+            --logo-align: center;    /* Centré par défaut */
+            --logo-display: block;   /* Visible par défaut */
+            
+            --cover-height: 0px;     /* Pas de couverture par défaut */
+            --cover-url: none;       /* Pas d'image */
+            --profile-margin-top: 40px; /* Marge standard sans couverture */
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: var(--font-stack); background: var(--bg-color); color: var(--text-primary); min-height: 100vh; display: flex; flex-direction: column; align-items: center; transition: 0.3s; overflow-x: hidden; }
+        
+        .container { width: 100%; max-width: 480px; text-align: center; position: relative; background: var(--bg-color); min-height: 100vh; }
+        
+        /* NOUVEAU : COVER IMAGE */
+        .cover-image {
+            width: 100%;
+            height: var(--cover-height);
+            background-image: var(--cover-url);
+            background-size: cover;
+            background-position: center;
+            transition: height 0.3s ease;
+        }
+
+        /* HEADER MODIFIÉ */
+        .profile-section {
+            padding: 20px;
+            /* Utilisation des variables d'alignement */
+            display: flex;
+            flex-direction: column;
+            align-items: var(--logo-align); /* Aligne l'image */
+            text-align: var(--logo-align);  /* Aligne le texte */
+            
+            /* Gestion de la marge si couverture présente */
+            margin-top: var(--profile-margin-top);
+            position: relative;
+            transition: margin 0.3s ease;
+        }
+
+        .profile-img {
+            width: 120px; height: 120px; object-fit: cover;
+            /* Utilisation des variables de forme et visibilité */
+            border-radius: var(--logo-radius);
+            display: var(--logo-display);
+            
+            border: 3px solid var(--bg-color); /* Bordure couleur fond pour ressortir sur la cover */
+            margin-bottom: 15px;
+            background: var(--bg-color);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        h1 { font-size: 1.8rem; margin-bottom: 5px; }
+        p.tagline { opacity: 0.7; margin-bottom: 30px; font-style: italic; }
+
+        /* CONTAINERS DYNAMIQUES */
+        #socials-container { display: flex; justify-content: var(--logo-align); gap: 15px; margin-bottom: 30px; flex-wrap: wrap; padding: 0 20px; }
+        #links-container { display: flex; flex-direction: column; gap: 15px; padding: 0 20px 40px 20px; }
+
+        /* --- BIBLIOTHÈQUE DES STYLES DE BOUTONS (Inchangée) --- */
+        .dyn-btn { padding: 18px; text-decoration: none; display: block; font-weight: 600; transition: 0.3s; color: var(--text-primary); cursor: pointer; position: relative; overflow: hidden; text-align: center; }
+        .btn-style-1 { background: white; border: 1px solid #ddd; border-radius: 50px; } .btn-style-1:hover { border-color: var(--accent-color); transform: translateY(-2px); }
+        .btn-style-2 { background: var(--text-primary); color: var(--bg-color); border-radius: 0; text-transform: uppercase; letter-spacing: 1px; } .btn-style-2:hover { background: var(--accent-color); }
+        .btn-style-3 { background: transparent; border: 2px solid var(--text-primary); border-radius: 8px; } .btn-style-3:hover { background: var(--text-primary); color: var(--bg-color); }
+        .btn-style-4 { background: white; border-radius: 12px; box-shadow: 0 10px 20px -5px rgba(0,0,0,0.1); border: none; } .btn-style-4:hover { transform: translateY(-3px); box-shadow: 0 15px 30px -5px rgba(0,0,0,0.2); }
+        .btn-style-5 { background: var(--bg-color); border-radius: 15px; box-shadow: 5px 5px 10px rgba(0,0,0,0.1), -5px -5px 10px white; border: none; } .btn-style-5:hover { box-shadow: inset 5px 5px 10px rgba(0,0,0,0.1), inset -5px -5px 10px white; }
+        .btn-style-6 { background: linear-gradient(45deg, var(--accent-color), #ff9a9e); color: white; border-radius: 30px; border: none; } .btn-style-6:hover { opacity: 0.9; transform: scale(1.02); }
+        .btn-style-7 { background: transparent; border-bottom: 2px solid #ddd; padding: 15px 0; text-align: left; } .btn-style-7:hover { border-color: var(--accent-color); padding-left: 10px; }
+        .btn-style-8 { background: black; color: var(--accent-color); border: 1px solid var(--accent-color); box-shadow: 0 0 5px var(--accent-color); text-transform: uppercase; font-family: 'Courier New', monospace; } .btn-style-8:hover { background: var(--accent-color); color: black; box-shadow: 0 0 20px var(--accent-color); }
+        .btn-style-9 { background: var(--accent-color); color: white; border-radius: 10px; border-bottom: 5px solid rgba(0,0,0,0.2); transform: translateY(0); } .btn-style-9:active { transform: translateY(4px); border-bottom: 1px solid rgba(0,0,0,0.2); }
+        .btn-style-10 { background: rgba(255,255,255,0.3); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.5); border-radius: 12px; } .btn-style-10:hover { background: rgba(255,255,255,0.6); }
+        .social-link { font-size: 1.5rem; color: var(--text-primary); transition: 0.3s; } .social-link:hover { color: var(--accent-color); transform: scale(1.2); }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="cover-image" id="cover-bg"></div>
+
+        <div class="profile-section">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" class="profile-img">
+            <h1 id="client-name">MAISON ÉLÉGANCE</h1>
+            <p class="tagline" id="client-tagline">Beauté • Soins • Bien-être</p>
+        </div>
+
+        <div id="socials-container"></div>
+
+        <div id="links-container">
+            <a class="dyn-btn btn-style-1">Bouton Démo 1</a>
+            <a class="dyn-btn btn-style-1">Bouton Démo 2</a>
+        </div>
+
+        <footer style="margin-top:auto; padding-bottom: 20px; font-size:0.7rem; opacity:0.5;">Propulsé par Madilium</footer>
+    </div>
+
+    <script>
+        // ============================================================
+        // 🔧 CONFIGURATION DU CLIENT (Remplir avec les infos WhatsApp)
+        // ============================================================
+        const DATA = {
+            // 1. TEXTES
+            texts: {
+                "client-name": "Ouardia",       // Nom du client
+                "client-tagline": "Chirurgien-Cardiologue",  // Slogan
+            },
+
+            // 2. DESIGN (Couleurs & Police)
+            cssVars: {
+                "--accent-color": "#ff94e8",         // Couleur reçue
+                "--bg-color": "#f7e4ef",
+                "--text-primary": "#c32c2c",
+                "--font-stack": "'Poppins', sans-serif", // Police choisie
+                "btn-style": "btn-style-2",          // Style de bouton (Classe CSS)
+                
+                // Si le client a envoyé un logo/cover :
+                "--logo-radius": "50%",
+                "--logo-align": "center",
+                "--cover-url": "none", // Mettre url('https://...') si cover
+                "--cover-height": "0px"
+            },
+
+            // 3. LIENS (Copier la liste ici)
+            links: [
+                { text: "Prise de RDV", url: "https://uber.com/..." },
+                { text: "Beau Garcon", url: "https://..." },
+            ],
+
+            // 4. RÉSEAUX SOCIAUX
+            socials: [
+                { network: "instagram", url: "https://instagram.com/" },
+                { network: "whatsapp", url: "https://wa.me/213549605987" }
+                { network: "snapchat", url: "https://snapchat.com/add/" }
+            ]
+        };
+
+        // ============================================================
+        // ⚙️ MOTEUR D'APPLICATION (NE PAS TOUCHER)
+        // ============================================================
+        
+        // A. Appliquer les variables CSS
+        for (const [key, value] of Object.entries(DATA.cssVars)) {
+            if(key === 'btn-style') continue; // Cas spécial pour la classe
+            document.documentElement.style.setProperty(key, value);
+        }
+
+        // B. Appliquer les Textes
+        for (const [id, text] of Object.entries(DATA.texts)) {
+            const el = document.getElementById(id);
+            if(el) el.textContent = text;
+        }
+
+        // C. Générer les Boutons
+        const linkCont = document.getElementById('links-container');
+        const btnStyle = DATA.cssVars['btn-style'] || 'btn-style-1';
+        
+        if(linkCont) {
+            linkCont.innerHTML = '';
+            DATA.links.forEach(link => {
+                const a = document.createElement('a');
+                a.className = `dyn-btn ${btnStyle}`;
+                a.textContent = link.text;
+                a.href = link.url;
+                a.target = "_blank"; // Ouvre dans un nouvel onglet
+                linkCont.appendChild(a);
+            });
+        }
+
+        // D. Générer les Réseaux Sociaux
+        const socCont = document.getElementById('socials-container');
+        if(socCont) {
+            socCont.innerHTML = '';
+            DATA.socials.forEach(soc => {
+                const a = document.createElement('a');
+                a.className = 'social-link';
+                a.href = soc.url;
+                a.innerHTML = `<i class="fab fa-${soc.network}"></i>`;
+                socCont.appendChild(a);
+            });
+        }
+    </script>
+</body>
+</html>
