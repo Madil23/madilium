@@ -3,172 +3,415 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Madilium | Révision Anatomie Abdominale</title>
+    <title>Madilium | Révision Anatomie Interactive</title>
     <style>
         :root {
-            --primary: #2563eb;
-            --secondary: #1e293b;
-            --accent: #3b82f6;
+            /* Palette Madilium Vibrant */
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --accent: #ec4899; 
+            --gradient-main: linear-gradient(135deg, #4f46e5 0%, #8b5cf6 100%);
+            --gradient-card: linear-gradient(145deg, #ffffff, #f8fafc);
             --success: #10b981;
             --error: #ef4444;
-            --bg: #f8fafc;
-            --text: #334155;
-            --card-bg: #ffffff;
+            --bg: #f1f5f9;
+            --text: #1e293b;
+            --text-light: #64748b;
         }
-        * { box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
-        body { margin: 0; padding: 0; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
-        header { background: var(--secondary); color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
-        .logo { font-weight: 700; font-size: 1.5rem; letter-spacing: 1px; }
-        .logo span { color: var(--accent); }
-        main { flex: 1; max-width: 800px; width: 100%; margin: 2rem auto; padding: 0 1rem; }
-        .card { background: var(--card-bg); border-radius: 12px; padding: 2rem; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; }
-        .grid-menu { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
-        .course-btn { background: white; border: 2px solid #e2e8f0; padding: 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 600; text-align: center; transition: all 0.2s; color: var(--secondary); }
-        .course-btn:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-2px); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
-        .hidden { display: none; }
-        .progress-bar { width: 100%; height: 6px; background: #e2e8f0; border-radius: 3px; margin-bottom: 2rem; overflow: hidden; }
-        .progress-fill { height: 100%; background: var(--primary); width: 0%; transition: width 0.3s ease; }
-        .question-text { font-size: 1.25rem; font-weight: 600; margin-bottom: 1.5rem; line-height: 1.5; }
-        .options-list { display: flex; flex-direction: column; gap: 0.8rem; }
-        .option-btn { padding: 1rem; border: 2px solid #e2e8f0; border-radius: 8px; background: white; cursor: pointer; text-align: left; font-size: 1rem; transition: all 0.2s; }
-        .option-btn:hover:not(:disabled) { background: #f1f5f9; border-color: #cbd5e1; }
-        .option-btn.correct { background-color: #d1fae5; border-color: var(--success); color: #065f46; }
-        .option-btn.wrong { background-color: #fee2e2; border-color: var(--error); color: #991b1b; }
-        .feedback { margin-top: 1.5rem; padding: 1rem; border-radius: 8px; background: #f8fafc; border-left: 4px solid var(--primary); animation: fadeIn 0.3s ease; }
-        .controls { margin-top: 2rem; display: flex; justify-content: flex-end; }
-        .btn-primary { background: var(--primary); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 6px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
-        .btn-primary:hover { background: #1d4ed8; }
-        .score-circle { width: 150px; height: 150px; border-radius: 50%; background: conic-gradient(var(--primary) 0%, #e2e8f0 0%); margin: 0 auto 2rem; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: bold; color: var(--secondary); position: relative; }
-        .score-circle::before { content: ''; position: absolute; width: 120px; height: 120px; background: white; border-radius: 50%; }
-        .score-value { position: relative; z-index: 1; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        * { box-sizing: border-box; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+        
+        body { 
+            margin: 0; padding: 0; 
+            background-color: var(--bg);
+            background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+            background-size: 20px 20px;
+            color: var(--text); 
+            min-height: 100vh; 
+            display: flex; flex-direction: column; 
+        }
+
+        /* Header Stylish */
+        header {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            position: sticky; top: 0; z-index: 100;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .logo { font-weight: 800; font-size: 1.8rem; letter-spacing: -1px; background: var(--gradient-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .badge { background: #e0e7ff; color: var(--primary); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; }
+
+        /* Main Container */
+        main { flex: 1; max-width: 850px; width: 100%; margin: 3rem auto; padding: 0 1.5rem; }
+
+        /* Cards with Animation */
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px -10px rgba(79, 70, 229, 0.1);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #f1f5f9;
+        }
+        .card.active { animation: slideIn 0.5s ease; }
+
+        /* Grid Menu */
+        .grid-menu { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+        .course-btn {
+            background: white;
+            border: 2px solid transparent;
+            padding: 2rem 1.5rem;
+            border-radius: 16px;
+            cursor: pointer;
+            font-weight: 700;
+            text-align: center;
+            transition: all 0.3s ease;
+            color: var(--text);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        .course-btn::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px;
+            background: var(--gradient-main);
+        }
+        .course-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px -5px rgba(79, 70, 229, 0.15);
+            border-color: #e0e7ff;
+        }
+        .course-btn span { display: block; font-size: 0.9rem; color: var(--text-light); margin-bottom: 0.5rem; font-weight: 500; }
+        .course-btn strong { font-size: 1.2rem; display: block; }
+
+        /* Quiz UI */
+        .hidden { display: none !important; }
+        
+        .progress-container {
+            background: #e2e8f0; height: 10px; border-radius: 10px; margin-bottom: 2.5rem; overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%; background: var(--gradient-main); width: 0%;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 10px;
+        }
+
+        .question-text { font-size: 1.4rem; font-weight: 700; margin-bottom: 2rem; line-height: 1.4; color: var(--text); }
+
+        .options-list { display: flex; flex-direction: column; gap: 1rem; }
+        .option-btn {
+            padding: 1.2rem 1.5rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            background: white;
+            cursor: pointer;
+            text-align: left;
+            font-size: 1.05rem;
+            color: var(--text);
+            transition: all 0.2s;
+            position: relative;
+        }
+        .option-btn:hover:not(:disabled) {
+            border-color: var(--primary);
+            background: #eef2ff;
+            transform: translateX(5px);
+        }
+        .option-btn:disabled { opacity: 0.9; cursor: default; }
+
+        /* Feedback States */
+        .option-btn.correct {
+            background: #dcfce7; border-color: var(--success); color: #166534;
+            animation: pulse 0.4s ease;
+        }
+        .option-btn.wrong {
+            background: #fee2e2; border-color: var(--error); color: #991b1b;
+            animation: shake 0.4s ease;
+        }
+        .option-btn.correct::after { content: '✓'; position: absolute; right: 20px; font-weight: bold; }
+        .option-btn.wrong::after { content: '✕'; position: absolute; right: 20px; font-weight: bold; }
+
+        .feedback-box {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border-radius: 12px;
+            background: #f8fafc;
+            border-left: 5px solid var(--primary);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            animation: slideUp 0.3s ease;
+        }
+        .feedback-box h4 { margin: 0 0 0.5rem 0; color: var(--primary); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; }
+
+        /* Buttons */
+        .btn-action {
+            background: var(--gradient-main);
+            color: white; border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 700; font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 10px 20px -5px rgba(79, 70, 229, 0.4);
+            transition: all 0.3s;
+            margin-top: 2rem;
+            float: right;
+        }
+        .btn-action:hover { transform: translateY(-2px); box-shadow: 0 15px 25px -5px rgba(79, 70, 229, 0.5); }
+
+        /* Score Screen */
+        .score-circle {
+            width: 180px; height: 180px;
+            border-radius: 50%;
+            background: conic-gradient(var(--primary) 0%, #e2e8f0 0%);
+            margin: 0 auto 2rem;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 3rem; font-weight: 800; color: var(--primary-dark);
+            position: relative;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1);
+        }
+        .score-circle::before {
+            content: ''; position: absolute;
+            width: 150px; height: 150px;
+            background: white; border-radius: 50%;
+        }
+        .score-val { position: relative; z-index: 2; }
+
+        /* Animations */
+        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.02); } 100% { transform: scale(1); } }
+
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo">MADILIUM <span>MED</span></div>
-    <div id="course-title">Anatomie Abdominale</div>
+    <div class="logo">MADILIUM</div>
+    <div class="badge">Session Médecine</div>
 </header>
 
 <main>
-    <div id="menu-screen" class="card">
-        <h2 style="margin-top:0;">Choisis ton cours à réviser</h2>
+    <div id="menu-screen" class="card active">
+        <h1 style="margin-top:0; font-size:2rem; background: var(--gradient-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Prêt à réviser ?</h1>
+        <p style="color:var(--text-light); margin-bottom: 2.5rem; font-size: 1.1rem;">Choisis un module pour lancer le mode interactif.</p>
+        
         <div class="grid-menu">
-            <button class="course-btn" onclick="startQuiz('peritoine')">1. Le Péritoine</button>
-            <button class="course-btn" onclick="startQuiz('estomac')">2. L'Estomac</button>
-            <button class="course-btn" onclick="startQuiz('bdp')">3. Bloc Duodéno-Pancréatique</button>
-            <button class="course-btn" onclick="startQuiz('cavite_orale')">4. Cavité Orale & Glandes</button>
-            <button class="course-btn" onclick="startQuiz('oesophage')">5. L'Œsophage</button>
-            <button class="course-btn" onclick="startQuiz('paroi_abdo')">6. Paroi Abdominale</button>
+            <button class="course-btn" onclick="startQuiz('peritoine')">
+                <span>Chapitre 1</span><strong>Le Péritoine</strong>
+            </button>
+            <button class="course-btn" onclick="startQuiz('estomac')">
+                <span>Chapitre 2</span><strong>L'Estomac</strong>
+            </button>
+            <button class="course-btn" onclick="startQuiz('bdp')">
+                <span>Chapitre 3</span><strong>Bloc Duodéno-P.</strong>
+            </button>
+            <button class="course-btn" onclick="startQuiz('cavite_orale')">
+                <span>Chapitre 4</span><strong>Cavité Orale</strong>
+            </button>
+            <button class="course-btn" onclick="startQuiz('oesophage')">
+                <span>Chapitre 5</span><strong>L'Œsophage</strong>
+            </button>
+            <button class="course-btn" onclick="startQuiz('paroi_abdo')">
+                <span>Chapitre 6</span><strong>Paroi Abdo.</strong>
+            </button>
         </div>
     </div>
 
     <div id="quiz-screen" class="card hidden">
-        <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
-        <div id="question-container">
-            <h3 class="question-text" id="question-text">...</h3>
+        <div class="progress-container">
+            <div class="progress-bar" id="progress"></div>
+        </div>
+        
+        <div id="question-block">
+            <div class="question-text" id="question-text">Chargement...</div>
             <div class="options-list" id="options-list"></div>
         </div>
-        <div id="feedback-container" class="feedback hidden">
-            <h4>Explication</h4>
-            <p id="explanation-text"></p>
+
+        <div id="feedback-block" class="feedback-box hidden">
+            <h4>Analyse Anatomique</h4>
+            <p id="explanation-text" style="line-height: 1.6;"></p>
         </div>
-        <div class="controls">
-            <button id="next-btn" class="btn-primary hidden" onclick="nextQuestion()">Question Suivante</button>
-            <button id="finish-btn" class="btn-primary hidden" onclick="showResult()">Voir les résultats</button>
+
+        <button id="next-btn" class="btn-action hidden" onclick="nextQuestion()">Question Suivante →</button>
+        <button id="finish-btn" class="btn-action hidden" onclick="showResult()">Voir mon Score</button>
+        
+        <div style="clear:both; padding-top:20px;">
+            <button onclick="goHome()" style="background:none; border:none; color:var(--text-light); cursor:pointer; font-size:0.9rem;">✕ Quitter la session</button>
         </div>
-        <button onclick="goHome()" style="margin-top:20px; background:none; border:none; color:#94a3b8; cursor:pointer; text-decoration:underline;">Quitter</button>
     </div>
 
     <div id="result-screen" class="card hidden" style="text-align: center;">
-        <h2>Session Terminée !</h2>
-        <div class="score-circle" id="score-circle"><span class="score-value" id="score-display">0%</span></div>
-        <p id="result-message" style="font-size: 1.1rem; margin-bottom: 2rem;"></p>
-        <button class="btn-primary" onclick="goHome()">Retour au Menu</button>
+        <h2 style="font-size: 2rem; margin-bottom: 2rem;">Résultat de la session</h2>
+        <div class="score-circle" id="score-circle">
+            <span class="score-val" id="score-display">0%</span>
+        </div>
+        <p id="result-message" style="font-size: 1.3rem; font-weight: 600; color: var(--text); margin-bottom: 3rem;"></p>
+        <button class="btn-action" style="float:none;" onclick="goHome()">Retour au Menu</button>
     </div>
 </main>
 
 <script>
+    /* --- BASE DE DONNÉES ENRICHIE (6 questions par cours) --- */
     const db = {
         'peritoine': [
-            { q: "Définition des épiploons (omentums) ?", options: ["Relient tube digestif à la paroi", "Relient deux organes intra-abdominaux", "Rattachent organes hors tube digestif", "Fascias d'accolement"], correct: 1, explanation: "Les épiploons relient deux organes intra-abdominaux (ex: petit épiploon)." },
-            { q: "Limite antérieure du Hiatus de Winslow ?", options: ["Veine cave inférieure", "Bulbe duodénal", "Bord libre du petit épiploon", "Ligament suspenseur"], correct: 2, explanation: "En avant : bord libre du petit épiploon. En arrière : VCI." },
-            { q: "Point le plus déclive de la cavité péritonéale ?", options: ["Espace sous-phrénique", "Gouttière pariéto-colique", "Cul-de-sac de Douglas", "Bourse omentale"], correct: 2, explanation: "Le cul-de-sac de Douglas est le point le plus bas." },
-            { q: "Le fascia de Treitz fixe :", options: ["Le côlon ascendant", "Le bloc duodéno-pancréatique", "Le côlon descendant", "L'estomac"], correct: 1, explanation: "Il fixe le duodéno-pancréas à la paroi postérieure." }
+            [cite_start]{ q: "Quelle est la définition exacte des épiploons (omentums)[cite: 418]?", options: ["Relient le tube digestif à la paroi", "Relient deux organes intra-abdominaux entre eux", "Rattachent des organes hors tube digestif à la paroi", "Ce sont des ligaments suspenseurs"], correct: 1, explanation: "Les épiploons (ex: petit épiploon) relient deux organes intra-abdominaux et contiennent des vaisseaux. Les mésos relient l'organe à la paroi." },
+            [cite_start]{ q: "Quelles sont les limites antérieures du Hiatus de Winslow[cite: 457]?", options: ["Le veine cave inférieure", "Le tronc cœliaque", "Le bord libre du petit épiploon", "Le ligament gastro-splénique"], correct: 2, explanation: "L'entrée de l'arrière-cavité est limitée en avant par le bord libre du petit épiploon (et en arrière par la VCI)." },
+            [cite_start]{ q: "Quel est le point le plus déclive de la cavité péritonéale[cite: 453]?", options: ["Espace sous-phrénique droit", "Cul-de-sac de Douglas", "Gouttière pariéto-colique", "Arrière-cavité des épiploons"], correct: 1, explanation: "Le cul-de-sac de Douglas (recto-utérin ou recto-vésical) est le point le plus bas où s'accumulent les liquides." },
+            [cite_start]{ q: "Le fascia de Treitz correspond à[cite: 421]:", options: ["L'accolement du côlon ascendant", "L'accolement du bloc duodéno-pancréatique", "L'accolement du côlon descendant", "Au ligament suspenseur du foie"], correct: 1, explanation: "Le fascia de Treitz fixe le duodéno-pancréas à la paroi postérieure (rétropéritonisation secondaire)." },
+            [cite_start]{ q: "Quel organe est considéré comme véritablement 'intra-péritonéal' (non recouvert de péritoine)[cite: 434]?", options: ["L'estomac", "L'ovaire", "Le foie", "La rate"], correct: 1, explanation: "L'ovaire est le seul organe intra-péritonéal vrai car une partie reste à découvert dans la cavité." },
+            [cite_start]{ q: "La bourse omentale (arrière cavité) permet[cite: 457]:", options: ["Le glissement de l'estomac", "La fixation du foie", "La protection de la vessie", "Le passage de l'aorte"], correct: 0, explanation: "C'est un espace de glissement situé en arrière de l'estomac." }
         ],
         'estomac': [
-            { q: "Cercle artériel de la PETITE courbure ?", options: ["Gastro-omentale droite", "Splénique", "Gastrique gauche et droite", "Colique moyenne"], correct: 2, explanation: "Anastomose des artères gastriques gauche et droite." },
-            { q: "Sphincter lisse séparant l'estomac du duodénum ?", options: ["Cardia", "Sphincter d'Oddi", "Pylore", "Treitz"], correct: 2, explanation: "Le pylore est le sphincter de sortie." },
-            { q: "Rapport postérieur via la bourse omentale ?", options: ["Foie", "Pancréas et rein gauche", "Côlon ascendant", "VCI"], correct: 1, explanation: "L'estomac repose sur le pancréas, la rate et le rein gauche." },
-            { q: "Tunique musculaire la plus profonde ?", options: ["Longitudinale", "Circulaire", "Oblique", "Transverse"], correct: 2, explanation: "La couche oblique est la plus profonde." }
+            [cite_start]{ q: "Le cercle artériel de la petite courbure est formé par [cite: 82-83] :", options: ["Gastro-omentale droite + gauche", "Splénique + Hépatique", "Gastrique gauche + Gastrique droite", "Mesentérique sup + inf"], correct: 2, explanation: "Anastomose de l'a. gastrique gauche (tronc cœliaque) et gastrique droite (hépatique propre)." },
+            [cite_start]{ q: "Le sphincter lisse situé à la sortie de l'estomac est[cite: 23]:", options: ["Le cardia", "Le pylore", "Le sphincter d'Oddi", "L'angle de His"], correct: 1, explanation: "Le pylore est muni d'un sphincter lisse séparant l'estomac du duodénum." },
+            [cite_start]{ q: "Rapports postérieurs de l'estomac via la bourse omentale[cite: 66]:", options: ["Foie et vésicule", "Pancréas, rein gauche et surrénale gauche", "Côlon droit et appendice", "Vessie"], correct: 1, explanation: "L'estomac repose en arrière sur le corps/queue du pancréas, le rein gauche et la surrénale gauche." },
+            [cite_start]{ q: "La couche musculaire la plus profonde de l'estomac est[cite: 48]:", options: ["Longitudinale", "Circulaire", "Oblique", "Transversale"], correct: 2, explanation: "La tunique musculeuse profonde est oblique, spécifique à l'estomac pour le malaxage." },
+            [cite_start]{ q: "Le drainage lymphatique des 2/3 médiaux de la portion verticale se fait vers[cite: 93]:", options: ["Les nœuds spléniques", "Les nœuds gastriques gauches", "Les nœuds hépatiques", "Les nœuds mésentériques"], correct: 1, explanation: "Vers la chaîne gastrique gauche (petite courbure)." },
+            [cite_start]{ q: "Le nerf vague gauche innerve principalement[cite: 100]:", options: ["La face postérieure", "La face antérieure (nerf principal antérieur)", "Le pylore uniquement", "Le fundus uniquement"], correct: 1, explanation: "Le vague gauche devient antérieur après la rotation embryologique." }
         ],
         'bdp': [
-            { q: "Parties du pancréas formant le BDP fixe ?", options: ["Tête et isthme", "Corps et queue", "Isthme et corps", "Totalité"], correct: 0, explanation: "Tête et isthme sont fixés par le fascia de Treitz." },
-            { q: "Où s'ouvre l'ampoule de Vater ?", options: ["Petite caroncule", "Grande caroncule (D2)", "Jéjunum", "Bulbe"], correct: 1, explanation: "Au niveau de la grande caroncule dans le 2ème duodénum." },
-            { q: "Vascularisation artérielle de la tête du pancréas ?", options: ["Splénique", "Arcades pancréatico-duodénales", "Mésentérique inf", "Rénale"], correct: 1, explanation: "Assurée par les arcades issues de la gastro-duodénale et de l'AMS." },
-            { q: "Vaisseau en arrière de l'isthme du pancréas ?", options: ["Origine de la veine porte", "Iliaque commune", "Veine fémorale", "Tronc coeliaque"], correct: 0, explanation: "La veine porte naît derrière l'isthme." }
+            [cite_start]{ q: "Le Bloc Duodéno-Pancréatique comprend[cite: 198]:", options: ["Tout le pancréas", "La tête et l'isthme + duodénum", "La queue + duodénum", "Le corps + jéjunum"], correct: 1, explanation: "La tête et l'isthme sont solidaires du cadre duodénal et fixés par le fascia de Treitz." },
+            [cite_start]{ q: "L'ampoule de Vater (hépatico-pancréatique) s'ouvre au niveau de[cite: 127]:", options: ["La petite caroncule", "La grande caroncule (Papille majeure)", "D1 (Bulbe)", "D3"], correct: 1, explanation: "Dans la partie descendante (D2) au niveau de la grande caroncule." },
+            [cite_start]{ q: "Vascularisation de la tête du pancréas[cite: 282]:", options: ["Artère splénique seule", "Arcades pancréatico-duodénales", "Artère rénale", "Artère colique"], correct: 1, explanation: "Par les arcades sup. et inf. issues de la gastro-duodénale et de l'AMS." },
+            [cite_start]{ q: "La veine porte se forme en arrière de[cite: 242]:", options: ["La tête du pancréas", "L'isthme du pancréas", "La queue du pancréas", "Le duodénum"], correct: 1, explanation: "La confluence veineuse porte se fait juste derrière l'isthme pancréatique." },
+            [cite_start]{ q: "Le conduit pancréatique accessoire (Santorini) s'ouvre dans[cite: 169]:", options: ["La grande caroncule", "La petite caroncule", "L'ampoule de Vater", "Le canal cholédoque"], correct: 1, explanation: "Au niveau de la petite caroncule, située au-dessus de la grande." },
+            [cite_start]{ q: "Rapport postérieur vasculaire majeur du BDP [cite: 259-260] :", options: ["Aorte et VCI", "Artère fémorale", "Veine jugulaire", "Tronc pulmonaire"], correct: 0, explanation: "Le bloc est plaqué contre l'aorte et la veine cave inférieure." }
         ],
         'cavite_orale': [
-            { q: "Innervation SENSITIVE des 2/3 antérieurs de la langue ?", options: ["Glosso-pharyngien (IX)", "Hypoglosse (XII)", "Nerf lingual (V)", "Facial (VII)"], correct: 2, explanation: "Le nerf lingual (V) pour les 2/3 antérieurs. Le IX pour le 1/3 postérieur." },
-            { q: "Abouchement du canal de Sténon (Parotide) ?", options: ["Plancher buccal", "Collet de la 2ème molaire sup.", "Sous la langue", "Vestibule inf."], correct: 1, explanation: "Il s'ouvre en regard de la 2ème molaire supérieure." },
-            { q: "Action du muscle génio-glosse ?", options: ["Elévation", "Rétraction", "Protraction (en bas et avant)", "Aucune"], correct: 2, explanation: "Il tire la langue en bas et en avant (protraction)." },
-            { q: "Nerf traversant la parotide (danger chirurgical) ?", options: ["Trijumeau", "Facial (VII)", "Vague", "Hypoglosse"], correct: 1, explanation: "Le nerf facial divise la parotide en deux lobes." }
+            [cite_start]{ q: "Innervation sensitive des 2/3 antérieurs de la langue[cite: 572]:", options: ["Nerf Glossopharyngien (IX)", "Nerf Vague (X)", "Nerf Lingual (V)", "Nerf Hypoglosse (XII)"], correct: 2, explanation: "Le nerf lingual (branche du V) assure la sensibilité tactile des 2/3 antérieurs." },
+            [cite_start]{ q: "Le canal de Sténon (parotide) s'abouche[cite: 593]:", options: ["Sous la langue", "En regard du collet de la 2ème molaire sup.", "Dans le fond du vestibule inf.", "Au niveau du frein lingual"], correct: 1, explanation: "Il perfore le buccinateur pour s'ouvrir face à la 2ème molaire supérieure." },
+            [cite_start]{ q: "L'action du muscle génio-glosse est[cite: 557]:", options: ["Rétraction de la langue", "Élévation de la langue", "Protraction (tirer la langue)", "Élargissement de la langue"], correct: 2, explanation: "Il attire la langue en bas et en avant (protraction)." },
+            [cite_start]{ q: "Quel nerf traverse la parotide (danger chirurgical)[cite: 585]?", options: ["Nerf Facial (VII)", "Nerf Trijumeau (V)", "Nerf Vague (X)", "Nerf Spinal (XI)"], correct: 0, explanation: "Le nerf facial traverse la glande et s'y divise en ses branches terminales." },
+            [cite_start]{ q: "Le plancher buccal est formé principalement par le muscle[cite: 545]:", options: ["Mylo-hyoïdien", "Génio-glosse", "Digastrique", "Stylo-glosse"], correct: 0, explanation: "Le mylo-hyoïdien forme le véritable 'diaphragme buccal'." },
+            [cite_start]{ q: "La glande submandibulaire se draine par le canal de[cite: 605]:", options: ["Sténon", "Wharton", "Wirsung", "Santorini"], correct: 1, explanation: "Le canal de Wharton qui s'ouvre à la base du frein de la langue (papille sublinguale)." }
         ],
         'oesophage': [
-            { q: "Limites vertébrales de l'œsophage ?", options: ["C4-Th10", "C6-Th11", "Th1-L1", "C2-Th12"], correct: 1, explanation: "De C6 (bouche oesophagienne) à Th11 (cardia)." },
-            { q: "Position des nerfs vagues (abdominal) ?", options: ["Gauche en avant, Droit en arrière", "Droit en avant, Gauche en arrière", "Latéraux", "Absents"], correct: 0, explanation: "Le vague Gauche est antérieur, le Droit est postérieur." },
-            { q: "Élément NON anti-reflux ?", options: ["Angle de His", "Valvule de Gubaroff", "Sphincter strié volontaire", "Membrane phréno-oesophagienne"], correct: 2, explanation: "Le sphincter inférieur n'est pas volontaire (lisse)." },
-            { q: "L'œsophage thoracique est dans le :", options: ["Médiastin ant.", "Cavité pleurale", "Médiastin post.", "Pré-trachéal"], correct: 2, explanation: "Il est dans le médiastin postérieur." }
+            [cite_start]{ q: "Limites vertébrales de l'œsophage[cite: 472]:", options: ["C4 à Th10", "C6 à Th11", "Th1 à L2", "C2 à C7"], correct: 1, explanation: "De la vertèbre C6 (bouche œsophagienne) jusqu'à Th11 (cardia)." },
+            [cite_start]{ q: "Au niveau abdominal, le nerf vague DROIT est situé[cite: 501]:", options: ["En avant de l'œsophage", "En arrière de l'œsophage", "Sur le flanc droit", "Il ne descend pas si bas"], correct: 1, explanation: "Le vague droit passe en postérieur, le gauche en antérieur." },
+            [cite_start]{ q: "Quel élément N'EST PAS un moyen anti-reflux [cite: 514-518] ?", options: ["Angle de His", "Valvule de Gubaroff", "Membrane phréno-œsophagienne", "Le sphincter strié supérieur"], correct: 3, explanation: "Le système anti-reflux est inférieur (SIO, His, Gubaroff). Le SSO est en haut." },
+            [cite_start]{ q: "L'œsophage thoracique chemine dans[cite: 482]:", options: ["Le médiastin antérieur", "Le médiastin postérieur", "L'espace pleural", "La cavité péricardique"], correct: 1, explanation: "Il est profond, dans le médiastin postérieur." },
+            [cite_start]{ q: "Rétrécissement œsophagien dû à la crosse aortique[cite: 469]:", options: ["Cricoïdien", "Aortique", "Diaphragmatique", "Pylorique"], correct: 1, explanation: "L'œsophage est comprimé latéralement par la crosse de l'aorte (T4)." },
+            [cite_start]{ q: "Le drainage veineux de l'œsophage réalise une anastomose[cite: 508]:", options: ["Porto-Cave", "Cavo-Cave", "Porto-Porte", "Artério-Veineuse"], correct: 0, explanation: "Entre les veines œsophagiennes (système cave) et gastriques (système porte)." }
         ],
         'paroi_abdo': [
-            { q: "Muscles larges (superficie -> profondeur) ?", options: ["Transverse, Oblique Int, Oblique Ext", "Oblique Ext, Oblique Int, Transverse", "Grand Droit, Transverse", "Oblique Int, Oblique Ext"], correct: 1, explanation: "Oblique Externe, puis Interne, puis Transverse en profondeur." },
-            { q: "Paroi inférieure du canal inguinal ?", options: ["Tendon conjoint", "Fascia transversalis", "Ligament inguinal", "Grand droit"], correct: 2, explanation: "Le ligament inguinal (arcade crurale) forme le plancher." },
-            { q: "Localisation de l'orifice inguinal profond ?", options: ["Aponévrose oblique ext.", "Fascia transversalis", "Ligne blanche", "Grand droit"], correct: 1, explanation: "Il est creusé dans le fascia transversalis (paroi post)." },
-            { q: "Action du muscle transverse ?", options: ["Flexion", "Rotation", "Sangle abdominale (rentrer le ventre)", "Extension"], correct: 2, explanation: "Il comprime les viscères (sangle)." }
+            [cite_start]{ q: "Ordre des muscles larges de la superficie à la profondeur [cite: 336-340] :", options: ["Transverse -> Oblique Int -> Oblique Ext", "Oblique Ext -> Oblique Int -> Transverse", "Grand Droit -> Pyramidal", "Interne -> Externe -> Transverse"], correct: 1, explanation: "Oblique Externe (le plus superficiel), puis Interne, puis Transverse (le plus profond)." },
+            [cite_start]{ q: "Le plancher (paroi inférieure) du canal inguinal est formé par[cite: 391]:", options: ["Le tendon conjoint", "Le ligament inguinal", "Le fascia transversalis", "Le muscle grand droit"], correct: 1, explanation: "Le ligament inguinal (arcade crurale) constitue le plancher." },
+            [cite_start]{ q: "L'orifice inguinal profond est creusé dans[cite: 389]:", options: ["L'aponévrose de l'oblique externe", "Le fascia transversalis", "La peau", "Le péritoine"], correct: 1, explanation: "C'est un orifice dans la paroi postérieure (fascia transversalis)." },
+            [cite_start]{ q: "Quelle hernie passe par la fosse inguinale latérale[cite: 373]?", options: ["Hernie directe", "Hernie indirecte", "Hernie ombilicale", "Hernie crurale"], correct: 1, explanation: "Les hernies obliques externes (indirectes) passent par la fosse latérale." },
+            [cite_start]{ q: "La gaine des droits sous la ligne arquée (Douglas)[cite: 364]:", options: ["Est complète", "N'a plus de feuillet postérieur", "Est très épaisse", "Contient le muscle pyramidal"], correct: 1, explanation: "En bas, les aponévroses passent toutes en avant, le feuillet postérieur disparaît (fascia transversalis seul)." },
+            [cite_start]{ q: "Innervation motrice principale des muscles de la paroi [cite: 348-350] :", options: ["Nerf vague", "Nerfs intercostaux (6 derniers) + Ilio-hypogastrique", "Plexus brachial", "Nerf sciatique"], correct: 1, explanation: "Nerfs thoraco-abdominaux (T7-T12) et nerfs ilio-hypogastrique/ilio-inguinal." }
         ]
     };
 
-    let currentQuiz=[], currentIndex=0, score=0;
-    const dom={menu:document.getElementById('menu-screen'),quiz:document.getElementById('quiz-screen'),result:document.getElementById('result-screen'),questionText:document.getElementById('question-text'),optionsList:document.getElementById('options-list'),progress:document.getElementById('progress'),feedback:document.getElementById('feedback-container'),explanation:document.getElementById('explanation-text'),nextBtn:document.getElementById('next-btn'),finishBtn:document.getElementById('finish-btn'),scoreDisplay:document.getElementById('score-display'),scoreCircle:document.getElementById('score-circle'),resultMessage:document.getElementById('result-message')};
+    /* --- LOGIQUE DU JEU --- */
+    let currentQuiz = [];
+    let currentIndex = 0;
+    let score = 0;
 
-    function startQuiz(id){
-        currentQuiz=db[id];
-        if(!currentQuiz){ console.error("Pas de quiz pour: "+id); return; }
-        currentIndex=0; score=0;
-        dom.menu.classList.add('hidden'); dom.result.classList.add('hidden'); dom.quiz.classList.remove('hidden');
-        loadQuestion();
+    const dom = {
+        menu: document.getElementById('menu-screen'),
+        quiz: document.getElementById('quiz-screen'),
+        result: document.getElementById('result-screen'),
+        qText: document.getElementById('question-text'),
+        opts: document.getElementById('options-list'),
+        progress: document.getElementById('progress'),
+        feedback: document.getElementById('feedback-block'),
+        explain: document.getElementById('explanation-text'),
+        next: document.getElementById('next-btn'),
+        finish: document.getElementById('finish-btn'),
+        scoreDisplay: document.getElementById('score-display'),
+        scoreCircle: document.getElementById('score-circle'),
+        msg: document.getElementById('result-message')
+    };
+
+    function startQuiz(id) {
+        if(!db[id]) return alert("Erreur: module introuvable");
+        currentQuiz = db[id];
+        currentIndex = 0; score = 0;
+        
+        dom.menu.classList.add('hidden');
+        dom.result.classList.add('hidden');
+        dom.quiz.classList.remove('hidden');
+        
+        renderQuestion();
     }
-    function loadQuestion(){
-        const q=currentQuiz[currentIndex];
-        dom.questionText.textContent=(currentIndex+1)+". "+q.q;
-        dom.optionsList.innerHTML='';
-        dom.feedback.classList.add('hidden'); dom.nextBtn.classList.add('hidden'); dom.finishBtn.classList.add('hidden');
-        dom.progress.style.width=((currentIndex/currentQuiz.length)*100)+'%';
-        q.options.forEach((opt,i)=>{
-            const btn=document.createElement('button'); btn.className='option-btn'; btn.textContent=opt;
-            btn.onclick=()=>check(i,btn); dom.optionsList.appendChild(btn);
+
+    function renderQuestion() {
+        const q = currentQuiz[currentIndex];
+        dom.qText.innerHTML = `<span style="font-size:0.9rem; color:var(--primary); display:block; margin-bottom:10px;">QUESTION ${currentIndex + 1}/${currentQuiz.length}</span>` + q.q;
+        dom.opts.innerHTML = '';
+        dom.feedback.classList.add('hidden');
+        dom.next.classList.add('hidden');
+        dom.finish.classList.add('hidden');
+        
+        // Update Progress
+        const pct = (currentIndex / currentQuiz.length) * 100;
+        dom.progress.style.width = pct + '%';
+
+        q.options.forEach((opt, i) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = opt;
+            btn.onclick = () => handleAnswer(i, btn);
+            dom.opts.appendChild(btn);
         });
     }
-    function check(i,btn){
-        const all=dom.optionsList.querySelectorAll('button'); all.forEach(b=>b.disabled=true);
-        const q=currentQuiz[currentIndex];
-        if(i===q.correct){ btn.classList.add('correct'); score++; }
-        else{ btn.classList.add('wrong'); all[q.correct].classList.add('correct'); }
-        dom.explanation.textContent=q.explanation; dom.feedback.classList.remove('hidden');
-        if(currentIndex<currentQuiz.length-1) dom.nextBtn.classList.remove('hidden');
-        else dom.finishBtn.classList.remove('hidden');
-        dom.progress.style.width=(((currentIndex+1)/currentQuiz.length)*100)+'%';
+
+    function handleAnswer(choiceIndex, btn) {
+        // Bloquer tous les boutons
+        Array.from(dom.opts.children).forEach(b => b.disabled = true);
+        
+        const q = currentQuiz[currentIndex];
+        
+        if(choiceIndex === q.correct) {
+            btn.classList.add('correct');
+            score++;
+        } else {
+            btn.classList.add('wrong');
+            dom.opts.children[q.correct].classList.add('correct');
+        }
+
+        dom.explain.innerText = q.explanation;
+        dom.feedback.classList.remove('hidden');
+
+        if(currentIndex < currentQuiz.length - 1) {
+            dom.next.classList.remove('hidden');
+        } else {
+            dom.finish.classList.remove('hidden');
+        }
+        
+        // Progress finale
+        dom.progress.style.width = ((currentIndex + 1) / currentQuiz.length) * 100 + '%';
     }
-    function nextQuestion(){ currentIndex++; loadQuestion(); }
-    function showResult(){
-        dom.quiz.classList.add('hidden'); dom.result.classList.remove('hidden');
-        const p=Math.round((score/currentQuiz.length)*100);
-        dom.scoreDisplay.textContent=p+'%';
-        dom.scoreCircle.style.background=`conic-gradient(var(--primary) ${p}%, #e2e8f0 ${p}%)`;
-        dom.resultMessage.textContent = p===100?"Parfait !":p>=70?"Bravo !":p>=50?"Pas mal.":"À revoir.";
+
+    function nextQuestion() {
+        currentIndex++;
+        renderQuestion();
     }
-    function goHome(){ dom.result.classList.add('hidden'); dom.quiz.classList.add('hidden'); dom.menu.classList.remove('hidden'); }
+
+    function showResult() {
+        dom.quiz.classList.add('hidden');
+        dom.result.classList.remove('hidden');
+        
+        const pct = Math.round((score / currentQuiz.length) * 100);
+        dom.scoreDisplay.innerText = pct + '%';
+        
+        dom.scoreCircle.style.background = `conic-gradient(var(--primary) ${pct}%, #e2e8f0 0%)`;
+        
+        if(pct === 100) dom.msg.innerText = "🏆 Exceptionnel ! Tu es un chef.";
+        else if(pct >= 80) dom.msg.innerText = "🔥 Très solide ! Continue comme ça.";
+        else if(pct >= 50) dom.msg.innerText = "👍 Pas mal, mais revois les détails.";
+        else dom.msg.innerText = "📚 Il faut relire le cours, courage !";
+    }
+
+    function goHome() {
+        dom.result.classList.add('hidden');
+        dom.quiz.classList.add('hidden');
+        dom.menu.classList.remove('hidden');
+        dom.menu.classList.add('active'); // Re-trigger animation
+    }
 </script>
+
 </body>
 </html>
