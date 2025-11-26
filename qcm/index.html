@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madilium | Révision Anatomie Abdominale</title>
+    <style>
+        :root {
+            --primary: #2563eb; /* Bleu Madilium */
+            --secondary: #1e293b;
+            --accent: #3b82f6;
+            --success: #10b981;
+            --error: #ef4444;
+            --bg: #f8fafc;
+            --text: #334155;
+            --card-bg: #ffffff;
+        }
+
+        * { box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+        
+        body { margin: 0; padding: 0; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
+
+        /* Header */
+        header {
+            background: var(--secondary);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .logo { font-weight: 700; font-size: 1.5rem; letter-spacing: 1px; }
+        .logo span { color: var(--accent); }
+
+        /* Main Layout */
+        main {
+            flex: 1;
+            max-width: 800px;
+            width: 100%;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* Card Style */
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        /* Menu Screen */
+        .grid-menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        .course-btn {
+            background: white;
+            border: 2px solid #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.2s;
+            color: var(--secondary);
+        }
+        .course-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+
+        /* Quiz Screen */
+        .hidden { display: none; }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .question-text {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .options-list { display: flex; flex-direction: column; gap: 0.8rem; }
+
+        .option-btn {
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            text-align: left;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+        .option-btn:hover:not(:disabled) { background: #f1f5f9; border-color: #cbd5e1; }
+
+        /* States */
+        .option-btn.correct {
+            background-color: #d1fae5;
+            border-color: var(--success);
+            color: #065f46;
+        }
+        .option-btn.wrong {
+            background-color: #fee2e2;
+            border-color: var(--error);
+            color: #991b1b;
+        }
+
+        .feedback {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            background: #f8fafc;
+            border-left: 4px solid var(--primary);
+            animation: fadeIn 0.3s ease;
+        }
+        .feedback h4 { margin: 0 0 0.5rem 0; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; color: #64748b; }
+
+        .controls {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-primary:hover { background: #1d4ed8; }
+
+        /* Result Screen */
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: conic-gradient(var(--primary) 0%, #e2e8f0 0%);
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--secondary);
+            position: relative;
+        }
+        .score-circle::before {
+            content: '';
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 50%;
+        }
+        .score-value { position: relative; z-index: 1; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">MADILIUM <span>MED</span></div>
+    <div id="course-title">Anatomie Abdominale</div>
+</header>
+
+<main>
+    <div id="menu-screen" class="card">
+        <h2 style="margin-top:0;">Choisis ton cours à réviser</h2>
+        <p style="color:#64748b; margin-bottom: 2rem;">Sélectionne un chapitre pour lancer une série de QCM.</p>
+        <div class="grid-menu">
+            <button class="course-btn" onclick="startQuiz('peritoine')">1. Le Péritoine</button>
+            <button class="course-btn" onclick="startQuiz('estomac')">2. L'Estomac</button>
+            <button class="course-btn" onclick="startQuiz('bdp')">3. Bloc Duodéno-Pancréatique</button>
+            <button class="course-btn" onclick="startQuiz('cours4')">4. (Cours Précédent 1)</button>
+            <button class="course-btn" onclick="startQuiz('cours5')">5. (Cours Précédent 2)</button>
+            <button class="course-btn" onclick="startQuiz('cours6')">6. (Cours Précédent 3)</button>
+        </div>
+    </div>
+
+    <div id="quiz-screen" class="card hidden">
+        <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+        
+        <div id="question-container">
+            <h3 class="question-text" id="question-text">Question goes here...</h3>
+            <div class="options-list" id="options-list">
+                </div>
+        </div>
+
+        <div id="feedback-container" class="feedback hidden">
+            <h4>Explication</h4>
+            <p id="explanation-text"></p>
+        </div>
+
+        <div class="controls">
+            <button id="next-btn" class="btn-primary hidden" onclick="nextQuestion()">Question Suivante</button>
+            <button id="finish-btn" class="btn-primary hidden" onclick="showResult()">Voir les résultats</button>
+        </div>
+        
+        <button onclick="goHome()" style="margin-top:20px; background:none; border:none; color:#94a3b8; cursor:pointer; text-decoration:underline;">Quitter</button>
+    </div>
+
+    <div id="result-screen" class="card hidden" style="text-align: center;">
+        <h2>Session Terminée !</h2>
+        <div class="score-circle" id="score-circle">
+            <span class="score-value" id="score-display">0%</span>
+        </div>
+        <p id="result-message" style="font-size: 1.1rem; margin-bottom: 2rem;"></p>
+        <button class="btn-primary" onclick="goHome()">Retour au Menu</button>
+    </div>
+</main>
+
+<script>
+    // --- BASE DE DONNÉES QCM ---
+    // C'est ici que tu peux ajouter les questions des autres cours
+    const db = {
+        'peritoine': [
+            {
+                q: "Quelle est la définition exacte des épiploons (omentums) ?",
+                options: [
+                    "Ils relient les segments mobiles du tube digestif à la paroi.",
+                    "Ils relient deux organes intra-abdominaux entre eux.",
+                    "Ils rattachent des organes hors tube digestif à la paroi.",
+                    "Ce sont des fascias d'accolement."
+                ],
+                correct: 1, // Index de la bonne réponse (0, 1, 2, 3)
+                [span_0](start_span)explanation: "Les épiploons relient deux organes intra-abdominaux (ex: petit épiploon entre estomac et foie)[span_0](end_span). Les mésos relient le tube digestif à la paroi."
+            },
+            {
+                q: "Quelle structure limite l'arrière-cavité des épiploons en avant au niveau du Hiatus de Winslow ?",
+                options: [
+                    "La veine cave inférieure",
+                    "Le bulbe duodénal",
+                    "Le bord libre du petit épiploon",
+                    "Le ligament suspenseur du foie"
+                ],
+                correct: 2,
+                [span_1](start_span)explanation: "Le hiatus est limité en avant par le bord libre du petit épiploon, en arrière par la VCI, en haut par le foie, en bas par le duodénum[span_1](end_span)."
+            },
+            {
+                q: "Quel est le point le plus déclive de la cavité péritonéale (accessible au toucher rectal) ?",
+                options: [
+                    "L'espace sous-phrénique",
+                    "La gouttière pariéto-colique droite",
+                    "Le cul-de-sac de Douglas",
+                    "La bourse omentale"
+                ],
+                correct: 2,
+                [span_2](start_span)explanation: "Le cul-de-sac de Douglas est le point déclive où s'accumulent les liquides pathologiques[span_2](end_span)."
+            },
+            {
+                q: "Le fascia de Treitz sert à fixer :",
+                options: [
+                    "Le côlon ascendant",
+                    "Le bloc duodéno-pancréatique",
+                    "Le côlon descendant",
+                    "L'estomac"
+                ],
+                correct: 1,
+                [span_3](start_span)[span_4](start_span)explanation: "Le fascia de Treitz fixe le duodéno-pancréas à la paroi postérieure[span_3](end_span)[span_4](end_span)."
+            }
+        ],
+        'estomac': [
+            {
+                q: "Quelle artère participe à la formation du cercle de la PETITE courbure ?",
+                options: [
+                    "L'artère gastro-omentale droite",
+                    "L'artère splénique",
+                    "L'artère gastrique gauche",
+                    "L'artère colique moyenne"
+                ],
+                correct: 2,
+                [span_5](start_span)explanation: "Le cercle de la petite courbure est formé par l'anastomose des artères gastriques gauche et droite[span_5](end_span)."
+            },
+            {
+                q: "Quel sphincter lisse sépare l'estomac du duodénum ?",
+                options: [
+                    "Le cardia",
+                    "Le sphincter d'Oddi",
+                    "Le pylore",
+                    "L'angle de Treitz"
+                ],
+                correct: 2,
+                [span_6](start_span)explanation: "Le pylore est l'orifice de sortie, muni d'un sphincter lisse[span_6](end_span)."
+            },
+            {
+                q: "Concernant les rapports de la face dorsale de l'estomac via la bourse omentale, on retrouve :",
+                options: [
+                    "Le foie et la vésicule biliaire",
+                    "Le pancréas, la surrénale gauche et le rein gauche",
+                    "Le côlon ascendant",
+                    "La veine cave inférieure directement"
+                ],
+                correct: 1,
+                [span_7](start_span)explanation: "L'estomac repose en arrière sur le pancréas, la rate, la surrénale gauche et le rein gauche via l'arrière-cavité[span_7](end_span)."
+            },
+            {
+                q: "Laquelle des tuniques musculaires est spécifique à l'estomac (la plus profonde) ?",
+                options: [
+                    "Longitudinale",
+                    "Circulaire",
+                    "Oblique",
+                    "Transverse"
+                ],
+                correct: 2,
+                [span_8](start_span)explanation: "La couche profonde est oblique[span_8](end_span)."
+            }
+        ],
+        'bdp': [
+            {
+                q: "Quelles parties du pancréas forment le Bloc Duodéno-Pancréatique (fixe) ?",
+                options: [
+                    "La tête et l'isthme",
+                    "Le corps et la queue",
+                    "L'isthme et le corps",
+                    "La totalité du pancréas"
+                ],
+                correct: 0,
+                [span_9](start_span)explanation: "Le BDP correspond à la tête et l'isthme du pancréas encastrés dans le cadre duodénal et fixés par le fascia de Treitz[span_9](end_span)."
+            },
+            {
+                q: "Où s'abouchent le canal de Wirsung et le cholédoque ?",
+                options: [
+                    "Au niveau de la petite caroncule",
+                    "Au niveau de la grande caroncule (Papille majeure)",
+                    "Directement dans le jéjunum",
+                    "Dans le bulbe duodénal"
+                ],
+                correct: 1,
+                [span_10](start_span)[span_11](start_span)explanation: "Ils forment l'ampoule de Vater qui s'ouvre au niveau de la grande caroncule dans D2[span_10](end_span)[span_11](end_span)."
+            },
+            {
+                q: "La vascularisation artérielle de la tête du pancréas est assurée par :",
+                options: [
+                    "L'artère splénique uniquement",
+                    "Les arcades pancréatico-duodénales",
+                    "L'artère mésentérique inférieure",
+                    "L'artère rénale droite"
+                ],
+                correct: 1,
+                [span_12](start_span)explanation: "Elle dépend des arcades pancréatico-duodénales (supérieure et inférieure) issues de la gastro-duodénale et de l'AMS[span_12](end_span)."
+            },
+            {
+                q: "Quel gros vaisseau passe juste en arrière de l'isthme du pancréas ?",
+                options: [
+                    "L'origine de la veine porte",
+                    "L'artère iliaque commune",
+                    "La veine fémorale",
+                    "Le tronc coeliaque"
+                ],
+                correct: 0,
+                [span_13](start_span)explanation: "La veine porte se forme en arrière de l'isthme du pancréas[span_13](end_span)."
+            }
+        ],
+        // Ajoute ici les questions pour tes cours précédents
+        'cours4': [
+            { q: "Question exemple cours 4 ?", options: ["A", "B", "C", "D"], correct: 0, explanation: "Explication..." }
+        ],
+        'cours5': [
+            { q: "Question exemple cours 5 ?", options: ["A", "B", "C", "D"], correct: 0, explanation: "Explication..." }
+        ],
+        'cours6': [
+            { q: "Question exemple cours 6 ?", options: ["A", "B", "C", "D"], correct: 0, explanation: "Explication..." }
+        ]
+    };
+
+    // --- LOGIQUE JS ---
+    
+    let currentQuiz = [];
+    let currentIndex = 0;
+    let score = 0;
+
+    const dom = {
+        menu: document.getElementById('menu-screen'),
+        quiz: document.getElementById('quiz-screen'),
+        result: document.getElementById('result-screen'),
+        questionText: document.getElementById('question-text'),
+        optionsList: document.getElementById('options-list'),
+        progress: document.getElementById('progress'),
+        feedback: document.getElementById('feedback-container'),
+        explanation: document.getElementById('explanation-text'),
+        nextBtn: document.getElementById('next-btn'),
+        finishBtn: document.getElementById('finish-btn'),
+        scoreDisplay: document.getElementById('score-display'),
+        scoreCircle: document.getElementById('score-circle'),
+        resultMessage: document.getElementById('result-message')
+    };
+
+    function startQuiz(courseId) {
+        currentQuiz = db[courseId];
+        if(!currentQuiz || currentQuiz.length === 0) {
+            alert("Ce cours n'a pas encore de questions !");
+            return;
+        }
+        currentIndex = 0;
+        score = 0;
+        
+        dom.menu.classList.add('hidden');
+        dom.result.classList.add('hidden');
+        dom.quiz.classList.remove('hidden');
+        
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        const qData = currentQuiz[currentIndex];
+        dom.questionText.textContent = `${currentIndex + 1}. ${qData.q}`;
+        dom.optionsList.innerHTML = '';
+        dom.feedback.classList.add('hidden');
+        dom.nextBtn.classList.add('hidden');
+        dom.finishBtn.classList.add('hidden');
+
+        // Barre de progression
+        const progressPercent = (currentIndex / currentQuiz.length) * 100;
+        dom.progress.style.width = `${progressPercent}%`;
+
+        qData.options.forEach((opt, index) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.textContent = opt;
+            btn.onclick = () => checkAnswer(index, btn);
+            dom.optionsList.appendChild(btn);
+        });
+    }
+
+    function checkAnswer(selectedIndex, btnElement) {
+        // Désactiver tous les boutons
+        const buttons = dom.optionsList.querySelectorAll('.option-btn');
+        buttons.forEach(b => b.disabled = true);
+
+        const qData = currentQuiz[currentIndex];
+        const isCorrect = selectedIndex === qData.correct;
+
+        if (isCorrect) {
+            btnElement.classList.add('correct');
+            score++;
+        } else {
+            btnElement.classList.add('wrong');
+            // Montrer la bonne réponse
+            buttons[qData.correct].classList.add('correct');
+        }
+
+        // Afficher explication
+        dom.explanation.textContent = qData.explanation;
+        dom.feedback.classList.remove('hidden');
+
+        // Bouton suivant ou finir
+        if (currentIndex < currentQuiz.length - 1) {
+            dom.nextBtn.classList.remove('hidden');
+        } else {
+            dom.finishBtn.classList.remove('hidden');
+        }
+        
+        // MàJ barre finale
+        const progressPercent = ((currentIndex + 1) / currentQuiz.length) * 100;
+        dom.progress.style.width = `${progressPercent}%`;
+    }
+
+    function nextQuestion() {
+        currentIndex++;
+        loadQuestion();
+    }
+
+    function showResult() {
+        dom.quiz.classList.add('hidden');
+        dom.result.classList.remove('hidden');
+
+        const percentage = Math.round((score / currentQuiz.length) * 100);
+        dom.scoreDisplay.textContent = `${percentage}%`;
+        
+        // Animation du cercle (conic gradient)
+        dom.scoreCircle.style.background = `conic-gradient(var(--primary) ${percentage}%, #e2e8f0 ${percentage}%)`;
+
+        if (percentage === 100) dom.resultMessage.textContent = "Parfait ! Maîtrise totale.";
+        else if (percentage >= 70) dom.resultMessage.textContent = "Bravo ! C'est solide.";
+        else if (percentage >= 50) dom.resultMessage.textContent = "Pas mal, mais à revoir un peu.";
+        else dom.resultMessage.textContent = "Il faut relire le cours !";
+    }
+
+    function goHome() {
+        dom.result.classList.add('hidden');
+        dom.quiz.classList.add('hidden');
+        dom.menu.classList.remove('hidden');
+    }
+
+</script>
+
+</body>
+</html>
