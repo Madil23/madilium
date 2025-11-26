@@ -199,9 +199,9 @@
             <button class="course-btn" onclick="startQuiz('peritoine')">1. Le Péritoine</button>
             <button class="course-btn" onclick="startQuiz('estomac')">2. L'Estomac</button>
             <button class="course-btn" onclick="startQuiz('bdp')">3. Bloc Duodéno-Pancréatique</button>
-            <button class="course-btn" onclick="startQuiz('cours4')">4. (Cours Précédent 1)</button>
-            <button class="course-btn" onclick="startQuiz('cours5')">5. (Cours Précédent 2)</button>
-            <button class="course-btn" onclick="startQuiz('cours6')">6. (Cours Précédent 3)</button>
+            <button class="course-btn" onclick="startQuiz('cavite_orale')">4. Cavité Orale & Glandes</button>
+            <button class="course-btn" onclick="startQuiz('oesophage')">5. L'Œsophage</button>
+            <button class="course-btn" onclick="startQuiz('paroi_abdo')">6. Paroi Abdominale</button>
         </div>
     </div>
 
@@ -239,7 +239,6 @@
 
 <script>
     // --- BASE DE DONNÉES QCM ---
-    // C'est ici que tu peux ajouter les questions des autres cours
     const db = {
         'peritoine': [
             {
@@ -250,8 +249,8 @@
                     "Ils rattachent des organes hors tube digestif à la paroi.",
                     "Ce sont des fascias d'accolement."
                 ],
-                correct: 1, // Index de la bonne réponse (0, 1, 2, 3)
-                [span_0](start_span)explanation: "Les épiploons relient deux organes intra-abdominaux (ex: petit épiploon entre estomac et foie)[span_0](end_span). Les mésos relient le tube digestif à la paroi."
+                correct: 1, 
+                [cite_start]explanation: "Les épiploons relient deux organes intra-abdominaux (ex: petit épiploon entre estomac et foie)[cite: 20]. [cite_start]Les mésos relient le tube digestif à la paroi[cite: 19]."
             },
             {
                 q: "Quelle structure limite l'arrière-cavité des épiploons en avant au niveau du Hiatus de Winslow ?",
@@ -262,7 +261,7 @@
                     "Le ligament suspenseur du foie"
                 ],
                 correct: 2,
-                [span_1](start_span)explanation: "Le hiatus est limité en avant par le bord libre du petit épiploon, en arrière par la VCI, en haut par le foie, en bas par le duodénum[span_1](end_span)."
+                [cite_start]explanation: "Le hiatus est limité en avant par le bord libre du petit épiploon, en arrière par la VCI, en haut par le foie, en bas par le duodénum[cite: 59]."
             },
             {
                 q: "Quel est le point le plus déclive de la cavité péritonéale (accessible au toucher rectal) ?",
@@ -273,7 +272,7 @@
                     "La bourse omentale"
                 ],
                 correct: 2,
-                [span_2](start_span)explanation: "Le cul-de-sac de Douglas est le point déclive où s'accumulent les liquides pathologiques[span_2](end_span)."
+                [cite_start]explanation: "Le cul-de-sac de Douglas est le point déclive où s'accumulent les liquides pathologiques[cite: 55]."
             },
             {
                 q: "Le fascia de Treitz sert à fixer :",
@@ -284,7 +283,7 @@
                     "L'estomac"
                 ],
                 correct: 1,
-                [span_3](start_span)[span_4](start_span)explanation: "Le fascia de Treitz fixe le duodéno-pancréas à la paroi postérieure[span_3](end_span)[span_4](end_span)."
+                [cite_start]explanation: "Le fascia de Treitz fixe le duodéno-pancréas à la paroi postérieure[cite: 23]."
             }
         ],
         'estomac': [
@@ -297,7 +296,7 @@
                     "L'artère colique moyenne"
                 ],
                 correct: 2,
-                [span_5](start_span)explanation: "Le cercle de la petite courbure est formé par l'anastomose des artères gastriques gauche et droite[span_5](end_span)."
+                [cite_start]explanation: "Le cercle de la petite courbure est formé par l'anastomose des artères gastriques gauche et droite[cite: 447]."
             },
             {
                 q: "Quel sphincter lisse sépare l'estomac du duodénum ?",
@@ -308,7 +307,7 @@
                     "L'angle de Treitz"
                 ],
                 correct: 2,
-                [span_6](start_span)explanation: "Le pylore est l'orifice de sortie, muni d'un sphincter lisse[span_6](end_span)."
+                [cite_start]explanation: "Le pylore est l'orifice de sortie, muni d'un sphincter lisse[cite: 387]."
             },
             {
                 q: "Concernant les rapports de la face dorsale de l'estomac via la bourse omentale, on retrouve :",
@@ -319,7 +318,7 @@
                     "La veine cave inférieure directement"
                 ],
                 correct: 1,
-                [span_7](start_span)explanation: "L'estomac repose en arrière sur le pancréas, la rate, la surrénale gauche et le rein gauche via l'arrière-cavité[span_7](end_span)."
+                [cite_start]explanation: "L'estomac repose en arrière sur le pancréas, la rate, la surrénale gauche et le rein gauche via l'arrière-cavité[cite: 430]."
             },
             {
                 q: "Laquelle des tuniques musculaires est spécifique à l'estomac (la plus profonde) ?",
@@ -330,7 +329,7 @@
                     "Transverse"
                 ],
                 correct: 2,
-                [span_8](start_span)explanation: "La couche profonde est oblique[span_8](end_span)."
+                [cite_start]explanation: "La couche profonde est oblique, s'ajoutant aux couches longitudinale et circulaire[cite: 412]."
             }
         ],
         'bdp': [
@@ -343,7 +342,7 @@
                     "La totalité du pancréas"
                 ],
                 correct: 0,
-                [span_9](start_span)explanation: "Le BDP correspond à la tête et l'isthme du pancréas encastrés dans le cadre duodénal et fixés par le fascia de Treitz[span_9](end_span)."
+                [cite_start]explanation: "Le BDP correspond à la tête et l'isthme du pancréas encastrés dans le cadre duodénal et fixés par le fascia de Treitz[cite: 246]."
             },
             {
                 q: "Où s'abouchent le canal de Wirsung et le cholédoque ?",
@@ -354,7 +353,7 @@
                     "Dans le bulbe duodénal"
                 ],
                 correct: 1,
-                [span_10](start_span)[span_11](start_span)explanation: "Ils forment l'ampoule de Vater qui s'ouvre au niveau de la grande caroncule dans D2[span_10](end_span)[span_11](end_span)."
+                [cite_start]explanation: "Ils forment l'ampoule de Vater qui s'ouvre au niveau de la grande caroncule dans D2[cite: 174, 216]."
             },
             {
                 q: "La vascularisation artérielle de la tête du pancréas est assurée par :",
@@ -365,7 +364,7 @@
                     "L'artère rénale droite"
                 ],
                 correct: 1,
-                [span_12](start_span)explanation: "Elle dépend des arcades pancréatico-duodénales (supérieure et inférieure) issues de la gastro-duodénale et de l'AMS[span_12](end_span)."
+                [cite_start]explanation: "Elle dépend des arcades pancréatico-duodénales (supérieure et inférieure) issues de la gastro-duodénale et de l'AMS[cite: 330]."
             },
             {
                 q: "Quel gros vaisseau passe juste en arrière de l'isthme du pancréas ?",
@@ -376,18 +375,146 @@
                     "Le tronc coeliaque"
                 ],
                 correct: 0,
-                [span_13](start_span)explanation: "La veine porte se forme en arrière de l'isthme du pancréas[span_13](end_span)."
+                [cite_start]explanation: "La veine porte se forme en arrière de l'isthme du pancréas[cite: 290]."
             }
         ],
-        // Ajoute ici les questions pour tes cours précédents
-        'cours4': [
-            { q: "Question exemple cours 4 ?", options: ["A", "B", "C", "D"], correct: 0, explanation: "Explication..." }
+        'cavite_orale': [
+            {
+                q: "Par quoi est assurée l'innervation SENSITIVE des 2/3 antérieurs de la langue ?",
+                options: [
+                    "Le nerf glosso-pharyngien (IX)",
+                    "Le nerf hypoglosse (XII)",
+                    "Le nerf lingual (issu du V)",
+                    "Le nerf facial (VII)"
+                ],
+                correct: 2,
+                [cite_start]explanation: "Le nerf lingual (issu du Trijumeau) assure la sensibilité des 2/3 antérieurs, tandis que le glosso-pharyngien assure le 1/3 postérieur[cite: 113]."
+            },
+            {
+                q: "Où s'ouvre le canal excréteur de la glande parotide (canal de Sténon) ?",
+                options: [
+                    "Au niveau du plancher buccal, près du frein",
+                    "En regard du collet de la 2ème molaire supérieure",
+                    "Directement sous la langue par plusieurs canaux",
+                    "Dans le vestibule inférieur"
+                ],
+                correct: 1,
+                [cite_start]explanation: "Le canal de Sténon perfore le buccinateur et s'ouvre en regard du collet de la 2ème molaire supérieure[cite: 134]."
+            },
+            {
+                q: "Quelle est l'action principale du muscle génio-glosse ?",
+                options: [
+                    "Il élève la langue",
+                    "Il rétracte la langue en arrière",
+                    "Il attire la langue en bas et en avant (protraction)",
+                    "Il n'a pas d'action motrice"
+                ],
+                correct: 2,
+                [cite_start]explanation: "Le génio-glosse attire la langue en bas et en avant (protraction) par ses fibres moyennes[cite: 98]."
+            },
+            {
+                q: "Quel nerf traverse la loge parotidienne et représente un danger chirurgical majeur ?",
+                options: [
+                    "Le nerf trijumeau",
+                    "Le nerf facial (VII)",
+                    "Le nerf vague (X)",
+                    "Le nerf hypoglosse"
+                ],
+                correct: 1,
+                [cite_start]explanation: "Le nerf facial traverse la parotide; c'est le rapport le plus important et dangereux en chirurgie[cite: 126]."
+            }
         ],
-        'cours5': [
-            { q: "Question exemple cours 5 ?", options: ["A", "B", "C", "D"], correct: 0, explanation: "Explication..." }
+        'oesophage': [
+            {
+                q: "Quelles sont les limites vertébrales de l'œsophage ?",
+                options: [
+                    "De C4 à Th10",
+                    "De C6 à Th11",
+                    "De Th1 à L1",
+                    "De C2 à Th12"
+                ],
+                correct: 1,
+                [cite_start]explanation: "L'œsophage s'étend de la vertèbre C6 jusqu'à Th11[cite: 484]."
+            },
+            {
+                q: "Comment se disposent les nerfs vagues au niveau de l'œsophage abdominal ?",
+                options: [
+                    "Le gauche en avant, le droit en arrière",
+                    "Le droit en avant, le gauche en arrière",
+                    "Les deux sont sur les côtés",
+                    "Ils s'arrêtent au thorax"
+                ],
+                correct: 0,
+                [cite_start]explanation: "Le nerf vague gauche passe à la face antérieure, et le droit à la face postérieure[cite: 513]."
+            },
+            {
+                q: "Lequel de ces éléments n'est PAS un moyen de fixation/anti-reflux de la jonction œso-gastrique ?",
+                options: [
+                    "L'angle de His",
+                    "La valvule de Gubaroff",
+                    "Le sphincter strié volontaire",
+                    "La membrane phréno-œsophagienne"
+                ],
+                correct: 2,
+                explanation: "Le sphincter inférieur (SIO) n'est pas strié/volontaire mais fonctionnel. [cite_start]Les moyens anti-reflux incluent l'angle de His, la valvule de Gubaroff et la membrane[cite: 526, 528, 529, 530]."
+            },
+            {
+                q: "L'œsophage thoracique est contenu dans :",
+                options: [
+                    "Le médiastin antérieur",
+                    "La cavité pleurale",
+                    "Le médiastin postérieur",
+                    "L'espace pré-trachéal"
+                ],
+                correct: 2,
+                [cite_start]explanation: "L'œsophage thoracique chemine dans le médiastin postérieur, en avant de l'aorte et des vertèbres[cite: 494]."
+            }
         ],
-        'cours6': [
-            { q: "Question exemple cours 6 ?", options: ["A", "B", "C", "D"], correct: 0, explanation: "Explication..." }
+        'paroi_abdo': [
+            {
+                q: "Quel est l'ordre des muscles larges de la paroi latérale, de la superficie vers la profondeur ?",
+                options: [
+                    "Transverse -> Oblique Interne -> Oblique Externe",
+                    "Oblique Externe -> Oblique Interne -> Transverse",
+                    "Grand Droit -> Transverse -> Oblique",
+                    "Oblique Interne -> Oblique Externe -> Transverse"
+                ],
+                correct: 1,
+                [cite_start]explanation: "De dehors en dedans (superficie à profondeur) : Oblique Externe, Oblique Interne, puis Transverse[cite: 551]."
+            },
+            {
+                q: "Quelle structure forme la paroi inférieure du canal inguinal ?",
+                options: [
+                    "Le tendon conjoint",
+                    "Le fascia transversalis",
+                    "Le ligament inguinal (arcade crurale)",
+                    "Le muscle grand droit"
+                ],
+                correct: 2,
+                [cite_start]explanation: "La paroi inférieure du canal inguinal est formée par le ligament inguinal[cite: 606]."
+            },
+            {
+                q: "Où se situe l'orifice inguinal profond (interne) ?",
+                options: [
+                    "Dans l'aponévrose de l'oblique externe",
+                    "Dans le fascia transversalis",
+                    "Au niveau de la ligne blanche",
+                    "Dans le muscle grand droit"
+                ],
+                correct: 1,
+                [cite_start]explanation: "L'anneau inguinal profond est ouvert dans la paroi postérieure, c'est-à-dire dans le fascia transversalis[cite: 604]."
+            },
+            {
+                q: "Quelle est l'action principale du muscle transverse de l'abdomen ?",
+                options: [
+                    "Flexion du tronc",
+                    "Rotation du tronc",
+                    "Rentrer le ventre (sangle abdominale)",
+                    "Extension du rachis"
+                ],
+                correct: 2,
+                [cite_start]explanation: "Le muscle transverse comprime les viscères et permet de rentrer le ventre (rôle de sangle abdominale)[cite: 560]."
+            }
         ]
     };
 
