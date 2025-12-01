@@ -2,279 +2,325 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ferhat Azouz - Le Match Parfait</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Profil Professionnel - Ferhat Azouz</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- STYLE GLOBAL & MADILIUM VIBES --- */
+        /* --- STYLE GLOBAL --- */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(45deg, #fd267a, #ff6036); /* Tinder Gradient */
+            /* Un fond plus neutre et pro, mais moderne */
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            color: #424242;
+            color: #333;
         }
 
-        /* --- CONTAINER PHONE --- */
-        .phone-container {
-            width: 100%;
-            max-width: 375px;
-            height: 90vh;
-            max-height: 750px;
-            background: #fff;
-            border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+        /* --- MAIN CONTAINER --- */
+        .card-container {
             position: relative;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
+            width: 90%;
+            max-width: 450px;
+            height: 70vh; /* Hauteur ajustée pour la bio */
+            max-height: 650px;
+            margin-bottom: 30px;
+            perspective: 1000px;
         }
 
-        /* --- HEADER APP --- */
-        .app-header {
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: #dcdcdc;
-            font-size: 1.2rem;
-        }
-        .app-header .active { color: #fd267a; }
-        .logo-top { height: 25px; }
-
-        /* --- LA CARTE PROFIL --- */
-        .card-area {
-            flex: 1;
-            padding: 10px;
-            position: relative;
-        }
-
+        /* --- LA CARTE PROFIL (SWIPEABLE) --- */
         .profile-card {
             width: 100%;
             height: 100%;
-            background-image: url('./ferhat.jpg'); /* Mettre la photo de Ferhat ici */
+            /* REPLACE ME: Mettre la vraie photo ici */
+            background-image: url('ferhat.jpg'); 
             background-size: cover;
-            background-position: center;
-            border-radius: 15px;
-            position: relative;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            background-position: center top;
+            border-radius: 20px;
+            position: absolute;
+            box-shadow: 0 15px 35px rgba(50,50,93,.1), 0 5px 15px rgba(0,0,0,.07);
+            cursor: grab;
+            transition: transform 0.1s ease-out;
+            will-change: transform;
+            overflow: hidden;
         }
-
-        .profile-info {
+        
+        /* Overlay sombre pour lisibilité du texte */
+        .profile-info-overlay {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
-            padding: 80px 20px 20px;
-            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-            border-radius: 0 0 15px 15px;
+            height: 75%; /* Couvre plus de surface pour le texte CV */
+            padding: 80px 25px 30px;
+            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.8) 50%, transparent 100%);
             color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
         }
 
-        .name-row { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
-        .name { font-size: 2rem; font-weight: 700; }
-        .age { font-size: 1.5rem; font-weight: 400; }
-        .verified { color: #1DA1F2; background: white; border-radius: 50%; padding: 2px; font-size: 0.8rem; }
+        .header-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 5px; flex-wrap: wrap;}
+        .name { font-size: 2.2rem; font-weight: 700; line-height: 1;}
+        .title-pro { color: #4acc94; font-weight: 600; font-size: 1.1rem; margin-bottom: 15px; display: block;}
         
-        .job { font-size: 1rem; opacity: 0.9; margin-bottom: 10px; display: flex; align-items: center; gap: 5px;}
-        .tags { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 10px; }
-        .tag { background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; }
+        /* Style CV plus long */
+        .bio-long {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            opacity: 0.9;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+        .bio-long strong { color: #fff; font-weight: 600; }
 
-        /* --- CONTROLS --- */
+        .skills-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: auto; }
+        .skill-tag { background: rgba(255,255,255,0.15); padding: 5px 12px; border-radius: 6px; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.5px;}
+
+        /* Indicateurs NOPE/LIKE pendant le drag */
+        .swipe-indicator {
+            position: absolute;
+            top: 40px;
+            padding: 5px 15px;
+            border: 3px solid;
+            border-radius: 8px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            opacity: 0; /* Caché par défaut */
+            transition: opacity 0.2s;
+        }
+        .ind-like { right: 30px; color: #4acc94; border-color: #4acc94; transform: rotate(15deg); }
+        .ind-nope { left: 30px; color: #ec5e6f; border-color: #ec5e6f; transform: rotate(-15deg); }
+
+
+        /* --- CONTROLS BOTTOM --- */
         .controls {
-            height: 100px;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 20px;
-            padding-bottom: 20px;
+            gap: 25px;
+            z-index: 10;
         }
 
         .btn {
             background: #fff;
             border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: all 0.2s ease;
         }
-        .btn:active { transform: scale(0.9); }
+        .btn:hover { transform: scale(1.05); box-shadow: 0 15px 25px rgba(0,0,0,0.15);}
+        .btn:active { transform: scale(0.95); }
         .btn i { font-size: 1.5rem; }
 
-        .btn-small { width: 50px; height: 50px; }
         .btn-large { width: 70px; height: 70px; }
+        .c-nope { color: #ec5e6f; }
+        .c-like { color: #4acc94; }
 
-        .c-reload { color: #f5b748; }
-        .c-nope { color: #ec5e6f; border: 1px solid #ec5e6f; }
-        .c-super { color: #3fa4f9; }
-        .c-like { color: #4acc94; border: 1px solid #4acc94; }
-        .c-boost { color: #a656f5; }
-
-        /* --- POPUP MATCH --- */
+        /* --- POPUP MATCH (inchangé) --- */
         .match-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
-            z-index: 100;
-            display: none; /* Caché par défaut */
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: white;
-            backdrop-filter: blur(5px);
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 200;
+            display: none; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; color: white; backdrop-filter: blur(8px);
         }
-        
-        .match-title {
-            font-family: 'Brush Script MT', cursive;
-            font-size: 4rem;
-            color: #4acc94;
-            transform: rotate(-10deg);
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 0px #fff;
-        }
-
-        .match-text { margin-bottom: 30px; font-size: 1.1rem; padding: 0 20px; }
-
-        .contact-links {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            width: 80%;
-        }
-
-        .contact-btn {
-            padding: 15px;
-            border-radius: 30px;
-            text-decoration: none;
-            color: white;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            transition: 0.3s;
-        }
-
+        .match-title { font-family: 'Brush Script MT', cursive; font-size: 4rem; color: #4acc94; transform: rotate(-10deg); margin-bottom: 20px; text-shadow: 2px 2px 0px #fff; }
+        .contact-links { display: flex; flex-direction: column; gap: 15px; width: 80%; max-width: 400px; }
+        .contact-btn { padding: 15px; border-radius: 30px; text-decoration: none; color: white; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s; }
+        .contact-btn:hover { filter: brightness(1.1); }
         .insta { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
         .snap { background: #FFFC00; color: black; }
         .tel { background: #4acc94; }
-
-        /* Credits footer */
-        .madilium-credit {
-            position: absolute;
-            bottom: 5px;
-            width: 100%;
-            text-align: center;
-            font-size: 0.7rem;
-            color: #999;
-            opacity: 0.5;
-        }
 
     </style>
 </head>
 <body>
 
-    <div class="phone-container">
-        <div class="app-header">
-            <i class="fas fa-user"></i>
-            <i class="fas fa-fire active"></i>
-            <i class="fas fa-comment"></i>
-        </div>
+    <div class="card-container">
+        <div class="profile-card" id="mainCard">
+            <div class="swipe-indicator ind-like" id="likeInd">LIKE</div>
+            <div class="swipe-indicator ind-nope" id="nopeInd">NOPE</div>
 
-        <div class="card-area">
-            <div class="profile-card" id="mainCard">
-                <div class="profile-info">
-                    <div class="name-row">
-                        <span class="name">Ferhat</span>
-                        <span class="age">20+</span>
-                        <i class="fas fa-check-circle verified"></i>
-                    </div>
-                    <div class="job">
-                        <i class="fas fa-briefcase"></i> Futur CEO @Madilium
-                    </div>
-                    <p class="bio">
-                        Humour : 10/10 <br>
-                        Sérieux : Quand il faut 👔<br>
-                        Le seul bug que je ne corrige pas, c'est mon charme. 😉
+            <div class="profile-info-overlay">
+                <div class="header-row">
+                    <span class="name">Ferhat Azouz</span>
+                </div>
+                <span class="title-pro">Développeur & Créateur de Solutions</span>
+                
+                <div class="bio-long">
+                    <p>
+                        Passionné par le code qui fonctionne aussi bien qu'il en a l'air. Je transforme des problèmes complexes en interfaces simples et intuitives.
                     </p>
-                    <div class="tags">
-                        <span class="tag">🍔 Tacos Lover</span>
-                        <span class="tag">💻 Code</span>
-                        <span class="tag">⚽ Foot</span>
-                        <span class="tag">🇩🇿 DZ Power</span>
-                    </div>
+                    <br>
+                    <p>
+                        <strong>Mon atout ?</strong> Un mélange rare de rigueur technique et d'esprit créatif. Plus rapide que la doc officielle, plus fiable qu'une mise à jour Windows. Investir sur mon profil, c'est s'assurer une croissance exponentielle. 🚀
+                    </p>
+                </div>
+
+                <div class="skills-tags">
+                    <span class="skill-tag">💻 Fullstack Web</span>
+                    <span class="skill-tag">🛠️ Problem Solver</span>
+                    <span class="skill-tag">🧠 Rapide & Efficace</span>
+                    <span class="skill-tag">🇩🇿 DZ Talent</span>
                 </div>
             </div>
         </div>
-
-        <div class="controls">
-            <div class="btn btn-small c-reload" onclick="alert('On ne revient pas en arrière, regarde devant !')"><i class="fas fa-undo"></i></div>
-            <div class="btn btn-large c-nope" onclick="handleNope()"><i class="fas fa-times"></i></div>
-            <div class="btn btn-small c-super" onclick="handleLike()"><i class="fas fa-star"></i></div>
-            <div class="btn btn-large c-like" onclick="handleLike()"><i class="fas fa-heart"></i></div>
-            <div class="btn btn-small c-boost" onclick="alert('Profil déjà boosté au maximum 🚀')"><i class="fas fa-bolt"></i></div>
-        </div>
-
-        <div class="match-overlay" id="matchPopup">
-            <div class="match-title">It's a Match!</div>
-            <p class="match-text">Tu as bon goût. Ferhat attend ton message.</p>
-            
-            <div class="contact-links">
-                <a href="https://instagram.com/ferhatazouz" target="_blank" class="contact-btn insta">
-                    <i class="fab fa-instagram"></i> Instagram
-                </a>
-                <a href="https://www.snapchat.com/add/ferhat_2345" target="_blank" class="contact-btn snap">
-                    <i class="fab fa-snapchat-ghost"></i> Snapchat
-                </a>
-                <a href="tel:+213555456674" class="contact-btn tel">
-                    <i class="fas fa-phone"></i> Appeler (213)
-                </a>
-            </div>
-            
-            <br>
-            <p style="font-size: 0.8rem; cursor: pointer; text-decoration: underline;" onclick="closeMatch()">Continuer à swiper (fake)</p>
-        </div>
-        
-        <div class="madilium-credit">Powered by Madilium.com</div>
     </div>
 
+    <div class="controls">
+        <div class="btn btn-large c-nope" id="btnNope"><i class="fas fa-times"></i></div>
+        <div class="btn btn-large c-like" id="btnLike"><i class="fas fa-heart"></i></div>
+    </div>
+
+
+    <div class="match-overlay" id="matchPopup">
+        <div class="match-title">C'est un Match Pro!</div>
+        <p style="margin-bottom: 30px; font-size: 1.1rem; padding: 0 20px;">
+            Excellent choix. Ferhat est le talent qu'il vous faut. <br>Contactez-le avant qu'il ne soit pris.
+        </p>
+        
+        <div class="contact-links">
+            <a href="https://instagram.com/ferhatazouz" target="_blank" class="contact-btn insta">
+                <i class="fab fa-instagram"></i> Instagram
+            </a>
+            <a href="https://www.snapchat.com/add/ferhat_2345" target="_blank" class="contact-btn snap">
+                <i class="fab fa-snapchat-ghost"></i> Snapchat
+            </a>
+            <a href="tel:+213555456674" class="contact-btn tel">
+                <i class="fas fa-phone"></i> Appeler (213)
+            </a>
+        </div>
+         <br>
+         <p style="font-size: 0.9rem; cursor: pointer; opacity: 0.7;" onclick="closeMatch()">Retour à la carte</p>
+    </div>
+
+
     <script>
-        function handleLike() {
-            // Effet visuel simple
-            document.getElementById('matchPopup').style.display = 'flex';
+        // --- VARIABLES GESTION DU SWIPE ---
+        const card = document.getElementById('mainCard');
+        const likeInd = document.getElementById('likeInd');
+        const nopeInd = document.getElementById('nopeInd');
+        const popup = document.getElementById('matchPopup');
+        let isDragging = false;
+        let startX, currentX, deltaX;
+        const threshold = 100; // Distance pour valider le swipe
+
+        // --- FONCTIONS DECLENCHEURS ---
+        function triggerMatch() {
+            card.style.transition = "transform 0.5s ease-out";
+            card.style.transform = "translateX(150%) rotate(20deg)"; // Sort de l'écran à droite
+            setTimeout(() => {
+                popup.style.display = 'flex'; // Affiche le popup
+                resetCardPosition(); // Remet la carte en place caché derrière le popup
+            }, 300);
         }
 
-        function handleNope() {
-            // Un peu d'humour : impossible de dire non
-            const card = document.getElementById('mainCard');
+        function triggerNope() {
+            // Animation de refus (secousse) car on ne peut pas dire non à Ferhat
+            card.style.transition = "transform 0.3s ease-in-out";
+            card.style.transform = "translateX(0) rotate(0)"; // Retour au centre
             
-            // Petite animation de secousse "NON"
-            card.style.transform = "translateX(-10px)";
-            setTimeout(() => card.style.transform = "translateX(10px)", 100);
-            setTimeout(() => card.style.transform = "translateX(-10px)", 200);
-            setTimeout(() => card.style.transform = "translateX(10px)", 300);
-            setTimeout(() => card.style.transform = "translateX(0)", 400);
-
-            // Alerte ou Toast
             setTimeout(() => {
-                alert("Erreur système 404 : Impossible de swiper à gauche ce profil. Trop de potentiel. Réessayez le cœur vert 💚.");
-            }, 450);
+                 card.animate([
+                    { transform: 'translateX(0)' },
+                    { transform: 'translateX(-10px) rotate(-2deg)' },
+                    { transform: 'translateX(10px) rotate(2deg)' },
+                    { transform: 'translateX(-10px) rotate(-2deg)' },
+                    { transform: 'translateX(0)' }
+                ], { duration: 400 });
+                // Optionnel : petite alerte humoristique
+                 setTimeout(() => alert("Erreur 404: Impossible de refuser ce talent. Réessayez le bouton vert 😉"), 450);
+            }, 300);
+        }
+
+        function resetCardPosition() {
+            // Remet la carte au centre proprement
+            card.style.transition = "transform 0.3s ease-out";
+            card.style.transform = "translateX(0) rotate(0)";
+            likeInd.style.opacity = 0;
+            nopeInd.style.opacity = 0;
         }
 
         function closeMatch() {
-            document.getElementById('matchPopup').style.display = 'none';
+             popup.style.display = 'none';
         }
-    </script>
 
+
+        // --- GESTION DES ÉVÉNEMENTS DE DRAG (Touche & Souris) ---
+        
+        // Début du drag
+        function startDrag(e) {
+            if (e.target.closest('.controls') || popup.style.display === 'flex') return;
+            isDragging = true;
+            // Position initiale (souris ou doigt)
+            startX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+            card.style.transition = "none"; // Enlève la transition pour le suivi en temps réel
+            card.style.cursor = "grabbing";
+        }
+
+        // Pendant le drag
+        function moveDrag(e) {
+            if (!isDragging) return;
+            e.preventDefault(); // Empêche le scroll sur mobile
+            currentX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+            deltaX = currentX - startX;
+            const rotation = deltaX * 0.05; // Rotation légère selon le déplacement
+
+            // Applique le mouvement à la carte
+            card.style.transform = `translateX(${deltaX}px) rotate(${rotation}deg)`;
+
+            // Gère l'opacité des indicateurs LIKE/NOPE
+            if (deltaX > 20) {
+                likeInd.style.opacity = Math.min(deltaX / threshold, 1);
+                nopeInd.style.opacity = 0;
+            } else if (deltaX < -20) {
+                nopeInd.style.opacity = Math.min(Math.abs(deltaX) / threshold, 1);
+                likeInd.style.opacity = 0;
+            } else {
+                 likeInd.style.opacity = 0;
+                 nopeInd.style.opacity = 0;
+            }
+        }
+
+        // Fin du drag
+        function endDrag() {
+            if (!isDragging) return;
+            isDragging = false;
+            card.style.cursor = "grab";
+
+            if (deltaX > threshold) {
+                triggerMatch(); // Swipe Droite
+            } else if (deltaX < -threshold) {
+                triggerNope(); // Swipe Gauche
+            } else {
+                resetCardPosition(); // Pas assez loin, retour au centre
+            }
+        }
+
+        // --- LISTENERS ---
+        // Événements Souris
+        card.addEventListener('mousedown', startDrag);
+        document.addEventListener('mousemove', moveDrag);
+        document.addEventListener('mouseup', endDrag);
+        
+        // Événements Tactiles (Mobile)
+        card.addEventListener('touchstart', startDrag, {passive: false});
+        document.addEventListener('touchmove', moveDrag, {passive: false});
+        document.addEventListener('touchend', endDrag);
+
+        // Listeners boutons du bas
+        document.getElementById('btnLike').addEventListener('click', triggerMatch);
+        document.getElementById('btnNope').addEventListener('click', triggerNope);
+
+    </script>
 </body>
 </html>
