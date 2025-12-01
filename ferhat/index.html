@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ferhat Azouz - Le Match Parfait</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- STYLE GLOBAL & MADILIUM VIBES --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(45deg, #fd267a, #ff6036); /* Tinder Gradient */
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            color: #424242;
+        }
+
+        /* --- CONTAINER PHONE --- */
+        .phone-container {
+            width: 100%;
+            max-width: 375px;
+            height: 90vh;
+            max-height: 750px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* --- HEADER APP --- */
+        .app-header {
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #dcdcdc;
+            font-size: 1.2rem;
+        }
+        .app-header .active { color: #fd267a; }
+        .logo-top { height: 25px; }
+
+        /* --- LA CARTE PROFIL --- */
+        .card-area {
+            flex: 1;
+            padding: 10px;
+            position: relative;
+        }
+
+        .profile-card {
+            width: 100%;
+            height: 100%;
+            background-image: url('./ferhat.jpg'); /* Mettre la photo de Ferhat ici */
+            background-size: cover;
+            background-position: center;
+            border-radius: 15px;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .profile-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 80px 20px 20px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            border-radius: 0 0 15px 15px;
+            color: white;
+        }
+
+        .name-row { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
+        .name { font-size: 2rem; font-weight: 700; }
+        .age { font-size: 1.5rem; font-weight: 400; }
+        .verified { color: #1DA1F2; background: white; border-radius: 50%; padding: 2px; font-size: 0.8rem; }
+        
+        .job { font-size: 1rem; opacity: 0.9; margin-bottom: 10px; display: flex; align-items: center; gap: 5px;}
+        .tags { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 10px; }
+        .tag { background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; }
+
+        /* --- CONTROLS --- */
+        .controls {
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            padding-bottom: 20px;
+        }
+
+        .btn {
+            background: #fff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .btn:active { transform: scale(0.9); }
+        .btn i { font-size: 1.5rem; }
+
+        .btn-small { width: 50px; height: 50px; }
+        .btn-large { width: 70px; height: 70px; }
+
+        .c-reload { color: #f5b748; }
+        .c-nope { color: #ec5e6f; border: 1px solid #ec5e6f; }
+        .c-super { color: #3fa4f9; }
+        .c-like { color: #4acc94; border: 1px solid #4acc94; }
+        .c-boost { color: #a656f5; }
+
+        /* --- POPUP MATCH --- */
+        .match-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 100;
+            display: none; /* Caché par défaut */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            backdrop-filter: blur(5px);
+        }
+        
+        .match-title {
+            font-family: 'Brush Script MT', cursive;
+            font-size: 4rem;
+            color: #4acc94;
+            transform: rotate(-10deg);
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0px #fff;
+        }
+
+        .match-text { margin-bottom: 30px; font-size: 1.1rem; padding: 0 20px; }
+
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 80%;
+        }
+
+        .contact-btn {
+            padding: 15px;
+            border-radius: 30px;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+
+        .insta { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .snap { background: #FFFC00; color: black; }
+        .tel { background: #4acc94; }
+
+        /* Credits footer */
+        .madilium-credit {
+            position: absolute;
+            bottom: 5px;
+            width: 100%;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #999;
+            opacity: 0.5;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="phone-container">
+        <div class="app-header">
+            <i class="fas fa-user"></i>
+            <i class="fas fa-fire active"></i>
+            <i class="fas fa-comment"></i>
+        </div>
+
+        <div class="card-area">
+            <div class="profile-card" id="mainCard">
+                <div class="profile-info">
+                    <div class="name-row">
+                        <span class="name">Ferhat</span>
+                        <span class="age">20+</span>
+                        <i class="fas fa-check-circle verified"></i>
+                    </div>
+                    <div class="job">
+                        <i class="fas fa-briefcase"></i> Futur CEO @Madilium
+                    </div>
+                    <p class="bio">
+                        Humour : 10/10 <br>
+                        Sérieux : Quand il faut 👔<br>
+                        Le seul bug que je ne corrige pas, c'est mon charme. 😉
+                    </p>
+                    <div class="tags">
+                        <span class="tag">🍔 Tacos Lover</span>
+                        <span class="tag">💻 Code</span>
+                        <span class="tag">⚽ Foot</span>
+                        <span class="tag">🇩🇿 DZ Power</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <div class="btn btn-small c-reload" onclick="alert('On ne revient pas en arrière, regarde devant !')"><i class="fas fa-undo"></i></div>
+            <div class="btn btn-large c-nope" onclick="handleNope()"><i class="fas fa-times"></i></div>
+            <div class="btn btn-small c-super" onclick="handleLike()"><i class="fas fa-star"></i></div>
+            <div class="btn btn-large c-like" onclick="handleLike()"><i class="fas fa-heart"></i></div>
+            <div class="btn btn-small c-boost" onclick="alert('Profil déjà boosté au maximum 🚀')"><i class="fas fa-bolt"></i></div>
+        </div>
+
+        <div class="match-overlay" id="matchPopup">
+            <div class="match-title">It's a Match!</div>
+            <p class="match-text">Tu as bon goût. Ferhat attend ton message.</p>
+            
+            <div class="contact-links">
+                <a href="https://instagram.com/ferhatazouz" target="_blank" class="contact-btn insta">
+                    <i class="fab fa-instagram"></i> Instagram
+                </a>
+                <a href="https://www.snapchat.com/add/ferhat_2345" target="_blank" class="contact-btn snap">
+                    <i class="fab fa-snapchat-ghost"></i> Snapchat
+                </a>
+                <a href="tel:+213555456674" class="contact-btn tel">
+                    <i class="fas fa-phone"></i> Appeler (213)
+                </a>
+            </div>
+            
+            <br>
+            <p style="font-size: 0.8rem; cursor: pointer; text-decoration: underline;" onclick="closeMatch()">Continuer à swiper (fake)</p>
+        </div>
+        
+        <div class="madilium-credit">Powered by Madilium.com</div>
+    </div>
+
+    <script>
+        function handleLike() {
+            // Effet visuel simple
+            document.getElementById('matchPopup').style.display = 'flex';
+        }
+
+        function handleNope() {
+            // Un peu d'humour : impossible de dire non
+            const card = document.getElementById('mainCard');
+            
+            // Petite animation de secousse "NON"
+            card.style.transform = "translateX(-10px)";
+            setTimeout(() => card.style.transform = "translateX(10px)", 100);
+            setTimeout(() => card.style.transform = "translateX(-10px)", 200);
+            setTimeout(() => card.style.transform = "translateX(10px)", 300);
+            setTimeout(() => card.style.transform = "translateX(0)", 400);
+
+            // Alerte ou Toast
+            setTimeout(() => {
+                alert("Erreur système 404 : Impossible de swiper à gauche ce profil. Trop de potentiel. Réessayez le cœur vert 💚.");
+            }, 450);
+        }
+
+        function closeMatch() {
+            document.getElementById('matchPopup').style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>
