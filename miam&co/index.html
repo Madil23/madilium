@@ -3,370 +3,275 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Miam&Co - Mignardises Sucrées & Salées ✨</title>
-   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
+    <title>Miam&Co - La Carte Gourmande</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-dark: #0d0d0d;
-            --bg-card: #1a1a1a;
-            --accent-gold: #E3C698;
-            --text-light: #FFFFFF;
-            --text-muted: #B0B0B0;
-            --whatsapp-green: #25D366;
-            --whatsapp-dark-green: #1a9948;
+            --primary: #E85D04; /* Orange Miam brûlé */
+            --secondary: #D00000; /* Rouge appétit */
+            --accent-sucre: #FF8FAB; /* Rose pour le sucré */
+            --accent-sale: #FAA307; /* Jaune doré pour le salé */
+            --bg: #FFF8F0;
+            --text: #370617;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Open Sans', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-light);
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
             line-height: 1.6;
-            overflow-x: hidden; /* Empêche le scroll horizontal à cause du fond animé */
-            position: relative;
         }
 
-        /* --- BACKGROUND ANIMÉ --- */
-        .floating-bg-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none; /* Important: permet de cliquer au travers */
-            z-index: -1;
-            overflow: hidden;
-            background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
-        }
-
-        .float-item {
-            position: absolute;
-            font-size: 4rem;
-            opacity: 0.15; /* Très subtil */
-            filter: grayscale(100%) blur(2px); /* Effet d'arrière-plan discret */
-            animation: floatUp infinite linear;
-        }
-
-        /* Positions et délais différents pour varier l'effet */
-        .fi-1 { bottom: -10vh; left: 10%; animation-duration: 15s; animation-delay: 0s; }
-        .fi-2 { bottom: -10vh; left: 30%; animation-duration: 18s; animation-delay: 2s; font-size: 3rem; }
-        .fi-3 { bottom: -10vh; left: 60%; animation-duration: 20s; animation-delay: 1s; }
-        .fi-4 { bottom: -10vh; left: 85%; animation-duration: 14s; animation-delay: 4s; font-size: 5rem;}
-
-        @keyframes floatUp {
-            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-            20% { opacity: 0.15; }
-            90% { opacity: 0.15; }
-            100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
-        }
-
-        /* --- ANIMATION D'ENTRÉE DU CONTENU --- */
-        .main-content-wrapper {
-            animation: fadeInUp 1s ease-out forwards;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        @keyframes fadeInUp {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- HEADER & HERO --- */
+        /* --- HEADER & NAV --- */
         header {
+            background: white;
+            padding: 20px 15px 30px;
             text-align: center;
-            padding: 50px 20px 30px;
-        }
-
-        .logo-container {
-            width: 130px;
-            height: 130px;
-            margin: 0 auto 25px;
-            border-radius: 50%;
-            border: 4px solid var(--accent-gold);
-            background-color: var(--bg-card);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 20px rgba(227, 198, 152, 0.3); /* Glow doré */
-            animation: pulse 3s infinite ease-in-out;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 20px rgba(227, 198, 152, 0.3); }
-            50% { box-shadow: 0 0 35px rgba(227, 198, 152, 0.6); }
+            border-radius: 0 0 40px 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         h1 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 3.2rem;
-            color: var(--accent-gold);
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-family: 'Pacifico', cursive;
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 5px;
         }
 
-        .tagline {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            margin-bottom: 10px;
-            font-style: italic;
-        }
+        .subtitle { font-size: 0.9rem; color: #777; margin-bottom: 20px; }
 
-        .location {
-            font-weight: 600;
-            color: var(--text-light);
-            margin-bottom: 30px;
-            display: inline-block;
-            background: rgba(255,255,255,0.1);
-            padding: 5px 15px;
-            border-radius: 20px;
-        }
-
-        /* --- BOUTONS AGRANDIS --- */
-        .actions-container {
-            padding: 0 20px;
+        .nav-buttons {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 50px;
-        }
-
-        .btn-big {
-            display: flex;
-            align-items: center;
             justify-content: center;
-            gap: 12px;
-            width: 100%;
-            max-width: 450px; /* Plus large sur desktop */
-            padding: 18px 30px; /* Padding augmenté */
-            border-radius: 50px;
+            gap: 15px;
+        }
+
+        .nav-btn {
             text-decoration: none;
-            font-weight: 800; /* Texte plus gras */
-            font-size: 1.2rem; /* Texte plus gros */
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: transform 0.2s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        .btn-whatsapp {
-            background: linear-gradient(45deg, var(--whatsapp-green), var(--whatsapp-dark-green));
-            color: white;
-            box-shadow: 0 6px 15px rgba(37, 211, 102, 0.4);
-        }
-        .btn-whatsapp:hover {
-            transform: scale(1.03);
-            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.6);
-        }
+        .btn-sale { background: var(--accent-sale); color: white; }
+        .btn-sucre { background: var(--accent-sucre); color: white; }
+        .nav-btn:active { transform: scale(0.95); }
 
-        .social-group {
-            display: flex;
-            gap: 15px;
-            width: 100%;
-            max-width: 450px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .btn-social-secondary {
-            background-color: var(--bg-card);
-            color: var(--text-light);
-            border: 2px solid #333;
-            padding: 14px 24px;
-            font-size: 1.1rem;
-            flex: 1 1 auto; /* Permet aux boutons de s'adapter */
-        }
-        .btn-social-secondary:hover {
-            border-color: var(--accent-gold);
-            background-color: #222;
-            transform: translateY(-3px);
-        }
-
-        /* --- PORTFOLIO GRID --- */
-        .portfolio-section {
-            padding: 30px 20px;
-            max-width: 1100px;
+        /* --- CONTENU --- */
+        .container {
+            max-width: 800px;
             margin: 0 auto;
+            padding: 30px 15px;
         }
 
-        .section-title-wrapper {
-            text-align: center;
-            margin-bottom: 40px;
-            position: relative;
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 40px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(0,0,0,0.05);
         }
 
-        .section-title {
-            color: var(--accent-gold);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-size: 1.8rem;
-            font-weight: 800;
-            display: inline-block;
-            position: relative;
-            z-index: 1;
-        }
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 60%;
-            height: 3px;
-            background: var(--accent-gold);
-            margin: 10px auto 0;
-            border-radius: 2px;
-        }
+        .section-header h2 { font-size: 1.8rem; color: var(--text); }
+        .icon-header { font-size: 1.5rem; }
+        .sale-color { color: var(--accent-sale); }
+        .sucre-color { color: var(--accent-sucre); }
 
-        .grid {
+        /* --- CARTE PRODUIT --- */
+        .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Cartes un peu plus grandes */
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
         }
 
-        .card {
-            background-color: var(--bg-card);
+        .menu-card {
+            background: white;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            transition: all 0.4s ease;
-            border: 1px solid #333;
-        }
-
-        .card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: var(--accent-gold);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.02);
         }
 
         .card-img {
             width: 100%;
-            height: 180px; /* Image plus haute */
-            background-color: #2a2a2a;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-        /* Badge sur les images (optionnel) */
-        .card-img::before {
-             content: 'Miam!';
-             position: absolute;
-             top: 10px;
-             right: 10px;
-             background: var(--accent-gold);
-             color: var(--bg-dark);
-             font-size: 0.7rem;
-             font-weight: bold;
-             padding: 4px 10px;
-             border-radius: 12px;
+            height: 160px;
+            object-fit: cover;
         }
 
-        .card-body {
-            padding: 20px;
-            text-align: center;
-        }
+        .card-body { padding: 20px; }
 
         .card-title {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 700;
-            margin-bottom: 8px;
-            color: var(--accent-gold);
+            margin-bottom: 15px;
+            color: var(--secondary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .card-desc {
-            font-size: 0.95rem;
-            color: var(--text-muted);
+        /* Liste des prix à l'intérieur de la carte */
+        .price-list { list-style: none; }
+        .price-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 8px;
+            border-bottom: 1px dashed #eee;
+            padding-bottom: 4px;
         }
+        
+        .item-name { font-size: 0.95rem; font-weight: 500; color: #555; }
+        .item-price { font-weight: 700; color: var(--primary); font-size: 1rem; white-space: nowrap;}
+        
+        .sub-text { font-size: 0.75rem; color: #999; margin-top: -5px; display: block;}
 
         /* --- FOOTER --- */
         footer {
             text-align: center;
-            padding: 50px 20px;
-            font-size: 0.9rem;
-            color: #666;
-            margin-top: 60px;
-            background: rgba(0,0,0,0.5); /* Fond semi-transparent */
+            padding: 40px 20px;
+            font-size: 0.8rem;
+            color: #999;
+            background: white;
+            margin-top: 50px;
         }
     </style>
 </head>
 <body>
 
-    <div class="floating-bg-container">
-        <div class="float-item fi-1">🍩</div>
-        <div class="float-item fi-2">🍕</div>
-        <div class="float-item fi-3">🧁</div>
-        <div class="float-item fi-4">🍔</div>
-    </div>
+    <header>
+        <h1>Miam&Co</h1>
+        <p class="subtitle">Traiteur Salé & Sucré</p>
+        <div class="nav-buttons">
+            <a href="#sale" class="nav-btn btn-sale"><i class="fas fa-burger"></i> Côté Salé</a>
+            <a href="#sucre" class="nav-btn btn-sucre"><i class="fas fa-cookie"></i> Côté Sucré</a>
+        </div>
+    </header>
 
-    <div class="main-content-wrapper">
+    <div class="container">
 
-        <header>
-           <div class="logo-container">
-    <img src="logo.jpg" alt="Logo MiamAndCo" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
-</div>
+        <div id="sale">
+            <div class="section-header">
+                <i class="fas fa-utensils icon-header sale-color"></i>
+                <h2>Le Salé</h2>
+            </div>
 
-            <h1>Miam&Co. ✨</h1>
-            <p class="tagline">"Du sucré, du salé... et surtout du goût !" 👩‍🍳</p>
-            <div class="location">📍 Tizi-Ouzou | 📞 0553 98 94 59</div>
-        </header>
+            <div class="menu-grid">
+                
+                <div class="menu-card">
+                    <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=1000&auto=format&fit=crop" class="card-img" alt="Mini Burgers">
+                    <div class="card-body">
+                        <div class="card-title">Mini Burgers & Bagels</div>
+                        <ul class="price-list">
+                            <li class="price-item"><span class="item-name">Burger Viande</span> <span class="item-price">140 DA</span></li>
+                            <li class="price-item"><span class="item-name">Burger Poulet Crispy</span> <span class="item-price">120 DA</span></li>
+                            <li class="price-item"><span class="item-name">Bagel Thon / Crudités</span> <span class="item-price">120 DA</span></li>
+                            <li class="price-item"><span class="item-name">Bagel Poulet mariné</span> <span class="item-price">120 DA</span></li>
+                            <li class="price-item"><span class="item-name">Bagel Œuf Mayo</span> <span class="item-price">100 DA</span></li>
+                        </ul>
+                    </div>
+                </div>
 
-        <div class="actions-container">
-            <a href="https://wa.me/213553989459" class="btn-big btn-whatsapp">
-               📲 Commander sur WhatsApp
-            </a>
+                <div class="menu-card">
+                    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1000&auto=format&fit=crop" class="card-img" alt="Mini Pizzas">
+                    <div class="card-body">
+                        <div class="card-title">Mini Pizzas & Quiches</div>
+                        <ul class="price-list">
+                            <li class="price-item"><span class="item-name">Pizza (Fromage/Thon/Poulet)</span> <span class="item-price">60 DA</span></li>
+                            <li class="price-item"><span class="item-name">Pizza Viande Hachée</span> <span class="item-price">80 DA</span></li>
+                            <li class="price-item"><span class="item-name">Quiche Poulet fumé</span> <span class="item-price">80 DA</span></li>
+                            <li class="price-item"><span class="item-name">Quiche Thon ou Poulet</span> <span class="item-price">120 DA</span></li>
+                            <li class="price-item"><span class="item-name">Quiche Poulet-Épinard</span> <span class="item-price">130 DA</span></li>
+                        </ul>
+                    </div>
+                </div>
 
-            <div class="social-group">
-                <a href="https://instagram.com/miam.andco" class="btn-big btn-social-secondary" target="_blank">📸 Instagram</a>
-                <a href="https://tiktok.com/@miamandco" class="btn-big btn-social-secondary" target="_blank">🎵 TikTok</a>
+                <div class="menu-card">
+                    <img src="https://images.unsplash.com/photo-1559466273-d95e71deb179?q=80&w=1000&auto=format&fit=crop" class="card-img" alt="Club Sandwich">
+                    <div class="card-body">
+                        <div class="card-title">Sandwichs & Wraps</div>
+                        <ul class="price-list">
+                            <li class="price-item"><span class="item-name">Club Œuf Mayo</span> <span class="item-price">100 DA</span></li>
+                            <li class="price-item"><span class="item-name">Club Charcuterie/Thon</span> <span class="item-price">120 DA</span></li>
+                            <li class="price-item"><span class="item-name">Mini Tacos</span> <span class="item-price">120 DA</span></li>
+                            <li class="price-item"><span class="item-name">Mini Wraps</span> <span class="item-price">130 DA</span></li>
+                            <li class="price-item"><span class="item-name">Batbout Thon crudités</span> <span class="item-price">120 DA</span></li>
+                            <li class="price-item"><span class="item-name">Mini Éclairs Salés</span> <span class="item-price">150 DA</span></li>
+                        </ul>
+                    </div>
+                </div>
+
             </div>
         </div>
 
-        <section class="portfolio-section">
-            <div class="section-title-wrapper">
-                <h2 class="section-title">✨ Nos Créations ✨</h2>
+        <div id="sucre">
+            <div class="section-header">
+                <i class="fas fa-birthday-cake icon-header sucre-color"></i>
+                <h2>Le Sucré</h2>
             </div>
-            
-            <div class="grid">
-                <div class="card">
-                    <div class="card-img" style="background-image: url('https://via.placeholder.com/400x300/333333/E3C698?text=Mini+Pizzas+🍕');"></div>
+
+            <div class="menu-grid">
+
+                <div class="menu-card">
+                    <img src="https://images.unsplash.com/photo-1534432182912-63863115e106?q=80&w=1000&auto=format&fit=crop" class="card-img" alt="Verrines">
                     <div class="card-body">
-                        <h3 class="card-title">Mini Pizzas 🍕</h3>
-                        <p class="card-desc">Base croustillante, garniture généreuse.</p>
+                        <div class="card-title">Verrines <small style="font-size:0.7rem; color:#777">Mini / Moyen</small></div>
+                        <p style="font-size:0.8rem; margin-bottom:10px; color:#666">Parfums: Chocolat, Noisette, Fruit de la passion, Pistache, Fraise, Framboise, Citron, Speculoos, Oreo...</p>
+                        <ul class="price-list">
+                            <li class="price-item"><span class="item-name">Chocolat / Noisette / Citron</span> <span class="item-price">100 / 150 DA</span></li>
+                            <li class="price-item"><span class="item-name">Fraise / Framboise</span> <span class="item-price">120 / 180 DA</span></li>
+                            <li class="price-item"><span class="item-name">Pistache / Passion / Oreo</span> <span class="item-price">150 / 225 DA</span></li>
+                        </ul>
                     </div>
                 </div>
 
-                <div class="card">
-                    <div class="card-img" style="background-image: url('https://via.placeholder.com/400x300/442222/E3C698?text=Brownie+🍫');"></div>
+                <div class="menu-card">
+                    <img src="https://images.unsplash.com/photo-1567608285969-48e4bbe243c5?q=80&w=1000&auto=format&fit=crop" class="card-img" alt="Tartelettes">
                     <div class="card-body">
-                        <h3 class="card-title">Brownies Fondants 🍫</h3>
-                        <p class="card-desc">Chocolat intense, cœur fondant irrésistible.</p>
+                        <div class="card-title">Tartelettes <small style="font-size:0.7rem; color:#777">Grande / Mignardise</small></div>
+                        <ul class="price-list">
+                            <li class="price-item"><span class="item-name">Citron / Choco-Caramel</span> <span class="item-price">120 / 60 DA</span></li>
+                            <li class="price-item"><span class="item-name">Fruits / Passion / Praliné</span> <span class="item-price">130 / 80 DA</span></li>
+                            <li class="price-item"><span class="item-name">Choco Banane / Banoffee</span> <span class="item-price">130 / 80 DA</span></li>
+                        </ul>
                     </div>
                 </div>
 
-                <div class="card">
-                    <div class="card-img" style="background-image: url('https://via.placeholder.com/400x300/555522/E3C698?text=Tartelettes+🥧');"></div>
+                <div class="menu-card">
+                    <img src="https://images.unsplash.com/photo-1603532648955-039310d9ed75?q=80&w=1000&auto=format&fit=crop" class="card-img" alt="Box Gourmande">
                     <div class="card-body">
-                        <h3 class="card-title">Tartelettes Fruits 🥧</h3>
-                        <p class="card-desc">Crème légère et fruits de saison frais.</p>
+                        <div class="card-title">Box & Douceurs</div>
+                        <ul class="price-list">
+                            <li class="price-item"><span class="item-name">Cupcake</span> <span class="item-price">120 DA</span></li>
+                            <li class="price-item"><span class="item-name">Cupcake Fourré</span> <span class="item-price">150 DA</span></li>
+                            <li class="price-item"><span class="item-name">Choux à la crème</span> <span class="item-price">100 DA</span></li>
+                            <li class="price-item"><span class="item-name">Box Chouquettes (10)</span> <span class="item-price">450 DA</span></li>
+                            <li class="price-item"><span class="item-name">Box Brownie 🍫</span> <span class="item-price">700 DA</span></li>
+                        </ul>
                     </div>
                 </div>
 
-                 <div class="card">
-                    <div class="card-img" style="background-image: url('https://via.placeholder.com/400x300/773333/E3C698?text=Plateaux+Salés+🥯');"></div>
-                    <div class="card-body">
-                        <h3 class="card-title">Plateaux Salés 🥯</h3>
-                        <p class="card-desc">Assortiment parfait pour vos événements.</p>
-                    </div>
-                </div>
             </div>
-        </section>
+        </div>
 
-        <footer>
-            <p>Miam&Co.<br>© 2025 Powered by Madilium.</p>
-        </footer>
+    </div>
 
-    </div> </body>
+    <footer>
+        <p>© 2025 Miam&Co - Fait maison avec amour.</p>
+        <p style="font-size: 0.7rem; margin-top: 5px; opacity: 0.6;">Powered by Madilium</p>
+    </footer>
+
+</body>
 </html>
