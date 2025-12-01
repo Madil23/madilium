@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mme Benneouala | Réservation de Cours</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lora:ital,wght@1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* --- VARIABLES THEME GEOLOGIE --- */
+        :root {
+            --bg-color: #F5F2EB; 
+            --card-bg: #FFFFFF;
+            --text-primary: #2C3E50; 
+            --text-secondary: #5D6D7E;
+            --accent-geo: #8D6E63; 
+            --accent-light: #EFEBE9;
+            --highlight: #D35400; /* Couleur ocre pour la sélection */
+            --whatsapp-color: #25D366;
+            --btn-hover: #128C7E;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            background-image: radial-gradient(#E0E0E0 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background: var(--card-bg);
+            padding: 40px 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid #E0E0E0;
+            border-right: 1px solid #E0E0E0;
+            position: relative;
+        }
+
+        /* --- HEADER --- */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .profile-icon {
+            font-size: 3rem;
+            color: var(--accent-geo);
+            margin-bottom: 15px;
+            background: var(--bg-color);
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-left: auto;
+            margin-right: auto;
+            border: 2px solid var(--accent-geo);
+        }
+
+        h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 5px; }
+        .diploma {
+            font-family: 'Lora', serif; font-style: italic; color: var(--text-secondary);
+            font-size: 0.9rem; border-bottom: 2px solid var(--accent-light);
+            display: inline-block; padding-bottom: 5px; margin-bottom: 10px;
+        }
+
+        /* --- FORMULAIRE DE SELECTION --- */
+        .selection-area {
+            flex-grow: 1;
+        }
+
+        .step-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            font-weight: 600;
+            display: block;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        /* Radio Inputs cachés */
+        input[type="radio"] {
+            display: none;
+        }
+
+        /* Style des labels (boutons) */
+        .option-card {
+            background: var(--bg-color);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 15px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option-card i {
+            display: block;
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            color: var(--accent-geo);
+        }
+
+        .option-card span {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Effet de sélection */
+        input[type="radio"]:checked + .option-card {
+            border-color: var(--accent-geo);
+            background: #EFEBE9; /* Couleur terre claire */
+            color: var(--accent-geo);
+            box-shadow: 0 4px 10px rgba(141, 110, 99, 0.2);
+        }
+
+        input[type="radio"]:checked + .option-card i {
+            color: var(--highlight);
+        }
+
+        /* Indicateur visuel "Check" */
+        .check-icon {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.2s;
+            color: var(--highlight);
+        }
+
+        input[type="radio"]:checked + .option-card .check-icon {
+            opacity: 1;
+        }
+
+        /* --- RESUME ET PRIX --- */
+        .summary-box {
+            background: var(--text-primary);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: auto;
+            text-align: center;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+        }
+
+        .total-price {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 10px 0;
+            color: #FFCCBC; /* Couleur saumon clair */
+        }
+
+        .price-details {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 15px;
+        }
+
+        /* --- BOUTON WHATSAPP --- */
+        .btn-whatsapp {
+            display: block;
+            background-color: var(--whatsapp-color);
+            color: white;
+            text-decoration: none;
+            padding: 16px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: var(--btn-hover);
+            transform: translateY(-2px);
+        }
+        
+        /* Footer */
+        footer { margin-top: 20px; text-align: center; font-size: 0.7rem; color: #BDC3C7; }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <div class="profile-icon"><i class="fas fa-layer-group"></i></div>
+            <h1>Mme Benneouala</h1>
+            <div class="diploma">Master en Sciences de la Terre</div>
+            <p style="font-size: 0.9rem; margin-top:5px;">Configurez votre séance ci-dessous :</p>
+        </header>
+
+        <form id="bookingForm" class="selection-area">
+            
+            <span class="step-label">1. Choisissez la matière</span>
+            <div class="options-grid">
+                <label>
+                    <input type="radio" name="matiere" value="SVT" checked onchange="calculatePrice()">
+                    <div class="option-card">
+                        <i class="fas fa-dna"></i> <span>SVT</span>
+                        <i class="fas fa-check-circle check-icon"></i>
+                    </div>
+                </label>
+
+                <label>
+                    <input type="radio" name="matiere" value="ES" onchange="calculatePrice()">
+                    <div class="option-card">
+                        <i class="fas fa-globe-africa"></i> <span>ES</span>
+                        <i class="fas fa-check-circle check-icon"></i>
+                    </div>
+                </label>
+            </div>
+
+            <span class="step-label">2. Choisissez le format</span>
+            <div class="options-grid">
+                <label>
+                    <input type="radio" name="format" value="Groupe" checked onchange="calculatePrice()">
+                    <div class="option-card">
+                        <i class="fas fa-users"></i>
+                        <span>En Groupe</span>
+                        <i class="fas fa-check-circle check-icon"></i>
+                    </div>
+                </label>
+
+                <label>
+                    <input type="radio" name="format" value="Individuel" onchange="calculatePrice()">
+                    <div class="option-card">
+                        <i class="fas fa-user-graduate"></i>
+                        <span>Individuel</span>
+                        <i class="fas fa-check-circle check-icon"></i>
+                    </div>
+                </label>
+            </div>
+        </form>
+
+        <div class="summary-box">
+            <div class="price-details" id="descText">SVT en Groupe</div>
+            <div class="total-price" id="priceText">1500 DA</div>
+            
+            <a href="#" id="waLink" class="btn-whatsapp" target="_blank">
+                <i class="fab fa-whatsapp"></i> Réserver ce cours
+            </a>
+        </div>
+        
+        <footer>Powered by Madilium</footer>
+    </div>
+
+    <script>
+        // Configuration des prix
+        const prices = {
+            'SVT': { 'Groupe': 1500, 'Individuel': 3000 },
+            'ES':  { 'Groupe': 1000, 'Individuel': 3000 }
+        };
+
+        const phone = "213792263283";
+
+        function calculatePrice() {
+            // Récupérer les valeurs sélectionnées
+            const matiere = document.querySelector('input[name="matiere"]:checked').value;
+            const format = document.querySelector('input[name="format"]:checked').value;
+
+            // Calculer le prix
+            const price = prices[matiere][format];
+
+            // Mettre à jour l'affichage
+            document.getElementById('priceText').innerText = price + " DA";
+            document.getElementById('descText').innerText = `${matiere} - Séance ${format}`;
+
+            // Générer le lien WhatsApp dynamique
+            // Message : "Bonjour, je souhaite réserver un cours de [Matiere] en [Format] (Prix : [Prix] DA)."
+            const message = `Bonjour Mme Benneouala, je souhaite réserver un cours de *${matiere}* en format *${format}*.`;
+            
+            const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+            document.getElementById('waLink').href = whatsappUrl;
+        }
+
+        // Initialiser au chargement
+        calculatePrice();
+    </script>
+
+</body>
+</html>
