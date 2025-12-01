@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Miam&Co - App de Commande</title>
+    <title>Miam&Co - Commander</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
     
@@ -11,8 +11,8 @@
         :root {
             --primary: #d4a373;
             --dark: #2c1810;
-            --sale-color: #e76f51;
-            --sucre-color: #d62828;
+            --sale-color: #e76f51; /* Couleur brique capture */
+            --sucre-color: #c1121f; /* Rouge capture */
             --bg: #fffbf2;
             --whatsapp: #25D366;
         }
@@ -20,117 +20,114 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Poppins', sans-serif; background-color: var(--bg); color: var(--dark); padding-bottom: 100px; }
 
-        /* --- HEADER & SOCIALS --- */
+        /* --- 1. HEADER AGRANDI (XL) --- */
         header { 
-            background: white; text-align: center; padding: 20px 20px 30px; 
-            border-radius: 0 0 30px 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); 
-            margin-bottom: 30px;
+            background: white; text-align: center; 
+            padding: 50px 20px 60px; /* Plus d'espace */
+            border-radius: 0 0 50px 50px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05); 
+            margin-bottom: 40px;
         }
         
         .logo-container {
-            width: 100px; height: 100px; margin: 0 auto 15px;
-            border-radius: 50%; overflow: hidden; border: 3px solid var(--primary);
+            width: 140px; height: 140px; margin: 0 auto 20px; /* Logo plus grand */
+            border-radius: 50%; overflow: hidden; border: 4px solid var(--primary);
             background: #eee;
         }
         .logo-img { width: 100%; height: 100%; object-fit: cover; }
 
-        .brand-name { font-family: 'Dancing Script', cursive; font-size: 2.5rem; color: var(--primary); line-height: 1; }
-        .slogan { font-size: 0.9rem; font-style: italic; color: #666; margin: 5px 0 15px; }
+        .brand-name { 
+            font-family: 'Dancing Script', cursive; 
+            font-size: 3.8rem; /* Titre très grand */
+            color: var(--primary); 
+            line-height: 1.1; 
+            margin-bottom: 5px;
+        }
+        .slogan { font-size: 1.1rem; font-style: italic; color: #666; margin-bottom: 25px; }
 
-        /* Social Icons */
-        .social-bar { display: flex; justify-content: center; gap: 15px; margin-top: 15px; }
+        /* Social Icons plus grands */
+        .social-bar { display: flex; justify-content: center; gap: 20px; }
         .social-btn {
-            width: 40px; height: 40px; border-radius: 50%;
+            width: 55px; height: 55px; border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
-            color: white; font-size: 1.2rem; text-decoration: none;
-            transition: transform 0.2s; box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+            color: white; font-size: 1.8rem; text-decoration: none;
+            transition: transform 0.2s; box-shadow: 0 5px 15px rgba(0,0,0,0.15);
         }
         .social-btn:active { transform: scale(0.9); }
         .btn-insta { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
         .btn-tiktok { background: #000; }
         .btn-whatsapp { background: var(--whatsapp); }
 
-        /* --- BOUTON DEMARRAGE --- */
-        .start-container { text-align: center; margin-top: 20px; }
-        .btn-start {
-            background: var(--dark); color: white; border: none;
-            padding: 15px 40px; border-radius: 50px;
-            font-size: 1.1rem; font-weight: 600; cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-            display: inline-flex; align-items: center; gap: 10px;
-        }
-        .btn-start:hover { transform: translateY(-2px); }
 
-        /* --- MENU ACCORDÉON (Caché au début) --- */
-        .menu-container { 
-            max-width: 800px; margin: 0 auto; padding: 0 15px; 
-            display: none; /* Caché par défaut */
-            animation: fadeIn 0.5s ease;
-        }
+        /* --- 2. MENU ACCORDÉON --- */
+        .menu-container { max-width: 800px; margin: 0 auto; padding: 0 20px; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        .accordion-item { margin-bottom: 15px; background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .accordion-item { margin-bottom: 20px; background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
         
         .accordion-header {
-            padding: 20px; cursor: pointer;
+            padding: 25px; cursor: pointer;
             display: flex; justify-content: space-between; align-items: center;
             transition: background 0.2s;
+            border-left: 8px solid transparent; /* Bordure colorée sur le côté */
         }
-        .acc-sale { border-left: 5px solid var(--sale-color); }
-        .acc-sucre { border-left: 5px solid var(--sucre-color); }
+        .acc-sale { border-left-color: var(--sale-color); }
+        .acc-sucre { border-left-color: var(--sucre-color); }
 
-        .acc-title { font-size: 1.3rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
-        .acc-icon { transition: transform 0.3s; }
+        .acc-title { font-size: 1.4rem; font-weight: 700; display: flex; align-items: center; gap: 15px; }
+        .acc-icon { transition: transform 0.3s; font-size: 1.2rem; opacity: 0.5;}
         
+        /* Contenu caché */
         .accordion-content {
-            max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out;
-            background: #fafafa;
+            max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out;
+            background: #fff;
         }
-        
-        /* Quand ouvert */
-        .accordion-item.active .accordion-content { max-height: 2000px; /* Valeur haute pour permettre l'ouverture */ }
+        .accordion-item.active .accordion-content { max-height: 3000px; }
         .accordion-item.active .acc-icon { transform: rotate(180deg); }
 
-        /* --- PRODUITS --- */
-        .product-group { padding: 15px; }
-        .sub-title { 
-            font-size: 0.95rem; font-weight: 700; color: #666; margin: 15px 0 10px; 
-            text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #ddd; padding-bottom: 5px;
+        /* --- 3. PHOTOS CATEGORIES --- */
+        .category-banner {
+            width: 100%; height: 180px; object-fit: cover;
+            margin-bottom: 10px;
         }
 
-        .item-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px dashed #eee; }
-        .item-info { flex: 1; padding-right: 10px; }
-        .item-name { display: block; font-size: 0.9rem; color: #444; font-weight: 500;}
-        .item-price { font-weight: 700; color: var(--primary); font-size: 0.9rem; }
+        /* --- LISTE PRODUITS --- */
+        .product-group { padding: 0 20px 20px; }
+        .sub-title { 
+            font-size: 1rem; font-weight: 700; color: #888; margin: 25px 0 15px; 
+            text-transform: uppercase; letter-spacing: 1px; border-bottom: 2px solid #f0f0f0; padding-bottom: 5px;
+        }
 
-        .qty-controls { display: flex; align-items: center; gap: 8px; background: white; padding: 2px; border-radius: 20px; border: 1px solid #eee; }
-        .qty-btn { width: 28px; height: 28px; border-radius: 50%; border: none; background: #f0f0f0; color: var(--dark); font-weight: bold; cursor: pointer; display: flex; justify-content: center; align-items: center;}
-        .qty-display { font-weight: 600; font-size: 0.9rem; min-width: 20px; text-align: center; }
+        .item-row { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px dashed #eee; }
+        .item-info { flex: 1; padding-right: 10px; }
+        .item-name { display: block; font-size: 1rem; color: #444; font-weight: 500;}
+        .item-price { font-weight: 700; color: var(--primary); font-size: 1rem; }
+
+        .qty-controls { display: flex; align-items: center; gap: 10px; background: #fafafa; padding: 4px; border-radius: 50px; border: 1px solid #eee; }
+        .qty-btn { width: 32px; height: 32px; border-radius: 50%; border: none; background: white; color: var(--dark); font-weight: bold; cursor: pointer; display: flex; justify-content: center; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); font-size: 1.1rem;}
+        .qty-display { font-weight: 600; font-size: 1rem; min-width: 25px; text-align: center; }
         .add-btn { background: var(--primary); color: white; }
 
         /* --- BARRE PANIER (BOTTOM) --- */
         .cart-bar {
             position: fixed; bottom: 0; left: 0; width: 100%;
             background: white; border-top: 1px solid #eee;
-            padding: 15px 20px;
+            padding: 20px 25px;
             display: flex; justify-content: space-between; align-items: center;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.05);
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.08);
             transform: translateY(100%); transition: transform 0.3s ease-out;
             z-index: 1000;
         }
         .cart-bar.visible { transform: translateY(0); }
 
-        .total-info { font-size: 0.9rem; }
-        .total-price { display: block; font-size: 1.2rem; font-weight: 800; color: var(--dark); }
+        .total-info { font-size: 1rem; }
+        .total-price { display: block; font-size: 1.4rem; font-weight: 800; color: var(--dark); }
 
         .checkout-btn {
             background: var(--whatsapp); color: white;
-            padding: 12px 25px; border-radius: 50px;
-            text-decoration: none; font-weight: 700;
-            display: flex; align-items: center; gap: 8px;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            padding: 15px 30px; border-radius: 50px;
+            text-decoration: none; font-weight: 700; font-size: 1.1rem;
+            display: flex; align-items: center; gap: 10px;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
             border: none; cursor: pointer;
         }
 
@@ -153,14 +150,7 @@
         </div>
     </header>
 
-    <div class="start-container" id="startScreen">
-        <button class="btn-start" onclick="showMenu()">
-            <i class="fas fa-utensils"></i> Passer une commande
-        </button>
-        <p style="margin-top: 15px; font-size: 0.8rem; color: #888;">Cliquez pour afficher le menu</p>
-    </div>
-
-    <div class="menu-container" id="mainMenu">
+    <div class="menu-container">
         
         <div class="accordion-item" id="accSale">
             <div class="accordion-header acc-sale" onclick="toggleAccordion('accSale')">
@@ -169,55 +159,26 @@
                 </div>
                 <i class="fas fa-chevron-down acc-icon"></i>
             </div>
+            
             <div class="accordion-content">
+                <img src="sales.jpg" class="category-banner" alt="Salé">
+                
                 <div class="product-group">
-                    
                     <div class="sub-title">Burgers & Bagels</div>
-                    <div class="item-row">
-                        <div class="item-info"><span class="item-name">Mini Burger Viande</span><span class="item-price">140 DA</span></div>
-                        <div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Burger Viande" data-price="140">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div>
-                    </div>
-                    <div class="item-row">
-                        <div class="item-info"><span class="item-name">Mini Burger Poulet</span><span class="item-price">120 DA</span></div>
-                        <div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Burger Poulet" data-price="120">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div>
-                    </div>
-                     <div class="item-row">
-                        <div class="item-info"><span class="item-name">Mini Bagel Thon</span><span class="item-price">120 DA</span></div>
-                        <div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Bagel Thon" data-price="120">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div>
-                    </div>
+                    <div class="item-row"><div class="item-info"><span class="item-name">Mini Burger Viande</span><span class="item-price">140 DA</span></div><div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Burger Viande" data-price="140">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div></div>
+                    <div class="item-row"><div class="item-info"><span class="item-name">Mini Burger Poulet</span><span class="item-price">120 DA</span></div><div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Burger Poulet" data-price="120">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div></div>
+                    <div class="item-row"><div class="item-info"><span class="item-name">Mini Bagel Thon</span><span class="item-price">120 DA</span></div><div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Bagel Thon" data-price="120">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div></div>
 
                     <div class="sub-title">Pizzas & Quiches</div>
-                    <div class="item-row">
-                        <div class="item-info"><span class="item-name">Mini Pizza (Fromage/Thon)</span><span class="item-price">60 DA</span></div>
-                        <div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Mini Pizza Std" data-price="60">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div>
-                    </div>
-                    <div class="item-row">
-                        <div class="item-info"><span class="item-name">Mini Pizza Viande Hachée</span><span class="item-price">80 DA</span></div>
-                        <div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Mini Pizza Viande" data-price="80">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div>
-                    </div>
-                    <div class="item-row">
-                        <div class="item-info"><span class="item-name">Quiche Poulet Fumé</span><span class="item-price">80 DA</span></div>
-                        <div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Quiche Poulet Fumé" data-price="80">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div>
-                    </div>
-                     <div class="item-row">
-                        <div class="item-info"><span class="item-name">Quiche Viande Hachée</span><span class="item-price">140 DA</span></div>
-                        <div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Quiche Viande" data-price="140">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div>
-                    </div>
+                    <div class="item-row"><div class="item-info"><span class="item-name">Mini Pizza (Fromage/Thon)</span><span class="item-price">60 DA</span></div><div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Mini Pizza Std" data-price="60">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div></div>
+                    <div class="item-row"><div class="item-info"><span class="item-name">Mini Pizza Viande Hachée</span><span class="item-price">80 DA</span></div><div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Mini Pizza Viande" data-price="80">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div></div>
+                    <div class="item-row"><div class="item-info"><span class="item-name">Quiche Poulet Fumé</span><span class="item-price">80 DA</span></div><div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Quiche Poulet Fumé" data-price="80">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div></div>
+                    <div class="item-row"><div class="item-info"><span class="item-name">Quiche Viande Hachée</span><span class="item-price">140 DA</span></div><div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Quiche Viande" data-price="140">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div></div>
 
                     <div class="sub-title">Sandwichs & Box</div>
-                    <div class="item-row">
-                        <div class="item-info"><span class="item-name">Club Sandwich</span><span class="item-price">100 DA</span></div>
-                        <div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Club Sandwich" data-price="100">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div>
-                    </div>
-                    <div class="item-row">
-                        <div class="item-info"><span class="item-name">Mini Tacos</span><span class="item-price">120 DA</span></div>
-                        <div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Mini Tacos" data-price="120">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div>
-                    </div>
-                    <div class="item-row">
-                        <div class="item-info"><span class="item-name">Mini Éclair Salé</span><span class="item-price">150 DA</span></div>
-                        <div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Eclair Salé" data-price="150">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div>
-                    </div>
-
+                    <div class="item-row"><div class="item-info"><span class="item-name">Club Sandwich</span><span class="item-price">100 DA</span></div><div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Club Sandwich" data-price="100">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div></div>
+                    <div class="item-row"><div class="item-info"><span class="item-name">Mini Tacos</span><span class="item-price">120 DA</span></div><div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Mini Tacos" data-price="120">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div></div>
+                    <div class="item-row"><div class="item-info"><span class="item-name">Mini Éclair Salé</span><span class="item-price">150 DA</span></div><div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Eclair Salé" data-price="150">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div></div>
                 </div>
             </div>
         </div>
@@ -229,78 +190,50 @@
                 </div>
                 <i class="fas fa-chevron-down acc-icon"></i>
             </div>
+            
             <div class="accordion-content">
+                <img src="sucre.jpg" class="category-banner" alt="Sucré">
+                
                 <div class="product-group">
-
                     <div class="sub-title">Verrines</div>
-                    <div class="item-row">
-                        <div class="item-info"><span class="item-name">Verrine Choco/Noisette (Mini)</span><span class="item-price">100 DA</span></div>
-                        <div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Verrine Choco Mini" data-price="100">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div>
-                    </div>
-                     <div class="item-row">
-                        <div class="item-info"><span class="item-name">Verrine Choco/Noisette (Moyen)</span><span class="item-price">150 DA</span></div>
-                        <div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Verrine Choco Moyenne" data-price="150">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div>
-                    </div>
-                    <div class="item-row">
-                        <div class="item-info"><span class="item-name">Verrine Fruits Rouges (Mini)</span><span class="item-price">120 DA</span></div>
-                        <div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Verrine Fruits Mini" data-price="120">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div>
-                    </div>
-                     <div class="item-row">
-                        <div class="item-info"><span class="item-name">Verrine Pistache/Oreo (Moyen)</span><span class="item-price">225 DA</span></div>
-                        <div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Verrine Pistache Moyenne" data-price="225">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div>
-                    </div>
+                    <div class="item-row"><div class="item-info"><span class="item-name">Verrine Choco/Noisette (Mini)</span><span class="item-price">100 DA</span></div><div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Verrine Choco Mini" data-price="100">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div></div>
+                    <div class="item-row"><div class="item-info"><span class="item-name">Verrine Choco/Noisette (Moyen)</span><span class="item-price">150 DA</span></div><div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Verrine Choco Moyenne" data-price="150">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div></div>
+                    <div class="item-row"><div class="item-info"><span class="item-name">Verrine Fruits Rouges (Mini)</span><span class="item-price">120 DA</span></div><div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Verrine Fruits Mini" data-price="120">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div></div>
+                    <div class="item-row"><div class="item-info"><span class="item-name">Verrine Pistache/Oreo (Moyen)</span><span class="item-price">225 DA</span></div><div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Verrine Pistache Moyenne" data-price="225">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div></div>
 
                     <div class="sub-title">Tartelettes & Douceurs</div>
-                    <div class="item-row">
-                        <div class="item-info"><span class="item-name">Tartelette Citron (Mini)</span><span class="item-price">60 DA</span></div>
-                        <div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Tartelette Citron Mini" data-price="60">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div>
-                    </div>
-                    <div class="item-row">
-                        <div class="item-info"><span class="item-name">Tartelette Citron (Grand)</span><span class="item-price">120 DA</span></div>
-                        <div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Tartelette Citron Gd" data-price="120">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div>
-                    </div>
-                    <div class="item-row">
-                        <div class="item-info"><span class="item-name">Cupcake</span><span class="item-price">120 DA</span></div>
-                        <div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Cupcake" data-price="120">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div>
-                    </div>
-                     <div class="item-row">
-                        <div class="item-info"><span class="item-name">Box Brownie</span><span class="item-price">700 DA</span></div>
-                        <div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Box Brownie" data-price="700">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div>
-                    </div>
-
+                    <div class="item-row"><div class="item-info"><span class="item-name">Tartelette Citron (Mini)</span><span class="item-price">60 DA</span></div><div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Tartelette Citron Mini" data-price="60">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div></div>
+                    <div class="item-row"><div class="item-info"><span class="item-name">Tartelette Citron (Grand)</span><span class="item-price">120 DA</span></div><div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Tartelette Citron Gd" data-price="120">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div></div>
+                    <div class="item-row"><div class="item-info"><span class="item-name">Cupcake</span><span class="item-price">120 DA</span></div><div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Cupcake" data-price="120">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div></div>
+                    <div class="item-row"><div class="item-info"><span class="item-name">Box Brownie</span><span class="item-price">700 DA</span></div><div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Box Brownie" data-price="700">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div></div>
                 </div>
             </div>
         </div>
 
     </div>
 
+    <div style="text-align: center; font-size: 0.75rem; color: #aaa; margin-top: 40px; margin-bottom: 30px; font-weight: 300;">
+        Powered by <span style="color: #d4a373; font-weight: 600;">Madilium</span>
+    </div>
+
     <div class="cart-bar" id="cartBar">
         <div class="total-info">
-            <span style="font-size:0.8rem; color:#777;">Total estimé :</span>
+            <span style="font-size:0.85rem; color:#777;">Total estimé :</span>
             <span class="total-price" id="totalDisplay">0 DA</span>
         </div>
         <button class="checkout-btn" onclick="sendOrder()">
-            Finaliser <i class="fab fa-whatsapp"></i>
+            Commander <i class="fab fa-whatsapp"></i>
         </button>
     </div>
 
     <script>
-        // --- 1. AFFICHER LE MENU ---
-        function showMenu() {
-            document.getElementById('startScreen').style.display = 'none';
-            document.getElementById('mainMenu').style.display = 'block';
-        }
-
-        // --- 2. ACCORDÉON ---
+        // --- ACCORDÉON ---
         function toggleAccordion(id) {
             const item = document.getElementById(id);
-            // Fermer les autres si on veut (optionnel, ici on laisse tout ouvrable)
-            
-            // Toggle classe active
             item.classList.toggle('active');
         }
 
-        // --- 3. LOGIQUE PANIER ---
+        // --- PANIER ---
         let cart = {};
 
         function updateQty(btn, change) {
@@ -360,7 +293,7 @@
     </script>
     <div style="text-align: center; font-size: 0.75rem; color: #aaa; margin-top: 40px; margin-bottom: 20px; font-weight: 300;">
         Powered by <span style="color: #d4a373; font-weight: 600;">Madilium</span>
-    </div> 
+    </div>
 
 </body>
 </html>
