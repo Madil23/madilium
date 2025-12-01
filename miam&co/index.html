@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Miam&Co - La Carte Gourmande</title>
+    <title>Miam&Co - Carte Digitale</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --primary: #E85D04; /* Orange Miam brûlé */
-            --secondary: #D00000; /* Rouge appétit */
-            --accent-sucre: #FF8FAB; /* Rose pour le sucré */
-            --accent-sale: #FAA307; /* Jaune doré pour le salé */
-            --bg: #FFF8F0;
-            --text: #370617;
+            --primary: #d4a373; /* Beige doré logo */
+            --dark: #2c1810; /* Marron foncé texte */
+            --sale-color: #e76f51; /* Orange brûlé */
+            --sucre-color: #d62828; /* Rouge gourmand */
+            --bg: #fffbf2; /* Fond crème très clair */
+            --whatsapp: #25D366;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -23,255 +23,294 @@
         body {
             font-family: 'Poppins', sans-serif;
             background-color: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
+            color: var(--dark);
+            padding-bottom: 80px; /* Espace pour le bouton commander */
         }
 
-        /* --- HEADER & NAV --- */
+        /* --- HEADER & PROFIL --- */
         header {
             background: white;
-            padding: 20px 15px 30px;
             text-align: center;
-            border-radius: 0 0 40px 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            padding: 30px 20px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            border-radius: 0 0 30px 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
         }
 
-        h1 {
-            font-family: 'Pacifico', cursive;
-            font-size: 2.5rem;
+        .brand-name {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
             color: var(--primary);
-            margin-bottom: 5px;
+            font-weight: 700;
+            line-height: 1;
         }
 
-        .subtitle { font-size: 0.9rem; color: #777; margin-bottom: 20px; }
+        .slogan {
+            font-size: 0.9rem;
+            font-style: italic;
+            color: #666;
+            margin: 5px 0 15px;
+        }
 
-        .nav-buttons {
+        /* --- RESEAUX SOCIAUX --- */
+        .social-bar {
             display: flex;
             justify-content: center;
             gap: 15px;
+            margin-bottom: 20px;
         }
 
-        .nav-btn {
+        .social-btn {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            color: white;
+            font-size: 1.2rem;
             text-decoration: none;
+            transition: transform 0.2s;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+        }
+        .social-btn:hover { transform: scale(1.1); }
+        
+        .btn-insta { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
+        .btn-tiktok { background: #000; }
+        .btn-whatsapp { background: var(--whatsapp); }
+        .btn-mail { background: #555; }
+
+        /* --- NAVIGATION TABS --- */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 10px;
+        }
+        .tab {
             padding: 10px 25px;
             border-radius: 50px;
-            font-weight: 700;
-            font-size: 0.95rem;
-            transition: transform 0.2s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.9rem;
         }
+        .tab-sale { background: rgba(231, 111, 81, 0.1); color: var(--sale-color); border: 1px solid var(--sale-color); }
+        .tab-sucre { background: rgba(214, 40, 40, 0.1); color: var(--sucre-color); border: 1px solid var(--sucre-color); }
+        
+        .tab-sale.active, .tab-sale:hover { background: var(--sale-color); color: white; }
+        .tab-sucre.active, .tab-sucre:hover { background: var(--sucre-color); color: white; }
 
-        .btn-sale { background: var(--accent-sale); color: white; }
-        .btn-sucre { background: var(--accent-sucre); color: white; }
-        .nav-btn:active { transform: scale(0.95); }
 
-        /* --- CONTENU --- */
-        .container {
+        /* --- GRANDS BLOCS CATEGORIES --- */
+        .main-category {
             max-width: 800px;
-            margin: 0 auto;
-            padding: 30px 15px;
+            margin: 30px auto;
+            padding: 0 15px;
         }
 
-        .section-header {
+        .category-header {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin: 40px 0 20px;
+            gap: 10px;
+            margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 2px solid rgba(0,0,0,0.05);
+            border-bottom: 2px solid #eee;
         }
+        .category-header h2 { font-size: 1.8rem; text-transform: uppercase; letter-spacing: 1px; }
+        .category-header i { font-size: 1.5rem; }
+        
+        .header-sale { color: var(--sale-color); border-color: var(--sale-color); }
+        .header-sucre { color: var(--sucre-color); border-color: var(--sucre-color); }
 
-        .section-header h2 { font-size: 1.8rem; color: var(--text); }
-        .icon-header { font-size: 1.5rem; }
-        .sale-color { color: var(--accent-sale); }
-        .sucre-color { color: var(--accent-sucre); }
-
-        /* --- CARTE PRODUIT --- */
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .menu-card {
+        /* --- LISTE PRODUITS --- */
+        .product-list {
             background: white;
             border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
-            border: 1px solid rgba(0,0,0,0.02);
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
         }
 
-        .card-img {
-            width: 100%;
-            height: 160px;
-            object-fit: cover;
+        .sub-category {
+            margin-bottom: 25px;
         }
+        .sub-category:last-child { margin-bottom: 0; }
 
-        .card-body { padding: 20px; }
-
-        .card-title {
-            font-size: 1.2rem;
+        .sub-title {
+            font-size: 1.1rem;
             font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--secondary);
+            color: var(--dark);
+            margin-bottom: 10px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .sub-title i { font-size: 0.9rem; opacity: 0.7; }
+
+        .item-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-
-        /* Liste des prix à l'intérieur de la carte */
-        .price-list { list-style: none; }
-        .price-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 8px;
+            padding: 8px 0;
             border-bottom: 1px dashed #eee;
-            padding-bottom: 4px;
+            font-size: 0.95rem;
+        }
+        .item-row:last-child { border-bottom: none; }
+        
+        .item-name { color: #555; }
+        .item-price { font-weight: 700; color: var(--primary); white-space: nowrap; margin-left: 10px;}
+
+        /* --- STICKY CONTACT BUTTON --- */
+        .sticky-order {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--whatsapp);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+            width: 90%;
+            max-width: 400px;
+            justify-content: center;
+            animation: popIn 0.5s ease-out;
         }
         
-        .item-name { font-size: 0.95rem; font-weight: 500; color: #555; }
-        .item-price { font-weight: 700; color: var(--primary); font-size: 1rem; white-space: nowrap;}
-        
-        .sub-text { font-size: 0.75rem; color: #999; margin-top: -5px; display: block;}
+        @keyframes popIn {
+            from { transform: translate(-50%, 100%); }
+            to { transform: translate(-50%, 0); }
+        }
 
-        /* --- FOOTER --- */
-        footer {
+        /* Image d'ambiance */
+        .hero-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        /* Footer info */
+        .footer-info {
             text-align: center;
-            padding: 40px 20px;
             font-size: 0.8rem;
             color: #999;
-            background: white;
-            margin-top: 50px;
+            margin-top: 30px;
+            margin-bottom: 20px;
         }
+
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Miam&Co</h1>
-        <p class="subtitle">Traiteur Salé & Sucré</p>
-        <div class="nav-buttons">
-            <a href="#sale" class="nav-btn btn-sale"><i class="fas fa-burger"></i> Côté Salé</a>
-            <a href="#sucre" class="nav-btn btn-sucre"><i class="fas fa-cookie"></i> Côté Sucré</a>
+        <div class="brand-name">Miam&Co.</div>
+        <p class="slogan">"Du sucré, du salé... et surtout du goût ! 🍽️"</p>
+        
+        <div class="social-bar">
+            <a href="https://instagram.com/miam.andco" target="_blank" class="social-btn btn-insta"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@miamandco" target="_blank" class="social-btn btn-tiktok"><i class="fab fa-tiktok"></i></a>
+            <a href="https://wa.me/213553989459" class="social-btn btn-whatsapp"><i class="fab fa-whatsapp"></i></a>
+            <a href="mailto:info.miamandco@gmail.com" class="social-btn btn-mail"><i class="fas fa-envelope"></i></a>
+        </div>
+
+        <p style="font-size: 0.85rem; color: #555;"><i class="fas fa-map-marker-alt" style="color:#d62828;"></i> Tizi-Ouzou</p>
+
+        <div class="tabs">
+            <a href="#sale" class="tab tab-sale">Côté Salé</a>
+            <a href="#sucre" class="tab tab-sucre">Côté Sucré</a>
         </div>
     </header>
 
-    <div class="container">
-
-        <div id="sale">
-            <div class="section-header">
-                <i class="fas fa-utensils icon-header sale-color"></i>
-                <h2>Le Salé</h2>
-            </div>
-
-            <div class="menu-grid">
-                
-                <div class="menu-card">
-                    <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=1000&auto=format&fit=crop" class="card-img" alt="Mini Burgers">
-                    <div class="card-body">
-                        <div class="card-title">Mini Burgers & Bagels</div>
-                        <ul class="price-list">
-                            <li class="price-item"><span class="item-name">Burger Viande</span> <span class="item-price">140 DA</span></li>
-                            <li class="price-item"><span class="item-name">Burger Poulet Crispy</span> <span class="item-price">120 DA</span></li>
-                            <li class="price-item"><span class="item-name">Bagel Thon / Crudités</span> <span class="item-price">120 DA</span></li>
-                            <li class="price-item"><span class="item-name">Bagel Poulet mariné</span> <span class="item-price">120 DA</span></li>
-                            <li class="price-item"><span class="item-name">Bagel Œuf Mayo</span> <span class="item-price">100 DA</span></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="menu-card">
-                    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1000&auto=format&fit=crop" class="card-img" alt="Mini Pizzas">
-                    <div class="card-body">
-                        <div class="card-title">Mini Pizzas & Quiches</div>
-                        <ul class="price-list">
-                            <li class="price-item"><span class="item-name">Pizza (Fromage/Thon/Poulet)</span> <span class="item-price">60 DA</span></li>
-                            <li class="price-item"><span class="item-name">Pizza Viande Hachée</span> <span class="item-price">80 DA</span></li>
-                            <li class="price-item"><span class="item-name">Quiche Poulet fumé</span> <span class="item-price">80 DA</span></li>
-                            <li class="price-item"><span class="item-name">Quiche Thon ou Poulet</span> <span class="item-price">120 DA</span></li>
-                            <li class="price-item"><span class="item-name">Quiche Poulet-Épinard</span> <span class="item-price">130 DA</span></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="menu-card">
-                    <img src="https://images.unsplash.com/photo-1559466273-d95e71deb179?q=80&w=1000&auto=format&fit=crop" class="card-img" alt="Club Sandwich">
-                    <div class="card-body">
-                        <div class="card-title">Sandwichs & Wraps</div>
-                        <ul class="price-list">
-                            <li class="price-item"><span class="item-name">Club Œuf Mayo</span> <span class="item-price">100 DA</span></li>
-                            <li class="price-item"><span class="item-name">Club Charcuterie/Thon</span> <span class="item-price">120 DA</span></li>
-                            <li class="price-item"><span class="item-name">Mini Tacos</span> <span class="item-price">120 DA</span></li>
-                            <li class="price-item"><span class="item-name">Mini Wraps</span> <span class="item-price">130 DA</span></li>
-                            <li class="price-item"><span class="item-name">Batbout Thon crudités</span> <span class="item-price">120 DA</span></li>
-                            <li class="price-item"><span class="item-name">Mini Éclairs Salés</span> <span class="item-price">150 DA</span></li>
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
+    <div id="sale" class="main-category">
+        <div class="category-header header-sale">
+            <i class="fas fa-utensils"></i>
+            <h2>Nos Salés</h2>
         </div>
+        
+        <img src="sales.jpg" class="hero-img" alt="Ambiance Salé">
 
-        <div id="sucre">
-            <div class="section-header">
-                <i class="fas fa-birthday-cake icon-header sucre-color"></i>
-                <h2>Le Sucré</h2>
+        <div class="product-list">
+            
+            <div class="sub-category">
+                <div class="sub-title"><i class="fas fa-hamburger"></i> Burgers & Bagels</div>
+                <div class="item-row"><span class="item-name">Mini Burger Viande</span> <span class="item-price">140 DA</span></div>
+                <div class="item-row"><span class="item-name">Mini Burger Poulet Crispy</span> <span class="item-price">120 DA</span></div>
+                <div class="item-row"><span class="item-name">Mini Bagel Thon/Crudités</span> <span class="item-price">120 DA</span></div>
+                <div class="item-row"><span class="item-name">Mini Bagel Poulet Mariné</span> <span class="item-price">120 DA</span></div>
+                <div class="item-row"><span class="item-name">Mini Bagel Œuf Mayo</span> <span class="item-price">100 DA</span></div>
             </div>
 
-            <div class="menu-grid">
-
-                <div class="menu-card">
-                    <img src="https://images.unsplash.com/photo-1534432182912-63863115e106?q=80&w=1000&auto=format&fit=crop" class="card-img" alt="Verrines">
-                    <div class="card-body">
-                        <div class="card-title">Verrines <small style="font-size:0.7rem; color:#777">Mini / Moyen</small></div>
-                        <p style="font-size:0.8rem; margin-bottom:10px; color:#666">Parfums: Chocolat, Noisette, Fruit de la passion, Pistache, Fraise, Framboise, Citron, Speculoos, Oreo...</p>
-                        <ul class="price-list">
-                            <li class="price-item"><span class="item-name">Chocolat / Noisette / Citron</span> <span class="item-price">100 / 150 DA</span></li>
-                            <li class="price-item"><span class="item-name">Fraise / Framboise</span> <span class="item-price">120 / 180 DA</span></li>
-                            <li class="price-item"><span class="item-name">Pistache / Passion / Oreo</span> <span class="item-price">150 / 225 DA</span></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="menu-card">
-                    <img src="https://images.unsplash.com/photo-1567608285969-48e4bbe243c5?q=80&w=1000&auto=format&fit=crop" class="card-img" alt="Tartelettes">
-                    <div class="card-body">
-                        <div class="card-title">Tartelettes <small style="font-size:0.7rem; color:#777">Grande / Mignardise</small></div>
-                        <ul class="price-list">
-                            <li class="price-item"><span class="item-name">Citron / Choco-Caramel</span> <span class="item-price">120 / 60 DA</span></li>
-                            <li class="price-item"><span class="item-name">Fruits / Passion / Praliné</span> <span class="item-price">130 / 80 DA</span></li>
-                            <li class="price-item"><span class="item-name">Choco Banane / Banoffee</span> <span class="item-price">130 / 80 DA</span></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="menu-card">
-                    <img src="https://images.unsplash.com/photo-1603532648955-039310d9ed75?q=80&w=1000&auto=format&fit=crop" class="card-img" alt="Box Gourmande">
-                    <div class="card-body">
-                        <div class="card-title">Box & Douceurs</div>
-                        <ul class="price-list">
-                            <li class="price-item"><span class="item-name">Cupcake</span> <span class="item-price">120 DA</span></li>
-                            <li class="price-item"><span class="item-name">Cupcake Fourré</span> <span class="item-price">150 DA</span></li>
-                            <li class="price-item"><span class="item-name">Choux à la crème</span> <span class="item-price">100 DA</span></li>
-                            <li class="price-item"><span class="item-name">Box Chouquettes (10)</span> <span class="item-price">450 DA</span></li>
-                            <li class="price-item"><span class="item-name">Box Brownie 🍫</span> <span class="item-price">700 DA</span></li>
-                        </ul>
-                    </div>
-                </div>
-
+            <div class="sub-category">
+                <div class="sub-title"><i class="fas fa-pizza-slice"></i> Pizzas & Quiches</div>
+                <div class="item-row"><span class="item-name">Mini Pizza (Fromage, Thon, Poulet)</span> <span class="item-price">60 DA</span></div>
+                <div class="item-row"><span class="item-name">Mini Pizza Viande Hachée</span> <span class="item-price">80 DA</span></div>
+                <div class="item-row"><span class="item-name">Quiche Poulet Fumé</span> <span class="item-price">80 DA</span></div>
+                <div class="item-row"><span class="item-name">Quiche Thon / Poulet</span> <span class="item-price">120 DA</span></div>
+                <div class="item-row"><span class="item-name">Quiche Poulet-Épinard</span> <span class="item-price">130 DA</span></div>
+                <div class="item-row"><span class="item-name">Quiche Viande</span> <span class="item-price">140 DA</span></div>
             </div>
+
+            <div class="sub-category">
+                <div class="sub-title"><i class="fas fa-sandwich"></i> Sandwichs & Spéciaux</div>
+                <div class="item-row"><span class="item-name">Club Sandwich Œuf Mayo</span> <span class="item-price">100 DA</span></div>
+                <div class="item-row"><span class="item-name">Club Sandwich Charcuterie</span> <span class="item-price">120 DA</span></div>
+                <div class="item-row"><span class="item-name">Mini Tacos</span> <span class="item-price">120 DA</span></div>
+                <div class="item-row"><span class="item-name">Batbout Thon Crudités</span> <span class="item-price">120 DA</span></div>
+                <div class="item-row"><span class="item-name">Mini Wraps</span> <span class="item-price">130 DA</span></div>
+                <div class="item-row"><span class="item-name">Mini Éclairs Salés</span> <span class="item-price">150 DA</span></div>
+            </div>
+
         </div>
-
     </div>
 
-    <footer>
-        <p>© 2025 Miam&Co - Fait maison avec amour.</p>
-        <p style="font-size: 0.7rem; margin-top: 5px; opacity: 0.6;">Powered by Madilium</p>
-    </footer>
+    <div id="sucre" class="main-category">
+        <div class="category-header header-sucre">
+            <i class="fas fa-birthday-cake"></i>
+            <h2>Nos Sucrés</h2>
+        </div>
+
+        <img src="sucre.jpg" class="hero-img" alt="Ambiance Sucré">
+
+        <div class="product-list">
+
+            <div class="sub-category">
+                <div class="sub-title"><i class="fas fa-glass-whiskey"></i> Verrines (Mini / Moyen)</div>
+                <div class="item-row"><span class="item-name">Chocolat, Noisette, Citron</span> <span class="item-price">100 / 150 DA</span></div>
+                <div class="item-row"><span class="item-name">Fraise, Framboise</span> <span class="item-price">120 / 180 DA</span></div>
+                <div class="item-row"><span class="item-name">Fruit de la passion</span> <span class="item-price">150 / 225 DA</span></div>
+                <div class="item-row"><span class="item-name">Pistache, Speculoos, Oreo</span> <span class="item-price">150 / 225 DA</span></div>
+                <div class="item-row"><span class="item-name">Mousse Chocolat</span> <span class="item-price">150 / 225 DA</span></div>
+            </div>
+
+            <div class="sub-category">
+                <div class="sub-title"><i class="fas fa-cookie"></i> Tartelettes & Douceurs</div>
+                <div class="item-row"><span class="item-name">Tartelette Citron</span> <span class="item-price">120 / 60 DA</span></div>
+                <div class="item-row"><span class="item-name">Tartelette Fruits / Praliné</span> <span class="item-price">130 / 80 DA</span></div>
+                <div class="item-row"><span class="item-name">Tartelette Choco-Banane</span> <span class="item-price">130 / 80 DA</span></div>
+                <div class="item-row"><span class="item-name">Cupcake / Fourré</span> <span class="item-price">120 / 150 DA</span></div>
+                <div class="item-row"><span class="item-name">Choux à la crème</span> <span class="item-price">100 DA</span></div>
+            </div>
+
+            <div class="sub-category">
+                <div class="sub-title"><i class="fas fa-box-open"></i> Les Box Gourmandes</div>
+                <div class="item-row"><span class="item-name">Box Chouquettes (10 pièces)</span> <span class="item-price">450 DA</span></div>
+                <div class="item-row"><span class="item-name">Box Brownie 🍫</span> <span class="item-price">700 DA</span></div>
+            </div>
+
+        </div>
+    </div>
+
+    <a href="https://wa.me/213553989459?text=Bonjour%20Miam%26Co%2C%20je%20souhaite%20passer%20une%20commande%20!" class="sticky-order" target="_blank">
+        <i class="fab fa-whatsapp" style="font-size: 1.5rem;"></i> Commander sur WhatsApp
+    </a>
+
+    <div class="footer-info">
+        <p>© 2025 Miam&Co - Tizi Ouzou</p>
+        <p>Créé par Madilium</p>
+    </div>
 
 </body>
 </html>
