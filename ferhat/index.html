@@ -3,115 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Profil - Ferhat Azouz</title>
+    <title>CV Ferhat Azouz - Mécanique & Trading</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        /* --- STYLE GLOBAL --- */
+        /* --- RESET & GLOBAL --- */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%); /* Fond plus lumineux */
+            background: #eef2f7; /* Fond gris clair neutre */
             height: 100vh;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            overflow: hidden; color: #333;
+            display: flex; flex-direction: column;
+            align-items: center;
+            overflow: hidden; /* Empêche le scroll global */
+            color: #333;
         }
 
-        /* --- MAIN CONTAINER --- */
-        .card-container {
+        /* --- CONTAINER PRINCIPAL (LA CARTE SWIPABLE) --- */
+        .main-swipe-card {
+            width: 95%; max-width: 450px;
+            /* Hauteur fixe : on laisse de la place pour les boutons en bas */
+            height: calc(100vh - 100px); 
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            overflow: hidden; /* Important pour le border-radius */
             position: relative;
-            width: 95%; max-width: 420px;
-            height: 65vh; max-height: 600px; /* Hauteur légèrement réduite pour garder le focus */
-            margin-bottom: 25px;
-            perspective: 1000px;
-        }
-
-        /* --- LA CARTE PROFIL --- */
-        .profile-card {
-            width: 100%; height: 100%;
-            /* REPLACE ME: Mettre une photo style "mecano classe" ou "trader décontracté" */
-            background-image: url(ferhat.jpg'); 
-            background-size: cover; background-position: center;
-            border-radius: 20px; position: absolute;
-            box-shadow: 0 15px 35px rgba(50,50,93,.15), 0 5px 15px rgba(0,0,0,.1);
+            /* Pour le swipe */
             cursor: grab; transition: transform 0.1s ease-out; will-change: transform;
-            overflow: hidden;
+        }
+
+        /* --- SECTION 1: LA PHOTO EN HAUT --- */
+        .photo-section {
+            width: 100%;
+            height: 45%; /* Occupe 45% de la hauteur de la carte */
+            position: relative;
+            background-color: #ddd;
         }
         
-        /* --- NOUVEL OVERLAY (Plus bas pour voir la photo) --- */
-        .profile-info-overlay {
-            position: absolute; bottom: 0; left: 0; width: 100%;
-            /* C'est ici que ça se joue : on réduit la hauteur du dégradé */
-            height: 45%; 
-            padding: 30px 20px 20px;
-            /* Dégradé plus raide qui commence plus bas */
-            background: linear-gradient(to top, rgba(0,0,0,0.9) 15%, rgba(0,0,0,0.6) 60%, transparent 100%);
-            color: white; display: flex; flex-direction: column; justify-content: flex-end;
+        /* L'image elle-même */
+        .photo-img {
+            width: 100%; height: 100%;
+            object-fit: cover; /* Remplit la zone sans déformer */
+            object-position: center; /* Centre l'image */
+             /* REPLACE ME: Mettre la vraie photo ici (ex: ./ferhat.jpg) */
+            src: url('ferhat.jpg'); 
         }
 
-        .name { font-size: 2rem; font-weight: 700; line-height: 1; text-shadow: 1px 1px 3px rgba(0,0,0,0.3);}
-        .title-pro { color: #4acc94; font-weight: 600; font-size: 1rem; margin-bottom: 10px; display: block; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);}
+        /* Indicateurs Swipe (sur la photo) */
+        .swipe-indicator { position: absolute; top: 20px; padding: 8px 20px; border: 3px solid; border-radius: 8px; font-size: 1.8rem; font-weight: 800; text-transform: uppercase; opacity: 0; transition: opacity 0.2s; z-index: 10; text-shadow: 0 2px 5px rgba(0,0,0,0.2);}
+        .ind-like { right: 20px; color: #4acc94; border-color: #4acc94; transform: rotate(12deg); }
+        .ind-nope { left: 20px; color: #ec5e6f; border-color: #ec5e6f; transform: rotate(-12deg); }
+
+
+        /* --- SECTION 2: LE CONTENU CV EN BAS (SCROLLABLE) --- */
+        .content-section {
+            height: 55%; /* Le reste de la hauteur */
+            overflow-y: auto; /* Permet le scroll vertical si le CV est long */
+            padding: 25px 20px;
+            /* Petit effet d'ombre interne en haut */
+            box-shadow: inset 0 10px 10px -10px rgba(0,0,0,0.1);
+        }
+
+        /* Header Nom/Titre */
+        .header-info { margin-bottom: 20px; text-align: center;}
+        .name { font-size: 2rem; font-weight: 800; color: #222; display: block;}
+        .title-pro { font-size: 1.1rem; color: #4acc94; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px;}
         
-        /* Bio compacte */
-        .bio-compact {
-            font-size: 0.9rem; line-height: 1.4; opacity: 0.95; margin-bottom: 15px; font-weight: 400;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        /* Intro Bio */
+        .intro-bio { font-size: 1rem; line-height: 1.5; margin-bottom: 25px; text-align: center; color: #555; font-weight: 400;}
+        .intro-bio strong { color: #333; font-weight: 600;}
+
+        /* Structure CV Block */
+        .cv-block { margin-bottom: 25px; }
+        .cv-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; color: #333; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px;}
+        .cv-title i { color: #4acc94; }
+        
+        /* Listes CV */
+        .cv-list { list-style: none; padding-left: 5px;}
+        .cv-list li { margin-bottom: 12px; display: flex; align-items: flex-start; gap: 12px; line-height: 1.4; font-size: 0.95rem; color: #444;}
+        .list-bullet { color: #4acc94; font-size: 0.8rem; margin-top: 4px;}
+
+        /* --- CONTROLS FIXES EN BAS --- */
+        .fixed-controls-container {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            height: 90px; /* Espace réservé en bas */
+            display: flex; justify-content: center; align-items: center;
+            background: linear-gradient(to top, #eef2f7 60%, rgba(238,242,247,0));
+            z-index: 50;
         }
-
-        .skills-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: auto; }
-        .skill-tag { background: rgba(40, 40, 40, 0.6); backdrop-filter: blur(2px); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 500; border: 1px solid rgba(255,255,255,0.1);}
-
-        /* Indicateurs Swipe */
-        .swipe-indicator { position: absolute; top: 40px; padding: 5px 15px; border: 3px solid; border-radius: 8px; font-size: 1.5rem; font-weight: 700; text-transform: uppercase; opacity: 0; transition: opacity 0.2s; }
-        .ind-like { right: 30px; color: #4acc94; border-color: #4acc94; transform: rotate(15deg); }
-        .ind-nope { left: 30px; color: #ec5e6f; border-color: #ec5e6f; transform: rotate(-15deg); }
-
-        /* --- CONTROLS --- */
-        .controls { display: flex; justify-content: center; gap: 20px; }
-        .btn { background: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 10px 20px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.2s ease; width: 65px; height: 65px;}
-        .btn:hover { transform: scale(1.05); }
-        .btn:active { transform: scale(0.95); }
-        .btn i { font-size: 1.5rem; }
+        .controls { display: flex; gap: 30px; }
+        .btn { background: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 8px 20px rgba(0,0,0,0.12); cursor: pointer; transition: all 0.2s ease; width: 65px; height: 65px;border: 1px solid #f0f0f0;}
+        .btn:active { transform: scale(0.92); }
+        .btn i { font-size: 1.6rem; }
         .c-nope { color: #ec5e6f; } .c-like { color: #4acc94; }
 
-        /* --- POPUP --- */
-        .match-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); z-index: 200; display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: white; }
+        /* --- POPUP MATCH (Inchangé) --- */
+        .match-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 200; display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: white; }
         .match-title { font-family: 'Brush Script MT', cursive; font-size: 3.5rem; color: #4acc94; transform: rotate(-8deg); margin-bottom: 20px; }
         .contact-links { display: flex; flex-direction: column; gap: 12px; width: 80%; max-width: 350px; }
         .contact-btn { padding: 12px; border-radius: 30px; text-decoration: none; color: white; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s; font-size: 0.9rem;}
         .insta { background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); } .snap { background: #FFFC00; color: black; } .tel { background: #4acc94; }
+
+        /* Scrollbar custom pour la zone CV */
+        .content-section::-webkit-scrollbar { width: 6px; }
+        .content-section::-webkit-scrollbar-track { background: #f1f1f1; }
+        .content-section::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px;}
     </style>
 </head>
 <body>
 
-    <div class="card-container">
-        <div class="profile-card" id="mainCard">
-            <div class="swipe-indicator ind-like" id="likeInd">LIKE</div>
+    <div class="main-swipe-card" id="mainCard">
+        
+        <div class="photo-section">
+             <div class="swipe-indicator ind-like" id="likeInd">LIKE</div>
             <div class="swipe-indicator ind-nope" id="nopeInd">NOPE</div>
+            
+            <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=1769&auto=format&fit=crop" alt="Photo de Ferhat" class="photo-img">
+        </div>
 
-            <div class="profile-info-overlay">
+        <div class="content-section">
+            
+            <div class="header-info">
                 <span class="name">Ferhat Azouz</span>
-                <span class="title-pro">Mécanique de précision & Trading</span>
-                
-                <div class="bio-compact">
-                    Aussi précis sous un capot que sur les marchés financiers. Je sais repérer les opportunités et optimiser les performances. Le profil "valeur sûre" par excellence. 🚀
-                </div>
-
-                <div class="skills-tags">
-                    <span class="skill-tag">🔧 Moteurs & Performance</span>
-                    <span class="skill-tag">📈 Trading Crypto/Forex</span>
-                    <span class="skill-tag">🧠 Esprit d'analyse</span>
-                    <span class="skill-tag">🇩🇿 DZ</span>
-                </div>
+                <span class="title-pro"><i class="fas fa-cogs"></i> Mécanique & <i class="fas fa-chart-line"></i> Trading</span>
             </div>
+
+            <p class="intro-bio">
+                La précision d'un mécanicien alliée au sang-froid d'un trader. Je sais analyser, diagnostiquer et optimiser pour un <strong>rendement maximal</strong>. Le profil "valeur sûre" par excellence. 🚀
+            </p>
+            
+            <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+
+            <div class="cv-block">
+                <h3 class="cv-title"><i class="fas fa-wrench"></i> Domaines d'Expertise</h3>
+                <ul class="cv-list">
+                    <li><i class="fas fa-circle list-bullet"></i> Diagnostic et résolution de problèmes complexes (Moteurs & Marchés).</li>
+                    <li><i class="fas fa-circle list-bullet"></i> Optimisation des performances et gestion des risques.</li>
+                    <li><i class="fas fa-circle list-bullet"></i> Analyse technique et fondamentale (Crypto/Forex).</li>
+                </ul>
+            </div>
+
+             <div class="cv-block">
+                <h3 class="cv-title"><i class="fas fa-bolt"></i> Mes Atouts</h3>
+                 <ul class="cv-list">
+                    <li><i class="fas fa-check list-bullet"></i> Rigueur technique et précision.</li>
+                    <li><i class="fas fa-check list-bullet"></i> Prise de décision rapide et éclairée.</li>
+                    <li><i class="fas fa-check list-bullet"></i> Mental d'acier et vision long terme.</li>
+                     <li><i class="fas fa-check list-bullet"></i> 🇩🇿 DZ Power : Détermination sans faille.</li>
+                </ul>
+            </div>
+
+             <div class="cv-block" style="margin-bottom: 50px;"> <h3 class="cv-title"><i class="fas fa-bullseye"></i> Objectif</h3>
+                <p style="font-size: 0.95rem; color: #444; line-height: 1.5;">
+                    Apporter une valeur ajoutée immédiate et mesurable. Que ce soit pour faire tourner un moteur au quart de tour ou faire fructifier un capital.
+                </p>
+            </div>
+
         </div>
     </div>
 
-    <div class="controls">
-        <div class="btn c-nope" id="btnNope"><i class="fas fa-times"></i></div>
-        <div class="btn c-like" id="btnLike"><i class="fas fa-heart"></i></div>
+    <div class="fixed-controls-container">
+        <div class="controls">
+            <div class="btn c-nope" id="btnNope"><i class="fas fa-times"></i></div>
+            <div class="btn c-like" id="btnLike"><i class="fas fa-heart"></i></div>
+        </div>
     </div>
+
 
     <div class="match-overlay" id="matchPopup">
         <div class="match-title">It's a Match!</div>
@@ -124,21 +183,36 @@
             <a href="tel:+213555456674" class="contact-btn tel"><i class="fas fa-phone"></i> Appeler (213)</a>
         </div>
          <br>
-         <p style="font-size: 0.8rem; cursor: pointer; opacity: 0.6; text-decoration: underline;" onclick="closeMatch()">Retour</p>
+         <p style="font-size: 0.8rem; cursor: pointer; opacity: 0.6; text-decoration: underline;" onclick="closeMatch()">Retour au CV</p>
     </div>
 
-
     <script>
-        // --- SCRIPT IDENTIQUE A LA V2 ---
         const card = document.getElementById('mainCard'); const likeInd = document.getElementById('likeInd'); const nopeInd = document.getElementById('nopeInd'); const popup = document.getElementById('matchPopup');
         let isDragging = false; let startX, currentX, deltaX; const threshold = 100;
+        // On empêche le drag si on clique dans la zone de scroll (pour pouvoir scroller le CV)
+        const contentSection = document.querySelector('.content-section');
 
         function triggerMatch() { card.style.transition = "transform 0.5s ease-out"; card.style.transform = "translateX(150%) rotate(20deg)"; setTimeout(() => { popup.style.display = 'flex'; resetCardPosition(); }, 300); }
         function triggerNope() { card.style.transition = "transform 0.3s ease-in-out"; card.style.transform = "translateX(0) rotate(0)"; setTimeout(() => { card.animate([{ transform: 'translateX(0)' }, { transform: 'translateX(-10px) rotate(-2deg)' }, { transform: 'translateX(10px) rotate(2deg)' }, { transform: 'translateX(-10px) rotate(-2deg)' }, { transform: 'translateX(0)' }], { duration: 400 }); setTimeout(() => alert("Erreur : Impossible de refuser un profil avec un tel ROI (Retour sur Investissement) ! 😉"), 450); }, 300); }
         function resetCardPosition() { card.style.transition = "transform 0.3s ease-out"; card.style.transform = "translateX(0) rotate(0)"; likeInd.style.opacity = 0; nopeInd.style.opacity = 0; }
         function closeMatch() { popup.style.display = 'none'; }
-        function startDrag(e) { if (e.target.closest('.controls') || popup.style.display === 'flex') return; isDragging = true; startX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX; card.style.transition = "none"; card.style.cursor = "grabbing"; }
-        function moveDrag(e) { if (!isDragging) return; e.preventDefault(); currentX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX; deltaX = currentX - startX; const rotation = deltaX * 0.05; card.style.transform = `translateX(${deltaX}px) rotate(${rotation}deg)`; if (deltaX > 20) { likeInd.style.opacity = Math.min(deltaX / threshold, 1); nopeInd.style.opacity = 0; } else if (deltaX < -20) { nopeInd.style.opacity = Math.min(Math.abs(deltaX) / threshold, 1); likeInd.style.opacity = 0; } else { likeInd.style.opacity = 0; nopeInd.style.opacity = 0; } }
+        
+        function startDrag(e) { 
+            // Si le popup est ouvert, on ne fait rien
+            if (popup.style.display === 'flex') return;
+            
+            // ASTUCE : Sur mobile, si on touche la zone de texte pour scroller, on ne lance pas le drag
+            // On lance le drag uniquement si on touche la photo ou si c'est un clic souris
+            if(e.type.includes('touch') && e.target.closest('.content-section')) {
+                return; 
+            }
+
+            isDragging = true; startX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX; card.style.transition = "none"; card.style.cursor = "grabbing"; 
+        }
+
+        function moveDrag(e) { if (!isDragging) return; 
+            // e.preventDefault(); // On enlève preventDefault pour permettre le scroll vertical si besoin, le CSS overflow:hidden sur body gère le reste
+            currentX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX; deltaX = currentX - startX; const rotation = deltaX * 0.05; card.style.transform = `translateX(${deltaX}px) rotate(${rotation}deg)`; if (deltaX > 20) { likeInd.style.opacity = Math.min(deltaX / threshold, 1); nopeInd.style.opacity = 0; } else if (deltaX < -20) { nopeInd.style.opacity = Math.min(Math.abs(deltaX) / threshold, 1); likeInd.style.opacity = 0; } else { likeInd.style.opacity = 0; nopeInd.style.opacity = 0; } }
         function endDrag() { if (!isDragging) return; isDragging = false; card.style.cursor = "grab"; if (deltaX > threshold) { triggerMatch(); } else if (deltaX < -threshold) { triggerNope(); } else { resetCardPosition(); } }
         card.addEventListener('mousedown', startDrag); document.addEventListener('mousemove', moveDrag); document.addEventListener('mouseup', endDrag);
         card.addEventListener('touchstart', startDrag, {passive: false}); document.addEventListener('touchmove', moveDrag, {passive: false}); document.addEventListener('touchend', endDrag);
