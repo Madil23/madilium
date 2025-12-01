@@ -2,203 +2,89 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Miam&Co - Carte Digitale</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Miam&Co - Commander</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --primary: #d4a373; /* Beige doré logo */
-            --dark: #2c1810; /* Marron foncé texte */
-            --sale-color: #e76f51; /* Orange brûlé */
-            --sucre-color: #d62828; /* Rouge gourmand */
-            --bg: #fffbf2; /* Fond crème très clair */
+            --primary: #d4a373;
+            --dark: #2c1810;
+            --sale-color: #e76f51;
+            --sucre-color: #d62828;
+            --bg: #fffbf2;
             --whatsapp: #25D366;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--bg); color: var(--dark); padding-bottom: 100px; }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--bg);
-            color: var(--dark);
-            padding-bottom: 80px; /* Espace pour le bouton commander */
-        }
-
-        /* --- HEADER & PROFIL --- */
-        header {
-            background: white;
-            text-align: center;
-            padding: 30px 20px;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            border-radius: 0 0 30px 30px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-        }
-
-        .brand-name {
-            font-family: 'Dancing Script', cursive;
-            font-size: 3rem;
-            color: var(--primary);
-            font-weight: 700;
-            line-height: 1;
-        }
-
-        .slogan {
-            font-size: 0.9rem;
-            font-style: italic;
-            color: #666;
-            margin: 5px 0 15px;
-        }
-
-        /* --- RESEAUX SOCIAUX --- */
-        .social-bar {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .social-btn {
-            width: 40px; height: 40px;
-            border-radius: 50%;
-            display: flex; justify-content: center; align-items: center;
-            color: white;
-            font-size: 1.2rem;
-            text-decoration: none;
-            transition: transform 0.2s;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
-        }
-        .social-btn:hover { transform: scale(1.1); }
+        /* --- LOGO & HEADER --- */
+        header { background: white; text-align: center; padding: 20px 20px 30px; border-radius: 0 0 30px 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
         
-        .btn-insta { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
-        .btn-tiktok { background: #000; }
-        .btn-whatsapp { background: var(--whatsapp); }
-        .btn-mail { background: #555; }
-
-        /* --- NAVIGATION TABS --- */
-        .tabs {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-            gap: 10px;
+        .logo-container {
+            width: 100px; height: 100px; margin: 0 auto 15px;
+            border-radius: 50%; overflow: hidden; border: 3px solid var(--primary);
+            background: #eee; /* Placeholder couleur */
         }
-        .tab {
-            padding: 10px 25px;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            font-size: 0.9rem;
-        }
-        .tab-sale { background: rgba(231, 111, 81, 0.1); color: var(--sale-color); border: 1px solid var(--sale-color); }
-        .tab-sucre { background: rgba(214, 40, 40, 0.1); color: var(--sucre-color); border: 1px solid var(--sucre-color); }
-        
-        .tab-sale.active, .tab-sale:hover { background: var(--sale-color); color: white; }
-        .tab-sucre.active, .tab-sucre:hover { background: var(--sucre-color); color: white; }
+        .logo-img { width: 100%; height: 100%; object-fit: cover; }
 
+        .brand-name { font-family: 'Dancing Script', cursive; font-size: 2.5rem; color: var(--primary); line-height: 1; }
+        .slogan { font-size: 0.9rem; font-style: italic; color: #666; margin: 5px 0 15px; }
 
-        /* --- GRANDS BLOCS CATEGORIES --- */
-        .main-category {
-            max-width: 800px;
-            margin: 30px auto;
-            padding: 0 15px;
-        }
+        /* --- TABS --- */
+        .tabs { display: flex; justify-content: center; margin-top: 20px; gap: 10px; position: sticky; top: 10px; z-index: 50; }
+        .tab { padding: 8px 20px; border-radius: 50px; font-weight: 600; cursor: pointer; text-decoration: none; font-size: 0.9rem; background: rgba(255,255,255,0.9); backdrop-filter: blur(5px); box-shadow: 0 2px 10px rgba(0,0,0,0.1); border: 1px solid transparent;}
+        .tab-sale { color: var(--sale-color); border-color: var(--sale-color); }
+        .tab-sucre { color: var(--sucre-color); border-color: var(--sucre-color); }
 
-        .category-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #eee;
-        }
-        .category-header h2 { font-size: 1.8rem; text-transform: uppercase; letter-spacing: 1px; }
-        .category-header i { font-size: 1.5rem; }
-        
+        /* --- PRODUITS --- */
+        .main-category { max-width: 800px; margin: 20px auto; padding: 0 15px; }
+        .category-header { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; padding-bottom: 5px; border-bottom: 2px solid #eee; }
+        .category-header h2 { font-size: 1.5rem; text-transform: uppercase; }
         .header-sale { color: var(--sale-color); border-color: var(--sale-color); }
         .header-sucre { color: var(--sucre-color); border-color: var(--sucre-color); }
 
-        /* --- LISTE PRODUITS --- */
-        .product-list {
-            background: white;
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
-        }
-
-        .sub-category {
-            margin-bottom: 25px;
-        }
-        .sub-category:last-child { margin-bottom: 0; }
-
-        .sub-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--dark);
-            margin-bottom: 10px;
-            display: flex; align-items: center; gap: 8px;
-        }
-        .sub-title i { font-size: 0.9rem; opacity: 0.7; }
-
-        .item-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 0;
-            border-bottom: 1px dashed #eee;
-            font-size: 0.95rem;
-        }
-        .item-row:last-child { border-bottom: none; }
+        .product-list { background: white; border-radius: 15px; padding: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
+        .sub-category { margin-bottom: 25px; }
+        .sub-title { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; background: #f9f9f9; padding: 5px 10px; border-radius: 8px;}
         
-        .item-name { color: #555; }
-        .item-price { font-weight: 700; color: var(--primary); white-space: nowrap; margin-left: 10px;}
+        /* LIGNE PRODUIT ACTIVE */
+        .item-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px dashed #eee; }
+        .item-info { flex: 1; padding-right: 10px; }
+        .item-name { display: block; font-size: 0.9rem; color: #444; font-weight: 500;}
+        .item-price { font-weight: 700; color: var(--primary); font-size: 0.9rem; }
 
-        /* --- STICKY CONTACT BUTTON --- */
-        .sticky-order {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--whatsapp);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-weight: 700;
-            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        /* CONTROLES QUANTITÉ */
+        .qty-controls { display: flex; align-items: center; gap: 8px; background: #f4f4f4; padding: 2px; border-radius: 20px; }
+        .qty-btn { width: 28px; height: 28px; border-radius: 50%; border: none; background: white; color: var(--dark); font-weight: bold; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.1); display: flex; justify-content: center; align-items: center;}
+        .qty-btn:active { transform: scale(0.9); }
+        .qty-display { font-weight: 600; font-size: 0.9rem; min-width: 20px; text-align: center; }
+        .add-btn { background: var(--primary); color: white; }
+
+        /* --- BARRE PANIER (BOTTOM) --- */
+        .cart-bar {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: white; border-top: 1px solid #eee;
+            padding: 15px 20px;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.05);
+            transform: translateY(100%); transition: transform 0.3s ease-out;
             z-index: 1000;
-            width: 90%;
-            max-width: 400px;
-            justify-content: center;
-            animation: popIn 0.5s ease-out;
         }
-        
-        @keyframes popIn {
-            from { transform: translate(-50%, 100%); }
-            to { transform: translate(-50%, 0); }
-        }
+        .cart-bar.visible { transform: translateY(0); }
 
-        /* Image d'ambiance */
-        .hero-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 15px;
-            margin-bottom: 20px;
-        }
+        .total-info { font-size: 0.9rem; }
+        .total-price { display: block; font-size: 1.2rem; font-weight: 800; color: var(--dark); }
 
-        /* Footer info */
-        .footer-info {
-            text-align: center;
-            font-size: 0.8rem;
-            color: #999;
-            margin-top: 30px;
-            margin-bottom: 20px;
+        .checkout-btn {
+            background: var(--whatsapp); color: white;
+            padding: 12px 25px; border-radius: 50px;
+            text-decoration: none; font-weight: 700;
+            display: flex; align-items: center; gap: 8px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            border: none; cursor: pointer;
         }
 
     </style>
@@ -206,111 +92,273 @@
 <body>
 
     <header>
-        <div class="brand-name">Miam&Co.</div>
-        <p class="slogan">"Du sucré, du salé... et surtout du goût ! 🍽️"</p>
-        
-        <div class="social-bar">
-            <a href="https://instagram.com/miam.andco" target="_blank" class="social-btn btn-insta"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.tiktok.com/@miamandco" target="_blank" class="social-btn btn-tiktok"><i class="fab fa-tiktok"></i></a>
-            <a href="https://wa.me/213553989459" class="social-btn btn-whatsapp"><i class="fab fa-whatsapp"></i></a>
-            <a href="mailto:info.miamandco@gmail.com" class="social-btn btn-mail"><i class="fas fa-envelope"></i></a>
+        <div class="logo-container">
+            <img src="logo.jpg" class="logo-img" alt="Logo Miam&Co">
         </div>
 
-        <p style="font-size: 0.85rem; color: #555;"><i class="fas fa-map-marker-alt" style="color:#d62828;"></i> Tizi-Ouzou</p>
-
+        <div class="brand-name">Miam&Co.</div>
+        <p class="slogan">Fait maison avec amour ❤️</p>
+        
         <div class="tabs">
-            <a href="#sale" class="tab tab-sale">Côté Salé</a>
-            <a href="#sucre" class="tab tab-sucre">Côté Sucré</a>
+            <a href="#sale" class="tab tab-sale">Salé</a>
+            <a href="#sucre" class="tab tab-sucre">Sucré</a>
         </div>
     </header>
 
     <div id="sale" class="main-category">
-        <div class="category-header header-sale">
-            <i class="fas fa-utensils"></i>
-            <h2>Nos Salés</h2>
-        </div>
-        
-        <img src="sales.jpg" class="hero-img" alt="Ambiance Salé">
-
+        <div class="category-header header-sale"><i class="fas fa-utensils"></i><h2>Salé</h2></div>
+        <img src="sales.jpg" class="hero-img" alt="Ambiance Salée">
         <div class="product-list">
             
             <div class="sub-category">
-                <div class="sub-title"><i class="fas fa-hamburger"></i> Burgers & Bagels</div>
-                <div class="item-row"><span class="item-name">Mini Burger Viande</span> <span class="item-price">140 DA</span></div>
-                <div class="item-row"><span class="item-name">Mini Burger Poulet Crispy</span> <span class="item-price">120 DA</span></div>
-                <div class="item-row"><span class="item-name">Mini Bagel Thon/Crudités</span> <span class="item-price">120 DA</span></div>
-                <div class="item-row"><span class="item-name">Mini Bagel Poulet Mariné</span> <span class="item-price">120 DA</span></div>
-                <div class="item-row"><span class="item-name">Mini Bagel Œuf Mayo</span> <span class="item-price">100 DA</span></div>
+                <div class="sub-title">Burgers & Bagels</div>
+                <div class="item-row">
+                    <div class="item-info"><span class="item-name">Mini Burger Viande</span><span class="item-price">140 DA</span></div>
+                    <div class="qty-controls">
+                        <button class="qty-btn" onclick="updateQty(this, -1)">-</button>
+                        <span class="qty-display" data-name="Burger Viande" data-price="140">0</span>
+                        <button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button>
+                    </div>
+                </div>
+                <div class="item-row">
+                    <div class="item-info"><span class="item-name">Mini Burger Poulet Crispy</span><span class="item-price">120 DA</span></div>
+                    <div class="qty-controls">
+                        <button class="qty-btn" onclick="updateQty(this, -1)">-</button>
+                        <span class="qty-display" data-name="Burger Poulet" data-price="120">0</span>
+                        <button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button>
+                    </div>
+                </div>
+                 <div class="item-row">
+                    <div class="item-info"><span class="item-name">Mini Bagel Thon</span><span class="item-price">120 DA</span></div>
+                    <div class="qty-controls">
+                        <button class="qty-btn" onclick="updateQty(this, -1)">-</button>
+                        <span class="qty-display" data-name="Bagel Thon" data-price="120">0</span>
+                        <button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button>
+                    </div>
+                </div>
             </div>
 
             <div class="sub-category">
-                <div class="sub-title"><i class="fas fa-pizza-slice"></i> Pizzas & Quiches</div>
-                <div class="item-row"><span class="item-name">Mini Pizza (Fromage, Thon, Poulet)</span> <span class="item-price">60 DA</span></div>
-                <div class="item-row"><span class="item-name">Mini Pizza Viande Hachée</span> <span class="item-price">80 DA</span></div>
-                <div class="item-row"><span class="item-name">Quiche Poulet Fumé</span> <span class="item-price">80 DA</span></div>
-                <div class="item-row"><span class="item-name">Quiche Thon / Poulet</span> <span class="item-price">120 DA</span></div>
-                <div class="item-row"><span class="item-name">Quiche Poulet-Épinard</span> <span class="item-price">130 DA</span></div>
-                <div class="item-row"><span class="item-name">Quiche Viande</span> <span class="item-price">140 DA</span></div>
+                <div class="sub-title">Pizzas & Quiches</div>
+                <div class="item-row">
+                    <div class="item-info"><span class="item-name">Mini Pizza (Fromage/Thon)</span><span class="item-price">60 DA</span></div>
+                    <div class="qty-controls">
+                        <button class="qty-btn" onclick="updateQty(this, -1)">-</button>
+                        <span class="qty-display" data-name="Mini Pizza Std" data-price="60">0</span>
+                        <button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button>
+                    </div>
+                </div>
+                <div class="item-row">
+                    <div class="item-info"><span class="item-name">Mini Pizza Viande Hachée</span><span class="item-price">80 DA</span></div>
+                    <div class="qty-controls">
+                        <button class="qty-btn" onclick="updateQty(this, -1)">-</button>
+                        <span class="qty-display" data-name="Mini Pizza Viande" data-price="80">0</span>
+                        <button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button>
+                    </div>
+                </div>
+                <div class="item-row">
+                    <div class="item-info"><span class="item-name">Quiche Poulet Fumé</span><span class="item-price">80 DA</span></div>
+                    <div class="qty-controls">
+                        <button class="qty-btn" onclick="updateQty(this, -1)">-</button>
+                        <span class="qty-display" data-name="Quiche Poulet Fumé" data-price="80">0</span>
+                        <button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button>
+                    </div>
+                </div>
+                 <div class="item-row">
+                    <div class="item-info"><span class="item-name">Quiche Viande Hachée</span><span class="item-price">140 DA</span></div>
+                    <div class="qty-controls">
+                        <button class="qty-btn" onclick="updateQty(this, -1)">-</button>
+                        <span class="qty-display" data-name="Quiche Viande" data-price="140">0</span>
+                        <button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button>
+                    </div>
+                </div>
             </div>
 
             <div class="sub-category">
-                <div class="sub-title"><i class="fas fa-sandwich"></i> Sandwichs & Spéciaux</div>
-                <div class="item-row"><span class="item-name">Club Sandwich Œuf Mayo</span> <span class="item-price">100 DA</span></div>
-                <div class="item-row"><span class="item-name">Club Sandwich Charcuterie</span> <span class="item-price">120 DA</span></div>
-                <div class="item-row"><span class="item-name">Mini Tacos</span> <span class="item-price">120 DA</span></div>
-                <div class="item-row"><span class="item-name">Batbout Thon Crudités</span> <span class="item-price">120 DA</span></div>
-                <div class="item-row"><span class="item-name">Mini Wraps</span> <span class="item-price">130 DA</span></div>
-                <div class="item-row"><span class="item-name">Mini Éclairs Salés</span> <span class="item-price">150 DA</span></div>
+                <div class="sub-title">Sandwichs & Box</div>
+                <div class="item-row">
+                    <div class="item-info"><span class="item-name">Club Sandwich</span><span class="item-price">100 DA</span></div>
+                    <div class="qty-controls">
+                        <button class="qty-btn" onclick="updateQty(this, -1)">-</button>
+                        <span class="qty-display" data-name="Club Sandwich" data-price="100">0</span>
+                        <button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button>
+                    </div>
+                </div>
+                <div class="item-row">
+                    <div class="item-info"><span class="item-name">Mini Tacos</span><span class="item-price">120 DA</span></div>
+                    <div class="qty-controls">
+                        <button class="qty-btn" onclick="updateQty(this, -1)">-</button>
+                        <span class="qty-display" data-name="Mini Tacos" data-price="120">0</span>
+                        <button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button>
+                    </div>
+                </div>
+                <div class="item-row">
+                    <div class="item-info"><span class="item-name">Mini Éclair Salé</span><span class="item-price">150 DA</span></div>
+                    <div class="qty-controls">
+                        <button class="qty-btn" onclick="updateQty(this, -1)">-</button>
+                        <span class="qty-display" data-name="Eclair Salé" data-price="150">0</span>
+                        <button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button>
+                    </div>
+                </div>
             </div>
 
         </div>
     </div>
 
     <div id="sucre" class="main-category">
-        <div class="category-header header-sucre">
-            <i class="fas fa-birthday-cake"></i>
-            <h2>Nos Sucrés</h2>
-        </div>
-
-        <img src="sucre.jpg" class="hero-img" alt="Ambiance Sucré">
-
+        <div class="category-header header-sucre"><i class="fas fa-birthday-cake"></i><h2>Sucré</h2></div>
+        <img src="sucre.jpg" class="hero-img" alt="Ambiance Sucrée">
         <div class="product-list">
-
+            
             <div class="sub-category">
-                <div class="sub-title"><i class="fas fa-glass-whiskey"></i> Verrines (Mini / Moyen)</div>
-                <div class="item-row"><span class="item-name">Chocolat, Noisette, Citron</span> <span class="item-price">100 / 150 DA</span></div>
-                <div class="item-row"><span class="item-name">Fraise, Framboise</span> <span class="item-price">120 / 180 DA</span></div>
-                <div class="item-row"><span class="item-name">Fruit de la passion</span> <span class="item-price">150 / 225 DA</span></div>
-                <div class="item-row"><span class="item-name">Pistache, Speculoos, Oreo</span> <span class="item-price">150 / 225 DA</span></div>
-                <div class="item-row"><span class="item-name">Mousse Chocolat</span> <span class="item-price">150 / 225 DA</span></div>
+                <div class="sub-title">Verrines</div>
+                <div class="item-row">
+                    <div class="item-info"><span class="item-name">Verrine Chocolat/Noisette (Mini)</span><span class="item-price">100 DA</span></div>
+                    <div class="qty-controls">
+                        <button class="qty-btn" onclick="updateQty(this, -1)">-</button>
+                        <span class="qty-display" data-name="Verrine Choco Mini" data-price="100">0</span>
+                        <button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button>
+                    </div>
+                </div>
+                 <div class="item-row">
+                    <div class="item-info"><span class="item-name">Verrine Chocolat/Noisette (Moyen)</span><span class="item-price">150 DA</span></div>
+                    <div class="qty-controls">
+                        <button class="qty-btn" onclick="updateQty(this, -1)">-</button>
+                        <span class="qty-display" data-name="Verrine Choco Moyenne" data-price="150">0</span>
+                        <button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button>
+                    </div>
+                </div>
+                <div class="item-row">
+                    <div class="item-info"><span class="item-name">Verrine Fruits Rouges (Mini)</span><span class="item-price">120 DA</span></div>
+                    <div class="qty-controls">
+                        <button class="qty-btn" onclick="updateQty(this, -1)">-</button>
+                        <span class="qty-display" data-name="Verrine Fruits Mini" data-price="120">0</span>
+                        <button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button>
+                    </div>
+                </div>
+                 <div class="item-row">
+                    <div class="item-info"><span class="item-name">Verrine Pistache/Oreo (Moyen)</span><span class="item-price">225 DA</span></div>
+                    <div class="qty-controls">
+                        <button class="qty-btn" onclick="updateQty(this, -1)">-</button>
+                        <span class="qty-display" data-name="Verrine Pistache Moyenne" data-price="225">0</span>
+                        <button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button>
+                    </div>
+                </div>
             </div>
 
             <div class="sub-category">
-                <div class="sub-title"><i class="fas fa-cookie"></i> Tartelettes & Douceurs</div>
-                <div class="item-row"><span class="item-name">Tartelette Citron</span> <span class="item-price">120 / 60 DA</span></div>
-                <div class="item-row"><span class="item-name">Tartelette Fruits / Praliné</span> <span class="item-price">130 / 80 DA</span></div>
-                <div class="item-row"><span class="item-name">Tartelette Choco-Banane</span> <span class="item-price">130 / 80 DA</span></div>
-                <div class="item-row"><span class="item-name">Cupcake / Fourré</span> <span class="item-price">120 / 150 DA</span></div>
-                <div class="item-row"><span class="item-name">Choux à la crème</span> <span class="item-price">100 DA</span></div>
-            </div>
-
-            <div class="sub-category">
-                <div class="sub-title"><i class="fas fa-box-open"></i> Les Box Gourmandes</div>
-                <div class="item-row"><span class="item-name">Box Chouquettes (10 pièces)</span> <span class="item-price">450 DA</span></div>
-                <div class="item-row"><span class="item-name">Box Brownie 🍫</span> <span class="item-price">700 DA</span></div>
+                <div class="sub-title">Tartelettes & Douceurs</div>
+                <div class="item-row">
+                    <div class="item-info"><span class="item-name">Tartelette Citron (Mignardise)</span><span class="item-price">60 DA</span></div>
+                    <div class="qty-controls">
+                        <button class="qty-btn" onclick="updateQty(this, -1)">-</button>
+                        <span class="qty-display" data-name="Tartelette Citron Mini" data-price="60">0</span>
+                        <button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button>
+                    </div>
+                </div>
+                <div class="item-row">
+                    <div class="item-info"><span class="item-name">Tartelette Citron (Grand)</span><span class="item-price">120 DA</span></div>
+                    <div class="qty-controls">
+                        <button class="qty-btn" onclick="updateQty(this, -1)">-</button>
+                        <span class="qty-display" data-name="Tartelette Citron Gd" data-price="120">0</span>
+                        <button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button>
+                    </div>
+                </div>
+                <div class="item-row">
+                    <div class="item-info"><span class="item-name">Cupcake</span><span class="item-price">120 DA</span></div>
+                    <div class="qty-controls">
+                        <button class="qty-btn" onclick="updateQty(this, -1)">-</button>
+                        <span class="qty-display" data-name="Cupcake" data-price="120">0</span>
+                        <button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button>
+                    </div>
+                </div>
+                 <div class="item-row">
+                    <div class="item-info"><span class="item-name">Box Brownie</span><span class="item-price">700 DA</span></div>
+                    <div class="qty-controls">
+                        <button class="qty-btn" onclick="updateQty(this, -1)">-</button>
+                        <span class="qty-display" data-name="Box Brownie" data-price="700">0</span>
+                        <button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button>
+                    </div>
+                </div>
             </div>
 
         </div>
     </div>
 
-    <a href="https://wa.me/213553989459?text=Bonjour%20Miam%26Co%2C%20je%20souhaite%20passer%20une%20commande%20!" class="sticky-order" target="_blank">
-        <i class="fab fa-whatsapp" style="font-size: 1.5rem;"></i> Commander sur WhatsApp
-    </a>
-
-    <div class="footer-info">
-        <p>© 2025 Miam&Co - Tizi Ouzou</p>
-        <p>Créé par Madilium</p>
+    <div class="cart-bar" id="cartBar">
+        <div class="total-info">
+            <span style="font-size:0.8rem; color:#777;">Total estimé :</span>
+            <span class="total-price" id="totalDisplay">0 DA</span>
+        </div>
+        <button class="checkout-btn" onclick="sendOrder()">
+            <i class="fab fa-whatsapp"></i> Commander
+        </button>
     </div>
+
+    <script>
+        // --- LOGIQUE PANIER ---
+        let cart = {};
+
+        function updateQty(btn, change) {
+            // Trouver l'élément span qui contient les data
+            let parent = btn.parentElement;
+            let display = parent.querySelector('.qty-display');
+            let name = display.getAttribute('data-name');
+            let price = parseInt(display.getAttribute('data-price'));
+            let currentQty = parseInt(display.innerText);
+
+            let newQty = currentQty + change;
+            if(newQty < 0) newQty = 0;
+
+            // Update affichage
+            display.innerText = newQty;
+
+            // Update Logic
+            if(newQty > 0) {
+                cart[name] = { price: price, qty: newQty };
+            } else {
+                delete cart[name];
+            }
+
+            updateTotal();
+        }
+
+        function updateTotal() {
+            let total = 0;
+            let count = 0;
+            for (let item in cart) {
+                total += cart[item].price * cart[item].qty;
+                count += cart[item].qty;
+            }
+
+            document.getElementById('totalDisplay').innerText = total + " DA";
+            
+            // Afficher/Cacher la barre
+            let bar = document.getElementById('cartBar');
+            if(count > 0) {
+                bar.classList.add('visible');
+            } else {
+                bar.classList.remove('visible');
+            }
+        }
+
+        function sendOrder() {
+            let message = "Bonjour Miam&Co, je souhaite commander :\n\n";
+            let total = 0;
+            
+            for (let item in cart) {
+                let linePrice = cart[item].price * cart[item].qty;
+                total += linePrice;
+                message += "▪️ " + cart[item].qty + "x " + item + " (" + linePrice + " DA)\n";
+            }
+            
+            message += "\n💰 *TOTAL : " + total + " DA*";
+            message += "\n\n(Merci de me confirmer la disponibilité)";
+
+            let url = "https://wa.me/213553989459?text=" + encodeURIComponent(message);
+            window.open(url, '_blank');
+        }
+    </script>
 
 </body>
 </html>
