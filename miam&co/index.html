@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Miam&Co - Commander</title>
+    <title>Miam&Co </title>
+    <link rel="icon" type="image/png" href="logo.jpg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
     
@@ -206,6 +207,7 @@
                     <div class="item-row"><div class="item-info"><span class="item-name">Tartelette Citron (Grand)</span><span class="item-price">120 DA</span></div><div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Tartelette Citron Gd" data-price="120" data-min="5">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div></div>
                     <div class="item-row"><div class="item-info"><span class="item-name">Cupcake</span><span class="item-price">120 DA</span></div><div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Cupcake" data-price="120" data-min="5">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div></div>
                     <div class="item-row"><div class="item-info"><span class="item-name">Box Brownie</span><span class="item-price">700 DA</span></div><div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Box Brownie" data-price="700">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div></div>
+                    <div class="item-row"><div class="item-info"><span class="item-name">Box Chouquettes (10)</span><span class="item-price">450 DA</span></div><div class="qty-controls"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><span class="qty-display" data-name="Box Chouquettes" data-price="450" data-min="1">0</span><button class="qty-btn add-btn" onclick="updateQty(this, 1)">+</button></div></div>
                 </div>
             </div>
         </div>
@@ -241,9 +243,31 @@
             let display = parent.querySelector('.qty-display');
             let name = display.getAttribute('data-name');
             let price = parseInt(display.getAttribute('data-price'));
-            let currentQty = parseInt(display.innerText);
+            
+            // On récupère le minimum (5 par défaut, 1 si spécifié)
+            let minQty = parseInt(display.getAttribute('data-min'));
+            if(isNaN(minQty)) minQty = 5; // Sécurité : si pas de data-min, c'est 5
 
-            let newQty = currentQty + change;
+            let currentQty = parseInt(display.innerText);
+            let newQty = currentQty;
+
+            if (change > 0) {
+                // AJOUT
+                if (currentQty === 0) {
+                    newQty = minQty; // Saut direct au min
+                } else {
+                    newQty = currentQty + 1; // Incrément normal
+                }
+            } else {
+                // RETRAIT
+                if (currentQty === minQty) {
+                    newQty = 0; // Chute directe à 0
+                } else if (currentQty > 0) {
+                    newQty = currentQty - 1; // Décrément normal
+                }
+            }
+
+            // Sécurité absolue
             if(newQty < 0) newQty = 0;
 
             display.innerText = newQty;
