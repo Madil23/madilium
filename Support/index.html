@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathématiques ES - Madil CHERADI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #f0f2f5;
+            --card-bg: #ffffff;
+            --primary-color: #4F46E5;
+            --accent-color: #10B981;
+            --text-main: #1F2937;
+            --text-secondary: #6B7280;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 24px; }
+
+        /* HEADER */
+        header {
+            text-align: center; background: var(--card-bg); padding: 30px 20px;
+            border-radius: 24px; box-shadow: var(--shadow); position: relative; overflow: hidden;
+        }
+        header::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+        .profile-pic {
+            width: 90px; height: 90px; background-color: #e0e7ff; color: var(--primary-color);
+            border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center;
+            font-size: 32px; font-weight: 700; border: 3px solid white; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 { font-size: 22px; font-weight: 700; margin-bottom: 5px; }
+        h2 { font-size: 16px; font-weight: 400; color: var(--text-secondary); background-color: #F3F4F6; padding: 4px 12px; border-radius: 20px; display: inline-block;}
+
+        /* CARDS */
+        .chapter-list { display: flex; flex-direction: column; gap: 16px; }
+        .chapter-card {
+            background: var(--card-bg); border-radius: 20px; padding: 20px;
+            box-shadow: var(--shadow); transition: transform 0.2s ease; border-left: 5px solid var(--primary-color);
+        }
+        .chapter-card:hover { transform: translateY(-3px); }
+        .chapter-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .chapter-number { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--primary-color); font-weight: 700; }
+        .chapter-title { font-size: 18px; font-weight: 600; margin-bottom: 8px; color: var(--text-main); }
+        .chapter-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 20px; }
+
+        .btn-pdf {
+            display: flex; align-items: center; justify-content: center; width: 100%; padding: 12px;
+            background-color: var(--primary-color); color: white; text-decoration: none; border-radius: 12px;
+            font-weight: 600; font-size: 14px; gap: 8px; transition: opacity 0.2s;
+        }
+        .btn-pdf:hover { opacity: 0.9; }
+
+        /* CONTACT SECTION */
+        .contact-section {
+            background-color: #E0E7FF; /* Fond bleuté léger */
+            border-radius: 20px; padding: 20px; text-align: center;
+        }
+        .contact-title { font-size: 16px; font-weight: 600; margin-bottom: 15px; color: var(--primary-color); }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .btn-contact {
+            display: flex; align-items: center; justify-content: center; padding: 10px;
+            background: white; color: var(--text-main); text-decoration: none;
+            border-radius: 10px; font-size: 14px; font-weight: 600; gap: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: background 0.2s;
+        }
+        .btn-contact:hover { background: #f9fafb; }
+
+        .icon { width: 18px; height: 18px; fill: currentColor; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #9CA3AF; }
+        .madilium-logo { font-weight: 700; color: var(--text-main); }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <div class="profile-pic">MC</div>
+            <h1>Mathématiques ES</h1>
+            <h2>Par Madil CHERADI</h2>
+        </header>
+
+        <div class="chapter-list">
+            <div class="chapter-card">
+                <div class="chapter-header"><span class="chapter-number">Chapitre 01</span></div>
+                <h3 class="chapter-title">Le Modèle Probabiliste.</h3>
+                <p class="chapter-desc">Modèle probabiliste.</p>
+                <a href="chapitre-1.pdf" class="btn-pdf" target="_blank">
+
+<a href="cours/chapitre-1.pdf" class="btn-pdf" target="_blank">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M12 16L7 11H10V4H14V11H17L12 16ZM12 18C7.58 18 4 19.79 4 22V24H20V22C20 19.79 16.42 18 12 18Z" /></svg> Télécharger (PDF)
+                </a>
+            </div>
+            
+            <div class="chapter-card" style="border-left-color: var(--accent-color);">
+                <div class="chapter-header"><span class="chapter-number" style="color: var(--accent-color);">Chapitre 02</span></div>
+                <h3 class="chapter-title">Variables aléatoires.</h3>
+                <p class="chapter-desc">Tous sur les variables.</p>
+                <a href="chapitre-2.pdf" class="btn-pdf" target="_blank">
+
+<a href="cours/chapitre-2.pdf" class="btn-pdf" target="_blank">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M12 16L7 11H10V4H14V11H17L12 16ZM12 18C7.58 18 4 19.79 4 22V24H20V22C20 19.79 16.42 18 12 18Z" /></svg> Télécharger (PDF)
+                </a>
+            </div>
+
+            <div class="chapter-card" style="border-left-color: #F59E0B;">
+                <div class="chapter-header"><span class="chapter-number" style="color: #F59E0B;">Chapitre 03</span></div>
+                <h3 class="chapter-title">Couples de Variables aléatoires, conditionnellement.</h3>
+                <p class="chapter-desc">Encore plus sur les variables.</p>
+                <a href="chapitre-3.pdf" class="btn-pdf" target="_blank">
+
+<a href="cours/chapitre-3.pdf" class="btn-pdf" target="_blank">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M12 16L7 11H10V4H14V11H17L12 16ZM12 18C7.58 18 4 19.79 4 22V24H20V22C20 19.79 16.42 18 12 18Z" /></svg> Télécharger (PDF)
+                </a>
+            </div>
+        </div>
+
+        <div class="contact-section">
+            <div class="contact-title">Besoin d'aide sur un chapitre ?</div>
+            <div class="contact-grid">
+                <a href="mailto:madil.cheradi@gmail.com" class="btn-contact">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z"/></svg>
+                    Email
+                </a>
+                <a href="https://wa.me/213549514133" class="btn-contact">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2ZM12.05 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.8 7.37 7.5 3.67 12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.05 20.15Z"/></svg>
+                    WhatsApp
+                </a>
+            </div>
+        </div>
+
+        <footer>
+            <p>Technologie <span class="madilium-logo">Madilium</span></p>
+        </footer>
+    </div>
+</body>
+</html>
