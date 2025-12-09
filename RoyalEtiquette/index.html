@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SNC Royale Etiquette - Madilium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #381a5f; /* Violet foncé */
+            --accent-color: #f1c40f;  /* Jaune pour petites touches */
+            --text-color: #333;
+            --bg-color: #f4f4f9;
+            --white: #ffffff;
+            /* Couleurs de la bande */
+            --c-yellow: #f1c40f;
+            --c-orange: #e67e22;
+            --c-red: #c0392b;
+            --c-purple: #8e44ad;
+            --c-blue: #2980b9;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--text-color);
+        }
+
+        .card-container {
+            background-color: var(--white);
+            width: 100%;
+            max-width: 400px;
+            min-height: 100vh;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 40px;
+        }
+
+        /* La bande multicolore */
+        .color-strip {
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(to right, 
+                var(--c-yellow) 0%, var(--c-yellow) 20%,
+                var(--c-orange) 20%, var(--c-orange) 40%,
+                var(--c-red) 40%, var(--c-red) 60%,
+                var(--c-purple) 60%, var(--c-purple) 80%,
+                var(--c-blue) 80%, var(--c-blue) 100%
+            );
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 40px 20px 20px;
+            width: 100%;
+        }
+
+        .logo-placeholder {
+            width: 100px;
+            height: 100px;
+            border: 2px solid var(--primary-color);
+            border-radius: 12px;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--primary-color);
+            background: #fff;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 5px 15px;
+            display: inline-block;
+            font-weight: 500;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .manager-name {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .manager-role {
+            font-size: 0.9rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Actions */
+        .actions {
+            width: 100%;
+            padding: 10px 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 15px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 2px solid transparent;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: white;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        /* NOUVELLE SECTION SERVICES */
+        .services-section {
+            width: 100%;
+            padding: 30px 25px;
+            background-color: #fafafa;
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+
+        .section-title {
+            text-align: center;
+            color: var(--primary-color);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .service-card {
+            background: white;
+            padding: 15px 10px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+            transition: 0.3s;
+        }
+
+        .service-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .service-icon {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        /* Couleur spécifique pour l'icône étiquette pour rappeler le nom */
+        .service-icon.special {
+            color: var(--c-purple);
+        }
+
+        .service-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #444;
+        }
+
+        /* Info contact bas */
+        .info-section {
+            width: 100%;
+            padding: 25px 30px;
+            text-align: center;
+        }
+
+        .info-item {
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            color: #555;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .footer {
+            margin-top: auto;
+            padding-top: 10px;
+            font-size: 0.8rem;
+            color: #888;
+            text-align: center;
+        }
+        
+        .footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card-container">
+        <div class="color-strip"></div>
+
+        <header class="header">
+            <div class="logo-placeholder">R</div>
+            <h1>Royale Etiquette</h1>
+            <div class="subtitle">Imprimerie</div>
+            
+            <div class="manager-info">
+                <p class="manager-name">Abdenour CHERADI</p>
+                <p class="manager-role">Gérant</p>
+            </div>
+        </header>
+
+        <section class="actions">
+            <a href="tel:0558570473" class="btn btn-primary">
+                <i class="fa-solid fa-phone"></i> Appeler
+            </a>
+            <a href="mailto:royaletiquette@yahoo.fr" class="btn btn-secondary">
+                <i class="fa-solid fa-envelope"></i> Email
+            </a>
+            <a href="https://www.google.com/maps/search/?api=1&query=101+Zone+Ouest+Tours+Villas+Tizi+Ouzou" target="_blank" class="btn btn-secondary">
+                <i class="fa-solid fa-location-dot"></i> Itinéraire
+            </a>
+        </section>
+
+        <section class="services-section">
+            <h2 class="section-title">Nos Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon special"><i class="fa-solid fa-tags"></i></div>
+                    <div class="service-name">Étiquettes & Adhésifs</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fa-solid fa-id-card"></i></div>
+                    <div class="service-name">Cartes de Visite</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fa-solid fa-file-invoice"></i></div>
+                    <div class="service-name">Carnets & Ordonnances</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fa-solid fa-print"></i></div>
+                    <div class="service-name">Flyers & Dépliants</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="info-section">
+            <div class="info-item">
+                <i class="fa-solid fa-map-pin" style="color: var(--c-red);"></i>
+                <span>101 Zone Ouest (Tours Villas)<br>15000 TIZI-OUZOU</span>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>Ancré au réel, connecté au futur.</p>
+            <p>Propulsé par <a href="https://madilium.com">Madilium</a></p>
+        </footer>
+    </div>
+
+</body>
+</html>
