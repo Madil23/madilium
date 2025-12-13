@@ -14,15 +14,15 @@
             /* Couleurs de la marque Kaizen */
             --kaizen-pink: #ff00ea;
             --kaizen-blue: #00dbff;
-            --ink-black: #1a1a2e; /* Noir légèrement bleuté pour le style cartoon */
+            --ink-black: #1a1a2e;
             --paper-white: #ffffff;
+            --success-green: #00c853; /* Pour le statut ouvert */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Fredoka', sans-serif;
-            /* FOND DEGRADE KAIZEN */
             background: linear-gradient(135deg, var(--kaizen-blue) 0%, var(--kaizen-pink) 100%);
             min-height: 100vh;
             color: var(--ink-black);
@@ -31,27 +31,27 @@
             position: relative;
         }
 
-        /* Motif "Papier" subtil par dessus le dégradé */
+        /* Motif "Papier" subtil */
         body::before {
             content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 20.5V18H0v2.5h20zM20 22H0v-1.5h20zM40 18h-20v2.5h20V18zM40 22h-20v-1.5h20z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
             opacity: 0.5; pointer-events: none;
         }
 
-        /* Easter Eggs flottants (Style Stickers) */
+        /* Easter Eggs flottants */
         .floater {
             position: fixed; font-size: 3rem; opacity: 0.6;
             filter: drop-shadow(3px 3px 0px rgba(0,0,0,0.2));
             animation: floaty 6s ease-in-out infinite;
-            cursor: pointer; transition: transform 0.2s;
+            cursor: pointer; transition: transform 0.2s; z-index: 0;
         }
         .floater:hover { transform: scale(1.2) rotate(15deg); }
         @keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
 
-        .f1 { top: 10%; left: 10%; animation-delay: 0s; } /* Manette */
-        .f2 { bottom: 20%; right: 10%; animation-delay: 1s; font-size: 3.5rem; } /* Dés */
-        .f3 { top: 30%; right: 20%; animation-delay: 2s; font-size: 2.5rem; } /* Pizza */
-        .f4 { bottom: 15%; left: 15%; animation-delay: 3s; } /* Fantôme */
+        .f1 { top: 10%; left: 10%; animation-delay: 0s; }
+        .f2 { bottom: 20%; right: 10%; animation-delay: 1s; font-size: 3.5rem; }
+        .f3 { top: 30%; right: 20%; animation-delay: 2s; font-size: 2.5rem; }
+        .f4 { bottom: 15%; left: 15%; animation-delay: 3s; }
 
         /* CONTENEUR PRINCIPAL */
         .paper-wrapper {
@@ -62,28 +62,39 @@
         .header-paper {
             background: var(--paper-white);
             border: 4px solid var(--ink-black);
-            /* Forme de papier découpé un peu irrégulière */
             border-radius: 20px 10px 25px 15px; 
             padding: 30px 20px;
             text-align: center;
             box-shadow: 8px 8px 0px rgba(0,0,0,0.2);
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             transform: rotate(-1deg);
         }
 
         .logo-text {
             font-family: 'Carter One', cursive; font-size: 2.8rem;
-            /* Texte dégradé */
             background: linear-gradient(to right, var(--kaizen-blue), var(--kaizen-pink));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             filter: drop-shadow(3px 3px 0px var(--ink-black));
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
 
-        /* NOUVELLE BIO */
         .bio-text {
             font-size: 1rem; line-height: 1.5; font-weight: 600;
-            margin-bottom: 20px; padding: 0 10px;
+            margin-bottom: 15px; padding: 0 10px;
+        }
+
+        /* OPTION 1: STATUS OUVERTURE */
+        .status-badge {
+            display: inline-block;
+            background: #e8f5e9; 
+            color: var(--success-green);
+            border: 2px solid var(--success-green);
+            padding: 5px 12px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            box-shadow: 2px 2px 0 rgba(0,200,83,0.2);
         }
 
         .tags { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
@@ -93,32 +104,64 @@
             box-shadow: 3px 3px 0 rgba(255,255,255,0.3);
         }
 
-        /* BOUTONS CARTOON + ANIMATION "WOOSH" */
+        /* OPTION 2: BANDEAU DEFILANT (MARQUEE) */
+        .marquee-container {
+            background: var(--ink-black); color: var(--kaizen-blue);
+            padding: 10px 0; border: 3px solid var(--ink-black); border-radius: 8px;
+            overflow: hidden; white-space: nowrap; position: relative; margin-bottom: 25px;
+            transform: rotate(1deg); box-shadow: 5px 5px 0 rgba(0,0,0,0.2);
+        }
+        .marquee-content {
+            display: inline-block; animation: scroll 15s linear infinite;
+            font-family: 'Carter One', cursive; font-size: 1.1rem; letter-spacing: 1px;
+        }
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* OPTION 3: GALERIE SCROLLABLE */
+        .gallery-section { margin-bottom: 25px; }
+        .gallery-title {
+            font-family: 'Carter One'; font-size: 1.2rem; color: white;
+            text-shadow: 2px 2px 0 var(--ink-black); margin-bottom: 10px; margin-left: 5px;
+        }
+        .gallery-scroll {
+            display: flex; gap: 15px; overflow-x: auto; padding: 10px 5px;
+            scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+            /* Cacher la scrollbar */
+            scrollbar-width: none; 
+        }
+        .gallery-scroll::-webkit-scrollbar { display: none; }
+        
+        .gallery-item {
+            flex: 0 0 auto; width: 220px; height: 150px; background: #fff;
+            border: 3px solid var(--ink-black); border-radius: 12px;
+            scroll-snap-align: center; overflow: hidden; position: relative;
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.2); transition: transform 0.2s;
+        }
+        .gallery-item:hover { transform: scale(1.02); }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+        .photo-label {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            background: rgba(26, 26, 46, 0.8); color: white;
+            font-size: 0.8rem; padding: 5px; text-align: center; font-weight: bold;
+        }
+
+        /* BOUTONS */
         .btn-paper-anim {
-            position: relative;
-            display: flex; align-items: center; justify-content: center;
+            position: relative; display: flex; align-items: center; justify-content: center;
             width: 100%; padding: 16px; margin-bottom: 12px;
             text-decoration: none; font-family: 'Fredoka', sans-serif; font-weight: 800; font-size: 1.1rem;
             color: var(--ink-black); background: var(--paper-white);
             border: 3px solid var(--ink-black); border-radius: 12px;
             box-shadow: 6px 6px 0px rgba(0,0,0,0.2);
-            transition: all 0.2s ease; overflow: hidden; /* Pour l'animation */
+            transition: all 0.2s ease; overflow: hidden;
         }
-
-        /* L'effet lumineux qui traverse */
         .btn-paper-anim::before {
-            content: ''; position: absolute; top: 0; left: -100%;
-            width: 50%; height: 100%;
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
             background: linear-gradient(to right, transparent, rgba(255,255,255,0.8), transparent);
             transform: skewX(-25deg); transition: 0.5s;
         }
-
-        .btn-paper-anim:hover {
-            transform: translate(-2px, -2px);
-            box-shadow: 8px 8px 0px rgba(0,0,0,0.3);
-            background: #f0f0f0;
-        }
-        .btn-paper-anim:hover::before { left: 150%; } /* Déclenche l'anim au survol */
+        .btn-paper-anim:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0px rgba(0,0,0,0.3); background: #f0f0f0; }
+        .btn-paper-anim:hover::before { left: 150%; }
         .btn-paper-anim:active { transform: translate(4px, 4px); box-shadow: 2px 2px 0px rgba(0,0,0,0.3); }
 
         .btn-social { background: var(--ink-black); color: white; border: none; }
@@ -126,7 +169,7 @@
         .btn-tiktok { background: #000000; }
         .btn-wa { background: #25D366; color: white; }
 
-        /* ACCORDEONS STYLE DOSSIER (Recopiés de la V4) */
+        /* DOSSIERS (ACCORDÉONS) */
         .folder-section { margin-top: 30px; }
         .folder-tab {
             background: var(--kaizen-blue); color: white; border: 3px solid var(--ink-black);
@@ -168,9 +211,14 @@
         
         <div class="header-paper">
             <div class="logo-text">KAIZEN TIZI</div>
+            
+            <div class="status-badge">
+                🟢 OUVERT • 10h à 23h
+            </div>
+
             <p class="bio-text">
                 🌟 Salle de jeux familiale & conviviale !<br>
-                Profitez de nos consoles (PS5, PS4, Wii), du simulateur de course 🏎️, de nos jeux de société 🎲 et de nos boissons fraîches 🍹.
+                Profitez de nos consoles (PS5, PS4, Wii), du simulateur de course 🏎️, de nos jeux de société 🎲 et de nos boissons fraîches.
             </p>
 
             <div class="tags">
@@ -181,13 +229,41 @@
             </div>
         </div>
 
+        <div class="marquee-container">
+            <div class="marquee-content">
+                ⚽ FIFA 25 &nbsp; • &nbsp; 👊 TEKKEN 8 &nbsp; • &nbsp; 🏎️ MARIO KART 8 &nbsp; • &nbsp; 🔫 CALL OF DUTY &nbsp; • &nbsp; 🕷️ SPIDER-MAN 2 &nbsp; • &nbsp; 🧩 CATAN &nbsp; • &nbsp; ⚽ FIFA 25 &nbsp; • &nbsp; 👊 TEKKEN 8 &nbsp; • &nbsp; 🏎️ MARIO KART 8
+            </div>
+        </div>
+
+        <div class="gallery-section">
+            <div class="gallery-title">📸 L'AMBIANCE</div>
+            <div class="gallery-scroll">
+                <div class="gallery-item">
+                    <img src="https://placehold.co/400x300/ff00ea/white?text=Zone+PS5" alt="PS5">
+                    <div class="photo-label">Zone PS5 4K</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://placehold.co/400x300/00dbff/black?text=Simulateur" alt="Racing">
+                    <div class="photo-label">Simulateur</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://placehold.co/400x300/ffd700/black?text=Jeu+de+Societe" alt="Boardgames">
+                    <div class="photo-label">Jeux Société</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://placehold.co/400x300/1a1a2e/white?text=Milkshakes" alt="Drinks">
+                    <div class="photo-label">Bar & Snacks</div>
+                </div>
+            </div>
+        </div>
+
         <div style="display: flex; gap: 10px; margin-bottom: 5px;">
             <a href="https://instagram.com/kaizen_tizi" class="btn-paper-anim btn-insta" target="_blank" style="color: white;">📸 Instagram</a>
             <a href="https://tiktok.com/@kaizen_tizi" class="btn-paper-anim btn-tiktok" target="_blank" style="color: white;">🎵 TikTok</a>
         </div>
 
         <a href="https://wa.me/213540316619" class="btn-paper-anim btn-wa">
-            📞 RESERVER UNE SESSION (WhatsApp)
+            📞 RESERVER (WhatsApp)
         </a>
         <a href="https://maps.app.goo.gl/saM2r4qbqLBMMB6SA" class="btn-paper-anim">
             📍 NOUS TROUVER A TIZI
