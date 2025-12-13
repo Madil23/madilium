@@ -16,7 +16,7 @@
             --kaizen-blue: #00dbff;
             --ink-black: #1a1a2e;
             --paper-white: #ffffff;
-            --success-green: #00c853; /* Pour le statut ouvert */
+            --success-green: #00c853;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -83,7 +83,6 @@
             margin-bottom: 15px; padding: 0 10px;
         }
 
-        /* OPTION 1: STATUS OUVERTURE */
         .status-badge {
             display: inline-block;
             background: #e8f5e9; 
@@ -104,7 +103,7 @@
             box-shadow: 3px 3px 0 rgba(255,255,255,0.3);
         }
 
-        /* OPTION 2: BANDEAU DEFILANT (MARQUEE) */
+        /* BANDEAU DEFILANT */
         .marquee-container {
             background: var(--ink-black); color: var(--kaizen-blue);
             padding: 10px 0; border: 3px solid var(--ink-black); border-radius: 8px;
@@ -117,7 +116,7 @@
         }
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* OPTION 3: GALERIE SCROLLABLE */
+        /* GALERIE */
         .gallery-section { margin-bottom: 25px; }
         .gallery-title {
             font-family: 'Carter One'; font-size: 1.2rem; color: white;
@@ -126,7 +125,6 @@
         .gallery-scroll {
             display: flex; gap: 15px; overflow-x: auto; padding: 10px 5px;
             scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
-            /* Cacher la scrollbar */
             scrollbar-width: none; 
         }
         .gallery-scroll::-webkit-scrollbar { display: none; }
@@ -218,7 +216,7 @@
 
             <p class="bio-text">
                 🌟 Salle de jeux familiale & conviviale !<br>
-                Profitez de nos consoles (PS5, PS4, Wii), du simulateur de course 🏎️, de nos jeux de société 🎲 et de nos boissons fraîches.
+                Profitez de nos consoles (PS5, PS4, Wii), du simulateur de course 🏎️, de nos jeux de société 🎲, du karaoke 🎤 et de nos boissons fraîches.
             </p>
 
             <div class="tags">
@@ -231,9 +229,9 @@
 
         <div class="marquee-container">
             <div class="marquee-content">
-                ⚽ FIFA 25 &nbsp; • &nbsp; 👊 TEKKEN 8 &nbsp; • &nbsp; 🏎️ MARIO KART 8 &nbsp; • &nbsp; 🔫 CALL OF DUTY &nbsp; • &nbsp; 🕷️ SPIDER-MAN 2 &nbsp; • &nbsp; 🧩 CATAN &nbsp; • &nbsp; ⚽ FIFA 25 &nbsp; • &nbsp; 👊 TEKKEN 8 &nbsp; • &nbsp; 🏎️ MARIO KART 8
+                ⚽ FC 26   •   👊 Ghost Of Tsushima   •   🏎️ WRC   •   🔫 GTA 5   •   🕷️ SPIDER-MAN   •   🧩 Far Cry 5   •   ⚽ FC 26
             </div>
-        </div>
+        </div> 
 
         <div class="gallery-section">
             <div class="gallery-title">📸 L'AMBIANCE</div>
@@ -251,8 +249,8 @@
                     <div class="photo-label">Jeux Société</div>
                 </div>
                 <div class="gallery-item">
-                    <img src="https://placehold.co/400x300/1a1a2e/white?text=Milkshakes" alt="Drinks">
-                    <div class="photo-label">Bar & Snacks</div>
+                    <img src="https://placehold.co/400x300/1a1a2e/white?text=Anniversaire" alt="Party">
+                    <div class="photo-label">Coin Anniv</div>
                 </div>
             </div>
         </div>
@@ -270,40 +268,149 @@
         </a>
 
         <div class="folder-section">
+            <div class="folder-tab" style="background: #9c27b0;" onclick="toggleFolder('folder-anniv')">
+                <span>🎂 OFFRES ANNIVERSAIRES</span> <span>▼</span>
+            </div>
+            <div id="folder-anniv" class="folder-content">
+                
+                <div class="menu-group">
+                    <h3>🎉 CHOISISSEZ VOTRE FORMULE</h3>
+                    
+                    <div class="menu-item" style="display:block;">
+                        <div style="display:flex; justify-content:space-between;">
+                            <span style="font-weight:800; color:#9c27b0;">1. LE COIN ANNIV'</span>
+                            <span class="price">2000 DA / Heure</span>
+                        </div>
+                        <p style="font-size:0.85rem; color:#555; margin-top:5px; line-height:1.4;">
+                            2 Canapés + 3 Tables + Déco "Happy Birthday" + Jeux de société.<br>
+                            <b>Max 10 personnes.</b>
+                        </p>
+                    </div>
+
+                    <div class="menu-item" style="display:block; border-bottom:none;">
+                        <div style="display:flex; justify-content:space-between;">
+                            <span style="font-weight:800; color:var(--kaizen-blue);">2. PRIVATISATION TOTALE</span>
+                        </div>
+                        <p style="font-size:0.85rem; color:#555; margin-top:5px; line-height:1.4;">
+                            Salle complète (PS5, PS4, Simu, Karaoké, Ciné, Wii, Jeux Société).<br>
+                            <b>Max 25 personnes.</b>
+                        </p>
+                        <div style="margin-top:8px; text-align:right;">
+                            <span class="price" style="display:block;">20 000 DA (2 Heures min)</span>
+                            <span class="price" style="display:block;">35 000 DA (4 Heures)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-group">
+                    <h3>🍰 GÂTEAUX & DÉCO</h3>
+                    <div class="menu-item"><span>Génoise Simple</span> <span class="price">Dès 3000 DA</span></div>
+                    <div class="menu-item"><span>Gâteaux à Thème</span> <span class="price">Dès 3000 DA</span></div>
+                    <div class="menu-item"><span>Décoration à Thème</span> <span class="price">Sur Devis</span></div>
+                    <div class="menu-item"><span>Table Pop Corn + Chips</span> <span class="price">3500 DA</span></div>
+                </div>
+
+                <div class="menu-group">
+                    <h3>🍔 TRAITEUR SALÉ (Sur commande)</h3>
+                    <div style="background:#fff3e0; padding:10px; border-radius:8px; border:1px dashed #ffa726; margin-bottom:10px; font-size:0.8rem;">
+                        ⚠️ <b>Note Importante :</b><br>
+                        • Boissons/Snacks extérieurs <b>INTERDITS</b> (Dispo sur place).<br>
+                        • Salés/Gâteaux extérieurs <b>AUTORISÉS</b>.
+                    </div>
+                    
+                    <div class="menu-item"><span>Mini Pizza / Mini Manchons</span> <span class="price">100 DA/u</span></div>
+                    <div class="menu-item"><span>Mini Burger / Quiche / Tacos</span> <span class="price">180 DA/u</span></div>
+                    <div class="menu-item"><span>Magnum Salé / Tacos Prestige</span> <span class="price">180 DA/u</span></div>
+                    <div class="menu-item"><span>Croquettes Poulet</span> <span class="price">180 DA/u</span></div>
+                </div>
+
+                <a href="https://wa.me/213540316619?text=Bonjour,%20je%20souhaite%20reserver%20pour%20un%20anniversaire%20🎂" class="btn-paper-anim" style="background:#f3e5f5; border-color:#9c27b0; margin-top:10px;">
+                    🎈 RÉSERVER MON ANNIVERSAIRE
+                </a>
+
+            </div>
+        </div>
+        
+        <div class="folder-section">
             <div class="folder-tab" onclick="toggleFolder('folder-offres')">
                 <span>📁 NOS OFFRES GAMING</span> <span>▼</span>
             </div>
             <div id="folder-offres" class="folder-content">
                 <div class="menu-group">
-                    <h3>🎮 SALLES & CONSOLES</h3>
-                    <div class="menu-item"><span>Privatisation Room (2H)</span> <span class="price">1200 DA/pers</span></div>
-                    <div class="menu-item"><span>PS5 4K (1H)</span> <span class="price">1000 DA</span></div>
-                    <div class="menu-item"><span>PS4 (1H)</span> <span class="price">800 DA</span></div>
-                    <div class="menu-item"><span>Racing Simulator (30m)</span> <span class="price">800 DA</span></div>
-                    <div class="menu-item"><span>Zone Wii (Famille)</span> <span class="price">Sur place</span></div>
+                    <h3>🎬 SALLE DE PROJECTION & PS5</h3>
+                    <div class="menu-item"><span>Privatisation Play Room (2H)</span> <span class="price">1200 DA/pers</span></div>
+                    <div class="menu-item"><span>PlayStation 5 (1H)</span> <span class="price">1000 DA</span></div>
+                    <div class="menu-item"><span>Racing Simulator (30 min)</span> <span class="price">800 DA</span></div>
+                    <div class="menu-item"><span>Racing Simulator (1H)</span> <span class="price">1500 DA</span></div>
                 </div>
-                <div class="menu-group">
-                    <h3>🎲 JEUX DE SOCIETE</h3>
-                    <div class="menu-item"><span>Accès illimité (1H)</span> <span class="price">250 DA/pers</span></div>
-                </div>
-            </div>
-        </div>
 
-        <div class="folder-section">
+                <div class="menu-group">
+                    <h3>🎮 GAME ROOM (PS4)</h3>
+                    <div class="menu-item"><span>PlayStation 4 (30 min)</span> <span class="price">500 DA</span></div>
+                    <div class="menu-item"><span>PlayStation 4 (1H)</span> <span class="price">800 DA</span></div>
+                </div>
+
+                <div class="menu-group">
+                    <h3>🎤 KARAOKÉ</h3>
+                    <div class="menu-item"><span>Session Karaoké (1H)</span> <span class="price">600 DA/pers</span></div>
+                </div>
+
+                <div class="menu-group">
+                    <h3>🎲 JEUX DE SOCIÉTÉ</h3>
+                    <div class="menu-item">
+                        <span style="display:block; line-height:1.2;">Accès illimité (1H)<br><small style="font-weight:normal; font-size:0.8em; color:#666;">(Changement de jeux libre)</small></span> 
+                        <span class="price">250 DA/pers</span>
+                    </div>
+                </div>
+            </div> </div> <div class="folder-section">
             <div class="folder-tab pink-tab" onclick="toggleFolder('folder-menu')">
                 <span>🍹 LE MENU FRAICHEUR</span> <span>▼</span>
             </div>
             <div id="folder-menu" class="folder-content">
                 <div class="menu-group">
-                    <h3>🥤 MILKSHAKES & JUS</h3>
-                    <div class="menu-item"><span>Milkshake Oreo/Bueno</span> <span class="price">450 DA</span></div>
-                    <div class="menu-item"><span>Mojito / Jus Frais</span> <span class="price">400 DA</span></div>
+                    <h3>🥤 MILKSHAKES</h3>
+                    <div class="menu-item"><span>Chocolat</span> <span class="price">400 DA</span></div>
+                    <div class="menu-item"><span>Nutella / Banane / OREO / Bueno</span> <span class="price">450 DA</span></div>
+                    <div class="menu-item"><span>Nutella Banane / Frappuccino</span> <span class="price">550 DA</span></div>
                 </div>
+
                 <div class="menu-group">
-                    <h3>☕ CAFE & SNACKS</h3>
+                    <h3>🍹 JUS & COCKTAILS</h3>
+                    <div class="menu-item"><span>Jus D'Orange</span> <span class="price">350 DA</span></div>
+                    <div class="menu-item"><span>Mojito</span> <span class="price">400 DA</span></div>
+                    <div class="menu-item"><span>Cocktail de Fruits</span> <span class="price">500 DA</span></div>
+                </div>
+
+                <div class="menu-group">
+                    <h3>🥞 CRÊPES CROUSTILLANTES</h3>
+                    <div class="menu-item"><span>Chocolat</span> <span class="price">450 DA</span></div>
+                    <div class="menu-item"><span>Nutella</span> <span class="price">500 DA</span></div>
+                    <div class="menu-item"><span>Banane / Nectarine / Fraise</span> <span class="price">600 DA</span></div>
+                    <div class="menu-item"><span>Bueno / OREO</span> <span class="price">600 DA</span></div>
+                    <div class="menu-item"><span>Ananas</span> <span class="price">650 DA</span></div>
+                    <div class="menu-item"><span>Kiwi Fraise</span> <span class="price">750 DA</span></div>
+                    <div class="menu-item"><span>Spéciale KAIZEN</span> <span class="price">850 DA</span></div>
+                </div>
+
+                <div class="menu-group">
+                    <h3>🍨 GLACES & CÉRÉALES</h3>
+                    <div class="menu-item"><span>Coupe de glace (4 boules)</span> <span class="price">350 DA</span></div>
+                    <div class="menu-item"><span>Banana Split</span> <span class="price">550 DA</span></div>
+                    <div class="menu-item"><span>Bol Céréales Local</span> <span class="price">350 DA</span></div>
+                    <div class="menu-item"><span>Bol Céréales Choco</span> <span class="price">450 DA</span></div>
+                    <div class="menu-item"><span>Bol Céréales Importation</span> <span class="price">650 DA</span></div>
+                </div>
+
+                <div class="menu-group">
+                    <h3>☕ CAFÉS</h3>
                     <div class="menu-item"><span>Café Capsule</span> <span class="price">100 DA</span></div>
-                    <div class="menu-item"><span>Bol Céréales</span> <span class="price">Dès 350 DA</span></div>
-                    <div class="menu-item"><span>Glaces</span> <span class="price">Dès 350 DA</span></div>
+                    <div class="menu-item"><span>Café Capsule Aromatisé</span> <span class="price">150 DA</span></div>
+                </div>
+
+                <div class="menu-group">
+                    <h3>🍫 SUPPLÉMENTS</h3>
+                    <div class="menu-item"><span>Glace</span> <span class="price">+100 DA</span></div>
+                    <div class="menu-item"><span>Fruits / Chocolat (Kinder, etc.)</span> <span class="price">+150 DA</span></div>
                 </div>
             </div>
         </div>
