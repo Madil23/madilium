@@ -70,12 +70,30 @@
             transform: rotate(-1deg);
         }
 
+        /* NOUVEAU : Conteneur pour le logo et le titre */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px; /* Espace entre le logo et le texte */
+            margin-bottom: 15px;
+        }
+
+        /* NOUVEAU : Style de l'image du logo */
+        .logo-img {
+            width: 80px; /* Ajuste la taille selon ton logo */
+            height: 80px;
+            object-fit: contain;
+            filter: drop-shadow(3px 3px 0px var(--ink-black)); /* Même ombre que le texte */
+        }
+        
         .logo-text {
             font-family: 'Carter One', cursive; font-size: 2.8rem;
             background: linear-gradient(to right, var(--kaizen-blue), var(--kaizen-pink));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             filter: drop-shadow(3px 3px 0px var(--ink-black));
-            margin-bottom: 10px;
+            /* margin-bottom: 10px;  <-- SUPPRIME CETTE LIGNE */
+            line-height: 1; /* Pour un meilleur alignement vertical */
         }
 
         .bio-text {
@@ -208,7 +226,11 @@
     <div class="paper-wrapper">
         
         <div class="header-paper">
-            <div class="logo-text">KAIZEN TIZI</div>
+            
+            <div class="logo-container">
+                <img src="https://placehold.co/80x80/png?text=LOGO" alt="Logo Kaizen Tizi" class="logo-img">
+                <div class="logo-text">KAIZEN TIZI</div>
+            </div>
             
             <div class="status-badge">
                 🟢 OUVERT • 10h à 23h
@@ -232,7 +254,7 @@
                 ⚽ FC 26   •   👊 Ghost Of Tsushima   •   🏎️ WRC   •   🔫 GTA 5   •   🕷️ SPIDER-MAN   •   🧩 Far Cry 5   •   ⚽ FC 26
             </div>
         </div> 
-        <a href="https:/g.page/r/CQ8av18WGI1NEAE/review" target="_blank" class="btn-paper-anim" style="background:#fffde7; border-color:#fbc02d; color:#f57f17;">
+        <a href="g.page/r/CQ8av18WGI1NEAE/review" target="_blank" class="btn-paper-anim" style="background:#fffde7; border-color:#fbc02d; color:#f57f17;">
     ⭐ LAISSER UN AVIS GOOGLE
 </a>
 
