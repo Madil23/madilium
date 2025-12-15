@@ -2,7 +2,7 @@ import React from 'react';
 import { UserProfile } from '../types';
 import { SleekDark } from './templates/SleekDark';
 import { ModernGlass } from './templates/ModernGlass';
-import { Professional } from './templates/Professional';
+import { ProfessionalLight } from './templates/Professional';
 import { MinimalistMono } from './templates/MinimalistMono';
 import { NeonCyber } from './templates/NeonCyber';
 import { NatureOrganic } from './templates/NatureOrganic';
@@ -21,7 +21,7 @@ export const MockPhone: React.FC<MockPhoneProps> = ({ data }) => {
       case 'modern-glass':
         return <ModernGlass data={data} />;
       case 'professional-light':
-        return <Professional data={data} />;
+        return <ProfessionalLight data={data} />;
       case 'minimalist-mono':
         return <MinimalistMono data={data} />;
       case 'neon-cyber':
