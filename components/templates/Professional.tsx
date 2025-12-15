@@ -2,7 +2,7 @@ import React from 'react';
 import { TemplateProps } from '../../types';
 import * as Lucide from 'lucide-react';
 
-export const Professional: React.FC<TemplateProps> = ({ data }) => {
+export const ProfessionalLight: React.FC<TemplateProps> = ({ data }) => {
   return (
     <div className="h-full w-full bg-white text-slate-900 overflow-y-auto relative flex flex-col">
       {/* Header Banner */}
