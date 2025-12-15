@@ -1,4 +1,23 @@
-export type TemplateId = 'sleek-dark' | 'modern-glass' | 'professional-light' | 'minimalist-mono' | 'neon-cyber' | 'nature-organic' | 'bold-pop' | 'soft-pastel';
+export enum MaterialType {
+  PMMA = 'PMMA',
+  WOOD = 'WOOD',
+}
+
+export enum CardColor {
+  BLACK = 'black',
+  WHITE = 'white',
+  CLEAR = 'transparent',
+  WOOD_OAK = '#A0522D',
+  WOOD_WALNUT = '#5C4033',
+}
+
+export enum TemplateStyle {
+  MODERN_MINIMAL = 'MODERN_MINIMAL',
+  NEON_CYBER = 'NEON_CYBER',
+  PROFESSIONAL = 'PROFESSIONAL',
+  NATURE_ECO = 'NATURE_ECO',
+  VIBRANT_SOCIAL = 'VIBRANT_SOCIAL',
+}
 
 export interface SocialLink {
   id: string;
@@ -11,11 +30,17 @@ export interface UserProfile {
   title: string;
   bio: string;
   avatarUrl: string;
-  themeColor: string;
-  templateId: TemplateId;
   links: SocialLink[];
 }
 
-export interface TemplateProps {
-  data: UserProfile;
+export interface ProductConfig {
+  material: MaterialType;
+  color: string;
+  quantity: number;
+}
+
+export interface AppState {
+  profile: UserProfile;
+  template: TemplateStyle;
+  product: ProductConfig;
 }

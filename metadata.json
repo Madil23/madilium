@@ -1,5 +1,5 @@
 {
-  "name": "Madilium - NFC Digital Identity",
-  "description": "Premium NFC card configuration and landing page platform. Create your digital identity with AI-powered customization.",
+  "name": "Madilium NFC Configurator",
+  "description": "A high-end landing page and configurator for Madilium NFC products, featuring real-time preview of digital profiles and product selection.",
   "requestFramePermissions": []
 }
