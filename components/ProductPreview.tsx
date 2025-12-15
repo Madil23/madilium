@@ -15,15 +15,44 @@ export const ProductPreview: React.FC<Props> = ({ config }) => {
       opacity: 0.8 
     };
 
+    // WOOD
     if (config.material === MaterialType.WOOD) {
       if (config.color === CardColor.WOOD_OAK) return { ...baseStyle, backgroundColor: '#A0522D', opacity: 0.6 };
       if (config.color === CardColor.WOOD_WALNUT) return { ...baseStyle, backgroundColor: '#5C4033', opacity: 0.7 };
+      if (config.color === CardColor.WOOD_BAMBOO) return { ...baseStyle, backgroundColor: '#E3C699', opacity: 0.5 };
+      if (config.color === CardColor.WOOD_EBONY) return { ...baseStyle, backgroundColor: '#2A2420', opacity: 0.85 };
     }
     
+    // PMMA / METAL
     if (config.material === MaterialType.PMMA) {
       if (config.color === 'transparent') return { backgroundColor: 'transparent', opacity: 0 };
       if (config.color === CardColor.WHITE) return { backgroundColor: '#ffffff', mixBlendMode: 'soft-light', opacity: 0.5 };
       if (config.color === CardColor.BLACK) return { backgroundColor: '#000000', mixBlendMode: 'multiply', opacity: 0.9 };
+      
+      // Metallic Gradients
+      if (config.color === CardColor.GOLD) {
+        return { 
+          backgroundImage: 'linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c)', 
+          mixBlendMode: 'color', 
+          opacity: 0.8 
+        };
+      }
+      if (config.color === CardColor.ROSE_GOLD) {
+        return { 
+          backgroundImage: 'linear-gradient(135deg, #e6b2b2, #f5d0d0, #d49090, #e6b2b2)', 
+          mixBlendMode: 'color', 
+          opacity: 0.8 
+        };
+      }
+      if (config.color === CardColor.SILVER) {
+        return { 
+          backgroundImage: 'linear-gradient(135deg, #e0e0e0, #ffffff, #a0a0a0, #d0d0d0)', 
+          mixBlendMode: 'hard-light', 
+          opacity: 0.6 
+        };
+      }
+
+      // Default Standard Colors
       return { ...baseStyle, backgroundColor: config.color };
     }
 
@@ -37,7 +66,14 @@ export const ProductPreview: React.FC<Props> = ({ config }) => {
       <div className="relative w-full max-w-sm group">
         
         {/* Glow effect behind the card */}
-        <div className="absolute inset-0 bg-madilium-accent/20 blur-3xl rounded-full transform scale-75 group-hover:scale-90 transition-transform duration-700 pointer-events-none" />
+        <div 
+            className="absolute inset-0 blur-3xl rounded-full transform scale-75 group-hover:scale-90 transition-transform duration-700 pointer-events-none"
+            style={{ 
+                backgroundColor: config.color === CardColor.GOLD ? '#b38728' : 
+                                 config.color === CardColor.ROSE_GOLD ? '#e6b2b2' : 
+                                 'rgba(0, 212, 255, 0.2)' 
+            }}
+        />
 
         <div className="relative w-full aspect-[1.586/1] transition-transform duration-500 transform group-hover:scale-105 group-hover:-rotate-1">
           
@@ -49,23 +85,6 @@ export const ProductPreview: React.FC<Props> = ({ config }) => {
           />
 
           {/* Color/Material Tint Overlay */}
-          {/* This assumes the card.png is a transparent PNG with the card cut out. 
-              The overlay is clipped to the image using mask-image if browser supports, 
-              or we rely on the image being a block. 
-              Since we can't easily mask an arbitrary PNG client-side without canvas, 
-              we apply the filter to a container that matches the image, or simply overlay a div 
-              that matches the approximate shape if it was simple. 
-              
-              BETTER APPROACH for arbitrary images: 
-              We can't perfectly tint a complex shape PNG with a simple div overlay unless we use -webkit-mask-box-image or similar.
-              However, assuming the user wants to see the image they uploaded primarily:
-          */}
-          
-          {/* Simple overlay for rectangular cards, or if the user provides specific colored images we would swap sources. 
-              Here we attempt a CSS filter on the image itself for simple hue rotations, or a mask.
-          */}
-          
-          {/* Option A: Tinting using an absolute div with mask-image (requires the same image as mask) */}
           <div 
             className="absolute inset-0 z-20 pointer-events-none"
             style={{
@@ -99,9 +118,9 @@ export const ProductPreview: React.FC<Props> = ({ config }) => {
             />
           )}
 
-          {/* Shine effect */}
+          {/* Shine effect (Enhanced for metallic) */}
           <div 
-            className="absolute inset-0 z-30 bg-gradient-to-tr from-white/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+            className="absolute inset-0 z-30 bg-gradient-to-tr from-white/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
              style={{
               maskImage: 'url(/card.png)',
               WebkitMaskImage: 'url(/card.png)',
@@ -118,7 +137,7 @@ export const ProductPreview: React.FC<Props> = ({ config }) => {
 
         <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-center w-full">
            <span className="text-xs text-stone-500 uppercase tracking-wider font-mono">
-            {config.material} — {config.color === 'transparent' ? 'Clear' : config.color}
+            {config.material} — {config.color.replace('_', ' ')}
           </span>
         </div>
       </div>

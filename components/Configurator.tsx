@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TemplateRenderer } from './TemplateRenderer';
 import { ProductPreview } from './ProductPreview';
-import { AppState, MaterialType, CardColor, TemplateStyle, SocialLink } from '../types';
+import { AppState, MaterialType, CardColor, TemplateStyle, SocialLink, SocialPlatform } from '../types';
 import { Smartphone, Layers, User, Share2, Plus, Trash2, Check, ShoppingBag } from 'lucide-react';
 
 const INITIAL_STATE: AppState = {
@@ -22,6 +22,60 @@ const INITIAL_STATE: AppState = {
     quantity: 1
   }
 };
+
+const SOCIAL_PLATFORMS: SocialPlatform[] = [
+  'website', 'email', 'instagram', 'linkedin', 'twitter', 'facebook', 
+  'youtube', 'tiktok', 'whatsapp', 'telegram', 'snapchat', 'discord', 
+  'twitch', 'spotify', 'github', 'behance', 'dribbble', 'paypal', 'custom'
+];
+
+// Helper to render a static mini-preview of templates
+const TemplateThumbnail: React.FC<{ template: TemplateStyle, selected: boolean, onClick: () => void }> = ({ template, selected, onClick }) => {
+  // We simulate the "Vibe" of the template via CSS classes
+  let bgClass = "bg-white";
+  let fgClass = "bg-gray-200";
+  let accentClass = "bg-gray-400";
+  let font = "font-sans";
+
+  switch (template) {
+    case TemplateStyle.NEON_CYBER: bgClass="bg-black"; fgClass="bg-cyan-900"; accentClass="bg-purple-500"; break;
+    case TemplateStyle.PROFESSIONAL: bgClass="bg-slate-50"; fgClass="bg-slate-800"; accentClass="bg-slate-300"; break;
+    case TemplateStyle.NATURE_ECO: bgClass="bg-[#fdfbf7]"; fgClass="bg-[#8c9c85]"; accentClass="bg-[#3e4a3d]"; break;
+    case TemplateStyle.VIBRANT_SOCIAL: bgClass="bg-gradient-to-br from-pink-500 to-yellow-500"; fgClass="bg-white"; accentClass="bg-pink-500"; break;
+    case TemplateStyle.GLASS_MORPHISM: bgClass="bg-gradient-to-tr from-blue-300 to-pink-300"; fgClass="bg-white/40"; accentClass="bg-white/60"; break;
+    case TemplateStyle.LUXURY_SERIF: bgClass="bg-[#111]"; fgClass="bg-[#D4AF37]"; accentClass="bg-[#D4AF37]"; break;
+    case TemplateStyle.DEVELOPER_TERM: bgClass="bg-[#0d1117]"; fgClass="bg-[#30363d]"; accentClass="bg-[#58a6ff]"; font="font-mono"; break;
+    case TemplateStyle.RETRO_80S: bgClass="bg-[#120024]"; fgClass="bg-[#ff00de]"; accentClass="bg-[#00f0ff]"; break;
+    case TemplateStyle.INFLUENCER_GLOW: bgClass="bg-orange-100"; fgClass="bg-white"; accentClass="bg-pink-400"; break;
+    case TemplateStyle.CORPORATE_CLEAN: bgClass="bg-gray-100"; fgClass="bg-[#004e92]"; accentClass="bg-white"; break;
+    case TemplateStyle.MINIMAL_MONO: bgClass="bg-white"; fgClass="bg-black"; accentClass="bg-black"; break;
+    case TemplateStyle.GAMER_RGB: bgClass="bg-[#0a0a0a]"; fgClass="bg-red-600"; accentClass="bg-blue-600"; break;
+    case TemplateStyle.ARTISTIC_BRUSH: bgClass="bg-[#f3f0e8]"; fgClass="bg-[#d4a373]"; accentClass="bg-stone-600"; break;
+    case TemplateStyle.CREATIVE_PORTFOLIO: bgClass="bg-stone-100"; fgClass="bg-black"; accentClass="bg-white"; break;
+    default: break; // Modern minimal default
+  }
+
+  return (
+    <button 
+      onClick={onClick}
+      className={`relative flex flex-col items-center gap-2 p-2 rounded-xl transition-all ${selected ? 'ring-2 ring-madilium-accent bg-stone-800' : 'hover:bg-stone-800/50'}`}
+    >
+      <div className={`w-full aspect-[9/16] rounded-lg shadow-sm overflow-hidden flex flex-col items-center pt-2 gap-1 border border-stone-700/50 ${bgClass}`}>
+        {/* Fake Header/Avatar */}
+        <div className={`w-6 h-6 rounded-full ${fgClass} opacity-80`} />
+        {/* Fake Lines */}
+        <div className={`w-12 h-1 rounded-full ${accentClass} opacity-60`} />
+        <div className={`w-16 h-1 rounded-full ${accentClass} opacity-40`} />
+        {/* Fake Buttons */}
+        <div className={`mt-2 w-16 h-3 rounded ${fgClass} opacity-50`} />
+        <div className={`w-16 h-3 rounded ${fgClass} opacity-50`} />
+      </div>
+      <span className={`text-[10px] uppercase font-bold text-center max-w-full leading-tight ${selected ? 'text-white' : 'text-stone-500'}`}>
+        {template.replace(/_/g, ' ')}
+      </span>
+    </button>
+  )
+}
 
 export const Configurator: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'product' | 'profile'>('product');
@@ -113,20 +167,32 @@ export const Configurator: React.FC = () => {
 
               <div>
                 <h3 className="text-xl font-bold text-white mb-4">Select Finish</h3>
-                <div className="flex flex-wrap gap-3">
-                  {state.product.material === MaterialType.PMMA ? (
-                    <>
+                {state.product.material === MaterialType.PMMA ? (
+                  <div className="space-y-4">
+                    <p className="text-xs font-bold text-stone-500 uppercase tracking-wider">Classic & Gloss</p>
+                    <div className="flex flex-wrap gap-3">
                       <button onClick={() => updateProduct('color', CardColor.BLACK)} className={`w-12 h-12 rounded-full bg-black border-2 ${state.product.color === CardColor.BLACK ? 'border-madilium-accent scale-110' : 'border-stone-700'}`} title="Black" />
                       <button onClick={() => updateProduct('color', CardColor.WHITE)} className={`w-12 h-12 rounded-full bg-white border-2 ${state.product.color === CardColor.WHITE ? 'border-madilium-accent scale-110' : 'border-stone-700'}`} title="White" />
                       <button onClick={() => updateProduct('color', CardColor.CLEAR)} className={`w-12 h-12 rounded-full bg-gray-500/20 border-2 ${state.product.color === CardColor.CLEAR ? 'border-madilium-accent scale-110' : 'border-stone-700'}`} title="Transparent" />
-                    </>
-                  ) : (
-                    <>
-                       <button onClick={() => updateProduct('color', CardColor.WOOD_WALNUT)} className={`w-12 h-12 rounded-full bg-[#5C4033] border-2 ${state.product.color === CardColor.WOOD_WALNUT ? 'border-madilium-accent scale-110' : 'border-stone-700'}`} title="Walnut" />
-                       <button onClick={() => updateProduct('color', CardColor.WOOD_OAK)} className={`w-12 h-12 rounded-full bg-[#A0522D] border-2 ${state.product.color === CardColor.WOOD_OAK ? 'border-madilium-accent scale-110' : 'border-stone-700'}`} title="Oak" />
-                    </>
-                  )}
-                </div>
+                      <button onClick={() => updateProduct('color', CardColor.NAVY_BLUE)} className={`w-12 h-12 rounded-full bg-[#1a365d] border-2 ${state.product.color === CardColor.NAVY_BLUE ? 'border-madilium-accent scale-110' : 'border-stone-700'}`} title="Navy Blue" />
+                      <button onClick={() => updateProduct('color', CardColor.EMERALD_GREEN)} className={`w-12 h-12 rounded-full bg-[#064e3b] border-2 ${state.product.color === CardColor.EMERALD_GREEN ? 'border-madilium-accent scale-110' : 'border-stone-700'}`} title="Emerald Green" />
+                      <button onClick={() => updateProduct('color', CardColor.RED_VELVET)} className={`w-12 h-12 rounded-full bg-[#7f1d1d] border-2 ${state.product.color === CardColor.RED_VELVET ? 'border-madilium-accent scale-110' : 'border-stone-700'}`} title="Red Velvet" />
+                    </div>
+                    <p className="text-xs font-bold text-stone-500 uppercase tracking-wider mt-4">Premium Metallic</p>
+                    <div className="flex flex-wrap gap-3">
+                      <button onClick={() => updateProduct('color', CardColor.GOLD)} className={`w-12 h-12 rounded-full bg-gradient-to-br from-yellow-300 to-yellow-600 border-2 ${state.product.color === CardColor.GOLD ? 'border-white scale-110' : 'border-stone-700'}`} title="Gold" />
+                      <button onClick={() => updateProduct('color', CardColor.ROSE_GOLD)} className={`w-12 h-12 rounded-full bg-gradient-to-br from-pink-300 to-rose-400 border-2 ${state.product.color === CardColor.ROSE_GOLD ? 'border-white scale-110' : 'border-stone-700'}`} title="Rose Gold" />
+                      <button onClick={() => updateProduct('color', CardColor.SILVER)} className={`w-12 h-12 rounded-full bg-gradient-to-br from-gray-300 to-gray-500 border-2 ${state.product.color === CardColor.SILVER ? 'border-white scale-110' : 'border-stone-700'}`} title="Silver" />
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex flex-wrap gap-3">
+                     <button onClick={() => updateProduct('color', CardColor.WOOD_WALNUT)} className={`w-12 h-12 rounded-full bg-[#5C4033] border-2 ${state.product.color === CardColor.WOOD_WALNUT ? 'border-madilium-accent scale-110' : 'border-stone-700'}`} title="Walnut" />
+                     <button onClick={() => updateProduct('color', CardColor.WOOD_OAK)} className={`w-12 h-12 rounded-full bg-[#A0522D] border-2 ${state.product.color === CardColor.WOOD_OAK ? 'border-madilium-accent scale-110' : 'border-stone-700'}`} title="Oak" />
+                     <button onClick={() => updateProduct('color', CardColor.WOOD_BAMBOO)} className={`w-12 h-12 rounded-full bg-[#E3C699] border-2 ${state.product.color === CardColor.WOOD_BAMBOO ? 'border-madilium-accent scale-110' : 'border-stone-700'}`} title="Bamboo" />
+                     <button onClick={() => updateProduct('color', CardColor.WOOD_EBONY)} className={`w-12 h-12 rounded-full bg-[#2A2420] border-2 ${state.product.color === CardColor.WOOD_EBONY ? 'border-madilium-accent scale-110' : 'border-stone-700'}`} title="Ebony" />
+                  </div>
+                )}
               </div>
               
               <div className="pt-8 border-t border-stone-800">
@@ -174,15 +240,14 @@ export const Configurator: React.FC = () => {
               {/* Template Selection */}
               <div>
                 <h3 className="text-lg font-bold text-white mb-3">Choose Template</h3>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                <div className="grid grid-cols-3 sm:grid-cols-4 gap-3 max-h-96 overflow-y-auto pr-2">
                    {Object.values(TemplateStyle).map(t => (
-                     <button
-                        key={t}
-                        onClick={() => setState(prev => ({ ...prev, template: t }))}
-                        className={`p-2 text-xs rounded-lg border transition-all ${state.template === t ? 'bg-madilium-accent text-black border-madilium-accent font-bold' : 'border-stone-700 text-stone-400 hover:border-stone-500'}`}
-                     >
-                       {t.replace('_', ' ')}
-                     </button>
+                     <TemplateThumbnail 
+                       key={t}
+                       template={t}
+                       selected={state.template === t}
+                       onClick={() => setState(prev => ({ ...prev, template: t }))}
+                     />
                    ))}
                 </div>
               </div>
@@ -199,19 +264,17 @@ export const Configurator: React.FC = () => {
                       <select 
                         value={link.platform}
                         onChange={(e) => updateLink(link.id, 'platform', e.target.value as any)}
-                        className="bg-stone-900 text-white text-xs p-2 rounded border border-stone-700 focus:outline-none"
+                        className="bg-stone-900 text-white text-xs p-2 rounded border border-stone-700 focus:outline-none w-28 capitalize"
                       >
-                        <option value="website">Website</option>
-                        <option value="instagram">Instagram</option>
-                        <option value="twitter">Twitter</option>
-                        <option value="linkedin">LinkedIn</option>
-                        <option value="email">Email</option>
+                        {SOCIAL_PLATFORMS.map(p => (
+                          <option key={p} value={p}>{p}</option>
+                        ))}
                       </select>
                       <input 
                         type="text" 
                         value={link.url}
                         onChange={(e) => updateLink(link.id, 'url', e.target.value)}
-                        placeholder="https://..."
+                        placeholder="Link URL"
                         className="flex-1 bg-stone-900 text-white text-xs p-2 rounded border border-stone-700 focus:outline-none"
                       />
                       <button onClick={() => removeLink(link.id)} className="p-2 text-red-400 hover:text-red-300">
