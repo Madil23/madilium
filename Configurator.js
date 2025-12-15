@@ -6,93 +6,60 @@ import {
   Palette, DollarSign, Link as LinkIcon 
 } from 'lucide-react';
 
-// --- TYPES & ENUMS ---
+// --- CONSTANTS & ENUMS (Converted to Objects) ---
 
-export enum MaterialType {
-  PMMA = 'PMMA',
-  WOOD = 'WOOD',
-}
+export const MaterialType = {
+  PMMA: 'PMMA',
+  WOOD: 'WOOD',
+};
 
-export enum CardColor {
+export const CardColor = {
   // PMMA / Standard
-  BLACK = 'black',
-  WHITE = 'white',
-  CLEAR = 'transparent',
-  NAVY_BLUE = '#1a365d',
-  EMERALD_GREEN = '#064e3b',
-  PURPLE_HAZE = '#581c87',
-  RED_VELVET = '#7f1d1d',
+  BLACK: 'black',
+  WHITE: 'white',
+  CLEAR: 'transparent',
+  NAVY_BLUE: '#1a365d',
+  EMERALD_GREEN: '#064e3b',
+  PURPLE_HAZE: '#581c87',
+  RED_VELVET: '#7f1d1d',
   
   // Metallic / Special
-  GOLD = 'gold',
-  ROSE_GOLD = 'rose_gold',
-  SILVER = 'silver',
+  GOLD: 'gold',
+  ROSE_GOLD: 'rose_gold',
+  SILVER: 'silver',
   
   // Wood
-  WOOD_OAK = '#A0522D',
-  WOOD_WALNUT = '#5C4033',
-  WOOD_BAMBOO = '#E3C699',
-  WOOD_EBONY = '#2A2420',
-}
+  WOOD_OAK: '#A0522D',
+  WOOD_WALNUT: '#5C4033',
+  WOOD_BAMBOO: '#E3C699',
+  WOOD_EBONY: '#2A2420',
+};
 
-export enum TemplateStyle {
-  MODERN_MINIMAL = 'MODERN_MINIMAL',
-  NEON_CYBER = 'NEON_CYBER',
-  PROFESSIONAL = 'PROFESSIONAL',
-  NATURE_ECO = 'NATURE_ECO',
-  VIBRANT_SOCIAL = 'VIBRANT_SOCIAL',
-  GLASS_MORPHISM = 'GLASS_MORPHISM',
-  LUXURY_SERIF = 'LUXURY_SERIF',
-  DEVELOPER_TERM = 'DEVELOPER_TERM',
-  CREATIVE_PORTFOLIO = 'CREATIVE_PORTFOLIO',
-  RETRO_80S = 'RETRO_80S',
-  INFLUENCER_GLOW = 'INFLUENCER_GLOW',
-  CORPORATE_CLEAN = 'CORPORATE_CLEAN',
-  MINIMAL_MONO = 'MINIMAL_MONO',
-  GAMER_RGB = 'GAMER_RGB',
-  ARTISTIC_BRUSH = 'ARTISTIC_BRUSH',
-}
+export const TemplateStyle = {
+  MODERN_MINIMAL: 'MODERN_MINIMAL',
+  NEON_CYBER: 'NEON_CYBER',
+  PROFESSIONAL: 'PROFESSIONAL',
+  NATURE_ECO: 'NATURE_ECO',
+  VIBRANT_SOCIAL: 'VIBRANT_SOCIAL',
+  GLASS_MORPHISM: 'GLASS_MORPHISM',
+  LUXURY_SERIF: 'LUXURY_SERIF',
+  DEVELOPER_TERM: 'DEVELOPER_TERM',
+  CREATIVE_PORTFOLIO: 'CREATIVE_PORTFOLIO',
+  RETRO_80S: 'RETRO_80S',
+  INFLUENCER_GLOW: 'INFLUENCER_GLOW',
+  CORPORATE_CLEAN: 'CORPORATE_CLEAN',
+  MINIMAL_MONO: 'MINIMAL_MONO',
+  GAMER_RGB: 'GAMER_RGB',
+  ARTISTIC_BRUSH: 'ARTISTIC_BRUSH',
+};
 
-export type SocialPlatform = 
-  | 'website' | 'email' | 'instagram' | 'linkedin' | 'twitter' | 'facebook' 
-  | 'youtube' | 'tiktok' | 'whatsapp' | 'telegram' | 'snapchat' | 'discord' 
-  | 'twitch' | 'spotify' | 'github' | 'behance' | 'dribbble' | 'paypal' | 'custom';
-
-export interface SocialLink {
-  id: string;
-  platform: SocialPlatform;
-  url: string;
-}
-
-export interface UserProfile {
-  name: string;
-  title: string;
-  bio: string;
-  avatarUrl: string;
-  links: SocialLink[];
-}
-
-export interface ProductConfig {
-  material: MaterialType;
-  color: string;
-  quantity: number;
-}
-
-export interface AppState {
-  profile: UserProfile;
-  template: TemplateStyle;
-  product: ProductConfig;
-}
-
-// --- CONSTANTS ---
-
-const SOCIAL_PLATFORMS: SocialPlatform[] = [
+const SOCIAL_PLATFORMS = [
   'website', 'email', 'instagram', 'linkedin', 'twitter', 'facebook', 
   'youtube', 'tiktok', 'whatsapp', 'telegram', 'snapchat', 'discord', 
   'twitch', 'spotify', 'github', 'behance', 'dribbble', 'paypal', 'custom'
 ];
 
-const IconMap: Record<string, React.ReactNode> = {
+const IconMap = {
   email: <Mail size={18} />,
   website: <Globe size={18} />,
   linkedin: <Linkedin size={18} />,
@@ -116,7 +83,7 @@ const IconMap: Record<string, React.ReactNode> = {
 
 // --- SUB-COMPONENTS ---
 
-const LinkButton: React.FC<{ link: any, className?: string, iconClassName?: string }> = ({ link, className, iconClassName }) => (
+const LinkButton = ({ link, className, iconClassName }) => (
   <a
     href={link.url}
     target="_blank"
@@ -130,7 +97,7 @@ const LinkButton: React.FC<{ link: any, className?: string, iconClassName?: stri
 
 // --- TEMPLATES ---
 
-const ModernMinimal: React.FC<{ profile: UserProfile }> = ({ profile }) => (
+const ModernMinimal = ({ profile }) => (
   <div className="h-full w-full bg-white text-gray-900 flex flex-col items-center p-8 overflow-y-auto">
     <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-gray-100 shadow-xl mb-6 mt-8">
       <img src={profile.avatarUrl} alt={profile.name} className="w-full h-full object-cover" />
@@ -146,7 +113,7 @@ const ModernMinimal: React.FC<{ profile: UserProfile }> = ({ profile }) => (
   </div>
 );
 
-const NeonCyber: React.FC<{ profile: UserProfile }> = ({ profile }) => (
+const NeonCyber = ({ profile }) => (
   <div className="h-full w-full bg-black text-white flex flex-col items-center p-6 overflow-y-auto relative">
     <div className="absolute inset-0 bg-[url('https://picsum.photos/id/134/400/800')] opacity-20 bg-cover bg-center" />
     <div className="z-10 w-full flex flex-col items-center">
@@ -168,7 +135,7 @@ const NeonCyber: React.FC<{ profile: UserProfile }> = ({ profile }) => (
   </div>
 );
 
-const Professional: React.FC<{ profile: UserProfile }> = ({ profile }) => (
+const Professional = ({ profile }) => (
   <div className="h-full w-full bg-slate-50 text-slate-800 flex flex-col overflow-y-auto">
     <div className="bg-slate-900 h-40 w-full relative shrink-0">
       <div className="absolute -bottom-12 left-6 p-1 bg-white rounded-lg shadow-sm">
@@ -189,7 +156,7 @@ const Professional: React.FC<{ profile: UserProfile }> = ({ profile }) => (
   </div>
 );
 
-const NatureEco: React.FC<{ profile: UserProfile }> = ({ profile }) => (
+const NatureEco = ({ profile }) => (
   <div className="h-full w-full bg-[#fdfbf7] text-[#4a4a4a] flex flex-col items-center p-6 overflow-y-auto">
     <div className="w-full flex justify-center mt-8 mb-6">
        <div className="p-2 border-2 border-dashed border-[#8c9c85] rounded-full">
@@ -213,7 +180,7 @@ const NatureEco: React.FC<{ profile: UserProfile }> = ({ profile }) => (
   </div>
 );
 
-const VibrantSocial: React.FC<{ profile: UserProfile }> = ({ profile }) => (
+const VibrantSocial = ({ profile }) => (
   <div className="h-full w-full bg-gradient-to-br from-pink-500 via-red-500 to-yellow-500 text-white flex flex-col overflow-y-auto">
     <div className="flex-1 flex flex-col items-center justify-center p-8 text-center">
       <div className="w-32 h-32 rounded-3xl rotate-3 bg-white/20 backdrop-blur-md p-2 shadow-2xl mb-6">
@@ -234,7 +201,7 @@ const VibrantSocial: React.FC<{ profile: UserProfile }> = ({ profile }) => (
 );
 
 // New Templates
-const GlassMorphism: React.FC<{ profile: UserProfile }> = ({ profile }) => (
+const GlassMorphism = ({ profile }) => (
   <div className="h-full w-full bg-gradient-to-tr from-blue-400 via-purple-400 to-pink-400 flex flex-col items-center p-6 overflow-y-auto relative">
     <div className="absolute top-10 left-[-20px] w-40 h-40 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
     <div className="absolute top-0 right-[-20px] w-40 h-40 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
@@ -254,7 +221,7 @@ const GlassMorphism: React.FC<{ profile: UserProfile }> = ({ profile }) => (
   </div>
 );
 
-const LuxurySerif: React.FC<{ profile: UserProfile }> = ({ profile }) => (
+const LuxurySerif = ({ profile }) => (
   <div className="h-full w-full bg-[#111] text-[#D4AF37] flex flex-col items-center p-8 overflow-y-auto border-4 border-[#D4AF37] m-auto">
     <div className="w-full text-center border-b border-[#D4AF37]/30 pb-6 mb-6">
       <div className="w-24 h-24 mx-auto rounded-full border-2 border-[#D4AF37] p-1 mb-4">
@@ -272,7 +239,7 @@ const LuxurySerif: React.FC<{ profile: UserProfile }> = ({ profile }) => (
   </div>
 );
 
-const DeveloperTerm: React.FC<{ profile: UserProfile }> = ({ profile }) => (
+const DeveloperTerm = ({ profile }) => (
   <div className="h-full w-full bg-[#0d1117] text-[#58a6ff] font-mono flex flex-col p-4 overflow-y-auto">
     <div className="border border-[#30363d] rounded-lg p-4 h-full bg-[#0d1117]">
       <div className="flex gap-2 mb-4 border-b border-[#30363d] pb-2">
@@ -310,7 +277,7 @@ const DeveloperTerm: React.FC<{ profile: UserProfile }> = ({ profile }) => (
   </div>
 );
 
-const CreativePortfolio: React.FC<{ profile: UserProfile }> = ({ profile }) => (
+const CreativePortfolio = ({ profile }) => (
   <div className="h-full w-full bg-stone-100 text-stone-900 flex flex-col p-6 overflow-y-auto">
     <div className="flex justify-between items-end mb-8 border-b-2 border-black pb-4">
       <h1 className="text-4xl font-black leading-none max-w-[60%]">{profile.name.split(' ').map((n, i) => <div key={i}>{n}</div>)}</h1>
@@ -334,7 +301,7 @@ const CreativePortfolio: React.FC<{ profile: UserProfile }> = ({ profile }) => (
   </div>
 );
 
-const Retro80s: React.FC<{ profile: UserProfile }> = ({ profile }) => (
+const Retro80s = ({ profile }) => (
   <div className="h-full w-full bg-[#120024] text-[#ff00de] flex flex-col items-center p-6 overflow-y-auto">
     <div className="w-full absolute top-0 h-1/2 bg-gradient-to-b from-[#2d0055] to-transparent -z-0"></div>
     <div 
@@ -360,7 +327,7 @@ const Retro80s: React.FC<{ profile: UserProfile }> = ({ profile }) => (
   </div>
 );
 
-const InfluencerGlow: React.FC<{ profile: UserProfile }> = ({ profile }) => (
+const InfluencerGlow = ({ profile }) => (
   <div className="h-full w-full bg-white flex flex-col overflow-y-auto">
     <div className="h-48 w-full bg-gradient-to-r from-orange-200 via-pink-200 to-purple-200 relative shrink-0"></div>
     <div className="px-6 relative -mt-16 flex flex-col items-center">
@@ -384,7 +351,7 @@ const InfluencerGlow: React.FC<{ profile: UserProfile }> = ({ profile }) => (
   </div>
 );
 
-const CorporateClean: React.FC<{ profile: UserProfile }> = ({ profile }) => (
+const CorporateClean = ({ profile }) => (
   <div className="h-full w-full bg-gray-50 text-gray-800 flex flex-col overflow-y-auto">
     <div className="bg-[#004e92] p-8 pb-12 rounded-b-[3rem] text-white text-center shadow-lg">
       <div className="w-24 h-24 mx-auto rounded-full bg-white p-1 mb-3">
@@ -411,7 +378,7 @@ const CorporateClean: React.FC<{ profile: UserProfile }> = ({ profile }) => (
   </div>
 );
 
-const MinimalMono: React.FC<{ profile: UserProfile }> = ({ profile }) => (
+const MinimalMono = ({ profile }) => (
   <div className="h-full w-full bg-white text-black flex flex-col p-8 overflow-y-auto">
     <div className="border-b-4 border-black pb-8 mb-8">
       <h1 className="text-5xl font-black uppercase tracking-tighter leading-[0.8] mb-4">{profile.name}</h1>
@@ -436,7 +403,7 @@ const MinimalMono: React.FC<{ profile: UserProfile }> = ({ profile }) => (
   </div>
 );
 
-const GamerRGB: React.FC<{ profile: UserProfile }> = ({ profile }) => (
+const GamerRGB = ({ profile }) => (
   <div className="h-full w-full bg-[#0a0a0a] text-white flex flex-col overflow-y-auto relative">
     <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-500 via-green-500 to-blue-500"></div>
     <div className="p-6 flex flex-col items-center">
@@ -460,7 +427,7 @@ const GamerRGB: React.FC<{ profile: UserProfile }> = ({ profile }) => (
   </div>
 );
 
-const ArtisticBrush: React.FC<{ profile: UserProfile }> = ({ profile }) => (
+const ArtisticBrush = ({ profile }) => (
   <div className="h-full w-full bg-[#f3f0e8] text-[#333] flex flex-col items-center p-8 overflow-y-auto">
     <div className="absolute top-0 left-0 w-full h-64 bg-[#e6dcc5] rounded-b-[50%] -z-0 transform scale-x-150"></div>
     <div className="z-10 w-full flex flex-col items-center mt-8">
@@ -484,7 +451,7 @@ const ArtisticBrush: React.FC<{ profile: UserProfile }> = ({ profile }) => (
 
 // --- MAIN TEMPLATE RENDERER ---
 
-const TemplateRenderer: React.FC<{ profile: UserProfile; template: TemplateStyle }> = ({ profile, template }) => {
+const TemplateRenderer = ({ profile, template }) => {
   switch (template) {
     case TemplateStyle.NEON_CYBER: return <NeonCyber profile={profile} />;
     case TemplateStyle.PROFESSIONAL: return <Professional profile={profile} />;
@@ -506,9 +473,9 @@ const TemplateRenderer: React.FC<{ profile: UserProfile; template: TemplateStyle
 
 // --- PRODUCT PREVIEW COMPONENT ---
 
-const ProductPreview: React.FC<{ config: ProductConfig }> = ({ config }) => {
-  const getOverlayStyle = (): React.CSSProperties => {
-    const baseStyle: React.CSSProperties = { mixBlendMode: 'multiply', opacity: 0.8 };
+const ProductPreview = ({ config }) => {
+  const getOverlayStyle = () => {
+    const baseStyle = { mixBlendMode: 'multiply', opacity: 0.8 };
 
     if (config.material === MaterialType.WOOD) {
       if (config.color === CardColor.WOOD_OAK) return { ...baseStyle, backgroundColor: '#A0522D', opacity: 0.6 };
@@ -556,7 +523,7 @@ const ProductPreview: React.FC<{ config: ProductConfig }> = ({ config }) => {
 
 // --- CONFIGURATOR MAIN COMPONENT ---
 
-const INITIAL_STATE: AppState = {
+const INITIAL_STATE = {
   profile: {
     name: "Alex Morgan",
     title: "Digital Artist & Designer",
@@ -575,7 +542,7 @@ const INITIAL_STATE: AppState = {
   }
 };
 
-const TemplateThumbnail: React.FC<{ template: TemplateStyle, selected: boolean, onClick: () => void }> = ({ template, selected, onClick }) => {
+const TemplateThumbnail = ({ template, selected, onClick }) => {
   let bgClass = "bg-white";
   let fgClass = "bg-gray-200";
   let accentClass = "bg-gray-400";
@@ -617,28 +584,28 @@ const TemplateThumbnail: React.FC<{ template: TemplateStyle, selected: boolean, 
   )
 }
 
-export const Configurator: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'product' | 'profile'>('product');
-  const [state, setState] = useState<AppState>(INITIAL_STATE);
+export const Configurator = () => {
+  const [activeTab, setActiveTab] = useState('product');
+  const [state, setState] = useState(INITIAL_STATE);
 
-  const updateProduct = (key: string, value: any) => {
+  const updateProduct = (key, value) => {
     setState(prev => ({ ...prev, product: { ...prev.product, [key]: value } }));
   };
 
-  const updateProfile = (key: string, value: string) => {
+  const updateProfile = (key, value) => {
     setState(prev => ({ ...prev, profile: { ...prev.profile, [key]: value } }));
   };
 
   const addLink = () => {
-    const newLink: SocialLink = { id: Date.now().toString(), platform: 'website', url: '' };
+    const newLink = { id: Date.now().toString(), platform: 'website', url: '' };
     setState(prev => ({ ...prev, profile: { ...prev.profile, links: [...prev.profile.links, newLink] } }));
   };
 
-  const removeLink = (id: string) => {
+  const removeLink = (id) => {
     setState(prev => ({ ...prev, profile: { ...prev.profile, links: prev.profile.links.filter(l => l.id !== id) } }));
   };
 
-  const updateLink = (id: string, key: keyof SocialLink, value: string) => {
+  const updateLink = (id, key, value) => {
     setState(prev => ({
       ...prev,
       profile: {

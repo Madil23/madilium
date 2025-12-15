@@ -5,7 +5,7 @@ import { Configurator } from './Configurator';
 
 // --- LOGO COMPONENT ---
 
-const Logo: React.FC<{ className?: string }> = ({ className = "h-12" }) => {
+const Logo = ({ className = "h-12" }) => {
   return (
     <div className={`flex items-center gap-2 ${className}`}>
       <img 
@@ -14,7 +14,7 @@ const Logo: React.FC<{ className?: string }> = ({ className = "h-12" }) => {
         className="h-full w-auto object-contain"
         onError={(e) => {
           e.currentTarget.style.display = 'none';
-          e.currentTarget.parentElement!.innerText = 'MADILIUM';
+          e.currentTarget.parentElement.innerText = 'MADILIUM';
         }}
       />
     </div>
@@ -23,7 +23,7 @@ const Logo: React.FC<{ className?: string }> = ({ className = "h-12" }) => {
 
 // --- APP LAYOUT COMPONENT ---
 
-const App: React.FC = () => {
+const App = () => {
   return (
     <div className="min-h-screen bg-stone-950 text-stone-200 font-sans selection:bg-madilium-accent selection:text-black">
       
