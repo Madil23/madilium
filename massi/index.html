@@ -61,7 +61,7 @@
         .content-wrapper {
             z-index: 1;
             width: 100%;
-            max-width: 600px; /* Un peu plus large pour le CV */
+            max-width: 600px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -83,7 +83,7 @@
             box-shadow: 0 0 40px rgba(0, 200, 255, 0.4);
             margin-bottom: 15px;
             animation: floatAvatar 6s ease-in-out infinite;
-            background-color: #203a43; /* Fallback color */
+            background-color: #203a43;
         }
 
         h1 {
@@ -104,7 +104,7 @@
             font-size: 1.1rem;
             letter-spacing: 1px;
             font-weight: 600;
-            color: #4ade80; /* Vert clair pour ressortir */
+            color: #4ade80;
             display: inline-block;
             margin-top: 10px;
         }
@@ -113,7 +113,7 @@
         .cv-section {
             width: 100%;
             margin-bottom: 25px;
-            background: rgba(255, 255, 255, 0.08); /* Très transparent */
+            background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -127,7 +127,7 @@
             font-size: 1.3rem;
             font-weight: 700;
             margin-bottom: 15px;
-            color: #00d4ff; /* Cyan Madilium */
+            color: #00d4ff;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -142,7 +142,7 @@
 
         .job-title { font-weight: 700; font-size: 1.1rem; color: white; }
         .job-company { font-size: 0.9rem; color: #cbd5e1; font-style: italic; margin-bottom: 5px; }
-        .job-desc { font-size: 0.9rem; line-height: 1.5; color: #e2e8f0; list-style-position: inside; }
+        .job-desc { font-size: 0.9rem; line-height: 1.5; color: #e2e8f0; padding-left: 20px; }
         .job-desc li { margin-bottom: 5px; }
 
         .skills-grid {
@@ -159,7 +159,7 @@
             font-weight: 600;
         }
 
-        /* --- CONTACT LINKS (Grille compacte) --- */
+        /* --- CONTACT LINKS --- */
         .links-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -257,8 +257,8 @@
 
         <div class="cv-section">
             <div class="section-title"><i class="fas fa-user"></i> Profil</div>
-            <p class="job-desc" style="text-align: justify;">
-                [cite_start]Titulaire d'un BTS en marketing[cite: 3], je suis passionné par la communication, la stratégie digitale et la prospection commerciale. Mon parcours m'a permis de développer des compétences concrètes en création de contenu, études de marché et gestion de projet. [cite_start]Curieux et rigoureux, je souhaite créer de la valeur par des solutions innovantes. [cite: 3]
+            <p class="job-desc" style="padding-left: 0; text-align: justify;">
+                Titulaire d'un BTS en marketing, je suis passionné par la communication, la stratégie digitale et la prospection commerciale. Mon parcours m'a permis de développer des compétences concrètes en création de contenu, études de marché et gestion de projet. Curieux et rigoureux, je souhaite créer de la valeur par des solutions innovantes.
             </p>
         </div>
 
@@ -269,9 +269,9 @@
                 <div class="job-title">Gestionnaire en Ligne</div>
                 <div class="job-company">E-commerce / Freelance</div>
                 <ul class="job-desc">
-                    [cite_start]<li>Gestion opérationnelle d'une boutique en ligne (commandes, logistique, expérience client). [cite: 3]</li>
-                    [cite_start]<li>Définition et mise en œuvre de la stratégie marketing digitale. [cite: 3]</li>
-                    [cite_start]<li>Création et diffusion de contenus digitaux. [cite: 3]</li>
+                    <li>Gestion opérationnelle d'une boutique en ligne (commandes, logistique, expérience client).</li>
+                    <li>Définition et mise en œuvre de la stratégie marketing digitale.</li>
+                    <li>Création et diffusion de contenus digitaux.</li>
                 </ul>
             </div>
 
@@ -279,9 +279,9 @@
                 <div class="job-title">Stagiaire Polyvalent</div>
                 <div class="job-company">Entreprise de Développement Digital</div>
                 <ul class="job-desc">
-                    [cite_start]<li>Conception de Business Model Canvas (BMC) pour la structuration de projets. [cite: 3]</li>
-                    [cite_start]<li>Études de marché ciblées et plans marketing. [cite: 3]</li>
-                    [cite_start]<li>Prospection commerciale et création de supports via Canva. [cite: 3]</li>
+                    <li>Conception de Business Model Canvas (BMC) pour la structuration de projets.</li>
+                    <li>Études de marché ciblées et plans marketing.</li>
+                    <li>Prospection commerciale et création de supports via Canva.</li>
                 </ul>
             </div>
 
@@ -289,17 +289,17 @@
                 <div class="job-title">Stagiaire Marketing</div>
                 <div class="job-company">Djezzy, Tizi Ouzou</div>
                 <ul class="job-desc">
-                    [cite_start]<li>Mise en œuvre de campagnes marketing locales. [cite: 3]</li>
-                    [cite_start]<li>Soutien commercial : prospection et suivi client. [cite: 3]</li>
-                    [cite_start]<li>Analyse de la satisfaction client et reportings. [cite: 3]</li>
+                    <li>Mise en œuvre de campagnes marketing locales.</li>
+                    <li>Soutien commercial : prospection et suivi client.</li>
+                    <li>Analyse de la satisfaction client et reportings.</li>
                 </ul>
             </div>
 
             <div class="job-card">
                 <div class="job-title">Expérience en Événementiel</div>
                 <ul class="job-desc">
-                    [cite_start]<li>Organisation logistique et coordination des intervenants. [cite: 3]</li>
-                    [cite_start]<li>Conception de supports visuels (affiches, banderoles, flyers). [cite: 3]</li>
+                    <li>Organisation logistique et coordination des intervenants.</li>
+                    <li>Conception de supports visuels (affiches, banderoles, flyers).</li>
                 </ul>
             </div>
         </div>
@@ -309,11 +309,11 @@
             <div class="job-card">
                 <div class="job-title">BTS en Marketing</div>
                 <div class="job-company">INSFP Imerzouken</div>
-                [cite_start]<div class="job-desc">Mention Très Bien [cite: 3]</div>
+                <div class="job-desc" style="padding-left: 0;">Mention Très Bien</div>
             </div>
             <div class="job-card">
                 <div class="job-title">Niveau Baccalauréat</div>
-                [cite_start]<div class="job-company">Lycée Rabah Stambouli, Tizi Ouzou [cite: 3]</div>
+                <div class="job-company">Lycée Rabah Stambouli, Tizi Ouzou</div>
             </div>
         </div>
 
@@ -333,9 +333,9 @@
         <div class="cv-section">
             <div class="section-title"><i class="fas fa-language"></i> Langues</div>
             <ul class="job-desc">
-                [cite_start]<li><strong>Français :</strong> Langue maternelle [cite: 3]</li>
-                [cite_start]<li><strong>Arabe :</strong> Courant [cite: 3]</li>
-                [cite_start]<li><strong>Anglais :</strong> Intermédiaire [cite: 3]</li>
+                <li><strong>Français :</strong> Langue maternelle</li>
+                <li><strong>Arabe :</strong> Courant</li>
+                <li><strong>Anglais :</strong> Intermédiaire</li>
             </ul>
         </div>
 
