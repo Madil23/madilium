@@ -1,7 +1,7 @@
 import React from 'react';
 // Cette ligne dit à l'ordinateur d'aller chercher l'image qui est un dossier plus haut (..)
 // @ts-ignore
-import logoSrc from '../madilium.jpg';
+import logoSrc from 'madilium.jpg';
 
 export const Logo = () => {
   return (
