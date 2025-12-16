@@ -2,12 +2,10 @@
 name: Deploy static content to Pages
 
 on:
-  # Runs on pushes targeting the default branch
   push:
-    branches: ['main'] # Assure-toi que ta branche s'appelle bien 'main'
+    branches: ['main']
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
@@ -18,7 +16,6 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Single deploy job since we're just deploying
   deploy:
     environment:
       name: github-pages
@@ -32,34 +29,39 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          # Cache désactivé pour éviter les erreurs de lockfile
 
       - name: Install dependencies
-        # "npm install" va créer le fichier manquant automatiquement
         run: npm install
 
-      - name: Build and Copy Legacy Sites
+      - name: Build and Auto-Copy Sites
         run: |
-          # 1. On construit le nouveau site React
+          # 1. On construit le nouveau site React (crée le dossier dist)
           npm run build
           
-          # 2. On copie le fichier CNAME pour que le domaine madilium.com fonctionne
+          # 2. On remet le nom de domaine
           cp CNAME dist/ || true
           
-          # 3. On copie tous les anciens dossiers dans le dossier 'dist'
-          # Le "|| true" permet de continuer même si un dossier n'existe pas
-          cp -r madil dist/ || true
-          cp -r kaizen dist/ || true
-          cp -r ferhat dist/ || true
-          cp -r massi dist/ || true
-          cp -r "miam&co" dist/ || true
-          cp -r Ouardia dist/ || true
-          cp -r qcm dist/ || true
-          cp -r RoyaleEtiquette dist/ || true
-          cp -r Support dist/ || true
-          cp -r template-auto dist/ || true
-          cp -r template-hotel dist/ || true
-          cp -r templates dist/ || true
+          # 3. AUTOMATISATION : On copie tous les dossiers clients
+          # La boucle parcourt tous les dossiers du projet
+          for dir in */; do
+            dirname=$(basename "$dir")
+            
+            # LISTE D'EXCLUSION : On ne copie PAS ces dossiers techniques
+            if [[ "$dirname" != "node_modules" && \
+                  "$dirname" != "dist" && \
+                  "$dirname" != "src" && \
+                  "$dirname" != "components" && \
+                  "$dirname" != ".git" && \
+                  "$dirname" != ".github" ]]; then
+                  
+               echo "Site client détecté : Copie de $dirname vers le site en ligne..."
+               cp -r "$dirname" dist/
+            fi
+          done
+          
+          # 4. On copie aussi les images isolées à la racine (.jpg ou .png) au cas où
+          cp *.jpg dist/ || true
+          cp *.png dist/ || true
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -67,7 +69,6 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Le dossier généré par Vite (et rempli avec tes anciens sites)
           path: './dist'
 
       - name: Deploy to GitHub Pages
