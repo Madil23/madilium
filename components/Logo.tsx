@@ -1,17 +1,26 @@
 import React from 'react';
-import { Wifi } from 'lucide-react';
+// Cette ligne dit à l'ordinateur d'aller chercher l'image qui est un dossier plus haut (..)
+// @ts-ignore
+import logoSrc from '../madilium.jpg';
 
 export const Logo = () => {
   return (
-    <div className="flex items-center gap-2">
-      <div className="relative flex items-center justify-center w-10 h-10 bg-gradient-to-tr from-cyan-400 to-blue-600 rounded-xl shadow-lg shadow-cyan-500/20">
-        <Wifi className="w-6 h-6 text-white rotate-90" />
+    <div className="flex items-center gap-3">
+      {/* Conteneur de l'image du logo */}
+      <div className="relative w-12 h-12 rounded-xl overflow-hidden shadow-lg shadow-cyan-500/20 border border-white/10">
+        <img 
+          src={logoSrc} 
+          alt="Madilium Logo" 
+          className="w-full h-full object-cover"
+        />
       </div>
+      
+      {/* Texte à côté du logo */}
       <div className="flex flex-col">
         <span className="text-xl font-bold tracking-tight text-white leading-none">
           Madilium
         </span>
-        <span className="text-[10px] font-medium tracking-widest text-gray-400 uppercase">
+        <span className="text-[10px] font-medium tracking-widest text-gray-400 uppercase mt-1">
           NFC Solutions
         </span>
       </div>
