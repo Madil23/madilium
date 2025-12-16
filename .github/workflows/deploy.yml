@@ -32,14 +32,34 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          # J'ai SUPPRIMÉ la ligne "cache: npm" qui causait l'erreur !
+          # Cache désactivé pour éviter les erreurs de lockfile
 
       - name: Install dependencies
         # "npm install" va créer le fichier manquant automatiquement
         run: npm install
 
-      - name: Build
-        run: npm run build
+      - name: Build and Copy Legacy Sites
+        run: |
+          # 1. On construit le nouveau site React
+          npm run build
+          
+          # 2. On copie le fichier CNAME pour que le domaine madilium.com fonctionne
+          cp CNAME dist/ || true
+          
+          # 3. On copie tous les anciens dossiers dans le dossier 'dist'
+          # Le "|| true" permet de continuer même si un dossier n'existe pas
+          cp -r madil dist/ || true
+          cp -r kaizen dist/ || true
+          cp -r ferhat dist/ || true
+          cp -r massi dist/ || true
+          cp -r "miam&co" dist/ || true
+          cp -r Ouardia dist/ || true
+          cp -r qcm dist/ || true
+          cp -r RoyaleEtiquette dist/ || true
+          cp -r Support dist/ || true
+          cp -r template-auto dist/ || true
+          cp -r template-hotel dist/ || true
+          cp -r templates dist/ || true
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -47,7 +67,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Le dossier généré par Vite est bien './dist'
+          # Le dossier généré par Vite (et rempli avec tes anciens sites)
           path: './dist'
 
       - name: Deploy to GitHub Pages
