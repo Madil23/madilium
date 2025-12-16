@@ -149,58 +149,124 @@ export const DigitalProfileConfigurator = () => {
             </div>
           </div>
         );
-        
-      // 2. STYLE CINEMATIC (Plein écran, texte en bas)
+
+      // 2. STYLE CINEMATIC (Immersif / Netflix Style)
       case 'cinematic':
         return (
-          <div className="h-full bg-black text-white overflow-hidden relative font-sans">
-            <div className="absolute inset-0">
-              <img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=800&q=80" className="w-full h-full object-cover opacity-60" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+          <div className="h-full bg-black text-white overflow-hidden relative font-sans group">
+            {/* Background Image avec effet de Zoom lent au survol */}
+            <div className="absolute inset-0 overflow-hidden">
+               <img 
+                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&q=80" 
+                  className="w-full h-full object-cover opacity-80 transition-transform duration-[20s] ease-linear group-hover:scale-110" 
+                  alt="Background"
+               />
+               {/* Dégradé professionnel pour la lisibilité */}
+               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent"></div>
             </div>
+
+            {/* Contenu Overlay (Texte par-dessus l'image) */}
             <div className="absolute bottom-0 left-0 right-0 p-8 flex flex-col items-start gap-4 z-10">
-              <div className="border-l-4 border-red-600 pl-4">
-                <h2 className="text-4xl font-black uppercase tracking-tighter leading-none">{profile.name}</h2>
-                <p className="text-red-500 font-bold tracking-widest text-xs uppercase mt-1">{profile.title}</p>
+              
+              {/* Badge "FEATURED" style Cinema */}
+              <div className="bg-[#E50914] text-white text-[10px] font-bold px-2 py-0.5 rounded-sm uppercase tracking-widest mb-2 shadow-lg shadow-red-900/50">
+                 Featured Talent
               </div>
-              <p className="text-gray-300 text-sm line-clamp-3 font-light opacity-80">{profile.bio}</p>
-              <div className="w-full grid grid-cols-2 gap-3 mt-4">
-                <button className="bg-white text-black py-3 px-4 font-bold uppercase tracking-widest text-xs hover:bg-gray-200">Contact</button>
-                <button className="border border-white/50 text-white py-3 px-4 font-bold uppercase tracking-widest text-xs hover:bg-white/10">Showreel</button>
+
+              <div className="border-l-4 border-[#E50914] pl-5">
+                {/* Nom scindé en 2 lignes pour effet dramatique */}
+                <h2 className="text-5xl font-black uppercase tracking-tighter leading-[0.85] drop-shadow-2xl">
+                  {profile.name.split(' ')[0]}<br/>
+                  <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400">
+                    {profile.name.split(' ')[1] || ''}
+                  </span>
+                </h2>
+                <p className="text-gray-300 font-medium tracking-[0.2em] text-xs uppercase mt-4 flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-[#E50914]"></span>
+                  {profile.title}
+                </p>
+              </div>
+
+              {/* Bio style "Synopsis" */}
+              <p className="text-gray-300 text-sm line-clamp-3 font-light opacity-90 leading-relaxed drop-shadow-md border-t border-white/10 pt-4 mt-2">
+                "{profile.bio}"
+              </p>
+
+              {/* Boutons d'action style Player Vidéo */}
+              <div className="w-full grid grid-cols-2 gap-3 mt-6">
+                <button className="bg-white text-black py-3 px-4 font-bold uppercase tracking-widest text-[10px] hover:bg-gray-200 transition-colors flex items-center justify-center gap-2 rounded-sm">
+                   <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                   Showreel
+                </button>
+                <button className="backdrop-blur-md bg-white/10 border border-white/30 text-white py-3 px-4 font-bold uppercase tracking-widest text-[10px] hover:bg-white/20 transition-colors flex items-center justify-center gap-2 rounded-sm">
+                   <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4"/></svg>
+                   Contact
+                </button>
               </div>
             </div>
           </div>
         );
 
-      // 3. STYLE ARTISAN / MANUEL (Robuste, encadré)
+      // 3. STYLE ARTISAN / MANUEL (Robuste, Chantier, Néo-Brutalisme)
       case 'artisan':
         return (
-          <div className="h-full bg-stone-100 text-stone-800 overflow-y-auto font-sans p-6 border-8 border-stone-800">
-            <div className="border-b-4 border-stone-800 pb-6 mb-6 text-center">
-              <div className="w-24 h-24 mx-auto bg-orange-600 rounded-sm mb-4 flex items-center justify-center text-white">
-                 <Briefcase className="w-12 h-12" />
-              </div>
-              <h2 className="text-3xl font-black uppercase tracking-tight">{profile.company}</h2>
-              <p className="font-bold text-orange-700">{profile.name}</p>
-            </div>
-            <div className="space-y-4">
-              <div className="bg-white border-2 border-stone-800 p-4 shadow-[4px_4px_0px_0px_rgba(28,25,23,1)]">
-                <h3 className="font-bold uppercase text-xs text-stone-500 mb-1">Expertise</h3>
-                <p className="font-bold text-lg">{profile.title}</p>
-              </div>
-              <div className="bg-stone-800 text-white p-4 shadow-[4px_4px_0px_0px_rgba(234,88,12,1)]">
-                <p className="font-medium text-sm leading-relaxed">"{profile.bio}"</p>
-              </div>
-              <button className="w-full py-4 bg-orange-600 text-white font-black uppercase tracking-wider shadow-[4px_4px_0px_0px_rgba(28,25,23,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all">
-                Demander un devis
-              </button>
-              <button className="w-full py-4 bg-white text-stone-900 border-2 border-stone-900 font-black uppercase tracking-wider shadow-[4px_4px_0px_0px_rgba(28,25,23,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all">
-                Appeler maintenant
-              </button>
+          <div className="h-full bg-[#f5f5f4] text-[#1c1917] overflow-y-auto font-sans p-6 border-[12px] border-[#1c1917] relative">
+            {/* Texture subtile de fond pour faire "papier/mur" */}
+            <div className="absolute inset-0 opacity-5 bg-[url('https://www.transparenttextures.com/patterns/concrete-wall.png')] pointer-events-none"></div>
+
+            <div className="relative z-10">
+               {/* En-tête avec Logo encadré */}
+               <div className="flex flex-col items-center mb-8">
+                  <div className="w-24 h-24 bg-[#ea580c] border-4 border-[#1c1917] flex items-center justify-center text-white shadow-[4px_4px_0px_0px_#1c1917] mb-4">
+                     <Briefcase className="w-12 h-12" strokeWidth={2.5} />
+                  </div>
+                  <h2 className="text-3xl font-black uppercase tracking-tighter text-center leading-none mb-1">
+                     {profile.company || 'Morgan Construction'}
+                  </h2>
+                  <div className="bg-[#1c1917] text-white px-3 py-1 text-xs font-bold uppercase tracking-widest transform -rotate-1">
+                     {profile.title}
+                  </div>
+               </div>
+
+               {/* Carte de visite "Scotchée" */}
+               <div className="bg-white border-4 border-[#1c1917] p-5 mb-6 shadow-[8px_8px_0px_0px_rgba(28,25,23,0.2)] relative">
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-4 bg-[#e5e5e5]/80 rotate-1 border border-gray-300/50 blur-[0.5px]"></div>
+                  <h3 className="font-black uppercase text-sm text-[#ea580c] mb-2 flex items-center gap-2">
+                     <User className="w-4 h-4" /> Contact Direct
+                  </h3>
+                  <p className="font-bold text-xl">{profile.name}</p>
+                  <p className="font-medium text-gray-600 mt-1 text-sm border-t-2 border-dashed border-gray-300 pt-2 mt-2">
+                     "{profile.bio}"
+                  </p>
+               </div>
+
+               {/* Gros Boutons d'Action (Hard Shadows) */}
+               <div className="space-y-4">
+                  <button className="w-full py-4 bg-[#ea580c] border-4 border-[#1c1917] text-white font-black uppercase tracking-wider text-sm shadow-[4px_4px_0px_0px_#1c1917] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all flex items-center justify-center gap-3 group">
+                     <Phone className="w-5 h-5 fill-current" />
+                     Appeler maintenant
+                  </button>
+                  
+                  <button className="w-full py-4 bg-white border-4 border-[#1c1917] text-[#1c1917] font-black uppercase tracking-wider text-sm shadow-[4px_4px_0px_0px_#1c1917] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all flex items-center justify-center gap-3">
+                     <Mail className="w-5 h-5" />
+                     Demander un Devis
+                  </button>
+               </div>
+
+               {/* Pied de page Info */}
+               <div className="mt-8 text-center border-t-4 border-[#1c1917] pt-4">
+                  <p className="font-bold text-xs uppercase flex items-center justify-center gap-2">
+                     <MapPin className="w-4 h-4 text-[#ea580c]" />
+                     {profile.location}
+                  </p>
+                  <div className="mt-4 flex justify-center gap-1 opacity-50">
+                     {[1,2,3,4,5].map(i => <div key={i} className="w-2 h-2 rounded-full bg-[#1c1917]"></div>)}
+                  </div>
+               </div>
             </div>
           </div>
         );
-
+        
       // 4. STYLE CEO / LUXE (Minimaliste, centré)
       case 'ceo':
         return (
