@@ -1,0 +1,196 @@
+:root {
+    --primary: #2563eb;
+    --dark: #0f172a;
+    --light: #f8fafc;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+
+body { background: #e2e8f0; height: 100vh; overflow: hidden; display: flex; justify-content: center; align-items: center; }
+
+/* LAYOUT */
+.main-container {
+    display: flex;
+    width: 90%;
+    max-width: 1200px;
+    height: 90vh;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+/* LEFT PANEL */
+.config-panel {
+    width: 40%;
+    background: #f1f5f9;
+    padding: 2rem;
+    overflow-y: auto;
+    border-right: 1px solid #cbd5e1;
+}
+
+.brand-logo { max-height: 50px; margin-bottom: 10px; }
+.config-panel h1 { font-size: 1.5rem; color: var(--dark); }
+.config-panel h3 { margin-top: 1.5rem; margin-bottom: 0.5rem; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; color: #64748b; }
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
+.template-selector {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.t-btn {
+    padding: 10px;
+    border: none;
+    background: white;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    transition: 0.3s;
+    border: 2px solid transparent;
+}
+.t-btn:hover { background: #e2e8f0; }
+.t-btn.active { border-color: var(--primary); color: var(--primary); font-weight: bold; }
+
+.mini-card-img { width: 100%; border-radius: 10px; margin-top: 10px; }
+
+/* RIGHT PANEL (PREVIEW) */
+.preview-area {
+    width: 60%;
+    background: #cbd5e1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: radial-gradient(#94a3b8 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+.phone-mockup {
+    width: 320px;
+    height: 650px;
+    background: #000;
+    border-radius: 40px;
+    border: 8px solid #333;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.camera-notch {
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 120px; height: 25px;
+    background: #000;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    z-index: 10;
+}
+
+.screen {
+    width: 100%; height: 100%;
+    overflow-y: auto;
+    padding: 60px 20px 20px 20px;
+    text-align: center;
+    transition: all 0.5s ease; /* Smooth transition between templates */
+}
+
+/* ----- TEMPLATE DEFAULTS ----- */
+.avatar-placeholder { width: 100px; height: 100px; background: #ddd; border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: #fff; }
+.profile-btn { display: block; padding: 12px; margin: 10px 0; text-decoration: none; border-radius: 8px; font-weight: 600; transition: 0.3s; }
+.madilium-watermark { font-size: 0.7rem; opacity: 0.5; margin-top: 30px; }
+.icon-btn { display: inline-block; width: 45px; margin: 5px; text-align: center; }
+
+/* =========================================
+   THE 5 TEMPLATES
+   ========================================= */
+
+/* 1. PMMA TECH (Futuristic, Dark, Neon) */
+.tpl-modern-pmma {
+    background: #0f0c29;  /* fallback */
+    background: linear-gradient(to bottom, #24243e, #302b63, #0f0c29);
+    color: white;
+}
+.tpl-modern-pmma .avatar-placeholder { background: rgba(255,255,255,0.1); border: 2px solid #00f2ff; box-shadow: 0 0 15px #00f2ff; }
+.tpl-modern-pmma h2 { font-family: 'Roboto Mono', monospace; text-transform: uppercase; letter-spacing: 2px; }
+.tpl-modern-pmma .profile-btn {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #00f2ff;
+    backdrop-filter: blur(5px);
+}
+.tpl-modern-pmma .profile-btn:hover { background: #00f2ff; color: #000; }
+
+/* 2. ECO WOOD (Warm, Organic, Serif) */
+.tpl-eco-wood {
+    background: #f7f3e8;
+    color: #4a3b32;
+}
+.tpl-eco-wood .avatar-placeholder { border-radius: 10px; background: #8c7b70; }
+.tpl-eco-wood h2 { font-family: 'Playfair Display', serif; font-size: 2rem; }
+.tpl-eco-wood .profile-btn {
+    background: #d4c5b0;
+    color: #2b221e;
+    border-radius: 2px;
+    box-shadow: 3px 3px 0px #4a3b32;
+}
+.tpl-eco-wood .profile-btn:hover { transform: translate(2px, 2px); box-shadow: 1px 1px 0px #4a3b32; }
+
+/* 3. MINIMALIST LUXE (B&W, High End) */
+.tpl-minimalist {
+    background: #ffffff;
+    color: #000000;
+}
+.tpl-minimalist .avatar-placeholder { background: transparent; border: 1px solid #000; color: #000; border-radius: 0; }
+.tpl-minimalist h2 { font-weight: 300; letter-spacing: 3px; text-transform: uppercase; font-size: 1.2rem; margin-bottom: 5px; }
+.tpl-minimalist p { font-size: 0.8rem; color: #666; font-style: italic; }
+.tpl-minimalist .profile-btn {
+    background: transparent;
+    border-bottom: 1px solid #000;
+    border-radius: 0;
+    padding: 15px 0;
+    text-align: left;
+    color: #000;
+}
+.tpl-minimalist .profile-btn:hover { padding-left: 10px; background: #f9f9f9; }
+
+/* 4. CREATIVE (Bold, Pop Colors) */
+.tpl-creative {
+    background: #FFDEE9;
+    background: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%);
+    color: #2d3436;
+}
+.tpl-creative .avatar-placeholder { background: #fd79a8; border: 4px solid white; transform: rotate(-5deg); }
+.tpl-creative h2 { font-weight: 900; font-size: 2.2rem; transform: rotate(-2deg); margin-bottom: 10px; color: #6c5ce7; }
+.tpl-creative .profile-btn {
+    background: #6c5ce7;
+    color: white;
+    border-radius: 30px;
+    box-shadow: 0 10px 20px rgba(108, 92, 231, 0.3);
+    margin-bottom: 15px;
+}
+.tpl-creative .profile-btn:hover { transform: scale(1.05); }
+
+/* 5. SOCIAL LINK (Gradient, Pill shapes) */
+.tpl-social {
+    background: linear-gradient(45deg, #8E2DE2, #4A00E0);
+    color: white;
+}
+.tpl-social .avatar-placeholder { border: 3px solid white; width: 120px; height: 120px; }
+.tpl-social h2 { font-weight: 600; margin-top: 10px; }
+.tpl-social .profile-btn {
+    background: rgba(255,255,255,0.9);
+    color: #4A00E0;
+    border-radius: 50px;
+    font-weight: 700;
+}
+.tpl-social .profile-btn:hover { background: #fff; transform: translateY(-3px); }

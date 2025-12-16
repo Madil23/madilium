@@ -1,46 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Madilium | NFC Solutions</title>
-    <!-- Keeping Tailwind CDN for simplicity in this setup without complex PostCSS config -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              madilium: {
-                900: '#1a1a1a',
-                800: '#2d2d2d',
-                accent: '#00d4ff',
-                silver: '#c0c0c0',
-              }
-            },
-            fontFamily: {
-              sans: ['Inter', 'sans-serif'],
-            }
-          }
-        }
-      }
-    </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-<script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@^19.2.3",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "lucide-react": "https://esm.sh/lucide-react@^0.561.0",
-    "vite": "https://esm.sh/vite@^7.3.0",
-    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2"
-  }
-}
-</script>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madilium | NFC Profile Configurator</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
-  <body class="bg-stone-950 text-white antialiased">
-    <div id="root"></div>
-    <!-- Vite Entry Point -->
-    <script type="module" src="/index.js"></script>
-  </body>
+<body>
+
+    <div class="main-container">
+        <aside class="config-panel">
+            <div class="brand-header">
+                <img src="logo.png" alt="Madilium Logo" class="brand-logo">
+                <h1>Madilium Configurator</h1>
+                <p>Ancré au réel, connecté au futur.</p>
+            </div>
+
+            <div class="controls">
+                <h3>1. Information</h3>
+                <input type="text" id="inputName" placeholder="Nom Complet" value="Madil Cheradi">
+                <input type="text" id="inputJob" placeholder="Titre / Profession" value="CEO & Founder">
+                <textarea id="inputBio" placeholder="Courte biographie...">Expert en solutions NFC et marketing digital.</textarea>
+                
+                <h3>2. Choisissez un Style</h3>
+                <div class="template-selector">
+                    <button class="t-btn active" onclick="setTemplate('tpl-modern-pmma')">PMMA Tech</button>
+                    <button class="t-btn" onclick="setTemplate('tpl-eco-wood')">Éco Wood</button>
+                    <button class="t-btn" onclick="setTemplate('tpl-minimalist')">Luxe Minimal</button>
+                    <button class="t-btn" onclick="setTemplate('tpl-creative')">Créatif</button>
+                    <button class="t-btn" onclick="setTemplate('tpl-social')">Social Link</button>
+                </div>
+
+                <h3>3. Actions</h3>
+                <div class="link-inputs">
+                    <input type="text" id="btnLabel1" placeholder="Label Bouton 1" value="Mon Site Web">
+                    <input type="text" id="btnLabel2" placeholder="Label Bouton 2" value="Contactez-moi">
+                </div>
+            </div>
+            
+            <div class="card-preview-mini">
+                <p><small>Votre carte physique :</small></p>
+                <img src="card_preview.jpg" alt="Aperçu Carte Madilium" class="mini-card-img">
+            </div>
+        </aside>
+
+        <main class="preview-area">
+            <div class="phone-mockup">
+                <div class="camera-notch"></div>
+                <div class="screen" id="previewScreen">
+                    <div class="profile-header">
+                        <div class="avatar-placeholder">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h2 id="previewName">Madil Cheradi</h2>
+                        <p id="previewJob">CEO & Founder</p>
+                    </div>
+                    
+                    <div class="bio-section">
+                        <p id="previewBio">Expert en solutions NFC et marketing digital.</p>
+                    </div>
+
+                    <div class="links-section">
+                        <a href="#" class="profile-btn" id="previewBtn1">Mon Site Web</a>
+                        <a href="#" class="profile-btn" id="previewBtn2">Contactez-moi</a>
+                        <a href="#" class="profile-btn icon-btn"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="profile-btn icon-btn"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                    
+                    <div class="madilium-watermark">Powered by Madilium</div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
 </html>
