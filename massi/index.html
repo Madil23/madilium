@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Massi | Ocean</title>
+    <title>CV | Abed Massinissa</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -17,7 +17,6 @@
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
-            
             /* Fond Océan Dégradé Profond */
             background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
             display: flex;
@@ -32,7 +31,7 @@
             top: 0; left: 0; width: 100%; height: 100%;
             overflow: hidden;
             z-index: 0;
-            pointer-events: none; /* On peut cliquer à travers */
+            pointer-events: none;
         }
 
         .bubble {
@@ -58,11 +57,11 @@
             100% { bottom: 1080px; transform: translateX(-50px); }
         }
 
-        /* --- CONTENU PRINCIPAL (Au dessus des bulles) --- */
+        /* --- CONTENU PRINCIPAL --- */
         .content-wrapper {
             z-index: 1;
             width: 100%;
-            max-width: 500px;
+            max-width: 600px; /* Un peu plus large pour le CV */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -71,7 +70,7 @@
         /* --- PROFIL --- */
         .profile-container {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             animation: fadeIn 2s ease-out;
         }
 
@@ -83,16 +82,18 @@
             border: 4px solid rgba(255, 255, 255, 0.3);
             box-shadow: 0 0 40px rgba(0, 200, 255, 0.4);
             margin-bottom: 15px;
-            /* L'avatar flotte aussi doucement */
             animation: floatAvatar 6s ease-in-out infinite;
+            background-color: #203a43; /* Fallback color */
         }
 
         h1 {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-weight: 900;
+            text-transform: uppercase;
             letter-spacing: 2px;
             text-shadow: 0 5px 15px rgba(0,0,0,0.5);
             margin-bottom: 5px;
+            line-height: 1.2;
         }
 
         .tagline {
@@ -100,86 +101,117 @@
             padding: 8px 20px;
             border-radius: 50px;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.9rem;
+            font-size: 1.1rem;
             letter-spacing: 1px;
+            font-weight: 600;
+            color: #4ade80; /* Vert clair pour ressortir */
+            display: inline-block;
+            margin-top: 10px;
         }
 
-        /* --- BOUTONS FLOTTANTS --- */
-        .links-container {
+        /* --- SECTION DU CV (Style Carte) --- */
+        .cv-section {
             width: 100%;
+            margin-bottom: 25px;
+            background: rgba(255, 255, 255, 0.08); /* Très transparent */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            animation: slideUp 1s ease-out forwards;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #00d4ff; /* Cyan Madilium */
             display: flex;
-            flex-direction: column;
-            gap: 20px; /* Espace pour qu'ils ne se cognent pas trop */
-            perspective: 1000px;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 10px;
+        }
+
+        .job-card {
+            margin-bottom: 20px;
+        }
+        .job-card:last-child { margin-bottom: 0; }
+
+        .job-title { font-weight: 700; font-size: 1.1rem; color: white; }
+        .job-company { font-size: 0.9rem; color: #cbd5e1; font-style: italic; margin-bottom: 5px; }
+        .job-desc { font-size: 0.9rem; line-height: 1.5; color: #e2e8f0; list-style-position: inside; }
+        .job-desc li { margin-bottom: 5px; }
+
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .skill-tag {
+            background: rgba(0, 212, 255, 0.15);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* --- CONTACT LINKS (Grille compacte) --- */
+        .links-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            width: 100%;
+            margin-bottom: 30px;
         }
 
         .link-card {
-            /* Style Glassmorphism */
             background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(5px);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            
             color: white;
             text-decoration: none;
-            padding: 20px 25px;
-            border-radius: 20px;
+            padding: 15px;
+            border-radius: 15px;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            
-            /* L'animation de base "Courant marin" */
-            animation: oceanDrift 5s ease-in-out infinite alternate;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
         }
 
-        /* On donne des rythmes différents à chaque bouton pour faire naturel */
-        .link-card:nth-child(1) { animation-duration: 4s; animation-delay: 0s; }
-        .link-card:nth-child(2) { animation-duration: 5.5s; animation-delay: 0.5s; animation-direction: alternate-reverse; }
-        .link-card:nth-child(3) { animation-duration: 4.5s; animation-delay: 1s; }
-        .link-card:nth-child(4) { animation-duration: 6s; animation-delay: 0.2s; animation-direction: alternate-reverse; }
-
-        /* L'EFFET AU SURVOL (Quand on l'attrape) */
         .link-card:hover {
-            background: rgba(255, 255, 255, 0.25);
-            border-color: white;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
-            cursor: pointer;
-            
-            /* On met l'animation en pause pour pouvoir cliquer ! */
-            animation-play-state: paused; 
-            transform: scale(1.05) !important; /* Petit zoom */
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
 
-        .link-text { font-weight: 700; font-size: 1.1rem; }
-        .icon-box { font-size: 1.6rem; }
+        .link-text { font-size: 0.9rem; font-weight: 600; }
+        .icon-box { font-size: 1.5rem; }
 
-        /* --- LES ANIMATIONS --- */
-        
-        /* Le mouvement des boutons (Gauche/Droite/Haut/Bas) */
-        @keyframes oceanDrift {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            25% { transform: translate(10px, 10px) rotate(1deg); }
-            50% { transform: translate(-5px, 15px) rotate(-1deg); }
-            75% { transform: translate(-15px, 5px) rotate(0deg); }
-            100% { transform: translate(5px, -5px) rotate(1deg); }
-        }
-
-        /* Avatar qui flotte */
+        /* --- ANIMATIONS --- */
         @keyframes floatAvatar {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+            50% { transform: translateY(-10px); }
         }
-        
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { 
+            from { opacity: 0; transform: translateY(20px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
 
         /* Couleurs Icônes */
-        .fa-whatsapp { color: #4ade80; filter: drop-shadow(0 0 5px #4ade80); }
-        .fa-instagram { color: #f472b6; filter: drop-shadow(0 0 5px #f472b6); }
-        .fa-snapchat { color: #fde047; filter: drop-shadow(0 0 5px #fde047); }
-        .fa-envelope { color: #60a5fa; filter: drop-shadow(0 0 5px #60a5fa); }
+        .fa-whatsapp { color: #4ade80; }
+        .fa-instagram { color: #f472b6; }
+        .fa-snapchat { color: #fde047; }
+        .fa-envelope { color: #60a5fa; }
+        .fa-phone { color: #fff; }
 
-        footer { margin-top: 60px; font-size: 0.8rem; opacity: 0.6; text-align: center; }
+        footer { margin-top: 40px; font-size: 0.8rem; opacity: 0.6; text-align: center; }
 
     </style>
 </head>
@@ -198,36 +230,116 @@
 
     <div class="content-wrapper">
         <div class="profile-container">
-            <img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png" alt="Massi" class="avatar">
-            <h1>MASSI</h1>
-            <div class="tagline">Attrapez-moi si vous pouvez 🌊</div>
+            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Abed Massinissa" class="avatar">
+            <h1>ABED MASSINISSA</h1>
+            <div class="tagline">MARKETEUR</div>
+            <p style="margin-top: 15px; font-size: 0.9rem; opacity: 0.9;"><i class="fas fa-map-marker-alt"></i> 1500, Tizi Ouzou</p>
         </div>
 
-        <div class="links-container">
-            
+        <div class="links-grid">
             <a href="https://wa.me/213562085497" class="link-card">
-                <span class="link-text">WhatsApp</span>
                 <i class="fa-brands fa-whatsapp icon-box"></i>
+                <span class="link-text">WhatsApp</span>
             </a>
-
-            <a href="https://instagram.com/__mx0__" class="link-card">
-                <span class="link-text">Instagram</span>
-                <i class="fa-brands fa-instagram icon-box"></i>
+            <a href="tel:0562085497" class="link-card">
+                <i class="fa-solid fa-phone icon-box"></i>
+                <span class="link-text">Appeler</span>
             </a>
-
-            <a href="https://www.snapchat.com/add/massi1934" class="link-card">
-                <span class="link-text">Snapchat</span>
-                <i class="fa-brands fa-snapchat icon-box"></i>
-            </a>
-
             <a href="mailto:massiabed3@gmail.com" class="link-card">
-                <span class="link-text">Email</span>
                 <i class="fa-solid fa-envelope icon-box"></i>
+                <span class="link-text">Email</span>
             </a>
-
+            <a href="https://instagram.com/__mx0__" class="link-card">
+                <i class="fa-brands fa-instagram icon-box"></i>
+                <span class="link-text">Instagram</span>
+            </a>
         </div>
 
-        <footer>© 2025 Madilium - Deep Ocean Edition</footer>
+        <div class="cv-section">
+            <div class="section-title"><i class="fas fa-user"></i> Profil</div>
+            <p class="job-desc" style="text-align: justify;">
+                [cite_start]Titulaire d'un BTS en marketing[cite: 3], je suis passionné par la communication, la stratégie digitale et la prospection commerciale. Mon parcours m'a permis de développer des compétences concrètes en création de contenu, études de marché et gestion de projet. [cite_start]Curieux et rigoureux, je souhaite créer de la valeur par des solutions innovantes. [cite: 3]
+            </p>
+        </div>
+
+        <div class="cv-section">
+            <div class="section-title"><i class="fas fa-briefcase"></i> Expérience Professionnelle</div>
+            
+            <div class="job-card">
+                <div class="job-title">Gestionnaire en Ligne</div>
+                <div class="job-company">E-commerce / Freelance</div>
+                <ul class="job-desc">
+                    [cite_start]<li>Gestion opérationnelle d'une boutique en ligne (commandes, logistique, expérience client). [cite: 3]</li>
+                    [cite_start]<li>Définition et mise en œuvre de la stratégie marketing digitale. [cite: 3]</li>
+                    [cite_start]<li>Création et diffusion de contenus digitaux. [cite: 3]</li>
+                </ul>
+            </div>
+
+            <div class="job-card">
+                <div class="job-title">Stagiaire Polyvalent</div>
+                <div class="job-company">Entreprise de Développement Digital</div>
+                <ul class="job-desc">
+                    [cite_start]<li>Conception de Business Model Canvas (BMC) pour la structuration de projets. [cite: 3]</li>
+                    [cite_start]<li>Études de marché ciblées et plans marketing. [cite: 3]</li>
+                    [cite_start]<li>Prospection commerciale et création de supports via Canva. [cite: 3]</li>
+                </ul>
+            </div>
+
+            <div class="job-card">
+                <div class="job-title">Stagiaire Marketing</div>
+                <div class="job-company">Djezzy, Tizi Ouzou</div>
+                <ul class="job-desc">
+                    [cite_start]<li>Mise en œuvre de campagnes marketing locales. [cite: 3]</li>
+                    [cite_start]<li>Soutien commercial : prospection et suivi client. [cite: 3]</li>
+                    [cite_start]<li>Analyse de la satisfaction client et reportings. [cite: 3]</li>
+                </ul>
+            </div>
+
+            <div class="job-card">
+                <div class="job-title">Expérience en Événementiel</div>
+                <ul class="job-desc">
+                    [cite_start]<li>Organisation logistique et coordination des intervenants. [cite: 3]</li>
+                    [cite_start]<li>Conception de supports visuels (affiches, banderoles, flyers). [cite: 3]</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="cv-section">
+            <div class="section-title"><i class="fas fa-graduation-cap"></i> Formation</div>
+            <div class="job-card">
+                <div class="job-title">BTS en Marketing</div>
+                <div class="job-company">INSFP Imerzouken</div>
+                [cite_start]<div class="job-desc">Mention Très Bien [cite: 3]</div>
+            </div>
+            <div class="job-card">
+                <div class="job-title">Niveau Baccalauréat</div>
+                [cite_start]<div class="job-company">Lycée Rabah Stambouli, Tizi Ouzou [cite: 3]</div>
+            </div>
+        </div>
+
+        <div class="cv-section">
+            <div class="section-title"><i class="fas fa-star"></i> Compétences</div>
+            <div class="skills-grid">
+                <span class="skill-tag">Stratégie Digitale</span>
+                <span class="skill-tag">Business Model Canvas</span>
+                <span class="skill-tag">Prospection</span>
+                <span class="skill-tag">Gestion E-commerce</span>
+                <span class="skill-tag">Canva & Design</span>
+                <span class="skill-tag">Microsoft Office</span>
+                <span class="skill-tag">Analyse de données</span>
+            </div>
+        </div>
+
+        <div class="cv-section">
+            <div class="section-title"><i class="fas fa-language"></i> Langues</div>
+            <ul class="job-desc">
+                [cite_start]<li><strong>Français :</strong> Langue maternelle [cite: 3]</li>
+                [cite_start]<li><strong>Arabe :</strong> Courant [cite: 3]</li>
+                [cite_start]<li><strong>Anglais :</strong> Intermédiaire [cite: 3]</li>
+            </ul>
+        </div>
+
+        <footer>© 2025 Madilium - CV Digital</footer>
     </div>
 
 </body>
