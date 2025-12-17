@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laetisweets | Luxury Cakes & Formations</title>
+    <title>Laetisweets | Luxury Cake Artist</title>
     
     <link rel="icon" type="image/png" href="/madilium.png">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -12,7 +12,7 @@
 
     <style>
         body { font-family: 'Lato', sans-serif; }
-        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
         .handwriting { font-family: 'Dancing Script', cursive; }
         
         .bg-luxury {
@@ -22,12 +22,12 @@
         /* Animation douce */
         @keyframes float {
             0% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(5deg); }
+            50% { transform: translateY(-10px) rotate(3deg); }
             100% { transform: translateY(0px) rotate(0deg); }
         }
         .animate-float { animation: float 6s ease-in-out infinite; }
         
-        /* Masquer la scrollbar tout en permettant le scroll */
+        /* Masquer la scrollbar */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
@@ -36,123 +36,197 @@
 <body class="bg-luxury min-h-screen flex justify-center p-4 relative overflow-x-hidden">
 
     <div class="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
-        <div class="absolute top-0 left-0 w-80 h-80 bg-pink-200 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-blob"></div>
-        <div class="absolute bottom-0 right-0 w-80 h-80 bg-yellow-100 rounded-full mix-blend-multiply filter blur-3xl opacity-40"></div>
-        
-        <div class="absolute top-20 left-10 text-pink-300/30 text-5xl animate-float"><i class="fa-solid fa-cake-candles"></i></div>
-        <div class="absolute bottom-40 right-10 text-yellow-400/20 text-6xl animate-float" style="animation-delay: 2s;"><i class="fa-solid fa-cookie"></i></div>
-        <div class="absolute top-1/3 right-5 text-pink-400/20 text-4xl animate-float" style="animation-delay: 1s;"><i class="fa-solid fa-heart"></i></div>
+        <div class="absolute top-0 left-0 w-96 h-96 bg-pink-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-yellow-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
+        <div class="absolute top-20 right-10 text-pink-300/40 text-6xl animate-float"><i class="fa-solid fa-heart"></i></div>
+        <div class="absolute bottom-40 left-10 text-yellow-400/30 text-5xl animate-float" style="animation-delay: 2s;"><i class="fa-solid fa-star"></i></div>
     </div>
 
-    <div class="relative z-10 w-full max-w-md my-6 animate-fade-in-up">
+    <div class="relative z-10 w-full max-w-lg my-6 animate-fade-in-up">
         
-        <div class="bg-white/80 backdrop-blur-xl rounded-[2.5rem] border border-white/60 shadow-2xl overflow-hidden mb-6">
+        <div class="bg-white/80 backdrop-blur-xl rounded-[2.5rem] border border-white/60 shadow-xl overflow-hidden mb-6 relative">
             
-            <div class="h-40 bg-cover bg-center relative" style="background-image: url('https://images.unsplash.com/photo-1626803775151-61d756612fcd?q=80&w=2070&auto=format&fit=crop');">
-                <div class="absolute inset-0 bg-gradient-to-b from-transparent to-white/90"></div>
+            <div class="h-44 bg-cover bg-center relative" style="background-image: url('https://images.unsplash.com/photo-1626803775151-61d756612fcd?q=80&w=2070&auto=format&fit=crop');">
+                <div class="absolute inset-0 bg-black/10"></div>
             </div>
 
-            <div class="relative -mt-24 text-center px-6">
-                <div class="w-36 h-36 mx-auto rounded-full p-1.5 bg-white shadow-xl relative z-10">
-                    <div class="w-full h-full rounded-full overflow-hidden border-[3px] border-pink-100">
+            <div class="relative -mt-20 text-center px-6 pb-6">
+                <div class="w-40 h-40 mx-auto rounded-full p-2 bg-white shadow-2xl relative z-10">
+                    <div class="w-full h-full rounded-full overflow-hidden border-4 border-pink-100">
                         <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=1000&auto=format&fit=crop" 
                              class="w-full h-full object-cover">
                     </div>
-                    <div class="absolute bottom-2 right-2 bg-pink-500 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-md border-2 border-white">
-                       <i class="fa-solid fa-crown text-xs"></i>
+                    <div class="absolute bottom-2 right-2 bg-gradient-to-r from-pink-400 to-pink-500 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-md border-2 border-white">
+                       <i class="fa-solid fa-check text-xs"></i>
                     </div>
                 </div>
 
-                <div class="mt-4 mb-6">
+                <div class="mt-4">
                     <h1 class="text-4xl font-bold text-gray-800 mb-1">Laetisweets</h1>
-                    <p class="handwriting text-3xl text-pink-500 font-bold mb-3">Laeti's luxury cakes</p>
-                    <p class="text-xs text-gray-400 uppercase tracking-widest font-bold flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-location-dot text-pink-400"></i> Tizi Ouzou, Algérie
+                    <p class="handwriting text-3xl text-pink-500 font-bold mb-2">Luxury Cake Artist ✨</p>
+                    <p class="text-xs text-gray-500 font-bold uppercase tracking-widest flex justify-center gap-2 items-center">
+                        <i class="fa-solid fa-location-dot text-pink-400"></i> Tizi Ouzou • Sur Commande
                     </p>
                 </div>
+            </div>
+        </div>
 
-                <div class="bg-pink-50/50 rounded-2xl p-4 mb-6 text-sm text-gray-600 leading-relaxed border border-pink-100/50">
-                    <p class="mb-2"><span class="text-2xl align-middle text-pink-300">❝</span> Créatrice d'émotions sucrées. Spécialisée dans les gâteaux de mariage luxueux et le Cake Design haut de gamme.</p>
+        <div class="space-y-6 mb-8">
+            
+            <div class="bg-white/60 backdrop-blur rounded-3xl p-6 border border-white shadow-sm">
+                <div class="flex items-center gap-3 mb-4 border-b border-pink-100 pb-2">
+                    <span class="text-2xl">💍</span>
+                    <h3 class="text-xl font-bold text-gray-800">Mariages & Fiançailles</h3>
                 </div>
-                
-                <a href="https://wa.me/213000000000" class="block w-full py-4 bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white rounded-2xl shadow-lg shadow-pink-200 transition-all transform hover:scale-[1.02] active:scale-[0.98] mb-8 group">
-                    <div class="flex items-center justify-center gap-3">
-                        <i class="fa-brands fa-whatsapp text-2xl group-hover:animate-bounce"></i>
-                        <div class="text-left leading-tight">
-                            <span class="block text-[10px] opacity-90 uppercase tracking-wider">Discuter de mon projet</span>
-                            <span class="block font-bold text-sm">COMMANDER SUR WHATSAPP</span>
+                <div class="space-y-4">
+                    <div class="flex gap-4 items-start">
+                        <div class="w-16 h-16 rounded-xl bg-gray-100 overflow-hidden shrink-0">
+                            <img src="https://images.unsplash.com/photo-1535254973040-607b474cb50d?q=80&w=200" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-700">Wedding Cakes Royaux</h4>
+                            <p class="text-xs text-gray-500 leading-snug">Pièces montées multi-étages, décor floral, feuille d'or et calligraphie personnalisée.</p>
                         </div>
                     </div>
-                </a>
+                    <div class="flex gap-4 items-start">
+                        <div class="w-16 h-16 rounded-xl bg-gray-100 overflow-hidden shrink-0">
+                            <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?q=80&w=200" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-700">Layer Cakes Élégants</h4>
+                            <p class="text-xs text-gray-500 leading-snug">Design épuré avec initiales (ex: C&S), textures florales et saveurs raffinées.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <div class="bg-white/60 backdrop-blur rounded-3xl p-6 border border-white shadow-sm relative overflow-hidden">
+                <div class="absolute -right-4 -top-4 w-20 h-20 bg-pink-100 rounded-full blur-xl opacity-50"></div>
+                
+                <div class="flex items-center gap-3 mb-4 border-b border-pink-100 pb-2 relative z-10">
+                    <span class="text-2xl">🧁</span>
+                    <h3 class="text-xl font-bold text-gray-800">Sweet Table & Mignardises</h3>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-3 relative z-10">
+                    <div class="bg-white p-3 rounded-2xl shadow-sm text-center">
+                        <div class="w-full aspect-square rounded-xl bg-pink-50 mb-2 overflow-hidden relative">
+                             <img src="https://images.unsplash.com/photo-1549419137-013ea022b7a9?q=80&w=400" class="w-full h-full object-cover">
+                             <span class="absolute bottom-1 right-1 bg-white px-2 py-0.5 rounded-full text-[8px] font-bold shadow">CŒUR</span>
+                        </div>
+                        <h4 class="font-bold text-sm text-gray-700">Magnum Cakes</h4>
+                        <p class="text-[10px] text-gray-500">Chocolat blanc, nœuds & fleurs</p>
+                    </div>
+
+                    <div class="bg-white p-3 rounded-2xl shadow-sm text-center">
+                        <div class="w-full aspect-square rounded-xl bg-pink-50 mb-2 overflow-hidden">
+                             <img src="https://images.unsplash.com/photo-1614707267537-b85aaf00c4b7?q=80&w=400" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-bold text-sm text-gray-700">Cupcakes Luxe</h4>
+                        <p class="text-[10px] text-gray-500">Framboise, Vanille & Crème</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white/60 backdrop-blur rounded-3xl p-6 border border-white shadow-sm">
+                <div class="flex items-center gap-3 mb-4 border-b border-pink-100 pb-2">
+                    <span class="text-2xl">🧸</span>
+                    <h3 class="text-xl font-bold text-gray-800">Anniversaires & Enfants</h3>
+                </div>
+                <div class="space-y-3">
+                    <p class="text-sm text-gray-600">
+                        <span class="font-bold text-pink-500">★ Thèmes Favoris :</span> Stitch, Hello Kitty, Dinosaures, Harry Potter...
+                    </p>
+                    <p class="text-sm text-gray-600">
+                        <span class="font-bold text-pink-500">★ Événements :</span> Fêtes de Baccalauréat, Soutenances, Baby Shower.
+                    </p>
+                </div>
+            </div>
+
         </div>
 
-        <div class="space-y-4 mb-8">
-            <h3 class="text-center text-2xl font-bold text-gray-800 mb-4 flex items-center justify-center gap-3">
-                <span class="h-[1px] w-8 bg-pink-200"></span>
-                Créations Signature
-                <span class="h-[1px] w-8 bg-pink-200"></span>
+        <div class="space-y-3 mb-8">
+            <h3 class="text-center text-xl font-bold text-gray-800 mb-4 font-serif flex items-center justify-center gap-2">
+                <i class="fa-regular fa-circle-question text-pink-400"></i> Questions Fréquentes
             </h3>
 
-            <div class="bg-white/90 backdrop-blur rounded-2xl p-5 shadow-sm border border-white flex gap-4 items-center">
-                <div class="w-16 h-16 rounded-full bg-pink-50 flex items-center justify-center text-pink-400 text-2xl shrink-0">
-                    <i class="fa-solid fa-cake-candles"></i>
+            <details class="group bg-white/80 backdrop-blur rounded-2xl border border-white shadow-sm overflow-hidden">
+                <summary class="flex justify-between items-center font-bold text-gray-700 cursor-pointer p-4 list-none">
+                    <span>📅 Combien de temps à l'avance commander ?</span>
+                    <span class="transition-transform group-open:rotate-180 text-pink-400">
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </span>
+                </summary>
+                <div class="text-xs text-gray-600 px-4 pb-4 leading-relaxed border-t border-pink-50 pt-2">
+                    Pour les <strong>Wedding Cakes</strong>, nous conseillons de réserver <span class="text-pink-500 font-bold">3 à 6 mois</span> à l'avance pour garantir la date. <br>
+                    Pour les anniversaires et autres événements, un délai de <strong>2 à 3 semaines</strong> est recommandé (selon disponibilités).
                 </div>
-                <div>
-                    <h4 class="font-bold text-gray-800 text-lg font-serif">Wedding Cakes</h4>
-                    <p class="text-xs text-gray-500 leading-snug">Pièces montées majestueuses, fleurs en sucre faites main. Le luxe pour votre grand jour.</p>
-                </div>
-            </div>
+            </details>
 
-            <div class="bg-white/90 backdrop-blur rounded-2xl p-5 shadow-sm border border-white flex gap-4 items-center">
-                <div class="w-16 h-16 rounded-full bg-yellow-50 flex items-center justify-center text-yellow-500 text-2xl shrink-0">
-                    <i class="fa-solid fa-cookie-bite"></i>
+            <details class="group bg-white/80 backdrop-blur rounded-2xl border border-white shadow-sm overflow-hidden">
+                <summary class="flex justify-between items-center font-bold text-gray-700 cursor-pointer p-4 list-none">
+                    <span>🚚 Livrez-vous les gâteaux ?</span>
+                    <span class="transition-transform group-open:rotate-180 text-pink-400">
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </span>
+                </summary>
+                <div class="text-xs text-gray-600 px-4 pb-4 leading-relaxed border-t border-pink-50 pt-2">
+                    Oui, la livraison est <strong>obligatoire</strong> pour toutes les pièces montées de plus de 3 étages (Mariages) afin d'assurer un transport sécurisé et réfrigéré. <br>
+                    Nous livrons principalement sur <strong>Tizi Ouzou et ses environs</strong> (frais calculés selon la distance).
                 </div>
-                <div>
-                    <h4 class="font-bold text-gray-800 text-lg font-serif">Sweet Tables</h4>
-                    <p class="text-xs text-gray-500 leading-snug">Magnums cakes, Cupcakes de luxe, Sablés personnalisés et Mini-pièces raffinées.</p>
-                </div>
-            </div>
+            </details>
 
-            <div class="bg-white/90 backdrop-blur rounded-2xl p-5 shadow-sm border border-white flex gap-4 items-center relative overflow-hidden">
-                <div class="absolute right-0 top-0 bg-pink-500 text-white text-[9px] font-bold px-2 py-1 rounded-bl-lg">POPULAIRE</div>
-                <div class="w-16 h-16 rounded-full bg-purple-50 flex items-center justify-center text-purple-400 text-2xl shrink-0">
-                    <i class="fa-solid fa-graduation-cap"></i>
+            <details class="group bg-white/80 backdrop-blur rounded-2xl border border-white shadow-sm overflow-hidden">
+                <summary class="flex justify-between items-center font-bold text-gray-700 cursor-pointer p-4 list-none">
+                    <span>🍰 Puis-je goûter avant de commander ?</span>
+                    <span class="transition-transform group-open:rotate-180 text-pink-400">
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </span>
+                </summary>
+                <div class="text-xs text-gray-600 px-4 pb-4 leading-relaxed border-t border-pink-50 pt-2">
+                    Absolument ! Nous organisons des sessions <strong>"Tasting Box"</strong> une fois par mois. <br>
+                    C'est un coffret dégustation contenant nos 4 parfums signatures, idéal pour valider votre choix avant le jour J. Suivez nos stories pour les dates !
                 </div>
-                <div>
-                    <h4 class="font-bold text-gray-800 text-lg font-serif">Masterclass & Formations</h4>
-                    <p class="text-xs text-gray-500 leading-snug">Apprenez le Cake Design. Ateliers privés ou en groupe à Tizi Ouzou.</p>
+            </details>
+
+            <details class="group bg-white/80 backdrop-blur rounded-2xl border border-white shadow-sm overflow-hidden">
+                <summary class="flex justify-between items-center font-bold text-gray-700 cursor-pointer p-4 list-none">
+                    <span>❄️ Comment conserver mon gâteau ?</span>
+                    <span class="transition-transform group-open:rotate-180 text-pink-400">
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </span>
+                </summary>
+                <div class="text-xs text-gray-600 px-4 pb-4 leading-relaxed border-t border-pink-50 pt-2">
+                    Nos gâteaux (Cake Design) se conservent au <strong>réfrigérateur</strong>. <br>
+                    Cependant, pour une dégustation optimale, nous recommandons de sortir le gâteau <strong>1h à 2h avant de le servir</strong> (sauf s'il fait très chaud) pour que la crème retrouve son onctuosité.
                 </div>
-            </div>
+            </details>
+
+            <details class="group bg-white/80 backdrop-blur rounded-2xl border border-white shadow-sm overflow-hidden">
+                <summary class="flex justify-between items-center font-bold text-gray-700 cursor-pointer p-4 list-none">
+                    <span>🎨 Faites-vous du "sur-mesure" ?</span>
+                    <span class="transition-transform group-open:rotate-180 text-pink-400">
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </span>
+                </summary>
+                <div class="text-xs text-gray-600 px-4 pb-4 leading-relaxed border-t border-pink-50 pt-2">
+                    Tout à fait. Chaque gâteau est une création unique. <br>
+                    Envoyez-nous vos inspirations (photos, thème couleur, faire-part) sur WhatsApp, et nous dessinerons un gâteau qui correspond parfaitement à votre événement.
+                </div>
+            </details>
         </div>
 
-        <div class="grid grid-cols-2 gap-3 mb-8">
-            <a href="https://instagram.com/laetisweets" class="bg-white p-4 rounded-2xl shadow-sm text-center border border-gray-100 hover:bg-pink-50 transition-colors group">
-                <div class="w-10 h-10 mx-auto bg-gradient-to-tr from-yellow-400 to-fuchsia-600 rounded-xl flex items-center justify-center text-white mb-2 group-hover:scale-110 transition-transform">
-                    <i class="fa-brands fa-instagram text-xl"></i>
-                </div>
-                <span class="block font-bold text-gray-700 text-sm">Portfolio</span>
-                <span class="block text-[10px] text-gray-400">@laetisweets</span>
-            </a>
-
-            <a href="https://tiktok.com/@laetisweets" class="bg-white p-4 rounded-2xl shadow-sm text-center border border-gray-100 hover:bg-gray-50 transition-colors group">
-                <div class="w-10 h-10 mx-auto bg-black rounded-xl flex items-center justify-center text-white mb-2 group-hover:scale-110 transition-transform">
-                    <i class="fa-brands fa-tiktok text-xl"></i>
-                </div>
-                <span class="block font-bold text-gray-700 text-sm">Vidéos</span>
-                <span class="block text-[10px] text-gray-400">Backstage</span>
-            </a>
-        </div>
-
-        <div class="text-center pb-8">
-            <p class="text-[10px] text-gray-400 uppercase tracking-widest mb-2">
-                Luxury Cake Artist • Tizi Ouzou
-            </p>
-            <div class="flex items-center justify-center gap-1 opacity-50">
-                <div class="h-[1px] w-3 bg-gray-400"></div>
-                <p class="text-[9px] text-gray-500 font-bold">POWERED BY MADILIUM</p>
-                <div class="h-[1px] w-3 bg-gray-400"></div>
+        <a href="https://wa.me/213000000000" class="sticky bottom-4 w-full py-4 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-2xl shadow-xl shadow-green-200 transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 z-50 mb-8 border-2 border-white/20">
+            <i class="fa-brands fa-whatsapp text-3xl animate-pulse"></i>
+            <div class="text-left leading-tight">
+                <span class="block text-[10px] uppercase tracking-wider font-medium opacity-90">Devis & Commandes</span>
+                <span class="block font-bold text-base">CONTACTER SUR WHATSAPP</span>
             </div>
+        </a>
+
+        <div class="text-center pb-8 opacity-60">
+            <p class="handwriting text-xl text-gray-400">Merci de votre visite ♡</p>
+            <p class="text-[9px] text-gray-400 mt-2 uppercase tracking-widest font-bold">Powered by Madilium</p>
         </div>
 
     </div>
