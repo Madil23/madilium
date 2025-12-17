@@ -9,6 +9,8 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -19,7 +21,6 @@
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
-            /* Fond Océan Dégradé Profond */
             background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
             display: flex;
             flex-direction: column;
@@ -74,18 +75,12 @@
             text-align: center;
             margin-bottom: 30px;
             animation: fadeIn 2s ease-out;
+            width: 100%;
         }
 
-        .avatar {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 0 40px rgba(0, 200, 255, 0.4);
-            margin-bottom: 15px;
+        /* Animation spécifique pour le médaillon */
+        .floating-medallion {
             animation: floatAvatar 6s ease-in-out infinite;
-            background-color: #203a43;
         }
 
         h1 {
@@ -209,7 +204,6 @@
         /* Couleurs Icônes */
         .fa-whatsapp { color: #4ade80; }
         .fa-instagram { color: #f472b6; }
-        .fa-snapchat { color: #fde047; }
         .fa-envelope { color: #60a5fa; }
         .fa-phone { color: #fff; }
 
@@ -220,26 +214,22 @@
 <body>
 
     <div class="bubbles">
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
+        <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+        <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
     </div>
 
     <div class="content-wrapper">
         <div class="profile-container">
-            <div class="relative w-48 h-48 mx-auto mb-6 mt-10">
-    <div class="w-full h-full rounded-full overflow-hidden border-[6px] border-white shadow-2xl relative z-10">
-        <img src="massi.png" 
-             alt="Profil Massi" 
-             class="w-full h-full object-cover object-top scale-110 hover:scale-100 transition-transform duration-500">
-             </div>
-    <div class="absolute inset-0 rounded-full bg-black/40 blur-xl -z-10 translate-y-4"></div>
-</div>
+            
+            <div class="relative w-48 h-48 mx-auto mb-6 mt-10 floating-medallion">
+                <div class="w-full h-full rounded-full overflow-hidden border-[6px] border-white/80 shadow-2xl relative z-10 bg-[#203a43]">
+                    <img src="massi.png" 
+                         alt="Profil Massi" 
+                         class="w-full h-full object-cover object-top scale-110 hover:scale-100 transition-transform duration-500">
+                </div>
+                <div class="absolute inset-0 rounded-full bg-black/40 blur-xl -z-10 translate-y-4"></div>
+            </div>
+
             <h1>ABED MASSINISSA</h1>
             <div class="tagline">MARKETEUR</div>
             <p style="margin-top: 15px; font-size: 0.9rem; opacity: 0.9;"><i class="fas fa-map-marker-alt"></i> 1500, Tizi Ouzou</p>
