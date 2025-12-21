@@ -19,7 +19,7 @@
             background: linear-gradient(135deg, #fff0f5 0%, #fff5f7 100%);
         }
 
-        .text-xmas { color: #b91c1c; } /* Rouge Noël */
+        .text-xmas { color: #b91c1c; }
         .bg-xmas { background-color: #fef2f2; }
 
         @keyframes float {
@@ -29,11 +29,11 @@
         }
         .animate-float { animation: float 6s ease-in-out infinite; }
 
-        /* Animation d'apparition du formulaire */
-        .modal-enter { animation: modalIn 0.3s ease-out forwards; }
-        @keyframes modalIn {
-            from { opacity: 0; transform: scale(0.95) translateY(20px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
+        /* Animation Popup Centrée */
+        .modal-enter { animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
         }
     </style>
 </head>
@@ -55,9 +55,6 @@
                 <div class="w-40 h-40 mx-auto rounded-full p-2 bg-white shadow-2xl relative z-10">
                     <a href="https://instagram.com/laetisweets" target="_blank" class="block w-full h-full rounded-full overflow-hidden border-4 border-pink-100 relative group cursor-pointer">
                         <img src="logo.png" alt="Logo Laetisweets" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                        <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <i class="fa-brands fa-instagram text-white text-3xl"></i>
-                        </div>
                     </a>
                     <div class="absolute bottom-2 right-2 bg-pink-500 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-md border-2 border-white pointer-events-none">
                        <i class="fa-solid fa-check text-xs"></i>
@@ -94,7 +91,7 @@
                     <i class="fa-regular fa-snowflake"></i> Édition Limitée
                 </span>
                 <h2 class="text-4xl font-serif text-xmas mt-3 drop-shadow-sm handwriting">Carte Nouvel An 2026</h2>
-                <p class="text-xs text-gray-500 mt-1">Cliquez sur un bouton pour configurer votre commande</p>
+                <p class="text-xs text-gray-500 mt-1">Découvrez nos créations exclusives</p>
             </div>
 
             <div class="grid grid-cols-1 gap-6">
@@ -107,25 +104,15 @@
                         </div>
                         <div class="flex-1">
                             <h3 class="font-bold text-xl text-gray-800 font-serif mb-1">Le Fraisier</h3>
-                            <p class="text-[10px] text-gray-500 mb-3">Crème légère, fraises fraîches & génoise moelleuse.</p>
+                            <p class="text-[10px] text-gray-500 mb-3">Crème légère, fraises fraîches & génoise.</p>
                             <div class="space-y-2">
                                 <div class="flex justify-between items-center bg-red-50 px-3 py-1.5 rounded-lg">
-                                    <div class="flex flex-col">
-                                        <span class="text-xs font-bold text-gray-600">6 parts</span>
-                                        <span class="text-sm font-black text-red-600">2500 DA</span>
-                                    </div>
-                                    <button onclick="openOrder('Fraisier', '6 parts')" class="bg-green-500 hover:bg-green-600 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-sm transition-colors cursor-pointer">
-                                        <i class="fa-solid fa-cart-plus text-xs"></i>
-                                    </button>
+                                    <span class="text-xs font-bold text-gray-600">6 parts</span>
+                                    <span class="text-sm font-black text-red-600">2500 DA</span>
                                 </div>
                                 <div class="flex justify-between items-center bg-red-50 px-3 py-1.5 rounded-lg">
-                                    <div class="flex flex-col">
-                                        <span class="text-xs font-bold text-gray-600">12 parts</span>
-                                        <span class="text-sm font-black text-red-600">4500 DA</span>
-                                    </div>
-                                    <button onclick="openOrder('Fraisier', '12 parts')" class="bg-green-500 hover:bg-green-600 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-sm transition-colors cursor-pointer">
-                                        <i class="fa-solid fa-cart-plus text-xs"></i>
-                                    </button>
+                                    <span class="text-xs font-bold text-gray-600">12 parts</span>
+                                    <span class="text-sm font-black text-red-600">4500 DA</span>
                                 </div>
                             </div>
                         </div>
@@ -142,22 +129,12 @@
                             <p class="text-[10px] text-gray-500 mb-3">Décoration couronne de Noël & finitions or.</p>
                             <div class="space-y-2">
                                 <div class="flex justify-between items-center bg-green-50 px-3 py-1.5 rounded-lg">
-                                    <div class="flex flex-col">
-                                        <span class="text-xs font-bold text-gray-600">Bento Cake</span>
-                                        <span class="text-sm font-black text-green-700">1500 DA</span>
-                                    </div>
-                                    <button onclick="openOrder('Bento Cake', 'Standard')" class="bg-green-500 hover:bg-green-600 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-sm transition-colors cursor-pointer">
-                                        <i class="fa-solid fa-cart-plus text-xs"></i>
-                                    </button>
+                                    <span class="text-xs font-bold text-gray-600">Bento Cake</span>
+                                    <span class="text-sm font-black text-green-700">1500 DA</span>
                                 </div>
                                 <div class="flex justify-between items-center bg-green-50 px-3 py-1.5 rounded-lg">
-                                    <div class="flex flex-col">
-                                        <span class="text-xs font-bold text-gray-600">Mini Cake (6p)</span>
-                                        <span class="text-sm font-black text-green-700">2800 DA</span>
-                                    </div>
-                                    <button onclick="openOrder('Mini Cake', '6 parts')" class="bg-green-500 hover:bg-green-600 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-sm transition-colors cursor-pointer">
-                                        <i class="fa-solid fa-cart-plus text-xs"></i>
-                                    </button>
+                                    <span class="text-xs font-bold text-gray-600">Mini Cake (6p)</span>
+                                    <span class="text-sm font-black text-green-700">2800 DA</span>
                                 </div>
                             </div>
                         </div>
@@ -173,13 +150,8 @@
                             <h3 class="font-bold text-xl text-gray-800 font-serif mb-1">Layer Cake Noël</h3>
                             <p class="text-[10px] text-gray-500 mb-3">Design Oursons, Sapins ou Gingerbread.</p>
                             <div class="flex justify-between items-center bg-red-50 px-3 py-2 rounded-lg">
-                                <div class="flex flex-col">
-                                    <span class="text-xs font-bold text-gray-600">12 parts</span>
-                                    <span class="text-lg font-black text-red-600">5000 DA</span>
-                                </div>
-                                <button onclick="openOrder('Layer Cake Noël', '12 parts')" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg shadow-sm transition-colors text-xs font-bold uppercase flex items-center gap-2 cursor-pointer">
-                                    <i class="fa-brands fa-whatsapp"></i> Commander
-                                </button>
+                                <span class="text-xs font-bold text-gray-600">12 parts</span>
+                                <span class="text-lg font-black text-red-600">5000 DA</span>
                             </div>
                         </div>
                     </div>
@@ -194,15 +166,9 @@
                             <h3 class="font-bold text-xl text-gray-800 font-serif mb-1">Cupcakes Festifs</h3>
                             <p class="text-[10px] text-gray-500 mb-3">Toppers dorés, Sapins, Flocons. Framboise/Vanille.</p>
                             <div class="flex flex-wrap gap-2">
-                                <button onclick="openOrder('Cupcakes', '6 pièces')" class="bg-gray-100 hover:bg-red-500 hover:text-white px-2 py-1 rounded-md text-[10px] font-bold text-gray-600 transition-colors border border-gray-200 cursor-pointer">
-                                    6 pcs <i class="fa-solid fa-angle-right ml-1"></i>
-                                </button>
-                                <button onclick="openOrder('Cupcakes', '12 pièces')" class="bg-gray-100 hover:bg-red-500 hover:text-white px-2 py-1 rounded-md text-[10px] font-bold text-gray-600 transition-colors border border-gray-200 cursor-pointer">
-                                    12 pcs <i class="fa-solid fa-angle-right ml-1"></i>
-                                </button>
-                                <button onclick="openOrder('Cupcakes', '24 pièces')" class="bg-gray-100 hover:bg-red-500 hover:text-white px-2 py-1 rounded-md text-[10px] font-bold text-gray-600 transition-colors border border-gray-200 cursor-pointer">
-                                    24 pcs <i class="fa-solid fa-angle-right ml-1"></i>
-                                </button>
+                                <span class="bg-gray-100 px-2 py-1 rounded-md text-[10px] font-bold text-gray-600 border border-gray-200">6 pcs</span>
+                                <span class="bg-gray-100 px-2 py-1 rounded-md text-[10px] font-bold text-gray-600 border border-gray-200">12 pcs</span>
+                                <span class="bg-gray-100 px-2 py-1 rounded-md text-[10px] font-bold text-gray-600 border border-gray-200">24 pcs</span>
                             </div>
                         </div>
                     </div>
@@ -210,9 +176,9 @@
 
             </div>
             
-            <div class="text-center mt-6">
-                <button onclick="openOrder('Commande Spéciale', 'Sur devis')" class="inline-block bg-gradient-to-r from-red-600 to-red-500 text-white px-8 py-3 rounded-full text-sm font-bold uppercase tracking-widest shadow-lg shadow-red-200 animate-pulse cursor-pointer">
-                    <i class="fa-solid fa-pen-nib"></i> Demande Personnalisée
+            <div class="text-center mt-8">
+                <button onclick="openOrder()" class="inline-block bg-gradient-to-r from-red-600 to-red-500 text-white px-8 py-4 rounded-full text-sm font-bold uppercase tracking-widest shadow-xl shadow-red-200 animate-pulse cursor-pointer hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-pen-nib mr-2"></i> Passer une Commande
                 </button>
             </div>
         </div>
@@ -230,31 +196,6 @@
             </div>
         </div>
 
-        <div class="bg-gradient-to-br from-pink-500 to-pink-600 rounded-3xl p-8 text-white shadow-lg mb-8 relative overflow-hidden">
-            <div class="absolute -top-10 -right-10 w-40 h-40 bg-white opacity-10 rounded-full blur-2xl"></div>
-            <h3 class="text-center text-xl font-bold mb-6 font-serif border-b border-white/20 pb-4">Nos Saveurs Signatures</h3>
-            <div class="grid grid-cols-2 gap-8">
-                <div>
-                    <h4 class="font-bold text-sm uppercase tracking-widest mb-3 text-pink-200">Biscuits</h4>
-                    <ul class="text-xs space-y-2 opacity-90">
-                        <li>• Vanille Madagascar</li>
-                        <li>• Chocolat Intense</li>
-                        <li>• Red Velvet</li>
-                        <li>• Citron Zesté</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-bold text-sm uppercase tracking-widest mb-3 text-pink-200">Fourrages</h4>
-                    <ul class="text-xs space-y-2 opacity-90">
-                        <li>• Ganache Montée</li>
-                        <li>• Curd Fruits</li>
-                        <li>• Praliné</li>
-                        <li>• Caramel Beurre Salé</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
         <div class="space-y-3 mb-20">
             <h3 class="text-center text-xl font-bold text-gray-800 mb-4 font-serif">Questions Fréquentes</h3>
             <details class="group bg-white/80 backdrop-blur rounded-2xl border border-white shadow-sm overflow-hidden">
@@ -262,7 +203,7 @@
                     <span>📅 Quand commander pour le Nouvel An ?</span>
                     <span class="transition-transform group-open:rotate-180 text-pink-400"><i class="fa-solid fa-chevron-down"></i></span>
                 </summary>
-                <div class="text-xs text-gray-600 px-4 pb-4 border-t border-pink-50 pt-2">Les places sont très limitées. Nous vous conseillons de réserver avant le <span class="font-bold text-red-500">20 Décembre</span>.</div>
+                <div class="text-xs text-gray-600 px-4 pb-4 border-t border-pink-50 pt-2">Places limitées. Réservez avant le <span class="font-bold text-red-500">20 Décembre</span>.</div>
             </details>
             <details class="group bg-white/80 backdrop-blur rounded-2xl border border-white shadow-sm overflow-hidden">
                 <summary class="flex justify-between items-center font-bold text-gray-700 cursor-pointer p-4 list-none">
@@ -274,20 +215,17 @@
         </div>
 
         <div class="text-center pb-8 opacity-60 border-t border-pink-200 pt-6">
-            <div class="flex justify-center gap-4 mb-4">
-                <a href="https://instagram.com/laetisweets" class="text-2xl hover:text-pink-500 transition-colors"><i class="fa-brands fa-instagram"></i></a>
-                <a href="https://tiktok.com/@laetisweets" class="text-2xl hover:text-black transition-colors"><i class="fa-brands fa-tiktok"></i></a>
-            </div>
             <p class="handwriting text-xl text-gray-400">Merci de votre visite ♡</p>
             <p class="text-[9px] text-gray-400 mt-2 uppercase tracking-widest font-bold">Powered by Madilium</p>
         </div>
 
     </div>
 
-    <div id="orderModal" class="fixed inset-0 z-50 hidden">
-        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeModal()"></div>
+    <div id="orderModal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
         
-        <div class="absolute bottom-0 left-0 right-0 md:relative md:top-1/2 md:left-1/2 md:transform md:-translate-x-1/2 md:-translate-y-1/2 bg-white rounded-t-3xl md:rounded-3xl w-full max-w-md p-6 modal-enter">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
+        
+        <div class="bg-white rounded-3xl w-full max-w-md p-6 relative z-10 mx-4 shadow-2xl modal-enter">
             
             <div class="flex justify-between items-center mb-6">
                 <h3 class="font-serif text-2xl font-bold text-gray-800">Votre Commande</h3>
@@ -296,78 +234,75 @@
                 </button>
             </div>
 
-            <form id="whatsappForm" onsubmit="sendToWhatsApp(event)" class="space-y-4">
+            <form id="orderForm" onsubmit="sendToInstagram(event)" class="space-y-4">
                 
-                <div class="bg-pink-50 p-3 rounded-xl border border-pink-100 flex justify-between items-center">
-                    <span class="text-[10px] font-bold text-pink-500 uppercase tracking-widest">Produit choisi</span>
-                    <span id="productLabel" class="font-bold text-gray-800 text-sm">Fraisier</span>
-                    <input type="hidden" id="productInput">
-                    <input type="hidden" id="variantInput">
-                </div>
-
                 <div>
-                    <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Votre Nom complet</label>
-                    <input type="text" id="clientName" required class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-pink-500 transition-colors" placeholder="Ex: Sarah Amrani">
-                </div>
-
-                <div>
-                    <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Date de récupération</label>
-                    <input type="date" id="eventDate" required class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-pink-500 transition-colors">
-                </div>
-
-                <div>
-                    <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Choix du Parfum</label>
-                    <select id="flavor" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-pink-500 transition-colors">
-                        <option value="Vanille / Fruits Rouges">Vanille / Fruits Rouges (Classique)</option>
-                        <option value="Chocolat / Praliné">Chocolat / Praliné (Gourmand)</option>
-                        <option value="Citron">Citron (Frais)</option>
-                        <option value="Autre / Ne sais pas">Autre (Voir par message)</option>
+                    <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Je souhaite commander</label>
+                    <select id="productSelect" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-pink-500 transition-colors">
+                        <option value="Fraisier">Fraisier (6 ou 12 parts)</option>
+                        <option value="Bento Cake">Bento Cake</option>
+                        <option value="Mini Cake">Mini Cake (6 parts)</option>
+                        <option value="Layer Cake Noël">Layer Cake Noël</option>
+                        <option value="Cupcakes Festifs">Cupcakes Festifs</option>
+                        <option value="Autre demande">Autre / Personnalisé</option>
                     </select>
                 </div>
 
-                <button type="submit" class="w-full py-4 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl font-bold shadow-lg shadow-green-200 flex items-center justify-center gap-2 transform active:scale-95 transition-transform mt-4">
-                    <span>Envoyer sur WhatsApp</span>
-                    <i class="fa-brands fa-whatsapp text-xl"></i>
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Votre Nom</label>
+                    <input type="text" id="clientName" required class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-pink-500" placeholder="Ex: Sarah Amrani">
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Détails (Date, Parfum, Qte)</label>
+                    <textarea id="orderDetails" rows="3" required class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-pink-500 resize-none" placeholder="Ex: Pour le 31 déc, parfum Vanille, 12 pièces..."></textarea>
+                </div>
+
+                <button type="submit" class="w-full py-4 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-xl font-bold shadow-lg shadow-pink-200 flex items-center justify-center gap-2 transform active:scale-95 transition-transform mt-4">
+                    <span>Envoyer sur Instagram</span>
+                    <i class="fa-brands fa-instagram text-xl"></i>
                 </button>
+                
+                <p class="text-[10px] text-center text-gray-400 mt-2">
+                    <i class="fa-solid fa-circle-info mr-1"></i> Votre commande sera copiée, collez-la dans la discussion.
+                </p>
             </form>
         </div>
     </div>
 
     <script>
-        function openOrder(product, variant) {
+        function openOrder() {
             document.getElementById('orderModal').classList.remove('hidden');
-            document.getElementById('productLabel').innerText = product + ' - ' + variant;
-            document.getElementById('productInput').value = product;
-            document.getElementById('variantInput').value = variant;
         }
 
         function closeModal() {
             document.getElementById('orderModal').classList.add('hidden');
         }
 
-        function sendToWhatsApp(e) {
+        function sendToInstagram(e) {
             e.preventDefault();
 
-            let product = document.getElementById('productInput').value;
-            let variant = document.getElementById('variantInput').value;
+            let product = document.getElementById('productSelect').value;
             let name = document.getElementById('clientName').value;
-            let date = document.getElementById('eventDate').value;
-            let flavor = document.getElementById('flavor').value;
+            let details = document.getElementById('orderDetails').value;
 
-            // Construction du message soigné
-            let message = `*NOUVELLE COMMANDE WEB* 🎂%0A` +
-                          `--------------------------------%0A` +
-                          `👤 *Client:* ${name}%0A` +
-                          `🍰 *Produit:* ${product} (${variant})%0A` +
-                          `📅 *Date:* ${date}%0A` +
-                          `🍓 *Parfum:* ${flavor}%0A` +
-                          `--------------------------------%0A` +
-                          `Est-ce disponible pour cette date ?`;
+            // Texte à copier
+            let message = `🔔 *NOUVELLE COMMANDE*\n` +
+                          `👤 Client: ${name}\n` +
+                          `🍰 Produit: ${product}\n` +
+                          `📝 Détails: ${details}`;
 
-            // Numéro Laetisweets (213554942952)
-            let url = `https://wa.me/213554942952?text=${message}`;
-            window.open(url, '_blank');
-            closeModal();
+            // Copier dans le presse-papier
+            navigator.clipboard.writeText(message).then(function() {
+                // Rediriger vers Instagram
+                // Note: Sur mobile, cela ouvre l'app. Sur PC, le profil.
+                window.location.href = "https://instagram.com/laetisweets";
+                
+                // Petit feedback (optionnel)
+                alert("Commande copiée ! Collez-la dans le message Instagram qui va s'ouvrir.");
+            }, function(err) {
+                alert("Erreur de copie. Veuillez ouvrir Instagram manuellement.");
+            });
         }
     </script>
 
