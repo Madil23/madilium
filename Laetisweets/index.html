@@ -35,6 +35,9 @@
             from { opacity: 0; transform: scale(0.9); }
             to { opacity: 1; transform: scale(1); }
         }
+        
+        /* Curseur pour le zoom */
+        .cursor-zoom { cursor: zoom-in; }
     </style>
 </head>
 
@@ -91,7 +94,7 @@
                     <i class="fa-regular fa-snowflake"></i> Édition Limitée
                 </span>
                 <h2 class="text-4xl font-serif text-xmas mt-3 drop-shadow-sm handwriting">Carte Nouvel An 2026</h2>
-                <p class="text-xs text-gray-500 mt-1">Découvrez nos créations exclusives</p>
+                <p class="text-xs text-gray-500 mt-1">Appuyez sur une photo pour zoomer 🔍</p>
             </div>
 
             <div class="grid grid-cols-1 gap-6">
@@ -99,20 +102,21 @@
                 <div class="bg-white rounded-3xl p-4 shadow-lg border border-red-50 relative overflow-hidden group">
                     <div class="absolute top-0 right-0 bg-red-600 text-white text-[10px] font-bold px-3 py-1 rounded-bl-xl z-10">BEST SELLER</div>
                     <div class="flex gap-4 items-center">
-                        <div class="w-24 h-24 rounded-2xl bg-gray-100 overflow-hidden shrink-0">
-                            <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?q=80&w=400" class="w-full h-full object-cover">
+                        <div class="w-24 h-24 rounded-2xl bg-gray-100 overflow-hidden shrink-0 relative cursor-zoom group-image" onclick="viewImage(this.querySelector('img').src)">
+                            <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?q=80&w=400" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                            <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
                         </div>
                         <div class="flex-1">
                             <h3 class="font-bold text-xl text-gray-800 font-serif mb-1">Le Fraisier</h3>
                             <p class="text-[10px] text-gray-500 mb-3">Crème légère, fraises fraîches & génoise.</p>
                             <div class="space-y-2">
                                 <div class="flex justify-between items-center bg-red-50 px-3 py-1.5 rounded-lg">
-                                    <span class="text-xs font-bold text-gray-600">6 parts - 2500 DA</span>
-                                    <button onclick="openOrder('Fraisier 6 parts')" class="bg-green-500 hover:bg-green-600 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-sm transition-colors cursor-pointer"><i class="fa-solid fa-cart-plus text-xs"></i></button>
+                                    <span class="text-xs font-bold text-gray-600">6 parts</span>
+                                    <span class="text-sm font-black text-red-600">2500 DA</span>
                                 </div>
                                 <div class="flex justify-between items-center bg-red-50 px-3 py-1.5 rounded-lg">
-                                    <span class="text-xs font-bold text-gray-600">12 parts - 4500 DA</span>
-                                    <button onclick="openOrder('Fraisier 12 parts')" class="bg-green-500 hover:bg-green-600 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-sm transition-colors cursor-pointer"><i class="fa-solid fa-cart-plus text-xs"></i></button>
+                                    <span class="text-xs font-bold text-gray-600">12 parts</span>
+                                    <span class="text-sm font-black text-red-600">4500 DA</span>
                                 </div>
                             </div>
                         </div>
@@ -121,20 +125,21 @@
 
                 <div class="bg-white rounded-3xl p-4 shadow-lg border border-red-50 relative overflow-hidden group">
                     <div class="flex gap-4 items-center">
-                        <div class="w-24 h-24 rounded-2xl bg-gray-100 overflow-hidden shrink-0">
-                            <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=400" class="w-full h-full object-cover">
+                        <div class="w-24 h-24 rounded-2xl bg-gray-100 overflow-hidden shrink-0 relative cursor-zoom group-image" onclick="viewImage(this.querySelector('img').src)">
+                            <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=400" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                            <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
                         </div>
                         <div class="flex-1">
                             <h3 class="font-bold text-xl text-gray-800 font-serif mb-1">Christmas Cakes</h3>
                             <p class="text-[10px] text-gray-500 mb-3">Décoration couronne de Noël & finitions or.</p>
                             <div class="space-y-2">
                                 <div class="flex justify-between items-center bg-green-50 px-3 py-1.5 rounded-lg">
-                                    <span class="text-xs font-bold text-gray-600">Bento - 1500 DA</span>
-                                    <button onclick="openOrder('Bento Cake')" class="bg-green-500 hover:bg-green-600 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-sm transition-colors cursor-pointer"><i class="fa-solid fa-cart-plus text-xs"></i></button>
+                                    <span class="text-xs font-bold text-gray-600">Bento Cake</span>
+                                    <span class="text-sm font-black text-green-700">1500 DA</span>
                                 </div>
                                 <div class="flex justify-between items-center bg-green-50 px-3 py-1.5 rounded-lg">
-                                    <span class="text-xs font-bold text-gray-600">Mini (6p) - 2800 DA</span>
-                                    <button onclick="openOrder('Mini Cake 6 parts')" class="bg-green-500 hover:bg-green-600 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-sm transition-colors cursor-pointer"><i class="fa-solid fa-cart-plus text-xs"></i></button>
+                                    <span class="text-xs font-bold text-gray-600">Mini Cake (6p)</span>
+                                    <span class="text-sm font-black text-green-700">2800 DA</span>
                                 </div>
                             </div>
                         </div>
@@ -143,17 +148,16 @@
 
                 <div class="bg-white rounded-3xl p-4 shadow-lg border border-red-50 relative overflow-hidden group">
                     <div class="flex gap-4 items-center">
-                        <div class="w-24 h-24 rounded-2xl bg-gray-100 overflow-hidden shrink-0">
-                            <img src="https://images.unsplash.com/photo-1535141192574-5d4897c12636?q=80&w=400" class="w-full h-full object-cover">
+                        <div class="w-24 h-24 rounded-2xl bg-gray-100 overflow-hidden shrink-0 relative cursor-zoom group-image" onclick="viewImage(this.querySelector('img').src)">
+                            <img src="https://images.unsplash.com/photo-1535141192574-5d4897c12636?q=80&w=400" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                            <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
                         </div>
                         <div class="flex-1">
                             <h3 class="font-bold text-xl text-gray-800 font-serif mb-1">Layer Cake Noël</h3>
                             <p class="text-[10px] text-gray-500 mb-3">Design Oursons, Sapins ou Gingerbread.</p>
                             <div class="flex justify-between items-center bg-red-50 px-3 py-2 rounded-lg">
-                                <span class="text-xs font-bold text-gray-600">12p - 5000 DA</span>
-                                <button onclick="openOrder('Layer Cake Noël 12 parts')" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg shadow-sm transition-colors text-xs font-bold uppercase flex items-center gap-2 cursor-pointer">
-                                    <i class="fa-brands fa-whatsapp"></i> Commander
-                                </button>
+                                <span class="text-xs font-bold text-gray-600">12 parts</span>
+                                <span class="text-lg font-black text-red-600">5000 DA</span>
                             </div>
                         </div>
                     </div>
@@ -161,16 +165,17 @@
 
                 <div class="bg-white rounded-3xl p-4 shadow-lg border border-red-50 relative overflow-hidden group">
                     <div class="flex gap-4 items-center">
-                        <div class="w-24 h-24 rounded-2xl bg-gray-100 overflow-hidden shrink-0">
-                            <img src="https://images.unsplash.com/photo-1607478900766-efe13248b125?q=80&w=400" class="w-full h-full object-cover">
+                        <div class="w-24 h-24 rounded-2xl bg-gray-100 overflow-hidden shrink-0 relative cursor-zoom group-image" onclick="viewImage(this.querySelector('img').src)">
+                            <img src="https://images.unsplash.com/photo-1607478900766-efe13248b125?q=80&w=400" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                            <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
                         </div>
                         <div class="flex-1">
                             <h3 class="font-bold text-xl text-gray-800 font-serif mb-1">Cupcakes Festifs</h3>
                             <p class="text-[10px] text-gray-500 mb-3">Toppers dorés, Sapins, Flocons.</p>
                             <div class="flex flex-wrap gap-2">
-                                <button onclick="openOrder('Cupcakes 6 pièces')" class="bg-gray-100 hover:bg-red-500 hover:text-white px-2 py-1 rounded-md text-[10px] font-bold text-gray-600 transition-colors border border-gray-200 cursor-pointer">6 pcs</button>
-                                <button onclick="openOrder('Cupcakes 12 pièces')" class="bg-gray-100 hover:bg-red-500 hover:text-white px-2 py-1 rounded-md text-[10px] font-bold text-gray-600 transition-colors border border-gray-200 cursor-pointer">12 pcs</button>
-                                <button onclick="openOrder('Cupcakes 24 pièces')" class="bg-gray-100 hover:bg-red-500 hover:text-white px-2 py-1 rounded-md text-[10px] font-bold text-gray-600 transition-colors border border-gray-200 cursor-pointer">24 pcs</button>
+                                <span class="bg-gray-100 px-2 py-1 rounded-md text-[10px] font-bold text-gray-600 border border-gray-200">6 pcs</span>
+                                <span class="bg-gray-100 px-2 py-1 rounded-md text-[10px] font-bold text-gray-600 border border-gray-200">12 pcs</span>
+                                <span class="bg-gray-100 px-2 py-1 rounded-md text-[10px] font-bold text-gray-600 border border-gray-200">24 pcs</span>
                             </div>
                         </div>
                     </div>
@@ -198,24 +203,6 @@
             </div>
         </div>
 
-        <div class="space-y-3 mb-20">
-            <h3 class="text-center text-xl font-bold text-gray-800 mb-4 font-serif">Questions Fréquentes</h3>
-            <details class="group bg-white/80 backdrop-blur rounded-2xl border border-white shadow-sm overflow-hidden">
-                <summary class="flex justify-between items-center font-bold text-gray-700 cursor-pointer p-4 list-none">
-                    <span>📅 Quand commander pour le Nouvel An ?</span>
-                    <span class="transition-transform group-open:rotate-180 text-pink-400"><i class="fa-solid fa-chevron-down"></i></span>
-                </summary>
-                <div class="text-xs text-gray-600 px-4 pb-4 border-t border-pink-50 pt-2">Places limitées. Réservez avant le <span class="font-bold text-red-500">20 Décembre</span>.</div>
-            </details>
-            <details class="group bg-white/80 backdrop-blur rounded-2xl border border-white shadow-sm overflow-hidden">
-                <summary class="flex justify-between items-center font-bold text-gray-700 cursor-pointer p-4 list-none">
-                    <span>🚚 Livrez-vous ?</span>
-                    <span class="transition-transform group-open:rotate-180 text-pink-400"><i class="fa-solid fa-chevron-down"></i></span>
-                </summary>
-                <div class="text-xs text-gray-600 px-4 pb-4 border-t border-pink-50 pt-2">Oui, livraison possible sur Tizi Ouzou.</div>
-            </details>
-        </div>
-
         <div class="text-center pb-8 opacity-60 border-t border-pink-200 pt-6">
             <p class="handwriting text-xl text-gray-400">Merci de votre visite ♡</p>
             <p class="text-[9px] text-gray-400 mt-2 uppercase tracking-widest font-bold">Powered by Madilium</p>
@@ -224,9 +211,7 @@
     </div>
 
     <div id="orderModal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
-        
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
-        
         <div class="bg-white rounded-3xl w-full max-w-md p-6 relative z-10 mx-4 shadow-2xl modal-enter">
             
             <div class="flex justify-between items-center mb-6">
@@ -237,62 +222,70 @@
             </div>
 
             <form id="orderForm" onsubmit="sendToInstagram(event)" class="space-y-4">
-                
                 <div>
                     <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Produit</label>
-                    <input type="text" id="productInput" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm font-bold text-gray-800" readonly>
+                    <select id="productSelect" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-pink-500 transition-colors">
+                        <option value="Fraisier">Fraisier</option>
+                        <option value="Bento Cake">Bento Cake</option>
+                        <option value="Mini Cake">Mini Cake</option>
+                        <option value="Layer Cake Noël">Layer Cake Noël</option>
+                        <option value="Cupcakes Festifs">Cupcakes Festifs</option>
+                        <option value="Autre demande" selected>Autre / Personnalisé</option>
+                    </select>
                 </div>
-
                 <div>
                     <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Parfum / Saveur</label>
                     <select id="flavorSelect" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-pink-500 transition-colors">
-                        <option value="Vanille / Fruits Rouges">Vanille / Fruits Rouges (Classique)</option>
-                        <option value="Chocolat / Praliné">Chocolat / Praliné (Gourmand)</option>
-                        <option value="Citron">Citron (Fraîcheur)</option>
+                        <option value="Vanille / Fruits Rouges">Vanille / Fruits Rouges</option>
+                        <option value="Chocolat / Praliné">Chocolat / Praliné</option>
+                        <option value="Citron">Citron</option>
                         <option value="Red Velvet">Red Velvet</option>
                         <option value="Kinder / Bueno">Kinder / Bueno</option>
-                        <option value="Autre (Voir par message)">Autre / Sur mesure</option>
+                        <option value="Autre">Autre / Sur mesure</option>
                     </select>
                 </div>
-
                 <div>
                     <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Décoration / Topping</label>
                     <select id="toppingSelect" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-pink-500 transition-colors">
-                        <option value="Fruits Frais">Fruits Frais (Saison)</option>
-                        <option value="Fleurs Naturelles">Fleurs Naturelles (+ Élégant)</option>
-                        <option value="Chocolats / Gourmandises">Chocolats / Gourmandises</option>
-                        <option value="Thème Noël / Fêtes">Thème Noël / Fêtes</option>
-                        <option value="Simple / Épuré">Simple / Épuré</option>
+                        <option value="Fruits Frais">Fruits Frais</option>
+                        <option value="Fleurs Naturelles">Fleurs Naturelles</option>
+                        <option value="Chocolats">Chocolats</option>
+                        <option value="Thème Noël">Thème Noël</option>
+                        <option value="Simple">Simple / Épuré</option>
                     </select>
                 </div>
-
                 <div>
                     <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Votre Nom</label>
                     <input type="text" id="clientName" required class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-pink-500" placeholder="Ex: Sarah Amrani">
                 </div>
-
                 <div>
                     <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Date & Détails sup.</label>
                     <textarea id="orderDetails" rows="2" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-pink-500 resize-none" placeholder="Date de récupération, allergies..."></textarea>
                 </div>
-
                 <button type="submit" class="w-full py-4 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-xl font-bold shadow-lg shadow-pink-200 flex items-center justify-center gap-2 transform active:scale-95 transition-transform mt-4">
                     <span>Envoyer sur Instagram</span>
                     <i class="fa-brands fa-instagram text-xl"></i>
                 </button>
-                
-                <p class="text-[10px] text-center text-gray-400 mt-2">
-                    <i class="fa-solid fa-circle-info mr-1"></i> Votre commande sera copiée, collez-la dans la discussion.
-                </p>
             </form>
         </div>
     </div>
 
+    <div id="imageViewer" class="fixed inset-0 z-[60] bg-black/90 hidden flex justify-center items-center p-4" onclick="closeImageViewer()">
+        <img id="fullImage" src="" class="max-w-full max-h-full rounded-lg shadow-2xl modal-enter object-contain">
+        <button class="absolute top-4 right-4 text-white text-3xl opacity-70 hover:opacity-100">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+
     <script>
+        // FORMULAIRE
         function openOrder(productName) {
             document.getElementById('orderModal').classList.remove('hidden');
-            // Pré-remplir le produit si un nom est donné, sinon "Commande Spéciale"
-            document.getElementById('productInput').value = productName || "Commande Personnalisée";
+            if(productName) {
+                // Essayer de sélectionner le produit s'il existe dans la liste
+                let select = document.getElementById('productSelect');
+                select.value = productName;
+            }
         }
 
         function closeModal() {
@@ -301,31 +294,30 @@
 
         function sendToInstagram(e) {
             e.preventDefault();
-
-            let product = document.getElementById('productInput').value;
+            let product = document.getElementById('productSelect').value;
             let flavor = document.getElementById('flavorSelect').value;
             let topping = document.getElementById('toppingSelect').value;
             let name = document.getElementById('clientName').value;
             let details = document.getElementById('orderDetails').value;
 
-            // Texte à copier
-            let message = `🔔 *NOUVELLE COMMANDE*\n` +
-                          `👤 Client: ${name}\n` +
-                          `🍰 Produit: ${product}\n` +
-                          `🍓 Parfum: ${flavor}\n` +
-                          `✨ Déco: ${topping}\n` +
-                          `📝 Détails: ${details}`;
+            let message = `🔔 *NOUVELLE COMMANDE*\n👤 Client: ${name}\n🍰 Produit: ${product}\n🍓 Parfum: ${flavor}\n✨ Déco: ${topping}\n📝 Détails: ${details}`;
 
-            // Copier dans le presse-papier
             navigator.clipboard.writeText(message).then(function() {
-                // Rediriger vers Instagram
                 window.location.href = "https://instagram.com/laetisweets";
-                
-                // Petit feedback (optionnel)
-                alert("Commande copiée ! Collez-la dans le message Instagram qui va s'ouvrir.");
+                alert("Commande copiée ! Collez-la dans le message Instagram.");
             }, function(err) {
-                alert("Erreur de copie. Veuillez ouvrir Instagram manuellement.");
+                alert("Erreur de copie. Ouvrez Instagram manuellement.");
             });
+        }
+
+        // IMAGE VIEWER
+        function viewImage(src) {
+            document.getElementById('fullImage').src = src;
+            document.getElementById('imageViewer').classList.remove('hidden');
+        }
+
+        function closeImageViewer() {
+            document.getElementById('imageViewer').classList.add('hidden');
         }
     </script>
 
