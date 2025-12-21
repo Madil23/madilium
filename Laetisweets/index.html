@@ -75,7 +75,7 @@
 
         <div class="grid grid-cols-3 gap-2 mb-10 text-center">
             <div class="bg-white/60 p-3 rounded-2xl border border-white shadow-sm">
-                <span class="block text-xl font-bold text-pink-500 font-serif">2+</span>
+                <span class="block text-xl font-bold text-pink-500 font-serif">5+</span>
                 <span class="text-[9px] uppercase tracking-wide text-gray-500 font-bold">Années d'Exp.</span>
             </div>
             <div class="bg-white/60 p-3 rounded-2xl border border-white shadow-sm">
@@ -184,6 +184,7 @@
                                 <button onclick="openOrder('Cupcakes - 12 pièces')" class="bg-gray-100 hover:bg-red-500 hover:text-white px-2 py-1 rounded-md text-[10px] font-bold text-gray-600 transition-colors border border-gray-200 cursor-pointer">12 pcs</button>
                                 <button onclick="openOrder('Cupcakes - 24 pièces')" class="bg-gray-100 hover:bg-red-500 hover:text-white px-2 py-1 rounded-md text-[10px] font-bold text-gray-600 transition-colors border border-gray-200 cursor-pointer">24 pcs</button>
                             </div>
+                            <p class="text-[9px] text-gray-400 mt-1 italic">* Prix sur devis</p>
                         </div>
                     </div>
                 </div>
@@ -214,35 +215,105 @@
                 <div>
                     <h4 class="font-bold text-sm uppercase tracking-widest mb-3 text-pink-200">Les Vanilles</h4>
                     <ul class="text-xs space-y-2 opacity-90">
-                        <li>• Fruits Rouges / Framboise</li>
+                        <li>• Classique</li>
+                        <li>• Fruits Rouges</li>
+                        <li>• Framboise</li>
                         <li>• Citron 🍋</li>
                         <li>• Mangue</li>
-                        <li>• Vanille Classique</li>
                     </ul>
                 </div>
             </div>
-            <div class="mt-4 pt-4 border-t border-white/20 text-center">
-                <h4 class="font-bold text-sm uppercase tracking-widest mb-2 text-pink-200">Suppléments Gourmands</h4>
-                <p class="text-xs opacity-90">Praliné Noisettes • Praliné Pistache</p>
+            <div class="mt-6 pt-4 border-t border-white/20">
+                <h4 class="font-bold text-sm uppercase tracking-widest mb-2 text-pink-200 text-center">Les Suppléments</h4>
+                <div class="flex justify-center gap-4 text-xs font-bold opacity-90">
+                    <span class="bg-white/20 px-3 py-1 rounded-full">Praliné Noisettes</span>
+                    <span class="bg-white/20 px-3 py-1 rounded-full">Praliné Pistache</span>
+                </div>
             </div>
         </div>
 
-        <div class="bg-white/80 backdrop-blur rounded-3xl p-6 border border-white shadow-sm mb-8">
-            <h3 class="text-center text-xl font-bold text-gray-800 mb-6 font-serif">L'Expérience Laetisweets</h3>
-            <div class="space-y-6">
-                <div class="flex gap-4">
-                    <div class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-pink-500 shrink-0"><i class="fa-regular fa-gem"></i></div>
+        <div class="mb-12">
+            <h3 class="text-center text-2xl font-bold text-gray-800 mb-6 font-serif flex items-center justify-center gap-3">
+                <span class="h-[1px] w-8 bg-pink-300"></span> Tarifs Wedding Cake <span class="h-[1px] w-8 bg-pink-300"></span>
+            </h3>
+            
+            <div class="space-y-4">
+                <div class="bg-white rounded-3xl p-5 border border-pink-100 shadow-sm flex items-center justify-between">
                     <div>
-                        <h4 class="font-bold text-gray-800 text-sm">Ingrédients Premium</h4>
-                        <p class="text-xs text-gray-500 leading-relaxed">Chocolat de couverture, vanille pure et fruits frais.</p>
+                        <h4 class="font-bold text-gray-800 text-sm font-serif">Engagement & Wedding Cake</h4>
+                        <p class="text-xs text-gray-500">2 étages • Raffiné & Élégant</p>
+                    </div>
+                    <div class="text-right">
+                        <span class="block text-[10px] text-gray-400 uppercase tracking-wide">À partir de</span>
+                        <span class="text-xl font-bold text-pink-500">17 500 DA</span>
                     </div>
                 </div>
-                <div class="flex gap-4">
-                    <div class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-pink-500 shrink-0"><i class="fa-solid fa-pencil"></i></div>
+
+                <div class="bg-white rounded-3xl p-5 border border-pink-100 shadow-sm flex items-center justify-between">
                     <div>
-                        <h4 class="font-bold text-gray-800 text-sm">Design Sur Mesure</h4>
-                        <p class="text-xs text-gray-500 leading-relaxed">Chaque gâteau est dessiné selon votre thème pour une harmonie parfaite.</p>
+                        <h4 class="font-bold text-gray-800 text-sm font-serif">Grand Wedding Cake</h4>
+                        <p class="text-xs text-gray-500">3 étages • Pièce Montée Prestige</p>
                     </div>
+                    <div class="text-right">
+                        <span class="block text-[10px] text-gray-400 uppercase tracking-wide">À partir de</span>
+                        <span class="text-xl font-bold text-pink-500">35 000 DA</span>
+                    </div>
+                </div>
+
+                <div class="bg-pink-50 rounded-3xl p-5 border border-pink-100 shadow-sm flex items-center justify-between cursor-pointer hover:bg-pink-100 transition-colors" onclick="openOrder('Devis Wedding Cake Sur Mesure')">
+                    <div>
+                        <h4 class="font-bold text-gray-800 text-sm font-serif">Autres Modèles</h4>
+                        <p class="text-xs text-gray-500">Design spécifique & grande taille</p>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-sm font-bold text-gray-800 uppercase tracking-widest border-b border-gray-800">Sur Devis</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-12">
+            <h3 class="text-center text-2xl font-bold text-gray-800 mb-6 font-serif flex items-center justify-center gap-3">
+                <span class="h-[1px] w-8 bg-gray-300"></span> Formations <span class="h-[1px] w-8 bg-gray-300"></span>
+            </h3>
+            
+            <div class="space-y-6">
+                <div class="bg-white rounded-3xl p-6 border border-pink-100 shadow-md relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-pink-500 text-white text-[10px] font-bold px-4 py-1.5 rounded-bl-xl tracking-widest">DÉBUTANT</div>
+                    <h4 class="font-bold text-lg text-gray-800 font-serif mb-1">Formation VIP Cake Design</h4>
+                    <p class="text-2xl font-bold text-pink-500 mb-4">25 000 DA <span class="text-xs text-gray-400 font-normal">/ session</span></p>
+                    <ul class="text-xs text-gray-600 space-y-2 mb-6">
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-green-500 mt-0.5"></i> Bases fondamentales</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-green-500 mt-0.5"></i> Techniques modernes & lissage</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-green-500 mt-0.5"></i> Réalisation d’un gâteau complet</li>
+                    </ul>
+                    <button onclick="openOrder('Formation VIP - Cake Design')" class="w-full py-3 border-2 border-pink-500 text-pink-500 font-bold rounded-xl text-xs uppercase tracking-widest hover:bg-pink-500 hover:text-white transition-colors">Réserver</button>
+                </div>
+
+                <div class="bg-white rounded-3xl p-6 border border-gray-200 shadow-md relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-gray-800 text-white text-[10px] font-bold px-4 py-1.5 rounded-bl-xl tracking-widest">AVANCÉ</div>
+                    <h4 class="font-bold text-lg text-gray-800 font-serif mb-1">Artistique Cake (Wedding)</h4>
+                    <p class="text-xs text-gray-500 mb-1">(2 vrais + 1 faux étage)</p>
+                    <p class="text-2xl font-bold text-gray-800 mb-4">35 000 DA</p>
+                    <ul class="text-xs text-gray-600 space-y-2 mb-6">
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-green-500 mt-0.5"></i> Création d’un Wedding Cake raffiné</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-green-500 mt-0.5"></i> Techniques avancées (Fleurs, Textures)</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-green-500 mt-0.5"></i> Signature visuelle forte</li>
+                    </ul>
+                    <button onclick="openOrder('Formation Wedding Cake (35000 DA)')" class="w-full py-3 border-2 border-gray-800 text-gray-800 font-bold rounded-xl text-xs uppercase tracking-widest hover:bg-gray-800 hover:text-white transition-colors">Réserver</button>
+                </div>
+
+                <div class="bg-gray-900 text-white rounded-3xl p-6 shadow-xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-gradient-to-r from-yellow-400 to-yellow-600 text-white text-[10px] font-bold px-4 py-1.5 rounded-bl-xl tracking-widest">MASTERCLASS</div>
+                    <h4 class="font-bold text-lg font-serif mb-1 text-yellow-100">Wedding Cake Expert</h4>
+                    <p class="text-xs text-gray-400 mb-1">(2 vrais + 2 faux étages)</p>
+                    <p class="text-2xl font-bold text-white mb-4">50 000 DA</p>
+                    <ul class="text-xs text-gray-300 space-y-2 mb-6">
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-crown text-yellow-400 mt-0.5"></i> Pièce artistique complète</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-0.5"></i> Volumes, textures & effets luxe</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-0.5"></i> Structures professionnelles</li>
+                    </ul>
+                    <button onclick="openOrder('Masterclass Wedding Cake (50000 DA)')" class="w-full py-3 bg-gradient-to-r from-yellow-500 to-yellow-600 text-white font-bold rounded-xl text-xs uppercase tracking-widest hover:shadow-lg hover:scale-[1.02] transition-transform">Postuler</button>
                 </div>
             </div>
         </div>
@@ -294,12 +365,11 @@
                         <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Parfum / Saveur</label>
                         <select id="flavorSelect" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-pink-500 transition-colors">
                             <option value="Non précisé">-- Choisir --</option>
-                            <optgroup label="CHOCOLAT">
-                                <option value="Chocolat Classique (Crème)">Chocolat Classique (Crème)</option>
+                            <optgroup label="CHOCOLAT (Base Génoise)">
+                                <option value="Crème Chocolat">Crème Chocolat</option>
                                 <option value="Croustillant Chocolat & Noix">Croustillant Chocolat & Noix</option>
                                 <option value="Chocolat & Pâte à tartiner">Chocolat & Pâte à tartiner</option>
-                                <option value="Chocolat & Caramel">Chocolat & Caramel</option>
-                                <option value="Chocolat & Purée de fruits">Chocolat & Purée de fruits</option>
+                                <option value="Chocolat & Caramel/Fruits">Chocolat & Caramel/Fruits</option>
                             </optgroup>
                             <optgroup label="VANILLE">
                                 <option value="Vanille Classique">Vanille Classique</option>
@@ -312,22 +382,22 @@
                     </div>
 
                     <div class="mb-4">
-                        <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Supplément (Optionnel)</label>
+                        <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Supplément (Intérieur)</label>
                         <select id="supplementSelect" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-pink-500 transition-colors">
                             <option value="Aucun">Aucun</option>
-                            <option value="Praliné Noisettes">Praliné Noisettes</option>
-                            <option value="Praliné Pistache">Praliné Pistache</option>
+                            <option value="Praliné Noisettes">Praliné Noisettes (+ Extra)</option>
+                            <option value="Praliné Pistache">Praliné Pistache (+ Extra)</option>
                         </select>
                     </div>
 
                     <div>
-                        <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Décoration / Topping</label>
+                        <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Décoration (Visuel)</label>
                         <select id="toppingSelect" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-pink-500 transition-colors">
                             <option value="Non précisé">-- Choisir --</option>
                             <option value="Fruits Frais">Fruits Frais</option>
                             <option value="Fleurs Naturelles">Fleurs Naturelles</option>
-                            <option value="Chocolats">Chocolats</option>
-                            <option value="Thème Noël">Thème Noël</option>
+                            <option value="Chocolats / Gourmandises">Chocolats / Gourmandises</option>
+                            <option value="Thème Noël / Fêtes">Thème Noël / Fêtes</option>
                             <option value="Simple / Épuré">Simple / Épuré</option>
                         </select>
                     </div>
