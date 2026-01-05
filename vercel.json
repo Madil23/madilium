@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/kaizen",
+      "destination": "https://madilium-soz6.vercel.app"
+    },
+    {
+      "source": "/kaizen/:path*",
+      "destination": "https://madilium-soz6.vercel.app/:path*"
+    }
+  ]
+}
