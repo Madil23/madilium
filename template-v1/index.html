@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chargement...</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; background-color: #f4f4f4; }
+        .card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; max-width: 400px; width: 90%; }
+        h1 { margin-bottom: 10px; color: #333; }
+        p { color: #666; line-height: 1.6; }
+        .btn { display: inline-block; margin-top: 20px; padding: 12px 30px; color: white; text-decoration: none; border-radius: 50px; font-weight: bold; transition: opacity 0.3s; }
+        .btn:hover { opacity: 0.8; }
+        #error-msg { color: red; display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="card" id="profile-card" style="display: none;">
+        <h1 id="name">Nom du projet</h1>
+        <p id="bio">Description...</p>
+        <a id="insta-btn" href="#" class="btn" target="_blank">Voir sur Instagram</a>
+    </div>
+    
+    <p id="loading">Recherche du profil...</p>
+    <p id="error-msg">Profil introuvable.</p>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+        // 1. CONFIGURATION (Tes vraies clés)
+        const supabaseUrl = 'https://bnlulwzdydndednqronj.supabase.co'
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJubHVsd3pkeWRuZGVkbnFyb25qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc1NzcyOTUsImV4cCI6MjA4MzE1MzI5NX0.61uU0cnxG-kX8IivE3gME48ECc1tD-stt8VGb5tF6EU' // ⚠️ REMPLACE CECI PAR TA CLÉ "ANON" (celle qui commence par eyJ...)
+
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey)
+
+        async function loadProfile() {
+            // 2. Récupérer le "slug" depuis l'URL
+            // Si l'URL est madilium.com/demo, Vercel enverra ?client=demo
+            const params = new URLSearchParams(window.location.search);
+            // Pour tester en local, on force 'demo' si rien n'est trouvé
+            const slug = params.get('client') || 'demo'; 
+
+            console.log("Recherche du client :", slug);
+
+            // 3. Interroger la base de données
+            const { data, error } = await supabase
+                .from('profiles')
+                .select('*')
+                .eq('slug', slug)
+                .single();
+
+            if (error || !data) {
+                console.error("Erreur:", error);
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('error-msg').style.display = 'block';
+                document.getElementById('error-msg').innerText = "Erreur : Ce profil n'existe pas (" + slug + ")";
+                return;
+            }
+
+            // 4. Appliquer les données (La Magie)
+            document.title = data.business_name;
+            document.getElementById('name').innerText = data.business_name;
+            document.getElementById('bio').innerText = data.bio;
+            
+            // Le bouton prend la couleur du client
+            const btn = document.getElementById('insta-btn');
+            btn.href = data.instagram_url;
+            btn.style.backgroundColor = data.primary_color;
+
+            // Afficher la carte
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('profile-card').style.display = 'block';
+        }
+
+        loadProfile();
+    </script>
+</body>
+</html>
