@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madilium - Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-white min-h-screen flex items-center justify-center">
+
+    <div class="bg-slate-800 p-8 rounded-xl shadow-2xl w-full max-w-md border border-slate-700">
+        <h1 class="text-2xl font-bold mb-6 text-center text-blue-400">Nouveau Client Madilium 🚀</h1>
+        
+        <form id="create-client-form" class="space-y-4">
+            
+            <div>
+                <label class="block text-sm mb-1 text-slate-400">Nom du Business</label>
+                <input type="text" id="business_name" placeholder="Ex: Pizzeria Luigi" required
+                    class="w-full bg-slate-900 border border-slate-700 rounded p-2 focus:border-blue-500 outline-none">
+            </div>
+
+            <div>
+                <label class="block text-sm mb-1 text-slate-400">Slug (L'adresse URL)</label>
+                <input type="text" id="slug" placeholder="Ex: luigi" required
+                    class="w-full bg-slate-900 border border-slate-700 rounded p-2 focus:border-blue-500 outline-none">
+                <p class="text-xs text-slate-500 mt-1">L'adresse sera : madilium.com/<span id="preview-slug">...</span></p>
+            </div>
+
+            <div>
+                <label class="block text-sm mb-1 text-slate-400">Couleur Principale</label>
+                <div class="flex gap-2">
+                    <input type="color" id="primary_color" value="#3B82F6" class="h-10 w-14 cursor-pointer bg-transparent">
+                    <input type="text" id="color_text" value="#3B82F6" class="w-full bg-slate-900 border border-slate-700 rounded p-2 text-sm">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-sm mb-1 text-slate-400">Description / Bio</label>
+                <textarea id="bio" rows="3" placeholder="Description du client..." required
+                    class="w-full bg-slate-900 border border-slate-700 rounded p-2 focus:border-blue-500 outline-none"></textarea>
+            </div>
+
+            <div>
+                <label class="block text-sm mb-1 text-slate-400">Lien Instagram</label>
+                <input type="url" id="instagram_url" placeholder="https://instagram.com/..." required
+                    class="w-full bg-slate-900 border border-slate-700 rounded p-2 focus:border-blue-500 outline-none">
+            </div>
+
+            <input type="hidden" id="template_id" value="v1">
+
+            <button type="submit" id="btn-submit" 
+                class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded transition-all">
+                Créer le site
+            </button>
+        </form>
+
+        <div id="message" class="mt-4 text-center text-sm hidden"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // ⚠️ REMPLACE AVEC TES CLES
+        const supabaseUrl = 'https://bnlulwzdydndednqronj.supabase.co'
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJubHVsd3pkeWRuZGVkbnFyb25qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc1NzcyOTUsImV4cCI6MjA4MzE1MzI5NX0.61uU0cnxG-kX8IivE3gME48ECc1tD-stt8VGb5tF6EU' 
+
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey)
+
+        // Petit script pour mettre à jour l'aperçu du slug en direct
+        document.getElementById('slug').addEventListener('input', (e) => {
+            document.getElementById('preview-slug').innerText = e.target.value;
+        });
+
+        // Gestion de l'envoi du formulaire
+        document.getElementById('create-client-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('btn-submit');
+            const msg = document.getElementById('message');
+            
+            btn.disabled = true;
+            btn.innerText = "Création en cours...";
+            msg.classList.add('hidden');
+
+            // Récupérer les valeurs
+            const newClient = {
+                business_name: document.getElementById('business_name').value,
+                slug: document.getElementById('slug').value.toLowerCase().replace(/\s+/g, '-'), // Nettoie le slug
+                primary_color: document.getElementById('primary_color').value,
+                bio: document.getElementById('bio').value,
+                instagram_url: document.getElementById('instagram_url').value,
+                template_id: 'v1'
+            };
+
+            // Envoyer à Supabase
+            const { data, error } = await supabase
+                .from('profiles')
+                .insert([newClient])
+                .select();
+
+            if (error) {
+                console.error(error);
+                msg.innerText = "Erreur : " + error.message;
+                msg.className = "mt-4 text-center text-sm text-red-500 block";
+                btn.disabled = false;
+                btn.innerText = "Réessayer";
+            } else {
+                msg.innerHTML = `✅ Site créé ! <a href="https://madilium.com/${newClient.slug}" target="_blank" class="underline text-blue-400">Voir le site</a>`;
+                msg.className = "mt-4 text-center text-sm text-green-500 block";
+                btn.innerText = "Succès !";
+                // On vide le formulaire
+                document.getElementById('create-client-form').reset();
+                setTimeout(() => { btn.disabled = false; btn.innerText = "Créer le site"; }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>
