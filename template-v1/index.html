@@ -32,7 +32,7 @@
         const supabaseUrl = 'https://bnlulwzdydndednqronj.supabase.co'
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJubHVsd3pkeWRuZGVkbnFyb25qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc1NzcyOTUsImV4cCI6MjA4MzE1MzI5NX0.61uU0cnxG-kX8IivE3gME48ECc1tD-stt8VGb5tF6EU' // ⚠️ REMPLACE CECI PAR TA CLÉ "ANON" (celle qui commence par eyJ...)
 
-        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey)
+        const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey)
 
         async function loadProfile() {
             // 2. Récupérer le "slug" depuis l'URL
