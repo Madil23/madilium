@@ -7,6 +7,10 @@
     {
       "source": "/kaizen/:path*",
       "destination": "https://madilium-soz6.vercel.app/:path*"
+    },
+    {
+      "source": "/:slug",
+      "destination": "https://madilium-viewer.vercel.app/?client=:slug"
     }
   ]
 }
