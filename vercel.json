@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/admin",
+      "destination": "/admin/index.html"
+    },
+    {
       "source": "/kaizen",
       "destination": "https://madilium-soz6.vercel.app"
     },
