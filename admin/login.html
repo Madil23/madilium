@@ -24,78 +24,41 @@
             <button type="submit" id="btn-login" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 rounded transition-all">
                 Se connecter
             </button>
-            
-            <button type="button" id="btn-signup" class="w-full border border-gray-600 hover:bg-gray-700 text-gray-300 text-sm py-2 rounded transition-all">
-                Créer un compte (1ère fois)
-            </button>
         </form>
+
+        <div class="mt-6 text-center text-sm">
+            <span class="text-gray-500">Nouveau client ?</span>
+            <a href="/admin/signup.html" class="text-blue-400 hover:text-blue-300 ml-1 font-semibold">Créer un compte</a>
+        </div>
 
         <p id="message" class="mt-4 text-center text-sm text-red-400 hidden"></p>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // Mouchard 1 : Vérifier que le script se lance
-        console.log("Le script démarre...");
-
         const supabaseUrl = 'https://bnlulwzdydndednqronj.supabase.co'
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJubHVsd3pkeWRuZGVkbnFyb25qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc1NzcyOTUsImV4cCI6MjA4MzE1MzI5NX0.61uU0cnxG-kX8IivE3gME48ECc1tD-stt8VGb5tF6EU' // ⚠️ VERIFIE ENCORE TA CLE !
-        
-        try {
-            var supabase = window.supabase.createClient(supabaseUrl, supabaseKey)
-            console.log("Supabase initialisé");
-        } catch (err) {
-            alert("Erreur critique : Supabase ne s'est pas lancé ! " + err);
-        }
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJubHVsd3pkeWRuZGVkbnFyb25qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc1NzcyOTUsImV4cCI6MjA4MzE1MzI5NX0.61uU0cnxG-kX8IivE3gME48ECc1tD-stt8VGb5tF6EU' // ⚠️ TA CLE
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey)
 
-        const emailInput = document.getElementById('email');
-        const passwordInput = document.getElementById('password');
-        const msg = document.getElementById('message');
-
-        // Test du bouton Créer un compte
-        const btnSignup = document.getElementById('btn-signup');
-        
-        if(btnSignup) {
-            btnSignup.addEventListener('click', async () => {
-                // Mouchard 2 : Est-ce que le clic marche ?
-                alert("Clic détecté ! Tentative de création pour : " + emailInput.value);
-
-                const { data, error } = await supabase.auth.signUp({
-                    email: emailInput.value,
-                    password: passwordInput.value,
-                });
-
-                if (error) {
-                    alert("Erreur Supabase : " + error.message); // Mouchard d'erreur
-                    msg.innerText = "Erreur : " + error.message;
-                    msg.classList.remove('hidden');
-                } else {
-                    alert("Succès ! Regarde ta boite mail ou connecte-toi."); // Mouchard succès
-                    msg.innerText = "Compte créé ! Tu peux te connecter.";
-                    msg.className = "mt-4 text-center text-sm text-green-400 block";
-                }
-            });
-        } else {
-            alert("Erreur : Je ne trouve pas le bouton 'Créer un compte' dans le HTML");
-        }
-
-        // Test du bouton Se connecter
         document.getElementById('login-form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            alert("Connexion en cours..."); // Mouchard connexion
-
+            const btn = document.getElementById('btn-login');
+            const msg = document.getElementById('message');
+            
+            btn.innerText = "Chargement...";
+            msg.classList.add('hidden');
+            
             const { data, error } = await supabase.auth.signInWithPassword({
-                email: emailInput.value,
-                password: passwordInput.value,
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value,
             });
 
             if (error) {
-                alert("Erreur Login : " + error.message);
                 msg.innerText = "Erreur : " + error.message;
                 msg.classList.remove('hidden');
+                btn.innerText = "Se connecter";
             } else {
-                alert("Connexion réussie ! Redirection...");
-                window.location.href = '/admin';
+                window.location.href = '/admin/builder.html';
             }
         });
     </script>

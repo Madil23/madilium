@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Madilium Builder - Création Directe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root { --accent: #6c5ce7; --bg: #0f0f12; --panel: #1c1c22; --border: #2d2d3a; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', sans-serif; }
+        body { background: var(--bg); color: #ddd; height: 100vh; display: flex; overflow: hidden; }
+
+        /* LAYOUT */
+        .sidebar { width: 400px; background: var(--panel); border-right: 1px solid var(--border); display: flex; flex-direction: column; z-index: 10; }
+        .preview { flex-grow: 1; display: flex; justify-content: center; align-items: center; background-image: radial-gradient(#333 1px, transparent 1px); background-size: 20px 20px; }
+        .phone { width: 375px; height: 85%; background: #000; border-radius: 40px; border: 10px solid #111; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); transition: all 0.3s ease; }
+        iframe { width: 100%; height: 100%; border: none; background: white; }
+
+        /* TABS */
+        .tabs { display: flex; background: #15151a; border-bottom: 1px solid var(--border); }
+        .tab { flex: 1; padding: 15px; border: none; background: transparent; color: #666; cursor: pointer; font-weight: 600; border-bottom: 2px solid transparent; transition: 0.2s; }
+        .tab.active { color: var(--accent); border-bottom-color: var(--accent); background: rgba(108, 92, 231, 0.05); }
+
+        /* CONTENT */
+        .content { flex-grow: 1; overflow-y: auto; padding: 20px; display: none; }
+        .content.active { display: block; animation: fadeIn 0.3s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* CONTROLS */
+        .group { background: #25252b; padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid var(--border); }
+        label { display: block; font-size: 0.75rem; color: #aaa; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.5px; }
+        input, select { width: 100%; background: #15151a; border: 1px solid var(--border); color: white; padding: 10px; border-radius: 4px; margin-bottom: 10px; outline: none; transition: 0.2s; }
+        input:focus, select:focus { border-color: var(--accent); }
+        
+        /* DYNAMIC LISTS (Items) */
+        .item-row { display: flex; align-items: center; gap: 5px; background: #1a1a20; padding: 8px; margin-bottom: 5px; border-radius: 4px; border: 1px solid #333; }
+        .item-content { flex-grow: 1; }
+        .btn-icon { background: none; border: none; color: #666; cursor: pointer; padding: 5px; font-size: 0.9rem; transition: 0.2s; }
+        .btn-icon:hover { color: white; }
+        .btn-add { width: 100%; background: #2d2d3a; border: 1px dashed #555; color: #aaa; padding: 10px; cursor: pointer; border-radius: 4px; transition: 0.2s; }
+        .btn-add:hover { background: var(--accent); color: white; border-color: var(--accent); }
+
+        /* SUBMIT - Maintenant c'est un bouton PUBLIER */
+        .footer { padding: 15px; border-top: 1px solid var(--border); background: #15151a; }
+        .submit-btn { width: 100%; background: var(--accent); color: white; border: none; padding: 14px; border-radius: 6px; font-weight: bold; cursor: pointer; display: flex; justify-content: center; gap: 8px; transition: 0.3s; box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3); }
+        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(108, 92, 231, 0.5); }
+        .submit-btn:disabled { background: #444; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        /* ALERTES */
+        #status-msg { margin-top: 10px; text-align: center; font-size: 0.9rem; display: none; }
+        .success { color: #2ecc71; }
+        .error { color: #e74c3c; }
+
+        @media (max-width: 900px) {
+            body { flex-direction: column; height: auto; overflow-y: auto; }
+            .sidebar { width: 100%; height: auto; order: 2; border-right: none; }
+            .preview { height: 60vh; order: 1; padding: 20px; }
+            .phone { width: 100%; height: 100%; border-radius: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="p-4 border-b border-[#2d2d3a] flex justify-between items-center bg-[#15151a]">
+            <h2 class="font-bold text-white"><i class="fas fa-magic text-[#6c5ce7] mr-2"></i>Madilium Builder</h2>
+            <a href="/admin" class="text-xs text-gray-500 hover:text-white">Retour Admin</a>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="setTab('content')">1. Contenu</button>
+            <button class="tab" onclick="setTab('links')">2. Liens</button>
+            <button class="tab" onclick="setTab('design')">3. Design</button>
+        </div>
+
+        <div id="content" class="content active">
+            <div class="group" style="border-color: #6c5ce7;">
+                <label style="color: #6c5ce7;">🔗 Adresse du site (Slug)</label>
+                <input type="text" id="site-slug" placeholder="ex: pizzeria-luigi" style="font-weight: bold;">
+                <p style="font-size: 0.7rem; color: #666;">Le site sera accessible sur : madilium.com/<span id="slug-preview">...</span></p>
+            </div>
+
+            <div class="group">
+                <label>Nom du Projet</label>
+                <input type="text" id="client-name" oninput="updateText('client-name', this.value)" placeholder="Titre du site">
+                <label>Slogan / Bio</label>
+                <input type="text" id="client-tagline" oninput="updateText('client-tagline', this.value)" placeholder="Sous-titre">
+            </div>
+
+            <div class="group">
+                <label>🌄 Photo de Couverture (URL)</label>
+                <input type="text" id="coverInput" oninput="updateCover(this.value)" placeholder="https://...">
+            </div>
+        </div>
+
+        <div id="links" class="content">
+            <div class="group">
+                <label>Vos Boutons</label>
+                <div id="links-list"></div>
+                <button class="btn-add" onclick="addLink()"><i class="fas fa-plus"></i> Ajouter un bouton</button>
+            </div>
+            <div class="group">
+                <label>Réseaux Sociaux</label>
+                <div id="socials-list"></div>
+                <div style="display:flex; gap:5px;">
+                    <select id="social-select" style="margin-bottom:0;"><option value="instagram">Instagram</option><option value="tiktok">TikTok</option><option value="whatsapp">WhatsApp</option><option value="facebook">Facebook</option><option value="youtube">YouTube</option><option value="linkedin">LinkedIn</option><option value="twitter">X (Twitter)</option></select>
+                    <button class="btn-add" style="width:auto; margin-bottom:0;" onclick="addSocial()"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div id="design" class="content">
+            <div class="group">
+                <label>Logo / Photo de profil</label>
+                <div style="display: flex; gap: 10px;">
+                    <select id="logo-radius" onchange="updateCSS('--logo-radius', this.value)">
+                        <option value="50%">Rond (Cercle)</option>
+                        <option value="15px">Carré Arrondi</option>
+                        <option value="0px">Carré Brut</option>
+                    </select>
+                    <select id="logo-align" onchange="updateLogoAlign(this.value)">
+                        <option value="center">Aligné au Centre</option>
+                        <option value="flex-start">Aligné à Gauche</option>
+                        <option value="none">Masquer le logo</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="group">
+                <label>Couleurs</label>
+                <div class="flex items-center gap-2 mb-2">
+                    <input type="color" id="accent-color" oninput="updateCSS('--accent-color', this.value)" value="#6c5ce7" style="width: 50px; height: 40px; padding: 0;">
+                    <span class="text-xs text-gray-400">Couleur Principale</span>
+                </div>
+                <div class="flex items-center gap-2 mb-2">
+                    <input type="color" id="bg-color" oninput="updateCSS('--bg-color', this.value)" value="#F9F8F6" style="width: 50px; height: 40px; padding: 0;">
+                    <span class="text-xs text-gray-400">Couleur de Fond</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <input type="color" id="text-color" oninput="updateCSS('--text-primary', this.value)" value="#2C2C2C" style="width: 50px; height: 40px; padding: 0;">
+                    <span class="text-xs text-gray-400">Couleur du Texte</span>
+                </div>
+            </div>
+
+            <div class="group">
+                <label>Style des Boutons</label>
+                <select id="btn-style" onchange="updateClass('btn-style', this.value)"><option value="btn-style-1">1. Classique (Pillule)</option><option value="btn-style-2">2. Carré Brut</option><option value="btn-style-3">3. Outline (Bordure)</option><option value="btn-style-4">4. Ombre Portée</option><option value="btn-style-5">5. Neumorphism</option><option value="btn-style-6">6. Gradient</option><option value="btn-style-7">7. Souligné</option><option value="btn-style-8">8. Cyberpunk (Néon)</option><option value="btn-style-9">9. 3D Pressable</option><option value="btn-style-10">10. Glass (Verre)</option></select>
+            </div>
+
+            <div class="group">
+                <label>Police</label>
+                <select id="font-select" onchange="updateCSS('--font-stack', this.value)"><option value="'Outfit', sans-serif">Outfit (Moderne)</option><option value="'Fredoka', sans-serif">Fredoka (Fun)</option><option value="'Playfair Display', serif">Playfair (Luxe)</option><option value="'Anton', sans-serif">Anton (Impact)</option><option value="'Roboto Mono', monospace">Roboto (Tech)</option><option value="'Lora', serif">Lora (Littéraire)</option><option value="'Oswald', sans-serif">Oswald (Urbain)</option><option value="'Dancing Script', cursive">Dancing (Manuscrit)</option><option value="'Poppins', sans-serif">Poppins (Géo)</option></select>
+            </div>
+        </div>
+
+        <div class="footer">
+            <button id="publish-btn" class="submit-btn" onclick="publishSite()">
+                <i class="fas fa-rocket"></i> PUBLIER LE SITE
+            </button>
+            <p id="status-msg"></p>
+        </div>
+    </div>
+
+    <div class="preview"><div class="phone"><iframe id="iframe" src=""></iframe></div></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // --- 0. CONFIGURATION SUPABASE ---
+        const supabaseUrl = 'https://bnlulwzdydndednqronj.supabase.co'
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJubHVsd3pkeWRuZGVkbnFyb25qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc1NzcyOTUsImV4cCI6MjA4MzE1MzI5NX0.61uU0cnxG-kX8IivE3gME48ECc1tD-stt8VGb5tF6EU' // ⚠️ REMETS TA CLE !
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey)
+
+        // --- SECURITE : REDIRECTION SI PAS CONNECTÉ ---
+        async function checkUser() {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) {
+                window.location.href = '/admin/login.html';
+            }
+        }
+        checkUser();
+        // ----------------------------------------------
+
+        // --- 1. INITIALISATION ---
+        const urlParams = new URLSearchParams(window.location.search);
+        const templateId = urlParams.get('t') || '1';
+        const iframe = document.getElementById('iframe');
+        iframe.src = `template${templateId}/index.html?edit=true`;
+
+        let linksData = [];
+        let socialsData = [];
+
+        // Petit script pour voir le slug en direct
+        document.getElementById('site-slug').addEventListener('input', (e) => {
+            document.getElementById('slug-preview').innerText = e.target.value;
+        });
+
+        // --- 2. FONCTIONS UI ---
+        function setTab(id) {
+            document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        // --- 3. GESTION LIENS ---
+        function addLink() { linksData.push({ text: "Nouveau Lien", url: "#" }); renderLinks(); pushData(); }
+        function removeLink(i) { linksData.splice(i, 1); renderLinks(); pushData(); }
+        function moveLink(i, d) { if ((d===-1&&i>0)||(d===1&&i<linksData.length-1)) { [linksData[i],linksData[i+d]]=[linksData[i+d],linksData[i]]; renderLinks(); pushData(); }}
+        function updateLinkText(i, v) { linksData[i].text = v; pushData(); }
+        function updateLinkUrl(i, v) { linksData[i].url = v; pushData(); } // Ajouté pour modifier l'URL aussi
+        
+        function renderLinks() {
+            document.getElementById('links-list').innerHTML = linksData.map((l,i)=>`
+            <div class="item-row" style="flex-direction:column; align-items:stretch;">
+                <div style="display:flex; align-items:center; gap:5px; margin-bottom:5px;">
+                    <div style="display:flex;flex-direction:column;gap:2px;"><button class="btn-icon" onclick="moveLink(${i},-1)">▲</button><button class="btn-icon" onclick="moveLink(${i},1)">▼</button></div>
+                    <input type="text" value="${l.text}" oninput="updateLinkText(${i},this.value)" placeholder="Titre" style="margin:0; flex-grow:1;">
+                    <button class="btn-icon" style="color:#ff6b6b;" onclick="removeLink(${i})"><i class="fas fa-trash"></i></button>
+                </div>
+                <input type="text" value="${l.url}" oninput="updateLinkUrl(${i},this.value)" placeholder="https://..." style="margin:0; font-size:0.8rem; color:#888; background:#111;">
+            </div>`).join('');
+        }
+
+        // --- 4. GESTION RESEAUX ---
+        function addSocial() { socialsData.push({ network: document.getElementById('social-select').value, url: "" }); renderSocials(); pushData(); }
+        function removeSocial(i) { socialsData.splice(i, 1); renderSocials(); pushData(); }
+        function renderSocials() {
+            document.getElementById('socials-list').innerHTML = socialsData.map((s,i)=>`
+            <div class="item-row">
+                <i class="fab fa-${s.network}" style="width:20px;text-align:center;"></i>
+                <input type="text" placeholder="Lien..." value="${s.url}" oninput="socialsData[${i}].url=this.value;pushData();" style="margin:0;flex-grow:1;">
+                <button class="btn-icon" onclick="removeSocial(${i})">×</button>
+            </div>`).join('');
+        }
+
+        // --- 5. COMMUNICATION IFRAME ---
+        function updateCSS(key, val) { iframe.contentWindow.postMessage({ type: 'cssVar', key, value: val }, '*'); }
+        function updateText(id, val) { iframe.contentWindow.postMessage({ type: 'textContent', key: id, value: val }, '*'); }
+        function updateClass(type, val) { iframe.contentWindow.postMessage({ type: 'classChange', key: type, value: val }, '*'); }
+        function pushData() { iframe.contentWindow.postMessage({ type: 'updateData', links: linksData, socials: socialsData }, '*'); }
+        function updateCover(url) { iframe.contentWindow.postMessage({ type: 'updateCover', value: url }, '*'); }
+        function updateLogoAlign(val) {
+            if (val === 'none') { updateCSS('--logo-display', 'none'); } 
+            else { updateCSS('--logo-display', 'block'); updateCSS('--logo-align', val); }
+        }
+
+        // --- 6. PUBLICATION VERS SUPABASE 🚀 ---
+        async function publishSite() {
+            const btn = document.getElementById('publish-btn');
+            const status = document.getElementById('status-msg');
+            const slug = document.getElementById('site-slug').value.trim();
+            const clientName = document.getElementById('client-name').value;
+
+            // Validation basique
+            if (!slug || slug.length < 3) {
+                alert("Erreur : Il faut choisir une adresse (Slug) valide (min 3 lettres).");
+                document.getElementById('site-slug').focus();
+                return;
+            }
+            if (!clientName) {
+                alert("Erreur : Donnez un nom au projet.");
+                return;
+            }
+
+            // UI Chargement
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Création en cours...';
+            btn.disabled = true;
+            status.style.display = 'none';
+
+            // Préparation de l'objet CONFIGURATION COMPLET (JSON)
+            // On stocke TOUT ce qui ne rentre pas dans les colonnes classiques
+            const fullConfiguration = {
+                links: linksData,
+                socials: socialsData,
+                design: {
+                    logo_radius: document.getElementById('logo-radius').value,
+                    logo_align: document.getElementById('logo-align').value,
+                    bg_color: document.getElementById('bg-color').value,
+                    text_color: document.getElementById('text-color').value,
+                    btn_style: document.getElementById('btn-style').value,
+                    font: document.getElementById('font-select').value,
+                    cover_url: document.getElementById('coverInput').value
+                },
+                template_id: templateId
+            };
+
+            // Envoi à Supabase
+            const { data, error } = await supabase
+                .from('profiles')
+                .insert({
+                    slug: slug, // L'adresse URL
+                    business_name: clientName, // Le Titre
+                    bio: document.getElementById('client-tagline').value, // Le slogan
+                    primary_color: document.getElementById('accent-color').value, // Couleur principale
+                    configuration: fullConfiguration // 🔥 LE PACK COMPLET DESIGN + LIENS (JSONB)
+                });
+
+            if (error) {
+                console.error(error);
+                btn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Erreur';
+                status.innerText = "Erreur : " + error.message + " (Vérifie le Slug unique ou la colonne 'configuration')";
+                status.className = "error";
+                status.style.display = 'block';
+                btn.disabled = false;
+            } else {
+                btn.innerHTML = '<i class="fas fa-check"></i> Site Créé !';
+                status.innerHTML = `Succès ! Ton site est en ligne : <br> <a href="https://madilium.com/${slug}" target="_blank" class="underline font-bold">madilium.com/${slug}</a>`;
+                status.className = "success";
+                status.style.display = 'block';
+            }
+        }
+        // --- 7. SECURITE (A COPIER A LA FIN DU SCRIPT) ---
+        async function checkUser() {
+            // On demande à Supabase : "Y a-t-il un utilisateur connecté ?"
+            const { data: { user } } = await supabase.auth.getUser();
+            
+            // Si non, on le renvoie à la porte (Login)
+            if (!user) {
+                window.location.href = '/admin/login.html';
+            }
+        }
+        // On lance la vérification tout de suite
+        checkUser();
+    </script>
+    
+</body>
+</html>
