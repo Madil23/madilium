@@ -65,6 +65,17 @@
 
         const supabaseAdmin = window.supabase.createClient(supabaseUrl, supabaseKey)
 
+        // --- DEBUT SECURITE ---
+        async function checkUser() {
+            const { data: { user } } = await supabaseAdmin.auth.getUser();
+            if (!user) {
+                // Pas connecté ? Dehors !
+                window.location.href = '/admin/login.html';
+            }
+        }
+        checkUser();
+        // --- FIN SECURITE ---
+
         // Petit script pour mettre à jour l'aperçu du slug en direct
         document.getElementById('slug').addEventListener('input', (e) => {
             document.getElementById('preview-slug').innerText = e.target.value;
