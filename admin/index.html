@@ -63,7 +63,7 @@
         const supabaseUrl = 'https://bnlulwzdydndednqronj.supabase.co'
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJubHVsd3pkeWRuZGVkbnFyb25qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc1NzcyOTUsImV4cCI6MjA4MzE1MzI5NX0.61uU0cnxG-kX8IivE3gME48ECc1tD-stt8VGb5tF6EU' 
 
-        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey)
+        const supabaseAdmin = window.supabase.createClient(supabaseUrl, supabaseKey)
 
         // Petit script pour mettre à jour l'aperçu du slug en direct
         document.getElementById('slug').addEventListener('input', (e) => {
@@ -91,7 +91,7 @@
             };
 
             // Envoyer à Supabase
-            const { data, error } = await supabase
+            const { data, error } = await supabaseAdmin
                 .from('profiles')
                 .insert([newClient])
                 .select();
