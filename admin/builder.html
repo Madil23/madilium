@@ -36,19 +36,17 @@
         
         /* DYNAMIC LISTS (Items) */
         .item-row { display: flex; align-items: center; gap: 5px; background: #1a1a20; padding: 8px; margin-bottom: 5px; border-radius: 4px; border: 1px solid #333; }
-        .item-content { flex-grow: 1; }
         .btn-icon { background: none; border: none; color: #666; cursor: pointer; padding: 5px; font-size: 0.9rem; transition: 0.2s; }
         .btn-icon:hover { color: white; }
         .btn-add { width: 100%; background: #2d2d3a; border: 1px dashed #555; color: #aaa; padding: 10px; cursor: pointer; border-radius: 4px; transition: 0.2s; }
         .btn-add:hover { background: var(--accent); color: white; border-color: var(--accent); }
 
-        /* SUBMIT - Maintenant c'est un bouton PUBLIER */
+        /* FOOTER */
         .footer { padding: 15px; border-top: 1px solid var(--border); background: #15151a; }
         .submit-btn { width: 100%; background: var(--accent); color: white; border: none; padding: 14px; border-radius: 6px; font-weight: bold; cursor: pointer; display: flex; justify-content: center; gap: 8px; transition: 0.3s; box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3); }
         .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(108, 92, 231, 0.5); }
-        .submit-btn:disabled { background: #444; cursor: not-allowed; transform: none; box-shadow: none; }
+        .submit-btn:disabled { background: #444; cursor: not-allowed; }
 
-        /* ALERTES */
         #status-msg { margin-top: 10px; text-align: center; font-size: 0.9rem; display: none; }
         .success { color: #2ecc71; }
         .error { color: #e74c3c; }
@@ -66,13 +64,15 @@
     <div class="sidebar">
         <div class="p-4 border-b border-[#2d2d3a] flex justify-between items-center bg-[#15151a]">
             <h2 class="font-bold text-white"><i class="fas fa-magic text-[#6c5ce7] mr-2"></i>Madilium Builder</h2>
-            <a href="/admin" class="text-xs text-gray-500 hover:text-white">Retour Admin</a>
+            <button onclick="logout()" class="text-xs text-red-400 hover:text-red-300 border border-red-900 px-2 py-1 rounded">
+                <i class="fas fa-sign-out-alt"></i> Déconnexion
+            </button>
         </div>
 
         <div class="tabs">
-            <button class="tab active" onclick="setTab('content')">1. Contenu</button>
-            <button class="tab" onclick="setTab('links')">2. Liens</button>
-            <button class="tab" onclick="setTab('design')">3. Design</button>
+            <button class="tab active" onclick="setTab('content', event)">1. Contenu</button>
+            <button class="tab" onclick="setTab('links', event)">2. Liens</button>
+            <button class="tab" onclick="setTab('design', event)">3. Design</button>
         </div>
 
         <div id="content" class="content active">
@@ -168,48 +168,72 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         // --- 0. CONFIGURATION SUPABASE ---
-        const supabaseUrl = 'https://bnlulwzdydndednqronj.supabase.co'
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJubHVsd3pkeWRuZGVkbnFyb25qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc1NzcyOTUsImV4cCI6MjA4MzE1MzI5NX0.61uU0cnxG-kX8IivE3gME48ECc1tD-stt8VGb5tF6EU' // ⚠️ REMETS TA CLE !
-        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey)
+        // ⚠️ REMETS TA VRAIE CLE ICI SINON RIEN NE MARCHERA
+        const supabaseUrl = 'https://bnlulwzdydndednqronj.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJubHVsd3pkeWRuZGVkbnFyb25qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc1NzcyOTUsImV4cCI6MjA4MzE1MzI5NX0.61uU0cnxG-kX8IivE3gME48ECc1tD-stt8VGb5tF6EU'; 
+        
+        let supabase;
+        try {
+            supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+        } catch (e) {
+            alert("Erreur critique : Impossible de lancer Supabase. Vérifie ta clé API dans le code !");
+        }
 
-        // --- SECURITE : REDIRECTION SI PAS CONNECTÉ ---
-        async function checkUser() {
+        // --- 1. SECURITE (VERIFICATION IMMEDIATE) ---
+        async function checkSecurity() {
             const { data: { user } } = await supabase.auth.getUser();
             if (!user) {
+                // Pas connecté ? Hop, dehors !
                 window.location.href = '/admin/login.html';
             }
         }
-        checkUser();
-        // ----------------------------------------------
+        checkSecurity();
 
-        // --- 1. INITIALISATION ---
+        // --- 2. FONCTIONS DECONNEXION ---
+        async function logout() {
+            await supabase.auth.signOut();
+            window.location.href = '/admin/login.html';
+        }
+
+        // --- 3. INITIALISATION ---
         const urlParams = new URLSearchParams(window.location.search);
         const templateId = urlParams.get('t') || '1';
         const iframe = document.getElementById('iframe');
-        iframe.src = `template${templateId}/index.html?edit=true`;
+        // On charge le template
+        iframe.src = `/template${templateId}/index.html?edit=true`;
 
         let linksData = [];
         let socialsData = [];
 
-        // Petit script pour voir le slug en direct
+        // Preview du slug
         document.getElementById('site-slug').addEventListener('input', (e) => {
             document.getElementById('slug-preview').innerText = e.target.value;
         });
 
-        // --- 2. FONCTIONS UI ---
-        function setTab(id) {
+        // --- 4. GESTION DES ONGLETS (CORRIGÉE) ---
+        window.setTab = function(id, event) {
+            // Masquer tous les contenus
+            document.querySelectorAll('.content').forEach(c => c.style.display = 'none');
             document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            event.target.classList.add('active');
-        }
+            
+            // Afficher le bon contenu
+            const activeContent = document.getElementById(id);
+            if(activeContent) {
+                activeContent.style.display = 'block';
+                activeContent.classList.add('active');
+            }
 
-        // --- 3. GESTION LIENS ---
-        function addLink() { linksData.push({ text: "Nouveau Lien", url: "#" }); renderLinks(); pushData(); }
-        function removeLink(i) { linksData.splice(i, 1); renderLinks(); pushData(); }
-        function moveLink(i, d) { if ((d===-1&&i>0)||(d===1&&i<linksData.length-1)) { [linksData[i],linksData[i+d]]=[linksData[i+d],linksData[i]]; renderLinks(); pushData(); }}
-        function updateLinkText(i, v) { linksData[i].text = v; pushData(); }
-        function updateLinkUrl(i, v) { linksData[i].url = v; pushData(); } // Ajouté pour modifier l'URL aussi
+            // Gérer les boutons (tabs)
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            if(event) event.currentTarget.classList.add('active');
+        };
+
+        // --- 5. GESTION LIENS ---
+        window.addLink = function() { linksData.push({ text: "Nouveau Lien", url: "#" }); renderLinks(); pushData(); };
+        window.removeLink = function(i) { linksData.splice(i, 1); renderLinks(); pushData(); };
+        window.moveLink = function(i, d) { if ((d===-1&&i>0)||(d===1&&i<linksData.length-1)) { [linksData[i],linksData[i+d]]=[linksData[i+d],linksData[i]]; renderLinks(); pushData(); }};
+        window.updateLinkText = function(i, v) { linksData[i].text = v; pushData(); };
+        window.updateLinkUrl = function(i, v) { linksData[i].url = v; pushData(); };
         
         function renderLinks() {
             document.getElementById('links-list').innerHTML = linksData.map((l,i)=>`
@@ -223,9 +247,9 @@
             </div>`).join('');
         }
 
-        // --- 4. GESTION RESEAUX ---
-        function addSocial() { socialsData.push({ network: document.getElementById('social-select').value, url: "" }); renderSocials(); pushData(); }
-        function removeSocial(i) { socialsData.splice(i, 1); renderSocials(); pushData(); }
+        // --- 6. GESTION RESEAUX ---
+        window.addSocial = function() { socialsData.push({ network: document.getElementById('social-select').value, url: "" }); renderSocials(); pushData(); };
+        window.removeSocial = function(i) { socialsData.splice(i, 1); renderSocials(); pushData(); };
         function renderSocials() {
             document.getElementById('socials-list').innerHTML = socialsData.map((s,i)=>`
             <div class="item-row">
@@ -235,42 +259,37 @@
             </div>`).join('');
         }
 
-        // --- 5. COMMUNICATION IFRAME ---
-        function updateCSS(key, val) { iframe.contentWindow.postMessage({ type: 'cssVar', key, value: val }, '*'); }
-        function updateText(id, val) { iframe.contentWindow.postMessage({ type: 'textContent', key: id, value: val }, '*'); }
-        function updateClass(type, val) { iframe.contentWindow.postMessage({ type: 'classChange', key: type, value: val }, '*'); }
-        function pushData() { iframe.contentWindow.postMessage({ type: 'updateData', links: linksData, socials: socialsData }, '*'); }
-        function updateCover(url) { iframe.contentWindow.postMessage({ type: 'updateCover', value: url }, '*'); }
-        function updateLogoAlign(val) {
+        // --- 7. COMMUNICATION IFRAME ---
+        window.updateCSS = function(key, val) { iframe.contentWindow.postMessage({ type: 'cssVar', key, value: val }, '*'); };
+        window.updateText = function(id, val) { iframe.contentWindow.postMessage({ type: 'textContent', key: id, value: val }, '*'); };
+        window.updateClass = function(type, val) { iframe.contentWindow.postMessage({ type: 'classChange', key: type, value: val }, '*'); };
+        window.pushData = function() { iframe.contentWindow.postMessage({ type: 'updateData', links: linksData, socials: socialsData }, '*'); };
+        window.updateCover = function(url) { iframe.contentWindow.postMessage({ type: 'updateCover', value: url }, '*'); };
+        window.updateLogoAlign = function(val) {
             if (val === 'none') { updateCSS('--logo-display', 'none'); } 
             else { updateCSS('--logo-display', 'block'); updateCSS('--logo-align', val); }
-        }
+        };
 
-        // --- 6. PUBLICATION VERS SUPABASE 🚀 ---
-        async function publishSite() {
+        // --- 8. PUBLICATION ---
+        window.publishSite = async function() {
             const btn = document.getElementById('publish-btn');
             const status = document.getElementById('status-msg');
             const slug = document.getElementById('site-slug').value.trim();
             const clientName = document.getElementById('client-name').value;
 
-            // Validation basique
             if (!slug || slug.length < 3) {
-                alert("Erreur : Il faut choisir une adresse (Slug) valide (min 3 lettres).");
-                document.getElementById('site-slug').focus();
+                alert("Erreur : Le slug doit faire au moins 3 caractères.");
                 return;
             }
             if (!clientName) {
-                alert("Erreur : Donnez un nom au projet.");
+                alert("Erreur : Le nom du projet est vide.");
                 return;
             }
 
-            // UI Chargement
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Création en cours...';
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi...';
             btn.disabled = true;
             status.style.display = 'none';
 
-            // Préparation de l'objet CONFIGURATION COMPLET (JSON)
-            // On stocke TOUT ce qui ne rentre pas dans les colonnes classiques
             const fullConfiguration = {
                 links: linksData,
                 socials: socialsData,
@@ -286,44 +305,30 @@
                 template_id: templateId
             };
 
-            // Envoi à Supabase
             const { data, error } = await supabase
                 .from('profiles')
                 .insert({
-                    slug: slug, // L'adresse URL
-                    business_name: clientName, // Le Titre
-                    bio: document.getElementById('client-tagline').value, // Le slogan
-                    primary_color: document.getElementById('accent-color').value, // Couleur principale
-                    configuration: fullConfiguration // 🔥 LE PACK COMPLET DESIGN + LIENS (JSONB)
+                    slug: slug,
+                    business_name: clientName,
+                    bio: document.getElementById('client-tagline').value,
+                    primary_color: document.getElementById('accent-color').value,
+                    configuration: fullConfiguration
                 });
 
             if (error) {
                 console.error(error);
                 btn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Erreur';
-                status.innerText = "Erreur : " + error.message + " (Vérifie le Slug unique ou la colonne 'configuration')";
+                status.innerText = "Erreur : " + error.message;
                 status.className = "error";
                 status.style.display = 'block';
                 btn.disabled = false;
             } else {
-                btn.innerHTML = '<i class="fas fa-check"></i> Site Créé !';
-                status.innerHTML = `Succès ! Ton site est en ligne : <br> <a href="https://madilium.com/${slug}" target="_blank" class="underline font-bold">madilium.com/${slug}</a>`;
+                btn.innerHTML = '<i class="fas fa-check"></i> Publié !';
+                status.innerHTML = `Succès ! <a href="/${slug}" target="_blank" class="underline font-bold">Voir le site</a>`;
                 status.className = "success";
                 status.style.display = 'block';
             }
-        }
-        // --- 7. SECURITE (A COPIER A LA FIN DU SCRIPT) ---
-        async function checkUser() {
-            // On demande à Supabase : "Y a-t-il un utilisateur connecté ?"
-            const { data: { user } } = await supabase.auth.getUser();
-            
-            // Si non, on le renvoie à la porte (Login)
-            if (!user) {
-                window.location.href = '/admin/login.html';
-            }
-        }
-        // On lance la vérification tout de suite
-        checkUser();
+        };
     </script>
-    
 </body>
 </html>
