@@ -34,7 +34,7 @@
         input, select { width: 100%; background: #15151a; border: 1px solid var(--border); color: white; padding: 10px; border-radius: 4px; margin-bottom: 10px; outline: none; transition: 0.2s; }
         input:focus, select:focus { border-color: var(--accent); }
         
-        /* DYNAMIC LISTS (Items) */
+        /* DYNAMIC LISTS */
         .item-row { display: flex; align-items: center; gap: 5px; background: #1a1a20; padding: 8px; margin-bottom: 5px; border-radius: 4px; border: 1px solid #333; }
         .btn-icon { background: none; border: none; color: #666; cursor: pointer; padding: 5px; font-size: 0.9rem; transition: 0.2s; }
         .btn-icon:hover { color: white; }
@@ -51,6 +51,9 @@
         .success { color: #2ecc71; }
         .error { color: #e74c3c; }
 
+        /* DEBUGGER VISUEL */
+        #error-box { position: fixed; top: 0; left: 0; width: 100%; background: #e74c3c; color: white; padding: 20px; z-index: 9999; display: none; text-align: center; font-weight: bold; }
+
         @media (max-width: 900px) {
             body { flex-direction: column; height: auto; overflow-y: auto; }
             .sidebar { width: 100%; height: auto; order: 2; border-right: none; }
@@ -60,6 +63,8 @@
     </style>
 </head>
 <body>
+
+    <div id="error-box"></div>
 
     <div class="sidebar">
         <div class="p-4 border-b border-[#2d2d3a] flex justify-between items-center bg-[#15151a]">
@@ -167,65 +172,75 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
+        // SYSTEME DE DETECTION D'ERREURS (Le Mouchard Visuel)
+        window.onerror = function(message, source, lineno, colno, error) {
+            const errorBox = document.getElementById('error-box');
+            errorBox.style.display = 'block';
+            errorBox.innerHTML = `⚠️ ERREUR JS : ${message} <br> (Ligne: ${lineno})`;
+        };
+
         // --- 0. CONFIGURATION SUPABASE ---
-        // ⚠️ REMETS TA VRAIE CLE ICI SINON RIEN NE MARCHERA
         const supabaseUrl = 'https://bnlulwzdydndednqronj.supabase.co';
+        // J'ai mis ta clé directement ici :
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJubHVsd3pkeWRuZGVkbnFyb25qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc1NzcyOTUsImV4cCI6MjA4MzE1MzI5NX0.61uU0cnxG-kX8IivE3gME48ECc1tD-stt8VGb5tF6EU'; 
-        
-        let supabase;
-        try {
-            supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
-        } catch (e) {
-            alert("Erreur critique : Impossible de lancer Supabase. Vérifie ta clé API dans le code !");
-        }
+
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
         // --- 1. SECURITE (VERIFICATION IMMEDIATE) ---
         async function checkSecurity() {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (!user) {
-                // Pas connecté ? Hop, dehors !
+            console.log("Vérification sécurité...");
+            const { data: { session }, error } = await supabase.auth.getSession();
+            
+            if (!session) {
+                console.log("Pas connecté -> Redirection Login");
                 window.location.href = '/admin/login.html';
+            } else {
+                console.log("Connecté en tant que :", session.user.email);
             }
         }
         checkSecurity();
 
-        // --- 2. FONCTIONS DECONNEXION ---
-        async function logout() {
-            await supabase.auth.signOut();
-            window.location.href = '/admin/login.html';
-        }
+        // --- 2. FONCTION DECONNEXION ---
+        window.logout = async function() {
+            if(confirm("Veux-tu vraiment te déconnecter ?")) {
+                await supabase.auth.signOut();
+                window.location.href = '/admin/login.html';
+            }
+        };
 
-        // --- 3. INITIALISATION ---
+        // --- 3. INITIALISATION UI ---
         const urlParams = new URLSearchParams(window.location.search);
         const templateId = urlParams.get('t') || '1';
         const iframe = document.getElementById('iframe');
-        // On charge le template
         iframe.src = `/template${templateId}/index.html?edit=true`;
 
         let linksData = [];
         let socialsData = [];
 
         // Preview du slug
-        document.getElementById('site-slug').addEventListener('input', (e) => {
-            document.getElementById('slug-preview').innerText = e.target.value;
-        });
+        const slugInput = document.getElementById('site-slug');
+        if(slugInput) {
+            slugInput.addEventListener('input', (e) => {
+                const preview = document.getElementById('slug-preview');
+                if(preview) preview.innerText = e.target.value;
+            });
+        }
 
-        // --- 4. GESTION DES ONGLETS (CORRIGÉE) ---
+        // --- 4. GESTION DES ONGLETS ---
         window.setTab = function(id, event) {
-            // Masquer tous les contenus
-            document.querySelectorAll('.content').forEach(c => c.style.display = 'none');
-            document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.content').forEach(c => {
+                c.style.display = 'none';
+                c.classList.remove('active');
+            });
             
-            // Afficher le bon contenu
             const activeContent = document.getElementById(id);
             if(activeContent) {
                 activeContent.style.display = 'block';
                 activeContent.classList.add('active');
             }
 
-            // Gérer les boutons (tabs)
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            if(event) event.currentTarget.classList.add('active');
+            if(event && event.currentTarget) event.currentTarget.classList.add('active');
         };
 
         // --- 5. GESTION LIENS ---
@@ -236,7 +251,9 @@
         window.updateLinkUrl = function(i, v) { linksData[i].url = v; pushData(); };
         
         function renderLinks() {
-            document.getElementById('links-list').innerHTML = linksData.map((l,i)=>`
+            const list = document.getElementById('links-list');
+            if(!list) return;
+            list.innerHTML = linksData.map((l,i)=>`
             <div class="item-row" style="flex-direction:column; align-items:stretch;">
                 <div style="display:flex; align-items:center; gap:5px; margin-bottom:5px;">
                     <div style="display:flex;flex-direction:column;gap:2px;"><button class="btn-icon" onclick="moveLink(${i},-1)">▲</button><button class="btn-icon" onclick="moveLink(${i},1)">▼</button></div>
@@ -251,7 +268,9 @@
         window.addSocial = function() { socialsData.push({ network: document.getElementById('social-select').value, url: "" }); renderSocials(); pushData(); };
         window.removeSocial = function(i) { socialsData.splice(i, 1); renderSocials(); pushData(); };
         function renderSocials() {
-            document.getElementById('socials-list').innerHTML = socialsData.map((s,i)=>`
+            const list = document.getElementById('socials-list');
+            if(!list) return;
+            list.innerHTML = socialsData.map((s,i)=>`
             <div class="item-row">
                 <i class="fab fa-${s.network}" style="width:20px;text-align:center;"></i>
                 <input type="text" placeholder="Lien..." value="${s.url}" oninput="socialsData[${i}].url=this.value;pushData();" style="margin:0;flex-grow:1;">
