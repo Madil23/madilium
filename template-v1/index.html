@@ -37,9 +37,15 @@
         async function loadProfile() {
             // 2. Récupérer le "slug" depuis l'URL
             // Si l'URL est madilium.com/demo, Vercel enverra ?client=demo
-            const params = new URLSearchParams(window.location.search);
-            // Pour tester en local, on force 'demo' si rien n'est trouvé
-            const slug = params.get('client') || 'demo'; 
+            // 2. Récupérer le "slug" (le nom du client)
+// D'abord, on regarde l'adresse directe (ex: madilium.com/pizzeria)
+let slug = window.location.pathname.substring(1); 
+
+// Si l'adresse est vide, on cherche les paramètres de secours (?client=...) ou on met 'demo'
+if (!slug || slug.length < 1) {
+    const params = new URLSearchParams(window.location.search);
+    slug = params.get('client') || 'demo';
+}
 
             console.log("Recherche du client :", slug);
 
