@@ -35,47 +35,67 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // ⚠️ REMPLACE AVEC TA CLE PUBLIQUE
+        // Mouchard 1 : Vérifier que le script se lance
+        console.log("Le script démarre...");
+
         const supabaseUrl = 'https://bnlulwzdydndednqronj.supabase.co'
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJubHVsd3pkeWRuZGVkbnFyb25qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc1NzcyOTUsImV4cCI6MjA4MzE1MzI5NX0.61uU0cnxG-kX8IivE3gME48ECc1tD-stt8VGb5tF6EU' 
-        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey)
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJubHVsd3pkeWRuZGVkbnFyb25qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc1NzcyOTUsImV4cCI6MjA4MzE1MzI5NX0.61uU0cnxG-kX8IivE3gME48ECc1tD-stt8VGb5tF6EU' // ⚠️ VERIFIE ENCORE TA CLE !
+        
+        try {
+            var supabase = window.supabase.createClient(supabaseUrl, supabaseKey)
+            console.log("Supabase initialisé");
+        } catch (err) {
+            alert("Erreur critique : Supabase ne s'est pas lancé ! " + err);
+        }
 
         const emailInput = document.getElementById('email');
         const passwordInput = document.getElementById('password');
         const msg = document.getElementById('message');
 
-        // CONNEXION
+        // Test du bouton Créer un compte
+        const btnSignup = document.getElementById('btn-signup');
+        
+        if(btnSignup) {
+            btnSignup.addEventListener('click', async () => {
+                // Mouchard 2 : Est-ce que le clic marche ?
+                alert("Clic détecté ! Tentative de création pour : " + emailInput.value);
+
+                const { data, error } = await supabase.auth.signUp({
+                    email: emailInput.value,
+                    password: passwordInput.value,
+                });
+
+                if (error) {
+                    alert("Erreur Supabase : " + error.message); // Mouchard d'erreur
+                    msg.innerText = "Erreur : " + error.message;
+                    msg.classList.remove('hidden');
+                } else {
+                    alert("Succès ! Regarde ta boite mail ou connecte-toi."); // Mouchard succès
+                    msg.innerText = "Compte créé ! Tu peux te connecter.";
+                    msg.className = "mt-4 text-center text-sm text-green-400 block";
+                }
+            });
+        } else {
+            alert("Erreur : Je ne trouve pas le bouton 'Créer un compte' dans le HTML");
+        }
+
+        // Test du bouton Se connecter
         document.getElementById('login-form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            msg.classList.add('hidden');
-            
+            alert("Connexion en cours..."); // Mouchard connexion
+
             const { data, error } = await supabase.auth.signInWithPassword({
                 email: emailInput.value,
                 password: passwordInput.value,
             });
 
             if (error) {
+                alert("Erreur Login : " + error.message);
                 msg.innerText = "Erreur : " + error.message;
                 msg.classList.remove('hidden');
             } else {
-                // Succès -> On va vers l'admin
+                alert("Connexion réussie ! Redirection...");
                 window.location.href = '/admin';
-            }
-        });
-
-        // INSCRIPTION (Juste pour toi au début)
-        document.getElementById('btn-signup').addEventListener('click', async () => {
-            const { data, error } = await supabase.auth.signUp({
-                email: emailInput.value,
-                password: passwordInput.value,
-            });
-
-            if (error) {
-                msg.innerText = "Erreur Inscription : " + error.message;
-                msg.classList.remove('hidden');
-            } else {
-                msg.innerText = "Compte créé ! Tu peux te connecter.";
-                msg.className = "mt-4 text-center text-sm text-green-400 block";
             }
         });
     </script>
