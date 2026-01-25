@@ -3,61 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chargement...</title>
+    <title>Madilium Profile</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Playfair+Display:wght@400;700&family=Anton&family=Roboto+Mono&family=Lora&family=Oswald&family=Dancing+Script&family=Poppins&display=swap" rel="stylesheet">
+
     <style>
-        body { font-family: 'Outfit', sans-serif; }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        :root {
+            --accent-color: #3B82F6;
+            --bg-color: #111827;
+            --text-primary: #ffffff;
+            --font-stack: 'Outfit', sans-serif;
+            --logo-radius: 50%;
+            --logo-display: flex;
+            --logo-align: center;
         }
+
+        body { 
+            font-family: var(--font-stack); 
+            background: var(--bg-color);
+            color: var(--text-primary);
+            transition: background 0.5s ease, color 0.5s ease;
+        }
+
+        /* Effet de Verre (Glassmorphism) */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* Styles de Boutons Dynamiques */
+        .btn-base { transition: all 0.3s ease; width: 100%; padding: 16px; display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: bold; cursor: pointer; text-decoration: none; margin-bottom: 12px; }
+        
+        /* 1. Classique */ .btn-style-1 { border-radius: 9999px; background: var(--accent-color); color: white; }
+        /* 2. Carré */ .btn-style-2 { border-radius: 4px; background: var(--accent-color); color: white; }
+        /* 3. Outline */ .btn-style-3 { border-radius: 9999px; border: 2px solid var(--accent-color); color: var(--text-primary); background: transparent; }
+        /* 4. Ombre */ .btn-style-4 { border-radius: 12px; background: white; color: black; box-shadow: 0 10px 15px -3px var(--accent-color); }
+        /* 5. Neumorphism */ .btn-style-5 { border-radius: 12px; background: var(--bg-color); box-shadow: 5px 5px 10px #0b0f19, -5px -5px 10px #172135; border: 1px solid rgba(255,255,255,0.05); }
+        /* 8. Neon */ .btn-style-8 { border-radius: 4px; background: black; border: 1px solid var(--accent-color); color: var(--accent-color); box-shadow: 0 0 10px var(--accent-color); text-transform: uppercase; letter-spacing: 2px; }
+        /* 10. Glass */ .btn-style-10 { border-radius: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(5px); }
+
         .fade-in { animation: fadeIn 0.8s ease-out forwards; opacity: 0; transform: translateY(20px); }
         @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+        
+        /* Alignement Logo */
+        #avatar-container { display: var(--logo-display); justify-content: var(--logo-align); }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4 bg-gray-900 transition-colors duration-700">
+<body class="min-h-screen flex flex-col items-center justify-center p-4">
 
-    <div id="main-card" class="glass-card shadow-2xl rounded-3xl p-8 max-w-md w-full text-center relative overflow-hidden fade-in hidden">
+    <div id="cover-image" class="fixed top-0 left-0 w-full h-64 bg-cover bg-center z-[-1] opacity-50 hidden"></div>
+    <div class="fixed top-0 left-0 w-full h-full bg-gradient-to-b from-transparent to-[var(--bg-color)] z-[-1]"></div>
+
+    <div id="main-card" class="glass-card rounded-3xl p-8 max-w-md w-full text-center relative overflow-hidden fade-in">
         
-        <div id="accent-circle" class="absolute -top-12 -left-12 w-32 h-32 rounded-full opacity-20 blur-xl"></div>
-
-        <div class="mx-auto w-24 h-24 rounded-full flex items-center justify-center text-4xl font-bold text-white shadow-lg mb-6 transform hover:scale-105 transition-transform duration-300"
-             id="avatar-box">
-            <span id="avatar-letter">M</span>
+        <div id="avatar-container" class="mb-6 w-full">
+            <div id="avatar-box" class="w-24 h-24 flex items-center justify-center text-4xl font-bold text-white shadow-lg transform hover:scale-105 transition-transform duration-300 overflow-hidden"
+                 style="background-color: var(--accent-color); border-radius: var(--logo-radius);">
+                <span id="avatar-letter">M</span>
+            </div>
         </div>
 
-        <h1 id="title" class="text-3xl font-bold text-gray-800 mb-2 tracking-tight">...</h1>
-        <p id="bio" class="text-gray-500 mb-8 leading-relaxed">...</p>
+        <h1 id="client-name" class="text-3xl font-bold mb-2 tracking-tight" style="color: var(--text-primary);">Titre du site</h1>
+        <p id="client-tagline" class="text-sm opacity-80 mb-8 leading-relaxed">Sous-titre ou slogan ici</p>
 
-        <a id="insta-link" href="#" target="_blank" 
-           class="block w-full py-4 rounded-xl font-bold text-white shadow-lg transform hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2">
-            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-            Suivre sur Instagram
-        </a>
+        <div id="buttons-container">
+            </div>
 
-        <div class="mt-8 text-xs text-gray-400">
-            Propulsé par <span class="font-bold text-gray-600">Madilium</span>
+        <div id="socials-container" class="flex justify-center gap-4 mt-8 flex-wrap">
+            </div>
+
+        <div class="mt-8 text-xs opacity-40">
+            Propulsé par <span class="font-bold">Madilium</span>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        const supabaseUrl = 'https://bnlulwzdydndednqronj.supabase.co'
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJubHVsd3pkeWRuZGVkbnFyb25qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc1NzcyOTUsImV4cCI6MjA4MzE1MzI5NX0.61uU0cnxG-kX8IivE3gME48ECc1tD-stt8VGb5tF6EU' // ⚠️ REMETS TA CLE ICI !
-        const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey)
-
-        async function loadProfile() {
-            // 1. Récupérer le slug intelligemment
-            let slug = window.location.pathname.substring(1); 
-            if (!slug || slug.length < 1) {
-                const params = new URLSearchParams(window.location.search);
-                slug = params.get('client') || 'demo';
+        // --- 1. CONFIGURATION ---
+        const supabaseUrl = 'https://bnlulwzdydndednqronj.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJubHVsd3pkeWRuZGVkbnFyb25qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc1NzcyOTUsImV4cCI6MjA4MzE1MzI5NX0.61uU0cnxG-kX8IivE3gME48ECc1tD-stt8VGb5tF6EU'; 
+        
+        // --- 2. LOGIQUE DE DEMARRAGE ---
+        async function init() {
+            const params = new URLSearchParams(window.location.search);
+            
+            // A. MODE ÉDITION (DANS LE BUILDER)
+            if (params.get('edit') === 'true') {
+                console.log("🛠️ Mode Édition Activé - Supabase désactivé");
+                // On prépare des données factices pour voir quelque chose
+                renderButtons([{text: "Exemple de lien", url: "#"}], 'btn-style-1');
+                return; // On arrête là, on n'appelle pas la base de données
             }
 
-            // 2. Chercher dans Supabase
-            const { data, error } = await supabaseClient
+            // B. MODE VISITEUR (SITE REEL)
+            const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+            
+            // Récupérer le slug
+            let slug = window.location.pathname.substring(1); 
+            if (!slug || slug.length < 1) slug = params.get('client') || 'demo';
+
+            console.log("🔍 Recherche du site :", slug);
+
+            const { data, error } = await supabase
                 .from('profiles')
                 .select('*')
                 .eq('slug', slug)
@@ -68,33 +118,133 @@
                 return;
             }
 
-            // 3. Remplir le Template (Design System)
-            document.title = data.business_name;
-            document.getElementById('title').innerText = data.business_name;
-            document.getElementById('bio').innerText = data.bio || "Bienvenue sur ma page officielle.";
-            
-            // Avatar (Première lettre)
-            document.getElementById('avatar-letter').innerText = data.business_name.charAt(0).toUpperCase();
-
-            // Gestion des Couleurs Intelligente
-            const color = data.primary_color || '#3B82F6';
-            
-            // Le fond de la page (dégradé sombre basé sur la couleur)
-            document.body.style.background = `radial-gradient(circle at top, ${color}33, #111827)`;
-            
-            // Le bouton et l'avatar prennent la couleur exacte
-            document.getElementById('insta-link').style.backgroundColor = color;
-            document.getElementById('avatar-box').style.backgroundColor = color;
-            document.getElementById('accent-circle').style.backgroundColor = color;
-
-            // Liens
-            document.getElementById('insta-link').href = data.instagram_url || "#";
-
-            // Afficher la carte avec animation
-            document.getElementById('main-card').classList.remove('hidden');
+            // Appliquer les données (Si le site existe)
+            applyData(data);
         }
 
-        loadProfile();
+        // --- 3. FONCTIONS D'AFFICHAGE ---
+        function applyData(data) {
+            // Textes
+            document.getElementById('client-name').innerText = data.business_name;
+            document.getElementById('client-tagline').innerText = data.bio;
+            document.getElementById('avatar-letter').innerText = data.business_name.charAt(0).toUpperCase();
+            document.title = data.business_name;
+
+            // Configuration JSON (Design, Liens...)
+            const config = data.configuration || {};
+            const design = config.design || {};
+            
+            // Couleurs CSS
+            const r = document.documentElement.style;
+            if(data.primary_color) r.setProperty('--accent-color', data.primary_color);
+            if(design.bg_color) r.setProperty('--bg-color', design.bg_color);
+            if(design.text_color) r.setProperty('--text-primary', design.text_color);
+            if(design.font) r.setProperty('--font-stack', design.font);
+            if(design.logo_radius) r.setProperty('--logo-radius', design.logo_radius);
+            
+            // Logo Alignement
+            if(design.logo_align) {
+                r.setProperty('--logo-display', design.logo_align === 'none' ? 'none' : 'flex');
+                if(design.logo_align !== 'none') r.setProperty('--logo-align', design.logo_align);
+            }
+
+            // Cover
+            if(design.cover_url) updateCover(design.cover_url);
+
+            // Rendu des listes
+            renderButtons(config.links || [], design.btn_style || 'btn-style-1');
+            renderSocials(config.socials || []);
+        }
+
+        function renderButtons(links, styleClass) {
+            const container = document.getElementById('buttons-container');
+            container.innerHTML = links.map(link => `
+                <a href="${link.url}" target="_blank" class="btn-base ${styleClass}">
+                    ${link.text}
+                </a>
+            `).join('');
+        }
+
+        function renderSocials(socials) {
+            const container = document.getElementById('socials-container');
+            // Mapping simple des icones SVG (à compléter si besoin)
+            // Pour faire simple on utilise des lettres ou des emojis si on n'a pas FontAwesome chargé dans le template
+            // Ici on va supposer que le template charge FontAwesome ou utiliser des textes courts
+            container.innerHTML = socials.map(s => `
+                <a href="${s.url}" target="_blank" class="text-2xl opacity-70 hover:opacity-100 transition-opacity" style="color: var(--accent-color)">
+                    <i class="fab fa-${s.network}"></i>
+                </a>
+            `).join('');
+        }
+
+        function updateCover(url) {
+            const el = document.getElementById('cover-image');
+            if(url && url.length > 5) {
+                el.style.backgroundImage = `url('${url}')`;
+                el.style.display = 'block';
+            } else {
+                el.style.display = 'none';
+            }
+        }
+
+        // --- 4. ÉCOUTEUR DU BUILDER (LA MAGIE 🪄) ---
+        window.addEventListener('message', function(event) {
+            const data = event.data;
+            const root = document.documentElement.style;
+
+            // 1. CSS Variables (Couleurs, Fonts, Radius)
+            if (data.type === 'cssVar') {
+                root.setProperty(data.key, data.value);
+            }
+
+            // 2. Textes (Nom, Slogan)
+            if (data.type === 'textContent') {
+                const el = document.getElementById(data.key);
+                if(el) el.innerText = data.value;
+                // Met à jour l'avatar si on change le nom
+                if(data.key === 'client-name') {
+                    document.getElementById('avatar-letter').innerText = data.value.charAt(0).toUpperCase();
+                }
+            }
+
+            // 3. Classes (Style Boutons)
+            if (data.type === 'classChange') {
+                // On rafraichit la liste des boutons avec le nouveau style
+                // Note: Il faut qu'on ait les liens en mémoire. 
+                // Pour simplifier, on change juste la classe de ceux existants
+                document.querySelectorAll('.btn-base').forEach(btn => {
+                    // Enlève toutes les classes btn-style-X
+                    btn.className = btn.className.replace(/btn-style-\d+/g, '');
+                    btn.classList.add(data.value);
+                });
+            }
+
+            // 4. Données (Liens & Réseaux)
+            if (data.type === 'updateData') {
+                // On récupère le style actuel pour le réappliquer
+                // Astuce : on regarde le select du builder via data, ou on prend le style par défaut
+                // Ici on va juste re-rendre brut.
+                // Idéalement le builder envoie le style aussi, mais sinon on garde 'btn-style-1' par défaut pour l'instant
+                renderButtons(data.links, 'btn-style-1'); 
+                // Hack: Pour que le style visuel suive immédiatement, il faudrait que le builder renvoie le style aussi.
+                // Mais pour l'instant ça affichera les liens.
+                renderSocials(data.socials);
+            }
+
+            // 5. Cover
+            if (data.type === 'updateCover') {
+                updateCover(data.value);
+            }
+        });
+
+        // Charger FontAwesome pour les icones
+        const fa = document.createElement('link');
+        fa.rel = 'stylesheet';
+        fa.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
+        document.head.appendChild(fa);
+
+        // Lancement
+        init();
     </script>
 </body>
 </html>
