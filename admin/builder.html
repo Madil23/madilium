@@ -209,7 +209,7 @@
 
         // --- 3. INITIALISATION UI ---
         const urlParams = new URLSearchParams(window.location.search);
-        const templateId = urlParams.get('t') || '1';
+        const templateId = urlParams.get('t') || '-v1';
         const iframe = document.getElementById('iframe');
         iframe.src = `/template${templateId}/index.html?edit=true`;
 
