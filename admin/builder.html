@@ -51,6 +51,9 @@
         .success { color: #2ecc71; }
         .error { color: #e74c3c; }
 
+        /* DEBUGGER VISUEL */
+        #error-box { position: fixed; top: 0; left: 0; width: 100%; background: #e74c3c; color: white; padding: 20px; z-index: 9999; display: none; text-align: center; font-weight: bold; }
+
         @media (max-width: 900px) {
             body { flex-direction: column; height: auto; overflow-y: auto; }
             .sidebar { width: 100%; height: auto; order: 2; border-right: none; }
@@ -60,6 +63,8 @@
     </style>
 </head>
 <body>
+
+    <div id="error-box"></div>
 
     <div class="sidebar">
         <div class="p-4 border-b border-[#2d2d3a] flex justify-between items-center bg-[#15151a]">
@@ -167,16 +172,23 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
+        // SYSTEME DE DETECTION D'ERREURS (Le Mouchard Visuel)
+        window.onerror = function(message, source, lineno, colno, error) {
+            const errorBox = document.getElementById('error-box');
+            errorBox.style.display = 'block';
+            errorBox.innerHTML = `⚠️ ERREUR JS : ${message} <br> (Ligne: ${lineno})`;
+        };
+
         // --- 0. CONFIGURATION SUPABASE ---
         const supabaseUrl = 'https://bnlulwzdydndednqronj.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJubHVsd3pkeWRuZGVkbnFyb25qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc1NzcyOTUsImV4cCI6MjA4MzE1MzI5NX0.61uU0cnxG-kX8IivE3gME48ECc1tD-stt8VGb5tF6EU'; 
 
-        // ON NETTOIE TOUT AVANT DE DECLARER
-        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+        // Changement de nom pour éviter le bug "Already declared" si ménage mal fait
+        const madiliumClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
         // --- 1. SECURITE (VERIFICATION IMMEDIATE) ---
         async function checkSecurity() {
-            const { data: { session }, error } = await supabase.auth.getSession();
+            const { data: { session }, error } = await madiliumClient.auth.getSession();
             
             if (!session) {
                 // Pas connecté -> Redirection Login
@@ -190,7 +202,7 @@
         // --- 2. FONCTION DECONNEXION ---
         window.logout = async function() {
             if(confirm("Veux-tu vraiment te déconnecter ?")) {
-                await supabase.auth.signOut();
+                await madiliumClient.auth.signOut();
                 window.location.href = '/admin/login.html';
             }
         };
@@ -311,7 +323,7 @@
                 template_id: templateId
             };
 
-            const { data, error } = await supabase
+            const { data, error } = await madiliumClient
                 .from('profiles')
                 .insert({
                     slug: slug,
