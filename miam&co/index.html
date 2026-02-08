@@ -66,9 +66,10 @@
             font-family: 'Playfair Display', serif; 
             font-size: 3.8rem; 
             font-weight: 700; 
-            font-style: normal; /* ICI : ON GARDE LE M DROIT */
+            font-style: normal;
             color: var(--ink-color);
-            line-height: 1; padding-top: 5px;
+            line-height: 1; 
+            /* padding-top: 5px;  <-- SUPPRIMÉ POUR UN CENTRAGE PARFAIT */
             z-index: 2;
         }
 
@@ -83,7 +84,7 @@
             margin-bottom: 5px;
         }
         
-        /* SLOGAN (Lui reste en italique pour le contraste) */
+        /* SLOGAN */
         .slogan { 
             font-family: 'Playfair Display', serif; 
             font-size: 1.2rem; 
@@ -94,6 +95,8 @@
             letter-spacing: 2px;
             display: inline-block;
             text-transform: lowercase;
+            /* transform: rotate(-2deg); <-- SUPPRIMÉ POUR LE RENDRE DROIT */
+            margin-top: 5px; /* Ajout d'un petit espace au-dessus */
         }
 
         /* RÉSEAUX SOCIAUX */
