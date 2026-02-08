@@ -70,7 +70,6 @@
             color: var(--ink-color);
             line-height: 1; 
             padding-bottom: 5px;
-            padding-left: 2px 
             z-index: 2;
         }
 
@@ -318,48 +317,292 @@
             <div class="section-title">Côté Sucré</div>
         </div>
 
+        <section id="sale" class="menu-section">
+        <div class="section-header">
+            <div class="section-line"></div>
+            <div class="section-title">Salés</div>
+        </div>
+
         <div class="product-grid">
             
-            <div class="sub-cat-title">Verrines</div>
-
+            <div class="sub-cat-title">Mini Burgers</div>
+            
             <div class="product-card">
-                <div class="prod-info"><span class="prod-title">Verrine Choco/Noisette</span><span class="prod-desc">Mousse onctueuse, éclats (Mini).</span><span class="prod-price">100 DA</span></div>
-                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Verrine Choco Mini" data-price="100" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+                <div class="prod-info"><span class="prod-title">Mini Burger Viande</span><span class="prod-price">140 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Burger Viande" data-price="140" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
             </div>
             <div class="product-card">
-                <div class="prod-info"><span class="prod-title">Verrine Choco/Noisette</span><span class="prod-desc">Format Moyen.</span><span class="prod-price">150 DA</span></div>
-                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Verrine Choco Moy" data-price="150" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
-            </div>
-            <div class="product-card">
-                <div class="prod-info"><span class="prod-title">Verrine Fruits Rouges</span><span class="prod-desc">Fraîcheur et légèreté (Mini).</span><span class="prod-price">120 DA</span></div>
-                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Verrine Fruits" data-price="120" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
-            </div>
-            <div class="product-card">
-                <div class="prod-info"><span class="prod-title">Verrine Pistache/Oreo</span><span class="prod-desc">Gourmandise ultime (Moyen).</span><span class="prod-price">225 DA</span></div>
-                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Verrine Pistache" data-price="225" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+                <div class="prod-info"><span class="prod-title">Mini Burger Poulet Crispy</span><span class="prod-price">120 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Burger Poulet Crispy" data-price="120" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
             </div>
 
-            <div class="sub-cat-title">Tartelettes & Douceurs</div>
+            <div class="sub-cat-title">Mini Pizzas</div>
 
             <div class="product-card">
-                <div class="prod-info"><span class="prod-title">Tartelette Citron</span><span class="prod-desc">Meringuée ou non (Mini).</span><span class="prod-price">60 DA</span></div>
-                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Tarte Citron Mini" data-price="60" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+                <div class="prod-info"><span class="prod-title">Mini Pizza Thon</span><span class="prod-price">60 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Mini Pizza Thon" data-price="60" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
             </div>
             <div class="product-card">
-                <div class="prod-info"><span class="prod-title">Tartelette Citron</span><span class="prod-desc">Grand format.</span><span class="prod-price">120 DA</span></div>
-                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Tarte Citron Gd" data-price="120" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+                <div class="prod-info"><span class="prod-title">Mini Pizza Fromage</span><span class="prod-price">60 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Mini Pizza Fromage" data-price="60" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
             </div>
-             <div class="product-card">
-                <div class="prod-info"><span class="prod-title">Cupcake</span><span class="prod-desc">Parfum au choix.</span><span class="prod-price">120 DA</span></div>
-                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Cupcake" data-price="120" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Mini Pizza Poulet</span><span class="prod-price">60 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Mini Pizza Poulet" data-price="60" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
             </div>
-             <div class="product-card">
-                <div class="prod-info"><span class="prod-title">Box Brownie</span><span class="prod-desc">Chocolat intense.</span><span class="prod-price">700 DA</span></div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Mini Pizza Viande Hachée</span><span class="prod-price">80 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Mini Pizza Viande" data-price="80" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+
+            <div class="sub-cat-title">Mini Bagels</div>
+
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Bagel Thon / Crudités</span><span class="prod-price">120 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Bagel Thon" data-price="120" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Bagel Poulet Mariné</span><span class="prod-price">120 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Bagel Poulet" data-price="120" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Bagel Œuf Mayo</span><span class="prod-price">100 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Bagel Oeuf Mayo" data-price="100" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+
+            <div class="sub-cat-title">Club Sandwichs</div>
+
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Club Œuf Mayo</span><span class="prod-price">100 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Club Oeuf Mayo" data-price="100" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Club Charcuteries</span><span class="prod-price">120 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Club Charcuterie" data-price="120" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Club Concombre / Fromage</span><span class="prod-price">100 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Club Concombre" data-price="100" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Club Thon / Concombre</span><span class="prod-price">120 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Club Thon" data-price="120" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+
+            <div class="sub-cat-title">Quiches</div>
+
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Quiche Poulet Fumé</span><span class="prod-price">80 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Quiche Poulet Fumé" data-price="80" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Quiche Thon</span><span class="prod-price">120 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Quiche Thon" data-price="120" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Quiche Poulet</span><span class="prod-price">120 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Quiche Poulet" data-price="120" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Quiche Poulet-Épinard</span><span class="prod-price">130 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Quiche Epinard" data-price="130" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Quiche Poulet-Champignon</span><span class="prod-price">140 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Quiche Champignon" data-price="140" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Quiche Viande Hachée</span><span class="prod-price">140 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Quiche Viande" data-price="140" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+
+            <div class="sub-cat-title">Spécialités & Divers</div>
+
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Mini Tacos</span><span class="prod-price">120 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Mini Tacos" data-price="120" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Batbout Thon Crudités</span><span class="prod-price">120 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Batbout Thon" data-price="120" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Batbout Poulet Mariné</span><span class="prod-price">130 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Batbout Poulet" data-price="130" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Mini Éclairs Salés</span><span class="prod-price">150 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Eclair Salé" data-price="150" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Mini Wraps</span><span class="prod-price">130 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Mini Wrap" data-price="130" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Manchons</span><span class="prod-price">60 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Manchon" data-price="60" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="sucre" class="menu-section">
+        <div class="section-header">
+            <div class="section-line"></div>
+            <div class="section-title">Sucrés</div>
+        </div>
+
+        <div class="product-grid">
+            
+            <div class="sub-cat-title">Verrines (Format Mini)</div>
+
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Verrine Chocolat</span><span class="prod-price">120 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Verrine Mini Chocolat" data-price="120" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Verrine Noisette</span><span class="prod-price">120 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Verrine Mini Noisette" data-price="120" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Verrine Fraise</span><span class="prod-price">120 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Verrine Mini Fraise" data-price="120" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Verrine Framboise</span><span class="prod-price">120 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Verrine Mini Framboise" data-price="120" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Verrine Citron</span><span class="prod-price">120 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Verrine Mini Citron" data-price="120" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Verrine Passion</span><span class="prod-price">150 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Verrine Mini Passion" data-price="150" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Verrine Pistache</span><span class="prod-price">150 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Verrine Mini Pistache" data-price="150" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Verrine Speculoos</span><span class="prod-price">150 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Verrine Mini Speculoos" data-price="150" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Verrine Oreo</span><span class="prod-price">150 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Verrine Mini Oreo" data-price="150" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Verrine Pistache-Framboise</span><span class="prod-price">150 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Verrine Mini Pistache-Framboise" data-price="150" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Verrine Mousse Chocolat</span><span class="prod-price">150 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Verrine Mini Mousse Choco" data-price="150" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+
+            <div class="sub-cat-title">Verrines (Grand Format)</div>
+
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Verrine Grand Format</span><span class="prod-desc">Tous parfums disponibles : Chocolat, Noisette, Passion, Pistache, Fraise, Framboise, Citron, Speculoos, Oreo, Mousse Choco.</span><span class="prod-price">200 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Verrine Grand Format" data-price="200" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+
+            <div class="sub-cat-title">Cupcakes & Douceurs</div>
+
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Cupcake (Nature)</span><span class="prod-price">120 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Cupcake Nature" data-price="120" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Cupcake (Avec Fourrage)</span><span class="prod-price">150 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Cupcake Fourré" data-price="150" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Choux à la crème</span><span class="prod-price">100 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Choux Crème" data-price="100" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Box Chouquettes</span><span class="prod-desc">10 pièces.</span><span class="prod-price">450 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Box Chouquettes" data-price="450" data-min="1">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Box Brownie</span><span class="prod-price">700 DA</span></div>
                 <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Box Brownie" data-price="700" data-min="1">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
             </div>
-             <div class="product-card">
-                <div class="prod-info"><span class="prod-title">Box Chouquettes</span><span class="prod-desc">10 pièces pur beurre.</span><span class="prod-price">450 DA</span></div>
-                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Box Chouquettes" data-price="450" data-min="1">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Brownie (9 parts)</span><span class="prod-price">1500 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Grand Brownie 9p" data-price="1500" data-min="1">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+
+            <div class="sub-cat-title">Tartelettes (Format Standard)</div>
+
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Tartelette Fruits</span><span class="prod-price">150 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Tarte Fruits" data-price="150" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Tartelette Fraise</span><span class="prod-price">150 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Tarte Fraise" data-price="150" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Tartelette Passion</span><span class="prod-price">150 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Tarte Passion" data-price="150" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Tartelette Choco Banane</span><span class="prod-price">150 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Tarte Choco Banane" data-price="150" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Tartelette Praliné</span><span class="prod-price">150 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Tarte Praliné" data-price="150" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Tartelette Banoffee</span><span class="prod-price">150 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Tarte Banoffee" data-price="150" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Tartelette Citron</span><span class="prod-price">120 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Tarte Citron" data-price="120" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Tartelette Choco / Caramel</span><span class="prod-price">120 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Tarte Choco Caramel" data-price="120" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+
+            <div class="sub-cat-title">Mignardises (Mini Tartelettes)</div>
+
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Mini Tartelette Fruits</span><span class="prod-price">80 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Mini Tarte Fruits" data-price="80" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Mini Tartelette Fraise</span><span class="prod-price">80 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Mini Tarte Fraise" data-price="80" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Mini Tartelette Passion</span><span class="prod-price">80 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Mini Tarte Passion" data-price="80" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Mini Tartelette Choco Banane</span><span class="prod-price">80 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Mini Tarte Choco Banane" data-price="80" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Mini Tartelette Praliné</span><span class="prod-price">80 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Mini Tarte Praliné" data-price="80" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Mini Tartelette Banoffee</span><span class="prod-price">80 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Mini Tarte Banoffee" data-price="80" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Mini Tartelette Citron</span><span class="prod-price">60 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Mini Tarte Citron" data-price="60" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
+            </div>
+            <div class="product-card">
+                <div class="prod-info"><span class="prod-title">Mini Tartelette Choco / Caramel</span><span class="prod-price">60 DA</span></div>
+                <div class="qty-pill" onclick="activatePill(this)"><div class="btn-initial"><i class="fas fa-plus"></i></div><div class="qty-controls-inner"><button class="qty-btn" onclick="updateQty(this, -1, event)">-</button><span class="qty-display" data-name="Mini Tarte Choco Caramel" data-price="60" data-min="5">0</span><button class="qty-btn" onclick="updateQty(this, 1, event)">+</button></div></div>
             </div>
 
         </div>
