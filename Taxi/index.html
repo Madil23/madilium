@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Taxi Driver in Rome | Luxury Transfers</title>
+    <meta name="description" content="Chauffeur privé à Rome. Transferts aéroport Fiumicino, Ciampino et Civitavecchia.">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --gold: #D4AF37;       /* Or Classique */
+            --dark: #0a0a0a;       /* Noir Profond */
+            --grey: #1a1a1a;       /* Gris Anthracite */
+            --white: #ffffff;
+            --whatsapp: #25D366;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Lato', sans-serif; 
+            background-color: var(--dark); 
+            color: var(--white); 
+            line-height: 1.6;
+            display: flex; flex-direction: column; min-height: 100vh;
+        }
+
+        h1, h2, h3 { font-family: 'Cinzel', serif; letter-spacing: 1px; }
+        
+        /* --- HEADER --- */
+        header {
+            background: rgba(10, 10, 10, 0.95);
+            padding: 20px;
+            position: fixed; width: 100%; z-index: 1000;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        .logo { 
+            font-size: 1.2rem; font-weight: 700; color: var(--gold); text-transform: uppercase; 
+            text-decoration: none; border: 2px solid var(--gold); padding: 5px 10px;
+        }
+
+        .header-btn {
+            background: var(--gold); color: var(--dark);
+            padding: 8px 15px; border-radius: 2px; text-decoration: none;
+            font-weight: bold; font-size: 0.9rem; text-transform: uppercase;
+        }
+
+        /* --- HERO SECTION (LA VUE) --- */
+        .hero {
+            flex-grow: 1; /* Prend toute la place disponible */
+            min-height: 80vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1552832230-c0197dd311b5?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover; background-position: center;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; padding: 20px;
+        }
+
+        .hero h1 {
+            font-size: 3rem; margin-bottom: 10px; color: var(--white);
+            text-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+        .hero p {
+            font-size: 1.2rem; margin-bottom: 30px; color: #ddd; font-weight: 300;
+        }
+
+        .cta-btn {
+            background: var(--whatsapp); color: white;
+            padding: 15px 30px; border-radius: 50px;
+            text-decoration: none; font-size: 1.2rem; font-weight: bold;
+            display: inline-flex; align-items: center; gap: 10px;
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.4);
+            transition: transform 0.3s;
+        }
+        .cta-btn:hover { transform: scale(1.05); }
+
+        /* --- CONTACT RAPIDE --- */
+        .contact-strip {
+            background: var(--gold); color: var(--dark);
+            padding: 40px 20px; text-align: center;
+        }
+        .contact-strip h2 { margin-bottom: 20px; }
+        .contact-info { font-size: 1.2rem; font-weight: bold; margin: 10px 0; }
+        .contact-link { color: var(--dark); text-decoration: none; border-bottom: 1px solid var(--dark); }
+
+        /* --- FOOTER --- */
+        footer {
+            background: var(--dark); padding: 30px; text-align: center;
+            font-size: 0.8rem; color: #555; border-top: 1px solid #222;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .header-btn { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">My Taxi Driver<br><span style="font-size:0.7em; font-family:'Lato';">in Rome</span></a>
+        <a href="https://wa.me/393505448765" class="header-btn"><i class="fab fa-whatsapp"></i> Book Now</a>
+    </header>
+
+    <section class="hero">
+        <h1>Welcome to Rome</h1>
+        <p>Service de chauffeur privé & Transferts Aéroport</p>
+        <a href="https://wa.me/393505448765?text=Hello,%20I%20would%20like%20to%20book%20a%20transfer%20in%20Rome." class="cta-btn">
+            <i class="fab fa-whatsapp"></i> Réserver / Book Now
+        </a>
+    </section>
+
+    <section class="contact-strip">
+        <h2>Contactez-nous</h2>
+        <p>Réponse rapide garantie en Français, Anglais ou Italien.</p>
+        
+        <div class="contact-info">
+            <i class="fas fa-envelope"></i> 
+            <a href="mailto:mytaxidriverinrome@gmail.com" class="contact-link">mytaxidriverinrome@gmail.com</a>
+        </div>
+        
+        <div class="contact-info">
+            <i class="fab fa-whatsapp"></i> 
+            <a href="https://wa.me/393505448765" class="contact-link">+39 350 544 8765</a>
+        </div>
+    </section>
+
+    <footer>
+        &copy; My Taxi Driver in Rome. Powered by Madilium.
+    </footer>
+
+</body>
+</html>
