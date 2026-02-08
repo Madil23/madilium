@@ -8,7 +8,7 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -25,7 +25,11 @@
         
         body { 
             font-family: 'Poppins', sans-serif; 
-            background-color: var(--bg-color); 
+            background-color: var(--bg-color);
+            /* AJOUT DU FOND MOTIF PÂTISSERIE */
+            background-image: url('https://img.freepik.com/free-vector/bakery-seamless-pattern-with-kitchen-tools-food_1284-12503.jpg?w=740&t=st=1708531351~exp=1708531951~hmac=a240c6e5e41595c5355a6666654038901993c8c9c60068674939647004688686');
+            background-blend-mode: overlay; /* Mélange avec la couleur sable pour être subtil */
+            background-size: 400px;
             color: var(--ink-color); 
             padding-bottom: 120px;
             overflow-x: hidden;
@@ -61,11 +65,15 @@
             border-radius: 50%; opacity: 0.6;
         }
 
+        /* MODIFICATION DU "M" POUR ÊTRE DROIT ET CLASSE */
         .letter-m {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem; font-weight: 700; font-style: italic;
+            font-family: 'Poppins', sans-serif; /* Changé de Playfair Display à Poppins */
+            font-size: 3.2rem; /* Légèrement réduit pour l'équilibre */
+            font-weight: 600; /* Moins gras, plus élégant */
+            font-style: normal; /* Droit, pas italique */
             color: var(--ink-color);
-            line-height: 1; padding-top: 5px; /* Ajustement optique */
+            line-height: 1; 
+            padding-top: 0; /* Centrage parfait */
             z-index: 2;
         }
 
