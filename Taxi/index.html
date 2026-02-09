@@ -7,7 +7,10 @@
     <meta name="description" content="Private chauffeur in Rome. Airport transfers Fiumicino, Ciampino and Civitavecchia port. We speak English, French, Italian, and Spanish.">
     
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.6.6/css/flag-icons.min.css"/>
 
     <style>
         :root {
@@ -55,10 +58,10 @@
         .hero {
             flex-grow: 1;
             min-height: 85vh;
-            /* ICI : L'IMAGE QUE TU AS FOURNIE */
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3)), url('rome-taxi.jpg');
+            /* L'image doit s'appeler rome-taxi.jpg et être dans le dossier */
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3)), url('https://i.imgur.com/XO4yLVL.jpeg');
             background-size: cover; 
-            background-position: center bottom; /* Ajusté pour bien voir le taxi et le colisée */
+            background-position: center bottom; 
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             text-align: center; padding: 20px;
         }
@@ -77,16 +80,22 @@
         .languages {
             margin-bottom: 35px;
             background: rgba(0, 0, 0, 0.6);
-            padding: 10px 20px;
+            padding: 12px 25px;
             border-radius: 50px;
             border: 1px solid rgba(255,255,255,0.2);
             backdrop-filter: blur(4px);
+            display: flex; align-items: center; gap: 15px;
         }
         .lang-text {
-            font-family: 'Cinzel', serif; font-size: 0.9rem; color: var(--gold); margin-right: 10px;
+            font-family: 'Cinzel', serif; font-size: 0.9rem; color: var(--gold);
             text-transform: uppercase; letter-spacing: 1px;
         }
-        .flags { font-size: 1.2rem; letter-spacing: 5px; }
+        /* Style des drapeaux */
+        .fi {
+            font-size: 1.5rem; /* Taille des drapeaux */
+            border-radius: 2px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
 
         .cta-btn {
             background: var(--whatsapp); color: white;
@@ -126,7 +135,7 @@
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5rem; }
             .header-btn { display: none; }
-            .hero { background-position: center; } /* Recentrage sur mobile */
+            .hero { background-position: center; } 
         }
     </style>
 </head>
@@ -143,7 +152,10 @@
         
         <div class="languages">
             <span class="lang-text">We speak:</span>
-            <span class="flags">🇬🇧 🇫🇷 🇮🇹 🇪🇸</span>
+            <span class="fi fi-gb" title="English"></span>
+            <span class="fi fi-fr" title="Français"></span>
+            <span class="fi fi-it" title="Italiano"></span>
+            <span class="fi fi-es" title="Español"></span>
         </div>
 
         <a href="https://wa.me/393505448765?text=Hello,%20I%20would%20like%20to%20book%20a%20transfer%20in%20Rome." class="cta-btn">
