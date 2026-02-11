@@ -57,17 +57,20 @@
         .hero {
             flex-grow: 1;
             min-height: 85vh;
-            /* L'image doit s'appeler rome-taxi.jpg et être dans le dossier */
             background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3)), url('https://i.imgur.com/XO4yLVL.jpeg');
             background-size: cover; 
             background-position: center bottom; 
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            display: flex; flex-direction: column; 
+            align-items: center; /* Centre horizontalement */
             text-align: center; padding: 20px;
+            margin-top: 80px; /* Espace pour le header fixe */
+            padding-bottom: 0; /* Important pour coller le bouton en bas */
         }
 
         .hero h1 {
             font-size: 3.5rem; margin-bottom: 15px; color: var(--white);
             text-shadow: 0 5px 20px rgba(0,0,0,0.8);
+            margin-top: 50px; /* Descend un peu le titre */
         }
         
         .hero p {
@@ -77,28 +80,34 @@
 
         .cta-btn {
             background: var(--whatsapp); color: white;
-            padding: 18px 35px; border-radius: 50px;
+            padding: 18px 35px; border-radius: 50px 50px 0 0; /* Arrondi en haut seulement pour effet "collé" (optionnel, sinon 50px partout) */
+            border-radius: 50px; /* On garde l'arrondi complet c'est plus joli */
             text-decoration: none; font-size: 1.2rem; font-weight: bold;
             display: inline-flex; align-items: center; gap: 10px;
             box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
             transition: transform 0.3s, background 0.3s;
             border: 2px solid white;
-            /* J'ai ajusté la marge car on a retiré les drapeaux du haut */
-            margin-top: 100px; 
+            border-bottom: none; /* Enlève la bordure du bas pour fusionner */
+            
+            /* C'EST ICI LA MAGIE POUR COLLER EN BAS */
+            margin-top: auto;       /* Pousse le bouton tout en bas */
+            margin-bottom: -2px;    /* Petite astuce pour chevaucher la ligne blanche si besoin */
+            border-bottom-left-radius: 0; /* Optionnel : coins carrés en bas pour coller parfaitement */
+            border-bottom-right-radius: 0;/* Optionnel : coins carrés en bas pour coller parfaitement */
         }
-        .cta-btn:hover { transform: scale(1.05); background: #1ebd57; }
+        .cta-btn:hover { transform: translateY(-5px); background: #1ebd57; }
 
-        /* --- CONTACT STRIP (Modifié) --- */
+        /* --- CONTACT STRIP --- */
         .contact-strip {
             background: var(--gold); color: var(--dark);
             padding: 40px 20px; text-align: center;
             border-top: 5px solid var(--white);
             display: flex; flex-direction: column; align-items: center;
+            position: relative; z-index: 2; /* S'assure qu'il est au dessus */
         }
 
-        /* Style des drapeaux (Déplacé ici) */
         .languages {
-            background: var(--dark); /* Fond noir pour le contraste sur le jaune */
+            background: var(--dark); 
             padding: 10px 25px;
             border-radius: 50px;
             display: inline-flex; align-items: center; gap: 15px;
@@ -114,7 +123,6 @@
             border-radius: 2px;
         }
 
-        /* Style du titre CONTACT US */
         .contact-title {
             font-size: 2.2rem;
             margin-bottom: 30px;
