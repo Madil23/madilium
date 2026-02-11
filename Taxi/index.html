@@ -8,9 +8,7 @@
     <meta name="description" content="Private chauffeur in Rome. Airport transfers Fiumicino, Ciampino and Civitavecchia port. We speak English, French, Italian, and Spanish.">
     
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.6.6/css/flag-icons.min.css"/>
 
     <style>
@@ -55,50 +53,35 @@
             font-weight: bold; font-size: 0.9rem; text-transform: uppercase;
         }
 
-        /* --- HERO SECTION (LA VUE) --- */
+        /* --- HERO SECTION --- */
         .hero {
             flex-grow: 1;
             min-height: 85vh;
-            /* L'image doit s'appeler rome-taxi.jpg et être dans le dossier */
+            /* Ton image Imgur */
             background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3)), url('https://i.imgur.com/XO4yLVL.jpeg');
             background-size: cover; 
             background-position: center bottom; 
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            display: flex; flex-direction: column; 
+            align-items: center; /* Centre horizontalement */
             text-align: center; 
-            /* MODIFICATION ICI : On enlève le padding du bas */
+            
+            /* IMPORTANT : On enlève le padding du bas pour coller le bouton au bord */
             padding: 20px 20px 0 20px; 
-            margin-top: 120px;
+            margin-top: 80px;
         }
 
         .hero h1 {
             font-size: 3.5rem; margin-bottom: 15px; color: var(--white);
             text-shadow: 0 5px 20px rgba(0,0,0,0.8);
+            /* Pousse le titre vers le bas si besoin de centrer visuellement */
+            margin-top: auto; 
+            margin-bottom: 10px;
         }
         
         .hero p {
-            font-size: 1.3rem; margin-bottom: 25px; color: #f0f0f0; font-weight: 300;
+            font-size: 1.3rem; margin-bottom: auto; /* Pousse le reste vers le bas */
+            color: #f0f0f0; font-weight: 300;
             text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-        }
-
-        /* BARRE DE LANGUES */
-        .languages {
-            margin-bottom: 35px;
-            background: rgba(0, 0, 0, 0.6);
-            padding: 12px 25px;
-            border-radius: 50px;
-            border: 1px solid rgba(255,255,255,0.2);
-            backdrop-filter: blur(4px);
-            display: flex; align-items: center; gap: 15px;
-        }
-        .lang-text {
-            font-family: 'Cinzel', serif; font-size: 0.9rem; color: var(--gold);
-            text-transform: uppercase; letter-spacing: 1px;
-        }
-        /* Style des drapeaux */
-        .fi {
-            font-size: 1.5rem; /* Taille des drapeaux */
-            border-radius: 2px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
         }
 
         .cta-btn {
@@ -109,29 +92,55 @@
             box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
             transition: transform 0.3s, background 0.3s;
             border: 2px solid white;
-            margin-top: 350px;
             
-            /* MODIFICATIONS ICI POUR LA SUPERPOSITION */
-            margin-bottom: -35px; /* Marge négative pour tirer la section suivante vers le haut */
-            position: relative;   /* Nécessaire pour le z-index */
-            z-index: 10;          /* Place le bouton au-dessus de la bande jaune */
+            /* --- MAGIE DU CHEVAUCHEMENT --- */
+            margin-top: 50px;       /* Espace par rapport au texte */
+            margin-bottom: -35px;   /* Marge NÉGATIVE pour descendre sur la section suivante */
+            position: relative;     /* Indispensable pour z-index */
+            z-index: 10;            /* Met le bouton AU-DESSUS de la bande jaune */
         }
         .cta-btn:hover { transform: scale(1.05); background: #1ebd57; }
 
-        /* --- CONTACT RAPIDE --- */
+        /* --- CONTACT STRIP (Modifié) --- */
         .contact-strip {
             background: var(--gold); color: var(--dark);
-            padding: 15px 20px; text-align: center;
             border-top: 5px solid var(--white);
-            /* On ajoute un padding-top pour compenser le bouton qui chevauche */
-            padding-top: 50px; 
+            display: flex; flex-direction: column; align-items: center;
+            
+            /* IMPORTANT : Espace en haut pour ne pas cacher les drapeaux derrière le bouton */
+            padding: 60px 20px 40px 20px; 
             position: relative;
             z-index: 1;
         }
-        .contact-strip h2 { margin-bottom: 10px; font-size: 2rem;}
-        .subtitle { font-size: 1rem; margin-bottom: 30px; font-style: italic; opacity: 0.8; }
+
+        /* 1. DRAPEAUX */
+        .languages {
+            background: var(--dark); 
+            padding: 10px 25px;
+            border-radius: 50px;
+            display: inline-flex; align-items: center; gap: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .lang-text {
+            font-family: 'Cinzel', serif; font-size: 0.9rem; color: var(--gold);
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+        .fi { font-size: 1.5rem; border-radius: 2px; }
+
+        /* 2. TITRE CONTACT US */
+        .contact-title {
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            color: var(--dark);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 2px solid var(--dark);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
         
-        .contact-info { font-size: 1.3rem; font-weight: bold; margin: 15px 0; }
+        .contact-info { font-size: 1.3rem; font-weight: bold; margin: 10px 0; }
         .contact-link { 
             color: var(--dark); text-decoration: none; 
             border-bottom: 2px solid var(--dark); padding-bottom: 2px;
@@ -149,7 +158,7 @@
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5rem; }
             .header-btn { display: none; }
-            .hero { background-position: flex-end; } 
+            .hero { background-position: center; } 
         }
     </style>
 </head>
@@ -164,6 +173,13 @@
         <h1>Welcome to Rome</h1>
         <p>Official Taxi, Smile and Laugh !</p>
         
+        <a href="https://wa.me/393505448765?text=Hello,%20I%20would%20like%20to%20book%20a%20transfer%20in%20Rome." class="cta-btn">
+            <i class="fab fa-whatsapp"></i> Book via WhatsApp
+        </a>
+    </section>
+
+    <section class="contact-strip">
+        
         <div class="languages">
             <span class="lang-text">We speak:</span>
             <span class="fi fi-gb" title="English"></span>
@@ -172,14 +188,7 @@
             <span class="fi fi-es" title="Español"></span>
         </div>
 
-        <a href="https://wa.me/393505448765?text=Hello,%20I%20would%20like%20to%20book%20a%20transfer%20in%20Rome." class="cta-btn">
-            <i class="fab fa-whatsapp"></i> Book via WhatsApp
-        </a>
-    </section>
-
-    <section class="contact-strip">
-        <h2>Contact Us</h2>
-        <p class="subtitle">Fast response guaranteed.</p>
+        <h2 class="contact-title">CONTACT US</h2>
         
         <div class="contact-info">
             <i class="fas fa-envelope"></i> 
