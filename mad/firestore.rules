@@ -1,0 +1,209 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // ===============================================================
+    // Assumed Data Model
+    // ===============================================================
+    //
+    // Collection: users
+    // Document ID: {userId}
+    // Fields:
+    //   - uid: string (required, immutable)
+    //   - role: string (required, 'talent', 'company', 'admin')
+    //   - email: string (required)
+    //   - name: string (required)
+    //   - domains: list (optional, for talents)
+    //   - domain: string (optional, for companies)
+    //   - skills: list (optional)
+    //   - bio: string (optional)
+    //   - location: string (optional)
+    //   - sector: string (optional)
+    //   - size: string (optional)
+    //   - logo: string (optional)
+    //   - initials: string (optional)
+    //   - isPremium: boolean (optional)
+    //   - createdAt: timestamp (required, immutable)
+    //
+    // Collection: jobs
+    // Document ID: {jobId}
+    // Fields:
+    //   - companyId: string (required, immutable)
+    //   - title: string (required)
+    //   - type: string (required)
+    //   - salary: string (optional)
+    //   - skills: list (optional)
+    //   - createdAt: timestamp (required, immutable)
+    //
+    // Collection: applications
+    // Document ID: {applicationId}
+    // Fields:
+    //   - jobId: string (required, immutable)
+    //   - talentId: string (required, immutable)
+    //   - companyId: string (required, immutable)
+    //   - status: string (required, 'pending', 'accepted', 'rejected')
+    //   - createdAt: timestamp (required, immutable)
+    //
+    // Collection: messages
+    // Document ID: {messageId}
+    // Fields:
+    //   - conversationId: string (required, immutable)
+    //   - senderId: string (required, immutable)
+    //   - receiverId: string (required, immutable)
+    //   - content: string (required)
+    //   - createdAt: timestamp (required, immutable)
+    //
+    // ===============================================================
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    function isAdmin() {
+      return isAuthenticated() &&
+        (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin' ||
+          (request.auth.token.email == "madil.cheradi2003@gmail.com" && request.auth.token.email_verified == true));
+    }
+    function uidUnchanged() {
+      return !('uid' in request.resource.data) || request.resource.data.uid == request.auth.uid;
+    }
+    function uidNotModified() {
+      return !('uid' in request.resource.data) || request.resource.data.uid == resource.data.uid;
+    }
+    function hasRequiredFields(fields) {
+      return request.resource.data.keys().hasAll(fields);
+    }
+    function isTimestamp(field) {
+      return request.resource.data[field] is timestamp;
+    }
+    function isValidEmail(email) {
+      return email is string && email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
+    }
+
+    // ===============================================================
+    // Domain Validators
+    // ===============================================================
+    function isValidUser(data) {
+      return data.role in ['talent', 'company', 'admin'] &&
+             data.name is string && data.name.size() > 0 && data.name.size() < 100 &&
+             data.email is string && isValidEmail(data.email) &&
+             (!('bio' in data) || (data.bio is string && data.bio.size() < 2000)) &&
+             (!('location' in data) || (data.location is string && data.location.size() < 100)) &&
+             (!('skills' in data) || (data.skills is list && data.skills.size() < 50)) &&
+             (!('domains' in data) || (data.domains is list && data.domains.size() < 10)) &&
+             (!('domain' in data) || (data.domain is string && data.domain.size() < 50)) &&
+             (!('isPremium' in data) || data.isPremium is bool);
+    }
+
+    function isValidJob(data) {
+      return data.companyId is string && data.companyId.size() > 0 &&
+             data.title is string && data.title.size() > 0 && data.title.size() < 150 &&
+             data.type is string && data.type.size() > 0 && data.type.size() < 50 &&
+             (!('salary' in data) || (data.salary is string && data.salary.size() < 100)) &&
+             (!('skills' in data) || (data.skills is list && data.skills.size() < 50));
+    }
+
+    function isValidApplication(data) {
+      return data.jobId is string && data.jobId.size() > 0 &&
+             data.talentId is string && data.talentId.size() > 0 &&
+             data.companyId is string && data.companyId.size() > 0 &&
+             data.status in ['pending', 'accepted', 'rejected'];
+    }
+
+    function isValidMessage(data) {
+      return data.conversationId is string && data.conversationId.size() > 0 &&
+             data.senderId is string && data.senderId.size() > 0 &&
+             data.receiverId is string && data.receiverId.size() > 0 &&
+             data.content is string && data.content.size() > 0 && data.content.size() < 5000;
+    }
+
+    // ===============================================================
+    // Rules
+    // ===============================================================
+
+    match /users/{userId} {
+      // Anyone can read a user profile (needed for graph)
+      allow read: if isAuthenticated();
+      
+      // Create: Must be owner, valid user, cannot create admin unless already admin
+      allow create: if isAuthenticated() && isOwner(userId) &&
+                    hasRequiredFields(['uid', 'role', 'email', 'name', 'createdAt']) &&
+                    uidUnchanged() && isTimestamp('createdAt') &&
+                    isValidUser(request.resource.data) &&
+                    ((request.resource.data.role in ['talent', 'company']) || isAdmin());
+                    
+      // Update: Must be owner or admin. Cannot change uid or createdAt. Cannot escalate to admin.
+      allow update: if isAuthenticated() && (isOwner(userId) || isAdmin()) &&
+                    uidNotModified() &&
+                    (!('createdAt' in request.resource.data) || request.resource.data.createdAt == resource.data.createdAt) &&
+                    isValidUser(request.resource.data) &&
+                    ((!('role' in request.resource.data) || request.resource.data.role == resource.data.role) || isAdmin()) &&
+                    ((!('isPremium' in request.resource.data) || request.resource.data.isPremium == resource.data.isPremium) || isAdmin());
+                    
+      allow delete: if isAdmin();
+    }
+
+    match /jobs/{jobId} {
+      allow read: if isAuthenticated();
+      
+      allow create: if isAuthenticated() &&
+                    hasRequiredFields(['companyId', 'title', 'type', 'createdAt']) &&
+                    request.resource.data.companyId == request.auth.uid &&
+                    isTimestamp('createdAt') &&
+                    isValidJob(request.resource.data);
+                    
+      allow update: if isAuthenticated() &&
+                    request.resource.data.companyId == resource.data.companyId &&
+                    resource.data.companyId == request.auth.uid &&
+                    (!('createdAt' in request.resource.data) || request.resource.data.createdAt == resource.data.createdAt) &&
+                    isValidJob(request.resource.data);
+                    
+      allow delete: if isAuthenticated() && (resource.data.companyId == request.auth.uid || isAdmin());
+    }
+
+    match /applications/{applicationId} {
+      // Talent can read their own apps, Company can read apps sent to them
+      allow read: if isAuthenticated() && (resource.data.talentId == request.auth.uid || resource.data.companyId == request.auth.uid);
+      
+      // Talent creates application
+      allow create: if isAuthenticated() &&
+                    hasRequiredFields(['jobId', 'talentId', 'companyId', 'status', 'createdAt']) &&
+                    request.resource.data.talentId == request.auth.uid &&
+                    request.resource.data.status == 'pending' &&
+                    isTimestamp('createdAt') &&
+                    isValidApplication(request.resource.data);
+                    
+      // Company can update status
+      allow update: if isAuthenticated() &&
+                    resource.data.companyId == request.auth.uid &&
+                    request.resource.data.jobId == resource.data.jobId &&
+                    request.resource.data.talentId == resource.data.talentId &&
+                    request.resource.data.companyId == resource.data.companyId &&
+                    (!('createdAt' in request.resource.data) || request.resource.data.createdAt == resource.data.createdAt) &&
+                    isValidApplication(request.resource.data);
+                    
+      allow delete: if isAuthenticated() && (resource.data.talentId == request.auth.uid || isAdmin());
+    }
+
+    match /messages/{messageId} {
+      // Can read if sender or receiver
+      allow read: if isAuthenticated() && (resource.data.senderId == request.auth.uid || resource.data.receiverId == request.auth.uid);
+      
+      allow create: if isAuthenticated() &&
+                    hasRequiredFields(['conversationId', 'senderId', 'receiverId', 'content', 'createdAt']) &&
+                    request.resource.data.senderId == request.auth.uid &&
+                    isTimestamp('createdAt') &&
+                    isValidMessage(request.resource.data);
+                    
+      // Messages cannot be updated
+      allow update: if false;
+      
+      // Messages can be deleted by sender or admin
+      allow delete: if isAuthenticated() && (resource.data.senderId == request.auth.uid || isAdmin());
+    }
+  }
+}

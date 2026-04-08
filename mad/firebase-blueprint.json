@@ -1,0 +1,85 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "A user profile, either a talent or a company.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID" },
+        "role": { "type": "string", "enum": ["talent", "company", "admin"], "description": "User role" },
+        "email": { "type": "string", "format": "email", "description": "User email address" },
+        "name": { "type": "string", "description": "Full name or company name" },
+        "domains": { "type": "array", "items": { "type": "string" }, "description": "Selected domains (for talents)" },
+        "domain": { "type": "string", "description": "Primary domain (for companies)" },
+        "skills": { "type": "array", "items": { "type": "string" }, "description": "Skills or requirements" },
+        "bio": { "type": "string", "description": "Biography or company description" },
+        "location": { "type": "string", "description": "Location" },
+        "sector": { "type": "string", "description": "Company sector" },
+        "size": { "type": "string", "description": "Company size" },
+        "logo": { "type": "string", "description": "Company logo text/initials" },
+        "initials": { "type": "string", "description": "Talent initials" },
+        "isPremium": { "type": "boolean", "description": "Premium subscription status" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp" }
+      },
+      "required": ["uid", "role", "email", "name", "createdAt"]
+    },
+    "Job": {
+      "title": "Job",
+      "description": "A job offer posted by a company.",
+      "type": "object",
+      "properties": {
+        "companyId": { "type": "string", "description": "UID of the company posting the job" },
+        "title": { "type": "string", "description": "Job title" },
+        "type": { "type": "string", "description": "Contract type (CDI, CDD, Freelance)" },
+        "salary": { "type": "string", "description": "Salary range" },
+        "skills": { "type": "array", "items": { "type": "string" }, "description": "Required skills" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp" }
+      },
+      "required": ["companyId", "title", "type", "createdAt"]
+    },
+    "Application": {
+      "title": "Application",
+      "description": "A job application from a talent to a company.",
+      "type": "object",
+      "properties": {
+        "jobId": { "type": "string", "description": "ID of the job" },
+        "talentId": { "type": "string", "description": "UID of the talent applying" },
+        "companyId": { "type": "string", "description": "UID of the company receiving the application" },
+        "status": { "type": "string", "enum": ["pending", "accepted", "rejected"], "description": "Application status" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp" }
+      },
+      "required": ["jobId", "talentId", "companyId", "status", "createdAt"]
+    },
+    "Message": {
+      "title": "Message",
+      "description": "A chat message between users.",
+      "type": "object",
+      "properties": {
+        "conversationId": { "type": "string", "description": "ID of the conversation (e.g., talentId_companyId)" },
+        "senderId": { "type": "string", "description": "UID of the sender" },
+        "receiverId": { "type": "string", "description": "UID of the receiver" },
+        "content": { "type": "string", "description": "Message content" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp" }
+      },
+      "required": ["conversationId", "senderId", "receiverId", "content", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "Stores user profiles (talents and companies)."
+    },
+    "/jobs/{jobId}": {
+      "schema": { "$ref": "#/entities/Job" },
+      "description": "Stores job offers."
+    },
+    "/applications/{applicationId}": {
+      "schema": { "$ref": "#/entities/Application" },
+      "description": "Stores job applications."
+    },
+    "/messages/{messageId}": {
+      "schema": { "$ref": "#/entities/Message" },
+      "description": "Stores chat messages."
+    }
+  }
+}
